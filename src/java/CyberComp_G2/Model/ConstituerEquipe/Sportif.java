@@ -1,4 +1,7 @@
+package CyberComp_G2.Model.ConstituerEquipe;
 
+
+import CyberComp_G2.Exceptions.CategorieException;
 import java.sql.Date;
 
 
@@ -6,32 +9,23 @@ import java.sql.Date;
  *|Personne| participant à une |Epreuve|
  * @author magourar
  */
-public class Sportif {
+public class Sportif extends Participant{
 
-    //--------- Attributs ------------------------------------------------------
-    /*
-     l'identifiant unique du sportif dans notre BD sera le meme que NS  de la  BD initiale
-     */
-    private  int idSportif;
-    /*
-     le prenom du sportif
-     */
-    private  String prenom;
-    /*
-     le nom d'un sportif 
-     */
+//--------- Attributs ------------------------------------------------------
+
+    //le prenom du sportif
+    private String prenom;
+
+     //le nom d'un sportif 
     private  String nom;
-    /*
-     la date de naissance d'un sportif 
-     */
+    
+    //la date de naissance d'un sportif 
     private  Date dateNaissance;
-    /*
-     le genre d'un sportif féminin ou masculin 
-     */
+    
+    //le genre d'un sportif féminin ou masculin 
     private  String genre;
-    /*
-     description de l'handicap si  c'est le cas 
-     */
+
+    //description de l'handicap si  c'est le cas 
     private  String descriptionHandicap;
     
 
@@ -40,27 +34,31 @@ public class Sportif {
      * constructeur de sportif
      *
      * @param idSportif
+     * @param pays
      * @param prenom
      * @param nom
      * @param dateNaissance
      * @param genre
      * @param descriptionHandicap
      */
-    public Sportif(int idSportif, String prenom, String nom, Date dateNaissance, String genre, String descriptionHandicap) {
-        this.idSportif = idSportif;
+    public Sportif(int idSportif,String pays, String prenom, String nom, Date dateNaissance, String genre, String descriptionHandicap) throws CategorieException {
+        super(idSportif,pays);
         this.prenom = prenom;
         this.nom = nom;
         this.dateNaissance = dateNaissance;
-        this.genre = genre;
+        setGenre(genre);
         this.descriptionHandicap = descriptionHandicap;
     }
 
-    // ------------------------- Méthodes  --------------------------------
-     // -------------------------getteurs--------------------------------
-    public int getIdSportif() {
-        return idSportif;
+    public Sportif(int idSportif, String pays,String prenom, String nom, Date dateNaissance, String genre) throws CategorieException {
+        this(idSportif,pays,prenom,nom,dateNaissance,genre,null);
     }
+    
 
+    // ------------------------- Méthodes  --------------------------------
+    public int getIdSportif(){
+        return this.getIdParticipant();
+    }
     public String getPrenom() {
         return prenom;
     }
@@ -103,8 +101,17 @@ public class Sportif {
 /*
    modifier le genre  d'un sportif 
     */
-    public void   setGenre(String  genre ) {
-     this. genre=  genre;
+    public void   setGenre(String  genre ) throws CategorieException {
+        switch (genre){
+            case "feminin":
+                this. genre=  genre;
+                break;
+            case "masculin":
+                this.genre =genre;
+                break;
+            default:
+                throw new CategorieException(genre);       
+        }
     }
 /*
     modifier description Handicap d'un sportif handicapé 

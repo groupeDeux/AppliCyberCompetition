@@ -1,3 +1,8 @@
+package CyberComp_G2.Model.ConstituerEquipe;
+
+import CyberComp_G2.Exceptions.CategorieException;
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,41 +13,34 @@
  *Groupe de |Sportif|s d'un même |Pays| participant à une |Epreuve|
  * @author magourar
  */
-public class Equipe {
-    //--------- Attributs ------------------------------------------------------
-    /*
-     l'identifiant unique d'une equipe  dans notre BD sera le meme que Nequipe   de la  BD initiale
-     */
+public class Equipe extends Participant{
+//--------- Attributs ------------------------------------------------------
 
-    private int idEquipe;
-    /*
-     nom de l'équipe que nous avons  attribué pour chaque Nequipe 
-     */
+    //nom de l'équipe que nous avons  attribué pour chaque Nequipe 
     private String nomEquipe;
 
-    /*
-     la categorie de l'équipe : féminin/masculin/mixte
-     */
+    //la categorie de l'équipe : féminin/masculin/mixte
     private String categorie;
-
-    /*
-     calcul du nombre des membres de chaque équipe à partir d'une requete SQL viewEquipe
-     */
-    private int nbMembre;
+    
+    private ArrayList<Sportif> lesMembres;
 
     //---------Constructeur---------------------------------------------------
-    public Equipe(int idEquipe, String nomEquipe, String categorie) {
-        this.idEquipe = idEquipe;
+    public Equipe(int idEquipe,String pays, String nomEquipe, String categorie) throws CategorieException {
+        super(idEquipe,pays);
         this.nomEquipe = nomEquipe;
-        this.categorie = categorie;
+        setcategorie(categorie);
+        lesMembres = new ArrayList<>();
     }
 
-  //---------Méthodes---------------------------------------------------
-    /*
-     getteurs
-     */
+    public Equipe( int idEquipe, String pays,String categorie) throws CategorieException {
+        this(idEquipe,pays,null,categorie);
+    }
+    
+
+ //---------Méthodes---------------------------------------------------
+
     public int getIdEquipe() {
-        return idEquipe;
+        return this.getIdParticipant();
     }
 
     public String getNomEquipe() {
@@ -54,28 +52,56 @@ public class Equipe {
     }
 
     public int getNbMembre() {
-        return nbMembre;
+        return lesMembres.size();
     }
 
-    /*
-     setteur 
-     */
     public void setnomEquipe(String nomEquipe) {
         this.nomEquipe = nomEquipe;
     }
 
-    public void setcategorie(String categorie) {
-        this.categorie = categorie;
+    public void setcategorie(String categorie) throws CategorieException {
+        switch(categorie){
+            case "feminin":
+                this.categorie = categorie;
+                break;
+            case "masculin":
+                this.categorie = categorie;
+                break;
+            case "mixte":
+                this.categorie = categorie;
+                break;
+            default: 
+                throw new CategorieException(categorie);
+        }
     }
-/*
-    verifier si le nombre d'équipe est supérieur à 2  sinon lancer une exception
-    */
+    
+     /**
+     * Ajoute a un sportif a la chambre si non present et different de null
+     * @param sportifAAjouter 
+     */
+    public void addMembre(Sportif sportifAAjouter){
+        if(sportifAAjouter !=null){
+            for (Sportif sportif : lesMembres) {
+               if (sportif.getIdSportif()==sportifAAjouter.getIdSportif()){
+                 return;  
+               }
+            }
+            lesMembres.add(sportifAAjouter);
+        }
+    }
 
-    public void setNbMembre(int nbMembre) throws NbMembreIncorrectException {
-        if (nbMembre < 2) {
-            throw new NbMembreIncorrectException(); 
-        }else{
-            this.nbMembre = nbMembre;
+    public ArrayList<Sportif> getLesMembres() {
+        return lesMembres;
+    }
+    /**
+     * Suprime le Sportif d'identifiant idSportif si il existe
+     * @param idSportif 
+     */
+    public void delMembre(int idSportif){
+        for (Sportif sportif : lesMembres) {
+            if (sportif.getIdSportif()==idSportif){
+               lesMembres.remove(sportif);
+            }
         }
     }
 
