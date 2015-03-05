@@ -9,8 +9,10 @@ import CyberComp_G2.Exceptions.CategorieException;
 import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
 import java.util.Date;
 
+
+
 /**
- *
+ * Rencontre de |Sportif|s donnant lieu à un |Classement| 
  * @author vivi
  */
 public class Epreuve {

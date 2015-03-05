@@ -10,7 +10,7 @@ import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
 import java.util.Date;
 
 /**
- *
+ *|Epreuve| dont les |Participant|s sont des |Sportif|s
  * @author vivi
  */
 public class EpreuveIndividuelle  extends Epreuve{

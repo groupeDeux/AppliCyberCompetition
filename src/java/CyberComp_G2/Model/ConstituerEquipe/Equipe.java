@@ -5,7 +5,7 @@
  */
 
 /**
- *
+ *Groupe de |Sportif|s d'un même |Pays| participant à une |Epreuve|
  * @author magourar
  */
 public class Equipe {

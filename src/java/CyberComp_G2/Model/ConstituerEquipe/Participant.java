@@ -5,7 +5,7 @@
  */
 
 /**
- *
+ *|Sportif| ou |Equipe| participant à une |Competition|
  * @author magourar
  */
 public class Participant {
