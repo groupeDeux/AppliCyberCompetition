@@ -55,7 +55,7 @@ public class GetConsulterEquipeDAO {
      * @return
      * @throws SQLException
      */
-    public static CachedRowSet getConsulterEquipe(int idSportif) throws SQLException{
+    public static CachedRowSet getSportifs(int idSportif) throws SQLException{
         return getConsulterEquipe(lesSportifs, idSportif);
     } 
     
