@@ -39,6 +39,7 @@ public class GetListDelegation extends HttpServlet {
             throws ServletException, IOException {
         /* rowSetdelegation de type cachedRowSet
               =set resultat issu de requete BD garde en memoire meme sans connexion*/
+        
         CachedRowSet rowSetDelegation;
         ArrayList<Delegation> listDelegations = new ArrayList();
         try{
@@ -49,6 +50,7 @@ public class GetListDelegation extends HttpServlet {
              while(rowSetDelegation.next()){
                 // recupereation du pays uniquement(premiere colonne du rowset recupere)
                  listDelegations.add(new Delegation(rowSetDelegation.getString(1),rowSetDelegation.getInt(2)));
+    
              }
                        
         }catch (SQLException ex){
@@ -58,7 +60,7 @@ public class GetListDelegation extends HttpServlet {
         /* ajoute l'objet listDelegations en attribut de la reponse */
        
         request.setAttribute("listDelegations", listDelegations);
-        request.getRequestDispatcher("/temp.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

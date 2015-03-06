@@ -38,7 +38,7 @@ and open the template in the editor.
                                 <li><a href="epreuves.html">Epreuves</a></li>
                                 <li><a href='#'>Resultats</a></li>
                                 <li><a href="#">Panier</a></li>
-                                <li class='active'><a href='adminEquipe.html'>Admin</a></li>
+                                <li class='active'><a href='admin.html'>Admin</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -196,7 +196,7 @@ and open the template in the editor.
                                             <button type="button" class="btn btn-default btn-block">Ajouter &nbsp;<span class="glyphicon glyphicon-plus"></span></button>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </form>
 
@@ -290,11 +290,18 @@ and open the template in the editor.
         <script>
             $(document).ready(function () {
                 $("#tabs").tabs();
-                //$("#tabs").tabs("option","active",0);
             });
- 
+
             $("li[role='presentation']").click(function () {
                 $(this).addClass('active').siblings().removeClass('active');
+            });
+
+            $("a[href='#tab4']").click(function () {
+                $('#nomTitreAdmin').text(" Sportifs");
+            });
+
+            $("a[href!='#tab4']").click(function () {
+                $('#nomTitreAdmin').text(" Equipes");
             });
         </script>
     </body>
