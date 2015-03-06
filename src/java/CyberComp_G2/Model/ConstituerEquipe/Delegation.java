@@ -19,13 +19,14 @@ public class Delegation {
 
     //nom du pays de la délégation 
     private String pays;
-    
+    private int nbSportif;
     private ArrayList<Participant> lesParticipants;
     
 //--------- Constructeurs --------------------------------------------------
 
-    public Delegation(String pays) {
+    public Delegation(String pays ,int nbSportif) {
         this.pays = pays;
+        this.nbSportif=nbSportif;
         lesParticipants = new ArrayList();
     }
 
@@ -64,8 +65,8 @@ public class Delegation {
         }
     }
     
-    public int getNbParticipant(){
-       return lesParticipants.size();
+    public int getNbPSportif(){
+       return this.nbSportif;
     }
 }
 
