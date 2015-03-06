@@ -50,9 +50,13 @@ public class GetListDelegation extends HttpServlet {
                 // recupereation du pays uniquement(premiere colonne du rowset recupere)
                  listDelegations.add(new Delegation(rowSetDelegation.getString(1),(rowSetDelegation.getInt(2))));
              }
+                       
         }catch (SQLException ex){
             
         }
+        
+        /* ajoute l'objet listDelegations en attribut de la reponse */
+        request.setAttribute("listDelegations", listDelegations);
          
     }
 
