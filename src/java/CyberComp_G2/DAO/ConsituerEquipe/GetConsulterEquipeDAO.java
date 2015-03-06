@@ -28,13 +28,13 @@ public class GetConsulterEquipeDAO {
         return getConsulterEquipe(lesDelegations,"");
     }
     
-    public static final String lesEquipes = "SELECT * FROM LesEquipes WHERE pays ='%s'";
+    public static final String lesEquipes = "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant) WHERE pays ='%s'";
     
     public static CachedRowSet getEquipes(String pays) throws SQLException{
         return getConsulterEquipe(lesEquipes, pays);
     }
     
-    public static final String lesSportifsDUneEquipe = "SELECT * FROM LesSportifs WHERE idSportif = %d";
+    public static final String lesSportifsDUneEquipe = "SELECT * FROM LesSportifs S JOIN LesParticipants P ON (S.idSportif=P.idParticipant) WHERE idSportif = %d";
     
     /**
      *
