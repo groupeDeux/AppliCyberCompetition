@@ -34,7 +34,7 @@ public class GetConsulterEquipeDAO {
         return getConsulterEquipe(lesEquipes, pays);
     }
     
-    public static final String lesSportifsDUneEquipe = "SELECT * FROM LesSportifs S JOIN LesParticipants P ON (S.idSportif=P.idParticipant) WHERE idSportif = %d";
+    public static final String lesSportifsDUneEquipe = "SELECT * FROM LesSportifs S JOIN LesEquipes E ON (S.idSportif=E.idEquipe) WHERE idSportif = %d";
     
     /**
      *
@@ -47,16 +47,16 @@ public class GetConsulterEquipeDAO {
         return getConsulterEquipe(lesSportifsDUneEquipe, idEquipe);
     }
     
-    public static final String lesSportifs = "SELECT * FROM LesSportifs";
+    public static final String lesSportifs = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) WHERE pays='%s'";
     
     /**
      *
-     * @param idSportif
+     * @param pays
      * @return
      * @throws SQLException
      */
-    public static CachedRowSet getSportifs(int idSportif) throws SQLException{
-        return getConsulterEquipe(lesSportifs, idSportif);
+    public static CachedRowSet getSportifs(String pays) throws SQLException{
+        return getConsulterEquipe(lesSportifs, pays);
     } 
     
     private static CachedRowSet getConsulterEquipe(String query, String selecteur) 
