@@ -50,7 +50,7 @@ public class ctrlerTemp extends HttpServlet {
             ResultSetMetaData coucouMeta = coucou.getMetaData();
             int nbColumns = coucouMeta.getColumnCount();
             for (int i = 1; i <= nbColumns; i++) {
-                out.println(coucouMeta.getColumnName(1));
+                out.println(coucouMeta.getColumnName(i));
             }
              out.println("</br>");
             while(coucou.next()){
