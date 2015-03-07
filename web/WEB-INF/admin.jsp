@@ -21,6 +21,7 @@ and open the template in the editor.
         <link href="css/cssCyberCompetition.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+        
         <script type="text/javascript" src="js/bootstrap.js" ></script>
     </head>
     <body>
@@ -91,12 +92,12 @@ and open the template in the editor.
                                                 <%
                                                     int i = 0;
                                                     ArrayList<Delegation> lesDelegations = (ArrayList<Delegation>) request.getAttribute("listDelegations");
-                                                    for (i = 0; i <lesDelegations.size(); i++) {
-                                                %><option value=''>test</option>
+                                                    for (i = 0; i < lesDelegations.size(); i++) {
+                                                        String pays = lesDelegations.get(i).getPays();
+                                                %><option value='<%=pays%>'><%=pays%></option>
                                                 <%
                                                     };
                                                 %>
-
                                             </select>
                                         </div>
                                     </div>
@@ -158,11 +159,15 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectDelegationModifier'>
+                                            <select class="form-control" name='DelegationModifier' id='selectDelegationModifier'>
                                                 <option value="">Choix</option>
-                                                <option>France</option>
-                                                <option>Angleterre</option>
-                                                <option>Espagne</option>
+                                                <%
+                                                    for (i = 0; i < lesDelegations.size(); i++) {
+                                                        String pays = lesDelegations.get(i).getPays();
+                                                %><option value='<%=pays%>'><%=pays%></option>
+                                                <%
+                                                    };
+                                                %>
                                             </select>
                                         </div>
                                     </div>
@@ -173,9 +178,11 @@ and open the template in the editor.
                                         <div class='col-xs-6'>
                                             <select class="form-control" id='selectEquipeModifier'>
                                                 <option value="">Choix</option>
-                                                <option>Lyon</option>
-                                                <option>Paris</option>
-                                                <option>Grenoble</option>
+                                                <div>
+                                                    <option id='Lyon'>Lyon</option>
+                                                    <option>Paris</option>
+                                                    <option>Grenoble</option>
+                                                </div>
                                             </select>
                                         </div>
                                     </div>
@@ -225,9 +232,13 @@ and open the template in the editor.
                                         <div class='col-xs-6'>
                                             <select class="form-control" id='selectDelegation'>
                                                 <option value="">Choix</option>
-                                                <option>France</option>
-                                                <option>Angleterre</option>
-                                                <option>Espagne</option>
+                                                <%
+                                                    for (i = 0; i < lesDelegations.size(); i++) {
+                                                        String pays = lesDelegations.get(i).getPays();
+                                                %><option value='<%=pays%>'><%=pays%></option>
+                                                <%
+                                                    };
+                                                %>
                                             </select>
                                         </div>
                                     </div>
@@ -263,9 +274,13 @@ and open the template in the editor.
                                         <div class='col-xs-6'>
                                             <select class="form-control" id='selectDelegationSupp'>
                                                 <option value="">Choix</option>
-                                                <option>France</option>
-                                                <option>Angleterre</option>
-                                                <option>Espagne</option>
+                                                <%
+                                                    for (i = 0; i < lesDelegations.size(); i++) {
+                                                        String pays = lesDelegations.get(i).getPays();
+                                                %><option value='<%=pays%>'><%=pays%></option>
+                                                <%
+                                                    };
+                                                %>
                                             </select>
                                         </div>
                                     </div>
@@ -307,14 +322,7 @@ and open the template in the editor.
             $("li[role='presentation']").click(function () {
                 $(this).addClass('active').siblings().removeClass('active');
             });
-
-            $("a[href='#tab4']").click(function () {
-                $('#titreAdmin').text(" Sportifs");
-            });
-
-            $("a[href!='#tab4']").click(function () {
-                $('#titreAdmin').text(" Equipes");
-            });
         </script>
+        <script type="text/javascript" src="js/cyberCompetition.js" ></script>
     </body>
 </html>
