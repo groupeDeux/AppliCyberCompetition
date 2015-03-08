@@ -7,6 +7,7 @@ package CyberComp_G2.Ctrlers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,21 +32,14 @@ public class GetListEquipe extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet GetListEquipe</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet GetListEquipe at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-//        
+        response.setContentType("text/html;charset=UTF-8");
+        Enumeration<String> listParametres = request.getParameterNames();
+        String nomDelegation = request.getParameter("selectEquipeModifier");
+        StringBuilder rep = new StringBuilder();
+        for(int i=1; i<5; i++){
+            rep.append("<option value='").append("value").append(i).append("'>").append(nomDelegation).append(i).append("</option>");
+        }
         
         
     }

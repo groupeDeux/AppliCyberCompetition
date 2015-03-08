@@ -175,12 +175,12 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Equipe :</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectEquipeModifier'>
+                                            <select class="form-control" id='selectEquipeModifier' name="selectEquipeModifier">
                                                 <option value="">Choix</option>
                                                 <div>
-                                                    <option id='Lyon'>Lyon</option>
-                                                    <option>Paris</option>
-                                                    <option>Grenoble</option>
+                                                    <option value="Lyon">Lyon</option>
+                                                    <option value="Paris">Paris</option>
+                                                    <option value="Grenoble">Grenoble</option>
                                                 </div>
                                             </select>
                                         </div>

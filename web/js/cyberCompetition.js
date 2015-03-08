@@ -16,3 +16,11 @@ $("a[href='#tab4']").click(function () {
 $("a[href!='#tab4']").click(function () {
     $('#titreAdmin').text(" Equipes");
 });
+
+$("select[name='DelegationModifier").on('change', function(){
+    var element = document.getElementById("SelectDelegationModifier");
+    var strUser = element.options[element.selectedIndex].value;
+    if(strUser!==""){
+        $('select[id="selectEquipeModifier"] div').load("GetListEquipe",$('#selectEquipeModifier').serialize());
+    }
+});
