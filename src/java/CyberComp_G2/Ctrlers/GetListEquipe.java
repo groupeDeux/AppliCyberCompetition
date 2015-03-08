@@ -35,12 +35,14 @@ public class GetListEquipe extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         Enumeration<String> listParametres = request.getParameterNames();
-        String nomDelegation = request.getParameter("selectEquipeModifier");
+        String nomDelegation = request.getParameter("selectDelegationModifier");
         StringBuilder rep = new StringBuilder();
         for(int i=1; i<5; i++){
             rep.append("<option value='").append("value").append(i).append("'>").append(nomDelegation).append(i).append("</option>");
         }
         
+        PrintWriter out = response.getWriter();
+        out.println(rep);
         
     }
 

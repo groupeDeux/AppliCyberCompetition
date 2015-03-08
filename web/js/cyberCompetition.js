@@ -17,10 +17,22 @@ $("a[href!='#tab4']").click(function () {
     $('#titreAdmin').text(" Equipes");
 });
 
-$("select[name='DelegationModifier").on('change', function(){
-    var element = document.getElementById("SelectDelegationModifier");
+$("select[name='selectDelegationModifier']").on('change', function () {
+
+    var element = document.getElementById("selectDelegationModifier");
     var strUser = element.options[element.selectedIndex].value;
-    if(strUser!==""){
-        $('select[id="selectEquipeModifier"] div').load("GetListEquipe",$('#selectEquipeModifier').serialize());
+
+    if (strUser !== "") {
+        $('select[id="selectEquipeModifier"] div').load("GetListEquipe");
+        //window.alert('LOL');
     }
 });
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+$("li[role='presentation']").click(function () {
+    $(this).addClass('active').siblings().removeClass('active');
+});
+

@@ -13,7 +13,6 @@ and open the template in the editor.
         <link href="css/cyberCompetition.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.js" ></script>
     </head>
     <body>
         <div class="container">
@@ -32,7 +31,7 @@ and open the template in the editor.
                         <h2 class="text-muted">CyberCompetition</h2>
                         <nav>
                             <ul class="nav nav-justified">
-                                <li><a href="index.html">Acceuil</a></li>
+                                <li><a href="index.jsp">Acceuil</a></li>
                                 <li><a href="#">Disciplines</a></li>
                                 <li class='active'><a href="epreuves.html">Epreuves</a></li>
                                 <li><a href='#'>Resultats</a></li>
@@ -48,7 +47,7 @@ and open the template in the editor.
                 -->
                 <div class='row'>
                     <div class="page-header text-center">
-                        <h2><small>Recherche d'une</small> Epreuves</h2>
+                        <h2><small>Recherche d'</small> Epreuves</h2>
                     </div>
                 </div>
 
@@ -56,12 +55,12 @@ and open the template in the editor.
                     <form class='form'>
                         <div class='col-xs-3'>
                             <div class='form-group'>
-                                <label>Delegation:</label>
+                                <label>Discipline:</label>
                                 <select class="form-control" id='selectionDelegation'>
                                     <option value="">Choix</option>
-                                    <option>France</option>
-                                    <option>Angleterre</option>
-                                    <option>Espagne</option>
+                                    <option>Discipline1</option>
+                                    <option>Discipline2</option>
+                                    <option>Discipline3</option>
                                 </select>
                             </div>
                         </div>
@@ -89,7 +88,7 @@ and open the template in the editor.
                         <div class='form-group'>
                             <div class='col-xs-3'>
                                 <label>&nbsp;</label>
-                                <button class='btn btn-default btn-block' type='submit'>Rechercher</button>
+                                <button class='btn btn-default btn-block' type='submit'>Afficher</button>
                             </div>
                         </div>
                     </form>
@@ -108,9 +107,9 @@ and open the template in the editor.
                 -->
                 <div class="row">
                     <ul class="nav nav-pills">
-                        <li role="presentation" class="active"><a href="#">Individuelle&nbsp;<span class='badge'>1</span></a></li>
+                        <li role="presentation"><a href="#">Individuelle&nbsp;<span class='badge'>1</span></a></li>
                         <li role="presentation"><a href="#">Equipes&nbsp;<span class='badge'>0</span></a></li>
-                        <li role="presentation"><a href="#">Toutes&nbsp;<span class='badge'>1</span></a></li>
+                        <li role="presentation" class="active"><a href="#">Toutes&nbsp;<span class='badge'>1</span></a></li>
                     </ul>
                 </div>
                 <div class='row'>
@@ -120,33 +119,54 @@ and open the template in the editor.
                 <!--
                         MEDIA DE LA LISTE DES EPREUVES
                 -->
+                <div class="row rowEpreuve">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#media1" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-ski.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Cliquer pour afficher info."></a>
+                        </div>
+
+                        <div class='media-body'>
+                            <h4 class='media-heading pull-right'>nomDiscipline</h4>
+                            <h3 class='media-heading'>nomEpreuve <small>categorie</small></h3>
+                            <h5 class='media-heading'>Debut: dateDebut</h5>
+                            <h5 class='media-heading'>Fin: dateFin</h5>
+                            <div class="collapse"  id="media1">
+                                <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+                                    Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="media">
                         <div class="media-left">
-                            <img class="media-object img-rounded" src='./img/image-media-ski.jpg' alt='image de ski'>
+                            <a href="#media2" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-bob.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Cliquer pour afficher info."></a>
                         </div>
                         <div class='media-body'>
                             <h4 class='media-heading pull-right'>nomDiscipline</h4>
                             <h3 class='media-heading'>nomEpreuve <small>categorie</small></h3>
                             <h5 class='media-heading'>Debut: dateDebut</h5>
                             <h5 class='media-heading'>Fin: dateFin</h5>
-                            <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            <div class="collapse"  id="media2">
+                                <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
-                                Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                                    Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-
                 <!--
                         FOOTER DE LA PAGE
                 -->
-                <div class='row'>
-                    <hr/>
-                </div>
+                <footer class="footer">
+                    <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
+                </footer>
             </div>
         </div>
         <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
+        <script src="js/cyberCompetition.js" type="text/javascript"  ></script>
     </body>
 </html>

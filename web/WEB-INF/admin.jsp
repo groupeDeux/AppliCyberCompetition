@@ -149,7 +149,7 @@ and open the template in the editor.
                         -->
 
                         <div id='tab2'>
-                            <form class="form-horizontal">
+                            <form class="form-horizontal" id="formModifierEquipe">
                                 <div class="well">
                                     Cette page vous permet de modifier les élements d'une équipe : 
                                     ajouter un joueur, ou encore supprimer un joueur.
@@ -158,8 +158,8 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" name='DelegationModifier' id='selectDelegationModifier'>
-                                                <option value="">Choix</option>
+                                            <select class="form-control" name='selectDelegationModifier' id='selectDelegationModifier'>
+                                                <option value="1">Choix</option>
                                                 <%
                                                     for (i = 0; i < lesDelegations.size(); i++) {
                                                         String pays = lesDelegations.get(i).getPays();
@@ -319,10 +319,6 @@ and open the template in the editor.
         <script>
             $(document).ready(function () {
                 $("#tabs").tabs();
-            });
-
-            $("li[role='presentation']").click(function () {
-                $(this).addClass('active').siblings().removeClass('active');
             });
         </script>
         <script type="text/javascript" src="js/cyberCompetition.js" ></script>
