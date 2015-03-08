@@ -17,7 +17,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CyberCompetition</title>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <link href="css/cssCyberCompetition.css" rel="stylesheet" type="text/css"/>
+        <link href="css/cyberCompetition.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.js" ></script>
