@@ -18,12 +18,12 @@ $("a[href!='#tab4']").click(function () {
 });
 
 $("select[name='selectDelegationModifier']").on('change', function () {
-
+    
     var element = document.getElementById("selectDelegationModifier");
     var strUser = element.options[element.selectedIndex].value;
-
+    var delegation = document.getElementById("selectDelegationModifier").value;
     if (strUser !== "") {
-        $("#selectEquipeModifier").load("GetListEquipe");
+        $("#selectEquipeModifier").load("GetListEquipe?delegation="+delegation);
     }
 });
 
