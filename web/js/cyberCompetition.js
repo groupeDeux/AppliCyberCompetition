@@ -4,57 +4,39 @@
  * and open the template in the editor.
  */
 
-
-$("select[name='DelegationModifier").on('change', function () {
-    $('#Lyon').text("Jean marie");
-});
-
+/* Change le nom du titre dans la page admin entre sportif et equipe */
 $("a[href='#tab4']").click(function () {
     $('#titreAdmin').text(" Sportifs");
 });
 
+/* Change le nom du titre dans la page admin entre sportif et equipe */
 $("a[href!='#tab4']").click(function () {
     $('#titreAdmin').text(" Equipes");
 });
 
-$("select[name='selectDelegationModifier']").on('change', function () {
+/* Chargement des informations dans listequipe */
+$("#selectDelegationModifier").on('change', function () {
 
     var element = document.getElementById("selectDelegationModifier");
     var strUser = element.options[element.selectedIndex].value;
 
     if (strUser !== "") {
-        $('select[id="selectEquipeModifier"] div').load("GetListEquipe");
-        //window.alert('LOL');
+        $('#choixEquipeModifier').load("GetListEquipe");
     }
 });
 
+/* Javascrip qui permet d'afficher un tooltip via bootstrap */
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
+});
+
+
+
+
+$('a').tooltip({
+     'delay': { show: 1250, hide: 1000 }
 });
 
 $("li[role='presentation']").click(function () {
     $(this).addClass('active').siblings().removeClass('active');
 });
-
-function onVaFiltrer() {
-    var $epreuves = $('div.row.rowEpreuve');
-    //var $buttons = $('#buttons'); 
-    var tagged = {};
-
-    $epreuves.each(function () {
-        var img = this;
-        var tags = $(this).data('tags');
-        var bool = false;
-
-        if (tags) {
-            tags.split(',').forEach(function (tagName) {
-                if (tagged[tagName] == null) {
-                    tagged[tagName] = [];
-                }
-                tagged[tagName].push(img);
-            });
-        }
-    });
-    window.alert(tagged.toString());
-};
-

@@ -41,12 +41,12 @@ and open the template in the editor.
                         <h2 class="text-muted">CyberCompetition</h2>
                         <nav>
                             <ul class="nav nav-justified">
-                                <li><a href="index.jsp">Acceuil</a></li>
-                                <li><a href="#">Disciplines</a></li>
-                                <li><a href="epreuves.html">Epreuves</a></li>
-                                <li><a href='#'>Resultats</a></li>
-                                <li><a href="#">Panier</a></li>
-                                <li class='active'><a href='/WEB-INF/admin.jsp'>Admin</a></li>
+                                <li><a href="index.jsp" data-toggle="tooltip" data-placement="bottom" title="Acceder à l'acceuil">Acceuil</a></li>
+                                <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder aux disciplines">Disciplines</a></li>
+                                <li><a href="GetListEpreuve" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves">Epreuves</a></li>
+                                <li><a href='#' data-toggle="tooltip" data-placement="bottom" title="Acceder aux résultats des épreuves">Resultats</a></li>
+                                <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder au panier">Panier</a></li>
+                                <li  class='active'><a href='getListDelegation' data-toggle="tooltip" data-placement="bottom" title="Acceder aux fonctions d'administration">Admin</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -177,7 +177,7 @@ and open the template in the editor.
                                         <div class='col-xs-6'>
                                             <select class="form-control" id='selectEquipeModifier' name="selectEquipeModifier">
                                                 <option value="">Choix</option>
-                                                <div>
+                                                <div id="choixEquipeModifier">
                                                     <option value="Lyon">Lyon</option>
                                                     <option value="Paris">Paris</option>
                                                     <option value="Grenoble">Grenoble</option>

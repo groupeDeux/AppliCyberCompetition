@@ -42,12 +42,12 @@ and open the template in the editor.
                         <h2 class="text-muted">CyberCompetition</h2>
                         <nav>
                             <ul class="nav nav-justified">
-                                <li class='active'><a href="index.jsp">Acceuil</a></li>
-                                <li><a href="#">Disciplines</a></li>
-                                <li><a href="GetListEpreuve">Epreuves</a></li>
-                                <li><a href='#'>Resultats</a></li>
-                                <li><a href="#">Panier</a></li>
-                                <li><a href='getListDelegation'>Admin</a></li>
+                                <li class='active'><a href="index.jsp" data-toggle="tooltip" data-placement="bottom" title="Acceder à l'acceuil">Acceuil</a></li>
+                                <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder aux disciplines">Disciplines</a></li>
+                                <li><a href="GetListEpreuve" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves">Epreuves</a></li>
+                                <li><a href='#' data-toggle="tooltip" data-placement="bottom" title="Acceder aux résultats des épreuves">Resultats</a></li>
+                                <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder au panier">Panier</a></li>
+                                <li><a href='getListDelegation' data-toggle="tooltip" data-placement="bottom" title="Acceder aux fonctions d'administration">Admin</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -65,6 +65,7 @@ and open the template in the editor.
         </div>
         <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/cyberCompetition.js" ></script>
     </body>
 </html>
 
