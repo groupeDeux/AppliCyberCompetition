@@ -12,14 +12,22 @@ import javax.sql.rowset.CachedRowSet;
 
 /**
  *
- * @author vivi
+ * @author vivi, oprisora
  */
 public class GetConsulterEpreuveDAO {
     public static final String lesEpreuvesInv = 
-            "SELECT  idEpreuve,nomDiscipline,nomEpreuve,to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, categorie,nbDePlaceAchetées FROM viewEpreuve JOIN lesEpreuvesIndividuelles USING (idEpreuve)";
+            "SELECT  idEpreuve,nomDiscipline,nomEpreuve,"
+            + "to_char(dateDebut,'DD-MM-YYYY HH24'),"
+            + "to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
+            + "categorie,nbDePlaceAchetées FROM viewEpreuve JOIN "
+            + "lesEpreuvesIndividuelles USING (idEpreuve)";
    
     public static final String lesEpreuvesEquipe= 
-            "SELECT idEpreuve,nomDiscipline,nomEpreuve,to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, categorie,nbPersonneFixe,0 FROM viewEpreuve JOIN lesEpreuvesParEquipe USING (idEpreuve)";
+            "SELECT idEpreuve,nomDiscipline,nomEpreuve,"
+            + "to_char(dateDebut,'DD-MM-YYYY HH24'),"
+            + "to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
+            + "categorie,nbPersonneFixe,0 FROM viewEpreuve"
+            + " JOIN lesEpreuvesParEquipe USING (idEpreuve)";
     
     public static final String lesDisciplines = 
             "SELECT nomDiscipline FROM viewEpreuve GROUP BY (nomDiscipline)";
@@ -50,12 +58,12 @@ public class GetConsulterEpreuveDAO {
     
     public static CachedRowSet getMedaillesDesSportifs(int idEpreuve)
             throws SQLException {
-        return getConsulterMedailleParEpreuve(lesMedaillesDesSportifs, getEpreuvesInv()); 
+        return getConsulterMedailleParEpreuve(lesMedaillesDesSportifs, idEpreuve); 
     }
     
     public static CachedRowSet getMedaillesDesEquipes(int idEquipe)
             throws SQLException {
-        return getConsulterMedailleParEpreuve(lesMedaillesDesEquipes, getEpreuvesEquipe());
+        return getConsulterMedailleParEpreuve(lesMedaillesDesEquipes, idEquipe);
     }
     
      private static CachedRowSet getConsulterEpreuve(String query) 
@@ -68,7 +76,7 @@ public class GetConsulterEpreuveDAO {
     }
      
      private static CachedRowSet getConsulterMedailleParEpreuve(String query, 
-             CachedRowSet selecteur) 
+             int selecteur) 
              throws SQLException {
         CachedRowSet crs = new CachedRowSetImpl();
         crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
