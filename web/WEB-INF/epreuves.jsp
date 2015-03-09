@@ -1,3 +1,12 @@
+<%-- 
+    Document   : epreuve
+    Created on : 8 mars 2015, 07:55:52
+    Author     : vivi
+--%>
+
+<%@page import="CyberComp_G2.Model.ConsulterEpreuve.Epreuve"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import = "java.util.ArrayList" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -36,7 +45,7 @@ and open the template in the editor.
                                 <li class='active'><a href="epreuves.html">Epreuves</a></li>
                                 <li><a href='#'>Resultats</a></li>
                                 <li><a href="#">Panier</a></li>
-                                <li><a href='admin.html'>Admin</a></li>
+                                <li><a href='getListDelegation'>Admin</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -118,19 +127,24 @@ and open the template in the editor.
 
                 <!--
                         MEDIA DE LA LISTE DES EPREUVES
-                -->
-                <div class="row rowEpreuve" data-tags="ski">
+                -->    <% 
+                int i;
+                ArrayList<Epreuve> lesEpreuves =  (ArrayList<Epreuve>) request.getAttribute("listEpreuveEquipe");
+                for(i=0;i<lesEpreuves.size();i++){
+                    Epreuve epreuveSelectionnee= lesEpreuves.get(i);
+                %>
+                <div class="row rowEpreuve" data-tags="<%=epreuveSelectionnee.getNomDiscipline()%>,<%=epreuveSelectionnee.getCategorie()%>,equipe">
                     <div class="media">
                         <div class="media-left">
-                            <a href="#media1" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-ski.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Cliquer pour afficher info."></a>
+                            <a href="#media<%=i%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-ski.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Cliquer pour afficher info."></a>
                         </div>
 
                         <div class='media-body'>
-                            <h4 class='media-heading pull-right'>nomDiscipline</h4>
-                            <h3 class='media-heading'>nomEpreuve <small>categorie</small></h3>
-                            <h5 class='media-heading'>Debut: dateDebut</h5>
-                            <h5 class='media-heading'>Fin: dateFin</h5>
-                            <div class="collapse"  id="media1">
+                            <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%></h4>
+                            <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small><%=epreuveSelectionnee.getCategorie()%></small></h3>
+                            <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%></h5>
+                            <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%></h5>
+                            <div class="collapse"  id="media<%=i%>">
                                 <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                                     Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
@@ -138,17 +152,24 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
-                <div class="row rowEpreuve" data-tags="bob">
+                <%}%>
+                 <%
+                lesEpreuves =  (ArrayList<Epreuve>) request.getAttribute("listEpreuveInd");
+                for(i=0;i<lesEpreuves.size();i++){
+                    Epreuve epreuveSelectionnee= lesEpreuves.get(i);
+                %>
+                <div class="row rowEpreuve" data-tags="<%=epreuveSelectionnee.getNomDiscipline()%>,<%=epreuveSelectionnee.getCategorie()%>,individuelle">
                     <div class="media">
                         <div class="media-left">
-                            <a href="#media2" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-bob.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Cliquer pour afficher info."></a>
+                            <a href="#media<%=i%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-ski.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Cliquer pour afficher info."></a>
                         </div>
+
                         <div class='media-body'>
-                            <h4 class='media-heading pull-right'>nomDiscipline</h4>
-                            <h3 class='media-heading'>nomEpreuve <small>categorie</small></h3>
-                            <h5 class='media-heading'>Debut: dateDebut</h5>
-                            <h5 class='media-heading'>Fin: dateFin</h5>
-                            <div class="collapse"  id="media2">
+                            <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%></h4>
+                            <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small><%=epreuveSelectionnee.getCategorie()%></small></h3>
+                            <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%></h5>
+                            <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%></h5>
+                            <div class="collapse"  id="media<%=i%>">
                                 <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                                     Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
@@ -156,7 +177,7 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
-
+                <%}%>
                 <!--
                         FOOTER DE LA PAGE
                 -->

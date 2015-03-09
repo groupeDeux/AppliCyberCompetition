@@ -44,7 +44,7 @@ and open the template in the editor.
                             <ul class="nav nav-justified">
                                 <li class='active'><a href="index.jsp">Acceuil</a></li>
                                 <li><a href="#">Disciplines</a></li>
-                                <li><a href="epreuves.html">Epreuves</a></li>
+                                <li><a href="GetListEpreuve">Epreuves</a></li>
                                 <li><a href='#'>Resultats</a></li>
                                 <li><a href="#">Panier</a></li>
                                 <li><a href='getListDelegation'>Admin</a></li>
