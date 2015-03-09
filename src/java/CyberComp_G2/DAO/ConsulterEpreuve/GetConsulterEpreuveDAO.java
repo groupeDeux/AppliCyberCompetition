@@ -5,7 +5,7 @@
  */
 package CyberComp_G2.DAO.ConsulterEpreuve;
 
-import static CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO.lesEquipes;
+import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
 import com.sun.rowset.CachedRowSetImpl;
 import java.sql.SQLException;
 import javax.sql.rowset.CachedRowSet;

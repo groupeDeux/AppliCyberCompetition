@@ -230,15 +230,8 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Nom :</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectDelegation'>
+                                            <select class="form-control" id='selectNomASuprimer'>
                                                 <option value="">Choix</option>
-                                                <%
-                                                    for (i = 0; i < lesDelegations.size(); i++) {
-                                                        String pays = lesDelegations.get(i).getPays();
-                                                %><option value='<%=pays%>'><%=pays%></option>
-                                                <%
-                                                    };
-                                                %>
                                             </select>
                                         </div>
                                     </div>

@@ -9,7 +9,6 @@ import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +18,10 @@ import javax.sql.rowset.CachedRowSet;
 
 /**
  *
- * @author Gato
+ * @author vivi
  */
-@WebServlet(name = "GetListEquipe", urlPatterns = {"/GetListEquipe"})
-public class GetListEquipe extends HttpServlet {
+@WebServlet(name = "GetListSportifParEquipe", urlPatterns = {"/GetListSportifParEquipe"})
+public class GetListSportifParEquipe extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,34 +34,24 @@ public class GetListEquipe extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-         StringBuilder rep = new StringBuilder();
-         String delegation = request.getParameter("delegation");
+         response.setContentType("text/html;charset=UTF-8");
+        StringBuilder rep = new StringBuilder();
+         String idEquipe = request.getParameter("idEquipe");
          
          try(PrintWriter out = response.getWriter()){
-            
-            CachedRowSet rowSetEquipeParDelegation=GetConsulterEquipeDAO.getEquipesDUneDelegation(delegation);
-            while(rowSetEquipeParDelegation.next()){
-                String nomEquipe = rowSetEquipeParDelegation.getString("nomEquipe");
+            CachedRowSet rowSetSportifParDelegation=GetConsulterEquipeDAO.getSportifsDUneEquipe(Integer.parseInt(idEquipe));
+            while(rowSetSportifParDelegation.next()){
+                String nomSportif = rowSetSportifParDelegation.getString("nom");
+                String prenomSportif = rowSetSportifParDelegation.getString("prenom");
 //               if (nomEquipe.equals("null")) {
 //                    nomEquipe="pas de nom";
 //               }
-                rep.append("<option value='").append(rowSetEquipeParDelegation.getString("idEquipe")).append("'>").append(rowSetEquipeParDelegation.getString("idEquipe")).append(" : ").append(nomEquipe);
+                rep.append("<option value='").append(rowSetSportifParDelegation.getString("idSportif")).append("'>").append(rowSetSportifParDelegation.getString("idSportif")).append(" : ").append(nomSportif).append(" ").append(prenomSportif);
             }
             out.println(rep);
         }catch (SQLException ex){
             log(ex.getMessage());
         }
-        
-      
-       
-//        for(int i=1; i<5; i++){
-//            rep.append("<option value='").append("value").append(i).append("'>").append(nomDelegation).append(i).append("</option>");
-//        }
-        
-        
-        
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
