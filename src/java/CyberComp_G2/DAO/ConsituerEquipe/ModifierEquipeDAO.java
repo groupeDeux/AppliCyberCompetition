@@ -50,25 +50,25 @@ public class ModifierEquipeDAO {
     } 
     
     public static final String addEquipe = 
-            "INSERT INTO LesEquipes(idEquipe, nomEquipe, pays, categorie) " +
-            "VALUES (%, '%', '%', '%')";
+            "INSERT INTO LesEquipes(idEquipe, nomEquipe, categorie, nbMembre) " +
+            "VALUES (%, '%', '%', %)";
    
     public static CachedRowSet addEquipe(Equipe equipe) throws SQLException {
-        return ModifierEquipeDAO.requeteAddEquipe(insertSportif, 
+        return requeteAddEquipe(insertSportif, 
                 equipe.getIdEquipe(), 
                 equipe.getNomEquipe(),
-                equipe.getPays(),
-                equipe.getCategorie());
+                equipe.getCategorie(),
+                equipe.getNbMembre());
     }
 
     private static CachedRowSet requeteAddEquipe(String query, 
             int idEquipe, 
             String nomEquipe, 
-            String pays,
-            String categorie) throws SQLException {
+            String categorie,
+            int nbMembre) throws SQLException {
         CachedRowSet crs = new CachedRowSetImpl();  
         crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
-        crs.setCommand(String.format(query, idEquipe, nomEquipe, pays, categorie));
+        crs.setCommand(String.format(query, idEquipe, nomEquipe, categorie, nbMembre));
         crs.execute();
         return crs; 
     }
