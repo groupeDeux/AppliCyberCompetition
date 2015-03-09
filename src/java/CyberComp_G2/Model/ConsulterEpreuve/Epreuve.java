@@ -7,6 +7,9 @@ package CyberComp_G2.Model.ConsulterEpreuve;
 
 import CyberComp_G2.Exceptions.CategorieException;
 import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
+import static java.rmi.server.LogStream.log;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -16,19 +19,23 @@ import java.util.Date;
  * @author vivi
  */
 public class Epreuve {
+    private int idEpreuve;
     private String nomEpreuve;
-    private Date dateDebut;
-    private Date dateFin;
+    private String nomDiscipline;
+    private String dateDebut;
+    private String dateFin;
     private String urlVideo;
     private double tarif;
     private int nbDePlace;
     private String categorie;
     private int nbPlaceAcheter;     
 
-    public Epreuve(String nomEpreuve, Date dateDebut, Date dateFin, String urlVideo, double tarif, int nbDePlace, String categorie, int nbPlaceAcheter) throws CategorieException, nbPlaceAcheterExeception {
+    public Epreuve(int idEpreuve ,String nomEpreuve,String nomDiscipline, String dateDebut, String dateFin, String urlVideo, double tarif, int nbDePlace, String categorie, int nbPlaceAcheter) throws CategorieException, nbPlaceAcheterExeception {
+        this.idEpreuve = idEpreuve;
+        this.nomDiscipline =nomDiscipline;
         this.nomEpreuve = nomEpreuve;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
+        setDateDebut(dateDebut);
+        setDateFin(dateFin);
         this.urlVideo = urlVideo;
         setTarif(tarif);
         setNbDePlace(nbDePlace);
@@ -40,12 +47,16 @@ public class Epreuve {
         return nomEpreuve;
     }
 
-    public Date getDateDebut() {
+    public String getDateDebut() { 
         return dateDebut;
     }
 
-    public Date getDateFin() {
-        return dateFin;
+    public String getDateFin() {
+       return dateFin;
+    }
+
+    public String getNomDiscipline() {
+        return nomDiscipline;
     }
 
     public String getUrlVideo() {
@@ -54,6 +65,14 @@ public class Epreuve {
 
     public double getTarif() {
         return tarif;
+    }
+
+    public void setDateDebut(String dateDebut){
+       this.dateDebut = dateDebut;
+    }
+
+    public void setDateFin(String dateFin){
+        this.dateFin = dateFin; 
     }
 
     public int getNbDePlace() {
