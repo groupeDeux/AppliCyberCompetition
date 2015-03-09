@@ -23,8 +23,7 @@ $("select[name='selectDelegationModifier']").on('change', function () {
     var strUser = element.options[element.selectedIndex].value;
 
     if (strUser !== "") {
-        $('select[id="selectEquipeModifier"] div').load("GetListEquipe");
-        //window.alert('LOL');
+        $("#selectEquipeModifier").load("GetListEquipe");
     }
 });
 
@@ -38,7 +37,7 @@ $("li[role='presentation']").click(function () {
 
 function onVaFiltrer() {
     var $epreuves = $('div.row.rowEpreuve');
-    //var $buttons = $('#buttons'); 
+    var $buttons = $('#buttons'); 
     var tagged = {};
 
     $epreuves.each(function () {
