@@ -28,6 +28,17 @@ $("select[name='selectDelegationModifier']").on('change', function () {
         $("#selectEquipeModifier").load("GetListEquipe?delegation="+delegation);
 
     }
+    if (delegation !== "") {
+        $("#selectNomAjouter").load("GetListSportifParDelgation?delegation="+delegation);
+    }
+});
+
+$("#selectEquipeModifier").on('change', function () {
+   var idEquipe = document.getElementById("selectEquipeModifier").value;
+    if (idEquipe !== "") {
+        $("#selectNomASuprimer").load("GetListEquipe?idEquipe="+idEquipe);
+    } 
+    
 });
 
 /* Javascrip qui permet d'afficher un tooltip via bootstrap */
