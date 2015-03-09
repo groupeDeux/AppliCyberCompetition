@@ -14,14 +14,19 @@ $("a[href!='#tab4']").click(function () {
     $('#titreAdmin').text(" Equipes");
 });
 
+
 /* Chargement des informations dans listequipe */
-$("#selectDelegationModifier").on('change', function () {
+
+$("select[name='selectDelegationModifier']").on('change', function () {
+    
 
     var element = document.getElementById("selectDelegationModifier");
     var strUser = element.options[element.selectedIndex].value;
-
+    var delegation = document.getElementById("selectDelegationModifier").value;
     if (strUser !== "") {
-        $('#choixEquipeModifier').load("GetListEquipe");
+
+        $("#selectEquipeModifier").load("GetListEquipe?delegation="+delegation);
+
     }
 });
 
@@ -29,7 +34,6 @@ $("#selectDelegationModifier").on('change', function () {
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
-
 
 
 

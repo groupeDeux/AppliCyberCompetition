@@ -10,13 +10,4 @@
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
-    <servlet>
-        <description>Test appel de servlet</description>
-        <servlet-name>GetListEquipe</servlet-name>
-        <servlet-class>CyberComp_G2.Ctrlers.GetListEquipe.java</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>GetListEquipe</servlet-name>
-        <url-pattern>/GetListEquipe</url-pattern>
-    </servlet-mapping>
 </web-app>

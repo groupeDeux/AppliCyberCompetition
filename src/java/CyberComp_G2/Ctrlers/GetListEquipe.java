@@ -5,14 +5,17 @@
  */
 package CyberComp_G2.Ctrlers;
 
+import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.CachedRowSet;
 
 /**
  *
@@ -32,17 +35,33 @@ public class GetListEquipe extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-        Enumeration<String> listParametres = request.getParameterNames();
-        String nomDelegation = request.getParameter("selectDelegationModifier");
-        StringBuilder rep = new StringBuilder();
-        for(int i=1; i<5; i++){
-            rep.append("<option value='").append("value").append(i).append("'>").append(nomDelegation).append(i).append("</option>");
+         StringBuilder rep = new StringBuilder();
+         String delegation = request.getParameter("delegation");
+         
+         try(PrintWriter out = response.getWriter()){
+            
+            CachedRowSet rowSetEquipeParDelegation=GetConsulterEquipeDAO.getEquipes(delegation);
+            while(rowSetEquipeParDelegation.next()){
+                String nomEquipe = rowSetEquipeParDelegation.getString("nomEquipe");
+//               if (nomEquipe.equals("null")) {
+//                    nomEquipe="pas de nom";
+//               }
+                rep.append("<option value='").append(rowSetEquipeParDelegation.getString("idEquipe")).append("'>").append(rowSetEquipeParDelegation.getString("idEquipe")).append(" : ").append(nomEquipe);
+            }
+            out.println(rep);
+        }catch (SQLException ex){
+            log(ex.getMessage());
         }
         
-        PrintWriter out = response.getWriter();
-        out.println(rep);
+      
+       
+//        for(int i=1; i<5; i++){
+//            rep.append("<option value='").append("value").append(i).append("'>").append(nomDelegation).append(i).append("</option>");
+//        }
+        
+        
+        
         
     }
 
