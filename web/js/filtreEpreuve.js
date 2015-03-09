@@ -43,3 +43,7 @@ $('li[role="presentation"]').click(function () {
         $epreuves.hide().filter(tagged[$(this).attr("id")]).show();
     }
 });
+
+$("li[role='presentation']").click(function () {
+    $(this).addClass('active').siblings().removeClass('active');
+});
