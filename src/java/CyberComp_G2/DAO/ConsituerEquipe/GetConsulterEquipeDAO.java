@@ -31,7 +31,8 @@ public class GetConsulterEquipeDAO {
     public static final String lesEquipesDUneDelegation = 
             "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant) WHERE pays ='%s'";
     
-    public static CachedRowSet getEquipes(String pays) throws SQLException{
+    public static CachedRowSet getEquipesDUneDelegation(String pays) 
+            throws SQLException{
         return getConsulterEquipe(lesEquipesDUneDelegation, pays);
     }
     
