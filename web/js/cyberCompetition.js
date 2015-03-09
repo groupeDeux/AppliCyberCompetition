@@ -15,30 +15,33 @@ $("a[href!='#tab4']").click(function () {
 });
 
 
-/* Chargement des informations dans listequipe */
-
+/* Chargement des informations dans listequipe et listeAjoutSportif */
 $("select[name='selectDelegationModifier']").on('change', function () {
-    
-
-    var element = document.getElementById("selectDelegationModifier");
-    var strUser = element.options[element.selectedIndex].value;
     var delegation = document.getElementById("selectDelegationModifier").value;
-    if (strUser !== "") {
-
+    if (delegation !== "") {
         $("#selectEquipeModifier").load("GetListEquipe?delegation="+delegation);
-
+        document.getElementById("selectEquipeModifier").disabled = false;
     }
     if (delegation !== "") {
         $("#selectNomAjouter").load("GetListSportifParDelgation?delegation="+delegation);
     }
 });
-
+/* Chargement des informations dans listeSuprSportif */
 $("#selectEquipeModifier").on('change', function () {
-   var idEquipe = document.getElementById("selectEquipeModifier").value;
-    if (idEquipe !== "") {
-        $("#selectNomASuprimer").load("GetListEquipe?idEquipe="+idEquipe);
-    } 
-    
+                var idEquipe = document.getElementById("selectEquipeModifier").value;
+                if (idEquipe !== "") {
+                    $("#selectNomASuprimer").load("GetListSportifParEquipe?idEquipe="+idEquipe);
+                    document.getElementById("selectNomAjouter").disabled = false;
+                    document.getElementById("selectNomASuprimer").disabled = false;
+                 } 
+});
+/* Chargement des informations dans listequipe    */      
+$("#selectDelegationSupp").on('change', function () {
+   var delegation = document.getElementById("selectDelegationSupp").value;
+   if (delegation !== "") {
+         $("#selectEquipeSupp").load("GetListEquipe?delegation="+delegation);
+         document.getElementById("selectEquipeSupp").disabled = false;
+    }
 });
 
 /* Javascrip qui permet d'afficher un tooltip via bootstrap */

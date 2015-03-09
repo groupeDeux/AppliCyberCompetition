@@ -41,6 +41,7 @@ public class GetListSportifParDelgation extends HttpServlet {
          try(PrintWriter out = response.getWriter()){
             
             CachedRowSet rowSetSportifParDelegation=GetConsulterEquipeDAO.getSportifsDUneDelegation(delegation);
+            out.println("<option value=''>Choix</option>");
             while(rowSetSportifParDelegation.next()){
                 String nomSportif = rowSetSportifParDelegation.getString("nom");
                 String prenomSportif = rowSetSportifParDelegation.getString("prenom");

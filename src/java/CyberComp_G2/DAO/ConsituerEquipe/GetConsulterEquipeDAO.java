@@ -22,14 +22,14 @@ import javax.sql.rowset.CachedRowSet;
  */
 public class GetConsulterEquipeDAO {
     
-    public static final String lesDelegations = "SELECT * FROM viewDelegation";
+    public static final String lesDelegations = "SELECT * FROM viewDelegation order by pays";
     
     public static CachedRowSet getDelegations() throws SQLException{
         return getConsulterEquipe(lesDelegations,"");
     }
     
     public static final String lesEquipesDUneDelegation = 
-            "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant) WHERE pays ='%s'";
+            "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant) WHERE pays ='%s' order by idEquipe";
     
     public static CachedRowSet getEquipesDUneDelegation(String pays) 
             throws SQLException{
@@ -37,7 +37,7 @@ public class GetConsulterEquipeDAO {
     }
     
     public static final String lesSportifsDUneEquipe = 
-            "SELECT * FROM LesSportifs S JOIN LesEquipes E ON (S.idSportif=E.idEquipe) WHERE idSportif = %d";
+            "SELECT * FROM LESCONSTITUTIONSEQUIPE join LESSPORTIFS USING (idSportif) where idEquipe =%d order by nom";
     
     /**
      *
@@ -52,7 +52,7 @@ public class GetConsulterEquipeDAO {
     }
     
     public static final String lesSportifsDUneDelegation = 
-            "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) WHERE pays='%s'";
+            "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) WHERE pays='%s' order by nom";
     
     /**
      *

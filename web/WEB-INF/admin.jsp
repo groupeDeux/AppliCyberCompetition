@@ -59,15 +59,14 @@ and open the template in the editor.
                 <div class="page-header">
                     <h2 class="text-center"><small>Administration des</small><span id="titreAdmin"> Equipes</span></h2>
                 </div>
-                ${listDelegations.size()}
                 <!-- 
                         DEBUT DE LA PAGINATION DU TABLEAU 
                 -->
                 <div class="row">
                     <div id="tabs">
                         <ul class="nav nav-tabs">
-                            <li role="presentation" class="active"><a href="#tab1">Creer Equipe</a></li>
-                            <li role="presentation"><a href="#tab2">Modifier Equipe</a></li>
+                            <li role="presentation" class="active" id ="presentation1"><a href="#tab1">Creer Equipe</a></li>
+                            <li role="presentation" id ="presentation2"><a href="#tab2">Modifier Equipe</a></li>
                             <li role="presentation"><a href="#tab3">Supprimer Equipe</a></li>
                             <li role="presentation"><a href="#tab4">Creer Sportif</a></li>
                         </ul>
@@ -100,6 +99,7 @@ and open the template in the editor.
                                                 %>
                                             </select>
                                         </div>
+                                            <div class='col-xs-1 control-label'id="verifDelegationCreer"></div>    
                                     </div>
                                 </div>
                                 <div class="row">
@@ -138,7 +138,7 @@ and open the template in the editor.
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-xs-6 col-xs-offset-3">
-                                            <button type="button" class="btn btn-default btn-block">Valider</button>
+                                            <button type="button" class="btn btn-default btn-block" id="valCreer">Valider</button>
                                         </div>
                                     </div>
                                 </div>
@@ -176,12 +176,9 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Equipe :</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectEquipeModifier' name="selectEquipeModifier">
+                                            <select class="form-control" id='selectEquipeModifier' name="selectEquipeModifier" disabled="true">
                                                 <option value="">Choix</option>
                                                 <div id="choixEquipeModifier">
-                                                    <option value="Lyon">Lyon</option>
-                                                    <option value="Paris">Paris</option>
-                                                    <option value="Grenoble">Grenoble</option>
                                                 </div>
                                             </select>
                                         </div>
@@ -203,11 +200,8 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Nom :</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectNomAjouter'>
+                                            <select class="form-control" id='selectNomAjouter' disabled="true">
                                                 <option value="">Choix</option>
-                                                <option value="JM Favre">JM Favre</option>
-                                                <option>Marie Curie</option>
-                                                <option>Jean Dujardin</option>
                                             </select>
                                         </div>
                                     </div>
@@ -230,7 +224,7 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Nom :</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectNomASuprimer'>
+                                            <select class="form-control" selectNomAjouter='selectNomASuprimer'id='selectNomASuprimer'disabled="true">
                                                 <option value="">Choix</option>
                                             </select>
                                         </div>
@@ -282,11 +276,8 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Equipe :</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectEquipeSupp'>
+                                            <select class="form-control" id='selectEquipeSupp'disabled="true">
                                                 <option value="">Choix</option>
-                                                <option>Lyon</option>
-                                                <option>Paris</option>
-                                                <option>Grenoble</option>
                                             </select>
                                         </div>
                                     </div>
@@ -314,7 +305,9 @@ and open the template in the editor.
             $(document).ready(function () {
                 $("#tabs").tabs();
             });
+            
         </script>
        <script type="text/javascript" src="js/cyberCompetition.js"></script>
+       <script src="js/FormAdmin.js" type="text/javascript"></script>
     </body>
 </html>
