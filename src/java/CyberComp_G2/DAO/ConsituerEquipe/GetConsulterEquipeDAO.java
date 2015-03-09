@@ -28,13 +28,15 @@ public class GetConsulterEquipeDAO {
         return getConsulterEquipe(lesDelegations,"");
     }
     
-    public static final String lesEquipes = "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant) WHERE pays ='%s'";
+    public static final String lesEquipesDUneDelegation = 
+            "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant) WHERE pays ='%s'";
     
     public static CachedRowSet getEquipes(String pays) throws SQLException{
-        return getConsulterEquipe(lesEquipes, pays);
+        return getConsulterEquipe(lesEquipesDUneDelegation, pays);
     }
     
-    public static final String lesSportifsDUneEquipe = "SELECT * FROM LesSportifs S JOIN LesEquipes E ON (S.idSportif=E.idEquipe) WHERE idSportif = %d";
+    public static final String lesSportifsDUneEquipe = 
+            "SELECT * FROM LesSportifs S JOIN LesEquipes E ON (S.idSportif=E.idEquipe) WHERE idSportif = %d";
     
     /**
      *
@@ -43,11 +45,13 @@ public class GetConsulterEquipeDAO {
      * @throws SQLException
      */
     
-    public static CachedRowSet getSportifsDUneEquipe(int idEquipe) throws SQLException{
+    public static CachedRowSet getSportifsDUneEquipe(int idEquipe) 
+            throws SQLException{
         return getConsulterEquipe(lesSportifsDUneEquipe, idEquipe);
     }
     
-    public static final String lesSportifs = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) WHERE pays='%s'";
+    public static final String lesSportifsDUneDelegation = 
+            "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) WHERE pays='%s'";
     
     /**
      *
@@ -56,7 +60,7 @@ public class GetConsulterEquipeDAO {
      * @throws SQLException
      */
     public static CachedRowSet getSportifs(String pays) throws SQLException{
-        return getConsulterEquipe(lesSportifs, pays);
+        return getConsulterEquipe(lesSportifsDUneDelegation, pays);
     } 
     
     private static CachedRowSet getConsulterEquipe(String query, String selecteur) 
