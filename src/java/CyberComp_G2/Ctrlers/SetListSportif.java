@@ -14,6 +14,7 @@ import CyberComp_G2.Model.ConstituerEquipe.Sportif;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -40,7 +41,7 @@ public class SetListSportif extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException, CategorieException {
         /* rowSetdelegation de type cachedRowSet
          =set resultat issu de requete BD garde en memoire meme sans connexion*/
 
@@ -50,25 +51,25 @@ public class SetListSportif extends HttpServlet {
         StringBuilder rep = new StringBuilder();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            int idSportif = Integer.Parseint(request.getParameter("idSportif"));
+            String idSportifstr = request.getParameter("idSportif");
+            int idSportif = Integer.parseInt(idSportifstr);
             String nom = request.getParameter("nom");
             String prenom = request.getParameter("prenom");
             String dateNaissanceStr = request.getParameter("dateNaissance");
-            
-            Date dateNaissance = sdf.parse(dateNaissance);
-            String genre = getParameter("genre");
-            String pays = getParameter("pays");
-            String descriptionHandicap = getParameter("descriptionHandicap");
+            Date dateNaissance = (Date) sdf.parse(dateNaissanceStr);
+            String genre = request.getParameter("genre");
+            String pays = request.getParameter("pays");
+            String descriptionHandicap = request.getParameter("descriptionHandicap");
             Sportif s1 = new Sportif(idSportif, pays, prenom, nom, dateNaissance, genre, descriptionHandicap);
 
             //récupérer les informations relié à une équipe 
             int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
-            String nomEquipe = request.getParameter(",nomEquipe");
-            String categorie = request.getParameter("categorie");
-            Equipe e1 = new Equipe((idEquipe, nomEquipe, categorie);
+            String nomEquipe = request.getParameter ("nomEquipe");
+            String categorie = request.getParameter ("categorie");
+            Equipe e1 = new Equipe(idEquipe, nomEquipe, categorie);
 
             //envoi de l'objet au dao ModifierEquipeDAO en appelant la méthode addSportif
-            ModifierEquipeDAO.addSportif(s1, e1);
+            ModifierEquipeDAO.addSportif(e1, s1);
         } catch (SQLException ex) {
         }
     }
