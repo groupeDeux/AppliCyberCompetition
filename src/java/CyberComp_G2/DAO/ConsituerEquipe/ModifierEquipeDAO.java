@@ -19,60 +19,62 @@ import javax.sql.rowset.CachedRowSet;
 public class ModifierEquipeDAO {
 
     public static final String insertSportif = 
-            "INSERT INTO SportifEquipe (idSportif, idEquipe) values ('%', '%')";
+            "INSERT INTO LesConstitutionsEquipes (idEquipe, idSportif) values ('%', '%')";
     
-    public static CachedRowSet addSportif(Sportif sportif, Equipe equipe) 
+    public static CachedRowSet addSportif(Equipe equipe, Sportif sportif) 
             throws SQLException {
-        return requeteSportifEquipe(insertSportif, 
-                sportif.getIdSportif(), 
-                equipe.getIdEquipe());
+        return requeteConstitutionEquipe(insertSportif, 
+                equipe.getIdEquipe(),
+                sportif.getIdSportif());
     }
     
     public static final String deleteSportif = 
-            "DELETE FROM SportifEquipe WHERE idSportif=% AND idEquipe=%";
+            "DELETE FROM LesConstitutionsEquipes WHERE idSportif=% AND idEquipe=%";
     
-    public  static CachedRowSet delSportif(Sportif sportif, Equipe equipe) 
+    public  static CachedRowSet delSportif(Equipe equipe, Sportif sportif)  
             throws SQLException {
-        return requeteSportifEquipe(deleteSportif, 
-                sportif.getIdSportif(), 
-                equipe.getIdEquipe());
+        return requeteConstitutionEquipe(deleteSportif, 
+                equipe.getIdEquipe(),
+                sportif.getIdSportif());
     }
     
-    private static CachedRowSet requeteSportifEquipe(String query, 
-            int idSportif, 
-            int idEquipe) 
+    private static CachedRowSet requeteConstitutionEquipe(String query, 
+            int idEquipe, 
+            int idSportif) 
             throws SQLException{
         CachedRowSet crs = new CachedRowSetImpl();  
         crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
-        crs.setCommand(String.format(query, idSportif, idEquipe));
+        crs.setCommand(String.format(query, idEquipe, idSportif));
         crs.execute();
         return crs; 
     } 
     
     public static final String addEquipe = 
-            "INSERT INTO LesEquipes(idParticipant, nomEquipe, pays) " +
-            "VALUES (%, %, %)";
+            "INSERT INTO LesEquipes(idEquipe, nomEquipe, pays, categorie) " +
+            "VALUES (%, '%', '%', '%')";
    
     public static CachedRowSet addEquipe(Equipe equipe) throws SQLException {
-        return requeteAddEquipe(insertSportif, 
-                equipe.getIdParticipant(), 
+        return ModifierEquipeDAO.requeteAddEquipe(insertSportif, 
+                equipe.getIdEquipe(), 
                 equipe.getNomEquipe(),
-                equipe.getPays());
+                equipe.getPays(),
+                equipe.getCategorie());
     }
 
     private static CachedRowSet requeteAddEquipe(String query, 
-            int idParticipant, 
+            int idEquipe, 
             String nomEquipe, 
-            String pays) throws SQLException {
+            String pays,
+            String categorie) throws SQLException {
         CachedRowSet crs = new CachedRowSetImpl();  
         crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
-        crs.setCommand(String.format(query, idParticipant, nomEquipe, pays));
+        crs.setCommand(String.format(query, idEquipe, nomEquipe, pays, categorie));
         crs.execute();
         return crs; 
     }
     
     public static final String deleteEquipe = 
-            "DELETE FROM LesEquipes WHERE idEquipe=%";
+            "DELETE FROM LesEquipes WHERE idEquipe= %";
     
     public  static CachedRowSet delEquipe(Equipe equipe) throws SQLException {
         return requeteDelEquipe(deleteEquipe, equipe.getIdEquipe());
