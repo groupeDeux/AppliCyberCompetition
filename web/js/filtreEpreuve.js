@@ -25,7 +25,7 @@ $epreuves.each(function () {
 
 
 /* Creation du bouton 'Tout' dans l'id 'buttonsTags' */
-$('<li role="presentation" id="toutTag"><a href="#">Tout<span class="badge"></span></a></li>').appendTo($buttons);
+$('<li role="presentation" id="toutTag" class="active"><a href="#">Tout<span class="badge"></span></a></li>').appendTo($buttons);
 
 /* Creation des autres boutons en fonction des tags */
 $.each(tagged, function (tagName) {
