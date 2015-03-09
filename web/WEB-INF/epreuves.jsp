@@ -4,6 +4,7 @@
     Author     : vivi
 --%>
 
+<%@page import="java.util.Random"%>
 <%@page import="CyberComp_G2.Model.ConsulterEpreuve.Epreuve"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import = "java.util.ArrayList" %>
@@ -127,14 +128,17 @@ and open the template in the editor.
                         MEDIA DE LA LISTE DES EPREUVES
                 -->    <%
                     int i;
+                    
                     ArrayList<Epreuve> lesEpreuves = (ArrayList<Epreuve>) request.getAttribute("listEpreuveEquipe");
                     for (i = 0; i < lesEpreuves.size(); i++) {
                         Epreuve epreuveSelectionnee = lesEpreuves.get(i);
+                        int rand = (int )(Math.random() * 5 + 1);
+                        
                 %>
                 <div class="row rowEpreuve" data-tags="<%=epreuveSelectionnee.getCategorie()%>,Equipe">
                     <div class="media">
                         <div class="media-left">
-                            <a href="#media<%=i%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-ski.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Afficher informations supp."></a>
+                            <a href="#media<%=i%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-<%=rand%>.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Afficher informations supp."></a>
                         </div>
 
                         <div class='media-body'>
@@ -155,11 +159,12 @@ and open the template in the editor.
                     lesEpreuves = (ArrayList<Epreuve>) request.getAttribute("listEpreuveInd");
                     for (i = 0; i < lesEpreuves.size(); i++) {
                         Epreuve epreuveSelectionnee = lesEpreuves.get(i);
+                        int randIndiv = (int )(Math.random() * 5 + 1);
                 %>
                 <div class="row rowEpreuve" data-tags="<%=epreuveSelectionnee.getCategorie()%>,Individuelle">
                     <div class="media">
                         <div class="media-left">
-                            <a href="#media<%=i%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-ski.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Afficher informations supp."></a>
+                            <a href="#media<%=i%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-<%=randIndiv%>.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Afficher informations supp."></a>
                         </div>
 
                         <div class='media-body'>
