@@ -62,36 +62,21 @@ and open the template in the editor.
                 </div>
 
                 <div class='row'>
-                    <form class='form'>
+                    <form class='form' action='GetListEpreuve'>
                         <div class='col-xs-3'>
                             <div class='form-group'>
+                                <!--Choix de la liste des disciplines disponible au début-->
                                 <label>Discipline:</label>
                                 <select class="form-control" name='selectDisciplineEpreuve' id='selectionDelegation'>
                                     <option value="">Choix</option>
-                                    <option>Discipline1</option>
-                                    <option>Discipline2</option>
-                                    <option>Discipline3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class='col-xs-3'>
-                            <div class='form-group'>
-                                <label>Categorie</label>
-                                <select class="form-control" id='selectionEquipe'>
-                                    <option value="Toutes">Toutes</option>
-                                    <option value="Masculin">Masculin</option>
-                                    <option value="Feminin">Feminin</option>
-                                    <option value="Mixte">Mixte</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class='col-xs-3'>
-                            <div class='form-group'>
-                                <label>Nom</label>
-                                <select class="form-control" id='selectionEquipe'>
-                                    <option value="">Choix</option>
-                                    <option value="">Jean</option>
-                                    <option value="">Dujardin</option>
+                                    <%
+                                      int nDiscipline=0;
+                                      ArrayList<String> lesDisciplines = (ArrayList<String>) request.getAttribute("listDisciplines");
+                                      for(nDiscipline=0; nDiscipline<lesDisciplines.size();nDiscipline++){
+                                          String discipline = lesDisciplines.get(nDiscipline);
+                                    %>
+                                    <option value='<%=discipline%>'><%=discipline%></option>
+                                    <% }; %>
                                 </select>
                             </div>
                         </div>
@@ -118,11 +103,15 @@ and open the template in the editor.
                 <div class="row">
                     <ul class="nav nav-pills" id="buttonsTags">
                     </ul>
-                </div>
-                <div class='row'>
-                    <hr/>
+                    <br/>
                 </div>
 
+                
+                <div class='row'>
+                    <h3 class='pull-right'>Disciplines</h3>
+                    <h3 class='col-xs-offset-1'>&nbsp;&nbsp;&nbsp;&nbsp;Epreuves</h3>
+                    <hr/>
+                </div>
 
                 <!--
                         MEDIA DE LA LISTE DES EPREUVES
@@ -185,6 +174,7 @@ and open the template in the editor.
                         FOOTER DE LA PAGE
                 -->
                 <footer class="footer">
+                    <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
                     <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
                 </footer>
             </div>

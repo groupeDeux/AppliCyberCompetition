@@ -297,6 +297,7 @@ and open the template in the editor.
                     </div>        
                 </div>
                 <footer class="footer">
+                    <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
                     <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
                 </footer>
             </div>

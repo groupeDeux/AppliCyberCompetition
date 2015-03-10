@@ -7,6 +7,7 @@ package CyberComp_G2.Ctrlers;
 
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
 import CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterEpreuveDAO;
+import CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterDisciplineDAO;
 import CyberComp_G2.Exceptions.CategorieException;
 import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
 import CyberComp_G2.Model.ConstituerEquipe.Delegation;
@@ -44,40 +45,55 @@ public class GetListEpreuve extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String nomDiscipline = request.getParameter("selectDisciplineEpreuve");
+
         CachedRowSet rowSetEpreuveEquipe;
         CachedRowSet rowSetEpreuveInv;
         CachedRowSet rowSetDiscipline;
+
         ArrayList<Epreuve> listEpreuvesEquipe = new ArrayList();
         ArrayList<Epreuve> listEpreuvesInv = new ArrayList();
         ArrayList<String> listDisciplines = new ArrayList();
-       
-            try {
-                // Recuperation rowSet avec appel DAO
+
+        try {
+            // Recuperation rowSet avec appel DAO
+            if (nomDiscipline == null) {
                 rowSetEpreuveEquipe = GetConsulterEpreuveDAO.getEpreuvesEquipe();
-                
-                
-                /* cree un objet Delegation pour chaque ligne du rowset parcouru
-                 et le met dans l arrayList listDelegation */
-                while (rowSetEpreuveEquipe.next()) {
-                    // recupereation du pays uniquement(premiere colonne du rowset recupere)
-                    listEpreuvesEquipe.add(new EpreuveParEquipe(rowSetEpreuveEquipe.getInt(1), rowSetEpreuveEquipe.getString(2), rowSetEpreuveEquipe.getString(3), rowSetEpreuveEquipe.getString(4), rowSetEpreuveEquipe.getString(5), rowSetEpreuveEquipe.getString(6), rowSetEpreuveEquipe.getDouble(7), rowSetEpreuveEquipe.getInt(8), rowSetEpreuveEquipe.getString(9), rowSetEpreuveEquipe.getInt(10)));
-                }
-                rowSetEpreuveInv = GetConsulterEpreuveDAO.getEpreuvesInv();
-                while (rowSetEpreuveInv.next()) {
-                    // recupereation du pays uniquement(premiere colonne du rowset recupere)
-                    listEpreuvesInv.add(new EpreuveIndividuelle(rowSetEpreuveInv.getInt(1), rowSetEpreuveInv.getString(2), rowSetEpreuveInv.getString(3), rowSetEpreuveInv.getString(4), rowSetEpreuveInv.getString(5), rowSetEpreuveInv.getString(6), rowSetEpreuveInv.getDouble(7), rowSetEpreuveInv.getInt(8), rowSetEpreuveInv.getString(9), rowSetEpreuveInv.getInt(10)));
-                }
-                rowSetDiscipline = GetConsulterEpreuveDAO.getDisciplines();
-                while (rowSetDiscipline.next()) {
-                    // recupereation du pays uniquement(premiere colonne du rowset recupere)
-                    listDisciplines.add(rowSetDiscipline.getString(1));
-                }
-
-            } catch (SQLException | CategorieException | nbPlaceAcheterExeception ex) {
-                log(ex.getMessage());
-                ex.printStackTrace();
-
+            } else {
+                rowSetEpreuveEquipe = GetConsulterEpreuveDAO.getEpreuvesParDisciplineEquipe(nomDiscipline);
             }
+
+            /* cree un objet Delegation pour chaque ligne du rowset parcouru
+             et le met dans l arrayList listDelegation */
+            while (rowSetEpreuveEquipe.next()) {
+                // recupereation du pays uniquement(premiere colonne du rowset recupere)
+                listEpreuvesEquipe.add(new EpreuveParEquipe(rowSetEpreuveEquipe.getInt(1), rowSetEpreuveEquipe.getString(2), rowSetEpreuveEquipe.getString(3), rowSetEpreuveEquipe.getString(4), rowSetEpreuveEquipe.getString(5), rowSetEpreuveEquipe.getString(6), rowSetEpreuveEquipe.getDouble(7), rowSetEpreuveEquipe.getInt(8), rowSetEpreuveEquipe.getString(9), rowSetEpreuveEquipe.getInt(10)));
+            }
+            /*
+                
+             */
+            if (nomDiscipline == null) {
+                rowSetEpreuveInv = GetConsulterEpreuveDAO.getEpreuvesInv();
+            }
+            else{
+                    rowSetEpreuveInv = GetConsulterEpreuveDAO.getEpreuvesParDisciplineInv(nomDiscipline);
+            }
+            while (rowSetEpreuveInv.next()) {
+                // recupereation du pays uniquement(premiere colonne du rowset recupere)
+                listEpreuvesInv.add(new EpreuveIndividuelle(rowSetEpreuveInv.getInt(1), rowSetEpreuveInv.getString(2), rowSetEpreuveInv.getString(3), rowSetEpreuveInv.getString(4), rowSetEpreuveInv.getString(5), rowSetEpreuveInv.getString(6), rowSetEpreuveInv.getDouble(7), rowSetEpreuveInv.getInt(8), rowSetEpreuveInv.getString(9), rowSetEpreuveInv.getInt(10)));
+            }
+
+            /* Recupere la liste des disciplines dans un rowSetDiscipline */
+            rowSetDiscipline = GetConsulterDisciplineDAO.getDisciplines();
+            while (rowSetDiscipline.next()) {
+                // recupereation du pays uniquement(premiere colonne du rowset recupere)
+                listDisciplines.add(rowSetDiscipline.getString(1));
+            }
+
+        } catch (SQLException | CategorieException | nbPlaceAcheterExeception ex) {
+            log(ex.getMessage());
+            ex.printStackTrace();
+        }
 
         /* ajoute l'objet listDelegations en attribut de la reponse */
         request.setAttribute("listDisciplines", listDisciplines);
