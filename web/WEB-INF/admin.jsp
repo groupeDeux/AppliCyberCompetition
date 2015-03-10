@@ -106,7 +106,7 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Nom:</label>
                                         <div class='col-xs-6'>
-                                            <input type='text' class='form-control' placeholder="Nom de l'équipe">
+                                            <input type='text' class='form-control' placeholder="Nom de l'équipe" id="nomEquipeCreer">
                                         </div>
                                     </div>
                                 </div>
