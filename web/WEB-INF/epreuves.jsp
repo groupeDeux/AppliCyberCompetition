@@ -42,7 +42,7 @@ and open the template in the editor.
                         <nav>
                             <ul class="nav nav-justified">
                                 <li><a href="index.jsp" data-toggle="tooltip" data-placement="bottom" title="Acceder à l'acceuil">Acceuil</a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder aux disciplines">Disciplines</a></li>
+                                <li><a href="GetListDiscipline" data-toggle="tooltip" data-placement="bottom" title="Acceder aux disciplines">Disciplines</a></li>
                                 <li class='active'><a href="GetListEpreuve" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves">Epreuves</a></li>
                                 <li><a href='#' data-toggle="tooltip" data-placement="bottom" title="Acceder aux résultats des épreuves">Resultats</a></li>
                                 <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder au panier">Panier</a></li>
@@ -117,17 +117,16 @@ and open the template in the editor.
                         MEDIA DE LA LISTE DES EPREUVES
                 -->    <%
                     int i;
-                    
+                    int lesId=0;
                     ArrayList<Epreuve> lesEpreuves = (ArrayList<Epreuve>) request.getAttribute("listEpreuveEquipe");
                     for (i = 0; i < lesEpreuves.size(); i++) {
                         Epreuve epreuveSelectionnee = lesEpreuves.get(i);
-                        int rand = (int )(Math.random() * 5 + 1);
-                        
+                        lesId=lesId+i;
                 %>
                 <div class="row rowEpreuve" data-tags="<%= epreuveSelectionnee.getCategorie()%>,Equipe">
                     <div class="media">
                         <div class="media-left">
-                            <a href="#media<%=i%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-<%=rand%>.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Afficher informations supp."></a>
+                            <a href="#media<%=lesId%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Afficher informations supp."></a>
                         </div>
 
                         <div class='media-body'>
@@ -135,7 +134,7 @@ and open the template in the editor.
                             <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
                             <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
                             <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
-                            <div class="collapse"  id="media<%=i%>">
+                            <div class="collapse"  id="media<%=lesId%>">
                                 <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                                     Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
@@ -145,15 +144,16 @@ and open the template in the editor.
                 </div>
                 <%}%>
                 <%
+                    
                     lesEpreuves = (ArrayList<Epreuve>) request.getAttribute("listEpreuveInd");
                     for (i = 0; i < lesEpreuves.size(); i++) {
                         Epreuve epreuveSelectionnee = lesEpreuves.get(i);
-                        int randIndiv = (int )(Math.random() * 5 + 1);
+                        lesId=lesId+i;
                 %>
                 <div class="row rowEpreuve" data-tags="<%=epreuveSelectionnee.getCategorie()%>,Individuelle">
                     <div class="media">
                         <div class="media-left">
-                            <a href="#media<%=i%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-<%=randIndiv%>.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Afficher informations supp."></a>
+                            <a href="#media<%=lesId%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Afficher informations supp."></a>
                         </div>
 
                         <div class='media-body'>
@@ -161,7 +161,7 @@ and open the template in the editor.
                             <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
                             <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
                             <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
-                            <div class="collapse"  id="media<%=i%>">
+                            <div class="collapse"  id="media<%=lesId%>">
                                 <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                                     Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>

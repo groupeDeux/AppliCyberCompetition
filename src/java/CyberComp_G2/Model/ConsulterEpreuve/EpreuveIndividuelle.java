@@ -16,7 +16,7 @@ import java.util.Date;
  */
 public class EpreuveIndividuelle  extends Epreuve{
     public EpreuveIndividuelle(int idEpreuve,String nomDiscipline,String nomEpreuve, String dateDebut, String dateFin, String urlVideo, double tarif, int nbDePlace, String categorie, int nbPlaceAcheter) throws CategorieException, nbPlaceAcheterExeception{
-        super(idEpreuve,nomDiscipline,nomEpreuve, dateDebut, dateFin, urlVideo, tarif, nbDePlace, categorie, nbPlaceAcheter);
+        super(idEpreuve,nomEpreuve,nomDiscipline, dateDebut, dateFin, urlVideo, tarif, nbDePlace, categorie, nbPlaceAcheter);
     }
     
 }

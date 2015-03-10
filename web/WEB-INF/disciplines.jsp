@@ -1,16 +1,11 @@
 <%-- 
-    Document   : index
-    Created on : 6 mars 2015, 13:11:28
+    Document   : disciplines
+    Created on : 10 mars 2015, 14:38:25
     Author     : Gato
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -42,8 +37,8 @@ and open the template in the editor.
                         <h2 class="text-muted">CyberCompetition</h2>
                         <nav>
                             <ul class="nav nav-justified">
-                                <li class='active'><a href="index.jsp" data-toggle="tooltip" data-placement="bottom" title="Acceder à l'acceuil">Accueil</a></li>
-                                <li><a href="GetListDiscipline" data-toggle="tooltip" data-placement="bottom" title="Acceder aux disciplines">Disciplines</a></li>
+                                <li><a href="index.jsp" data-toggle="tooltip" data-placement="bottom" title="Acceder à l'acceuil">Accueil</a></li>
+                                <li class='active'><a href="GetListDiscipline" data-toggle="tooltip" data-placement="bottom" title="Acceder aux disciplines">Disciplines</a></li>
                                 <li><a href="GetListEpreuve" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves">Epreuves</a></li>
                                 <li><a href='#' data-toggle="tooltip" data-placement="bottom" title="Acceder aux résultats des épreuves">Resultats</a></li>
                                 <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder au panier">Panier</a></li>
@@ -52,11 +47,31 @@ and open the template in the editor.
                         </nav>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="jumbotron">
-                        <h1>CyberCompetition</h1>
-                        <p class="lead">Bienvenue sur le site de <strong>CyberCompetition</strong>, ne touchez pas les murs, la peinture est fraiche !</p>
-                    </div>    
+
+                <div class='row'>
+                    <div class="page-header text-center">
+                        <h2><small>Liste des</small> Disciplines</h2>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <%
+                        int nDiscipline = 0;
+                        ArrayList<String> lesDisciplines = (ArrayList<String>) request.getAttribute("listDisciplines");
+                        for (nDiscipline = 0; nDiscipline < lesDisciplines.size(); nDiscipline++) {
+                            String discipline = lesDisciplines.get(nDiscipline);
+                    %>
+                    <div class='col-xs-4'>
+                        <div class='thumbnail'>
+                            <img src="./img/image-media-<%=discipline%>T.jpg" alt=".." style="margin-top: 10px;" class="img-rounded">
+                            <div class="caption">
+                                <h3 class="text-center"><%=discipline%></h3>
+                                <p>Une belle description d'une discipline se trouvera ici !</p>
+                                <p><a href="#" class="btn btn-default btn-block" role='button' name="<%=discipline%>" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves de cette discipline">Liste des épreuves de <%=discipline%></a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <% };%>
                 </div>
                 <footer class="footer">
                     <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
@@ -64,9 +79,10 @@ and open the template in the editor.
                 </footer>
             </div>
         </div>
-        <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/cyberCompetition.js" ></script>
+        <script>
+            $('a[name]').click(function(){document.location.href="GetListEpreuve?selectDisciplineEpreuve="+$(this).attr("name");});
+        </script>
     </body>
 </html>
-
