@@ -43,7 +43,7 @@ and open the template in the editor.
                         <nav>
                             <ul class="nav nav-justified">
                                 <li><a href="index.jsp" data-toggle="tooltip" data-placement="bottom" title="Acceder à l'acceuil">Acceuil</a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder aux disciplines">Disciplines</a></li>
+                                <li><a href="GetListDiscipline" data-toggle="tooltip" data-placement="bottom" title="Acceder aux disciplines">Disciplines</a></li>
                                 <li><a href="GetListEpreuve" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves">Epreuves</a></li>
                                 <li><a href='#' data-toggle="tooltip" data-placement="bottom" title="Acceder aux résultats des épreuves">Resultats</a></li>
                                 <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder au panier">Panier</a></li>
@@ -82,8 +82,10 @@ and open the template in the editor.
                                 <div class="well">
                                     Cette page vous permet de creer une équipe.
                                 </div>
+                                <h4><strong>L'equipe : </strong></h4>
                                 <div class="row">
                                     <div class="form-group">
+                                        
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
                                             <select class="form-control" id='selectionDelegationCreer' name='listDeleg'>
@@ -112,11 +114,11 @@ and open the template in the editor.
                                 </div>
                                 <div class='row'>
                                     <div class='form-group'>
-                                        <label class='col-xs-3 control-label'>Type :</label>
-                                        <div class="col-xs-6">
+                                        <label class='col-xs-3 control-label'>Categorie :</label>
+                                        <div class="col-xs-6 " id="radioboutons" >
                                             <div class='radio-inline'>
                                                 <label>
-                                                    <input type="radio" name="radioType" value="Masculin" checked>
+                                                    <input  type="radio" name="radioType" value="Masculin" checked>
                                                     Masculin
                                                 </label>
                                             </div>
@@ -142,6 +144,46 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                 </div>
+                                <h4 style="display: none" id="titreLesSportifs"><strong>Les sportifs : </strong></h4>
+                                 <div id="ajout" hidden="true">
+                                    <div class="form-group">
+                                        <label class='col-xs-3 control-label'>Nom :</label>
+                                        <div class='col-xs-6'>
+                                            <select class="form-control" id='selectNomAjouter1'>
+                                                <option value="">Choix</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class='col-xs-3 control-label'>Nom :</label>
+                                        <div class='col-xs-6'>
+                                            <select class="form-control" id='selectNomAjouter2'>
+                                                <option value="">Choix</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="nbSportif" hidden="true" value="2">2</div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-1 col-xs-offset-7">
+                                            <button style="display: none" type="button" class="btn btn-danger btn-block " id="valSuprimerSportif" ><span class="glyphicon glyphicon-minus"></span></button>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <button style="display: none" type="button" class="btn btn-primary btn-block " id="valAjouterSportif"><span class="glyphicon glyphicon-plus"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="ValCreationEquipe" style="display: none">
+                                    <div class="form-group">
+                                        <div class="col-xs-3 ">
+                                            <button type="button" class="btn btn-danger btn-block " id="annulerCreerSpoptif" >Annuler</button>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <button  type="submit" class="btn btn-default btn-block " id="validerCreerSpotif">Creer Equipe</button>
+                                        </div>
+                                    </div>
+                                </div> 
                             </form>
                         </div>
 
@@ -234,13 +276,6 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <div class='col-xs-offset-3 col-xs-6'>
                                             <button type="button" class="btn btn-danger btn-block">Supprimer&nbsp;<span class="glyphicon glyphicon-trash"></span></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class='row'>
-                                    <div class="form-group">
-                                        <div class='col-xs-6 col-xs-offset-3'>
-                                            <button type="submit" class="btn btn-primary btn-block">Valider modification &nbsp;<span class="glyphicon glyphicon-save"></span></button>
                                         </div>
                                     </div>
                                 </div>

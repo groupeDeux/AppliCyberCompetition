@@ -8,6 +8,7 @@ package CyberComp_G2.Ctrlers;
 
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
 import CyberComp_G2.Model.ConstituerEquipe.Delegation;
+import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -59,7 +60,8 @@ public class GetListDelegation extends HttpServlet {
         }
         
         /* ajoute l'objet listDelegations en attribut de la reponse */
-       
+        Equipe newEquipe = null;
+        request.setAttribute("newEquipe", newEquipe);
         request.setAttribute("listDelegations", listDelegations);
         request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
     }
