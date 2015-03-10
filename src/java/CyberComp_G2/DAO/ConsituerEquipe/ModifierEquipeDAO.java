@@ -19,7 +19,7 @@ import javax.sql.rowset.CachedRowSet;
 public class ModifierEquipeDAO {
 
     public static final String insertSportif = 
-            "INSERT INTO LesConstitutionsEquipes (idEquipe, idSportif) values ('%', '%')";
+            "INSERT INTO LesConstitutionsEquipes (idEquipe, idSportif) values (%d, %d)";
     
     public static CachedRowSet addSportif(Equipe equipe, Sportif sportif) 
             throws SQLException {
@@ -29,7 +29,7 @@ public class ModifierEquipeDAO {
     }
     
     public static final String deleteSportif = 
-            "DELETE FROM LesConstitutionsEquipes WHERE idSportif=% AND idEquipe=%";
+            "DELETE FROM LesConstitutionsEquipes WHERE idSportif=%d AND idEquipe= %d";
     
     public  static CachedRowSet delSportif(Equipe equipe, Sportif sportif)  
             throws SQLException {
@@ -51,7 +51,7 @@ public class ModifierEquipeDAO {
     
     public static final String addEquipe = 
             "INSERT INTO LesEquipes(idEquipe, nomEquipe, categorie, nbMembre) " +
-            "VALUES (%, '%', '%', %)";
+            "VALUES (%d, '%s', '%s', %d)";
    
     public static CachedRowSet addEquipe(Equipe equipe) throws SQLException {
         return requeteAddEquipe(insertSportif, 
@@ -74,7 +74,7 @@ public class ModifierEquipeDAO {
     }
     
     public static final String deleteEquipe = 
-            "DELETE FROM LesEquipes WHERE idEquipe= %";
+            "DELETE FROM LesEquipes WHERE idEquipe= %d";
     
     public  static CachedRowSet delEquipe(Equipe equipe) throws SQLException {
         return requeteDelEquipe(deleteEquipe, equipe.getIdEquipe());
