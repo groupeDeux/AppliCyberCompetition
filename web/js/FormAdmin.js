@@ -4,11 +4,9 @@
  * and open the template in the editor.
  */
 $("#valCreer").on('click', function () {
-    var delegation = document.getElementById("selectDelegationModifier").value;
-    if(delegation == "") {
-        document.getElementById("verifDelegationCreer").innerHTML="<span class='glyphicon glyphicon-remove'></span>";
+    var delegation = document.getElementById("selectionDelegationCreer").value;
+    if(delegation === "") {    
     }else{
-        document.getElementById("verifDelegationCreer").innerHTML="<span class='glyphicon glyphicon-ok'></span>";
         //document.location.href="GetListEpreuve";
         $("#tabs").tabs({
             active: 1
@@ -18,7 +16,14 @@ $("#valCreer").on('click', function () {
     }
     
 });
-
+$("#selectionDelegationCreer").on('change', function () {
+    var delegation = document.getElementById("selectionDelegationCreer").value;
+    if(delegation === "") {
+        document.getElementById("verifDelegationCreer").innerHTML="<span class='glyphicon glyphicon-remove'></span>";
+    }else{
+        document.getElementById("verifDelegationCreer").innerHTML="<span class='glyphicon glyphicon-ok'></span>";
+    }
+});
 //$("select[name='selectDelegationModifier']").on('change', function () {
 //    var delegation = document.getElementById("selectDelegationModifier").value;
 //    if (delegation !== "") {
