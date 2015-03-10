@@ -68,7 +68,7 @@ and open the template in the editor.
                                 <!--Choix de la liste des disciplines disponible au début-->
                                 <label>Discipline:</label>
                                 <select class="form-control" name='selectDisciplineEpreuve' id='selectionDelegation'>
-                                    <option value="">Choix</option>
+                                    <option value="Tout">Tout</option>
                                     <%
                                       int nDiscipline=0;
                                       ArrayList<String> lesDisciplines = (ArrayList<String>) request.getAttribute("listDisciplines");

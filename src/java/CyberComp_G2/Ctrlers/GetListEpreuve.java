@@ -48,7 +48,7 @@ public class GetListEpreuve extends HttpServlet {
             throws ServletException, IOException {
 
         String nomDiscipline = request.getParameter("selectDisciplineEpreuve");
-
+        //if(nomDiscipline.equals("Tout")){nomDiscipline=null;}
         CachedRowSet rowSetEpreuveEquipe;
         CachedRowSet rowSetEpreuveInv;
         CachedRowSet rowSetDiscipline;
@@ -59,7 +59,7 @@ public class GetListEpreuve extends HttpServlet {
 
         try {
             // Recuperation rowSet avec appel DAO
-            if (nomDiscipline == null) {
+            if (nomDiscipline == null || nomDiscipline.equals("Tout")) {
                 rowSetEpreuveEquipe = GetConsulterEpreuveDAO.getEpreuvesEquipe();
 
             } else {
@@ -75,7 +75,7 @@ public class GetListEpreuve extends HttpServlet {
             /*
                 
              */
-            if (nomDiscipline == null) {
+            if (nomDiscipline == null || nomDiscipline.equals("Tout")) {
                 rowSetEpreuveInv = GetConsulterEpreuveDAO.getEpreuvesInv();
             } else {
                 rowSetEpreuveInv = GetConsulterEpreuveDAO.getEpreuvesParDisciplineInv(nomDiscipline);
