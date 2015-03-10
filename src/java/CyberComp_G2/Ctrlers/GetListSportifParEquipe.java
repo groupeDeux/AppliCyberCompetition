@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- *
+ *Renvoie le contenue Html d'un select contenant
+ * La list des Srpotif de l'equipe (idEquipe fournie)
  * @author vivi
  */
 @WebServlet(name = "GetListSportifParEquipe", urlPatterns = {"/GetListSportifParEquipe"})

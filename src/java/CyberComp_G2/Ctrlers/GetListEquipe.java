@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- *
+ *Renvoie le contenue Html d'un select contenant
+ * La list des  equipe de la deleagtion fournie.
  * @author Gato
  */
 @WebServlet(name = "GetListEquipe", urlPatterns = {"/GetListEquipe"})
@@ -45,21 +46,13 @@ public class GetListEquipe extends HttpServlet {
             out.println("<option value=''>Choix</option>");
             while(rowSetEquipeParDelegation.next()){
                 String nomEquipe = rowSetEquipeParDelegation.getString("nomEquipe");
-//               if (nomEquipe.equals("null")) {
-//                    nomEquipe="pas de nom";
-//               }
                 rep.append("<option value='").append(rowSetEquipeParDelegation.getString("idEquipe")).append("'>").append(rowSetEquipeParDelegation.getString("idEquipe")).append(" : ").append(nomEquipe);
             }
             out.println(rep);
         }catch (SQLException ex){
             log(ex.getMessage());
         }
-        
-      
-       
-//        for(int i=1; i<5; i++){
-//            rep.append("<option value='").append("value").append(i).append("'>").append(nomDelegation).append(i).append("</option>");
-//        }
+
         
         
         
