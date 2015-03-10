@@ -26,7 +26,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- *
+ *Crée  la liste des epreuve par eqipe
+ * crée la liste des epruve individuel
+ * cree la liste des disciplines
+ * Appel  la page epreuves.jsp
  * @author vivi
  */
 @WebServlet(name = "GetListEpreuve", urlPatterns = {"/GetListEpreuve"})
@@ -54,22 +57,24 @@ public class GetListEpreuve extends HttpServlet {
             try {
                 // Recuperation rowSet avec appel DAO
                 rowSetEpreuveEquipe = GetConsulterEpreuveDAO.getEpreuvesEquipe();
-                
-                
-                /* cree un objet Delegation pour chaque ligne du rowset parcouru
-                 et le met dans l arrayList listDelegation */
+                /* cree un objet Epreuve pour chaque ligne du rowset parcouru
+                 et le met dans l arrayList listEpreuvePArEquipe */
                 while (rowSetEpreuveEquipe.next()) {
-                    // recupereation du pays uniquement(premiere colonne du rowset recupere)
+                    // recupereation dles info le l'epreuve
                     listEpreuvesEquipe.add(new EpreuveParEquipe(rowSetEpreuveEquipe.getInt(1), rowSetEpreuveEquipe.getString(2), rowSetEpreuveEquipe.getString(3), rowSetEpreuveEquipe.getString(4), rowSetEpreuveEquipe.getString(5), rowSetEpreuveEquipe.getString(6), rowSetEpreuveEquipe.getDouble(7), rowSetEpreuveEquipe.getInt(8), rowSetEpreuveEquipe.getString(9), rowSetEpreuveEquipe.getInt(10)));
                 }
                 rowSetEpreuveInv = GetConsulterEpreuveDAO.getEpreuvesInv();
+                 /* cree un objet Epreuve pour chaque ligne du rowset parcouru
+                 et le met dans l arrayList listEpreuveInv */
                 while (rowSetEpreuveInv.next()) {
-                    // recupereation du pays uniquement(premiere colonne du rowset recupere)
+                    // recupereation dles info le l'epreuve
                     listEpreuvesInv.add(new EpreuveIndividuelle(rowSetEpreuveInv.getInt(1), rowSetEpreuveInv.getString(2), rowSetEpreuveInv.getString(3), rowSetEpreuveInv.getString(4), rowSetEpreuveInv.getString(5), rowSetEpreuveInv.getString(6), rowSetEpreuveInv.getDouble(7), rowSetEpreuveInv.getInt(8), rowSetEpreuveInv.getString(9), rowSetEpreuveInv.getInt(10)));
                 }
                 rowSetDiscipline = GetConsulterEpreuveDAO.getDisciplines();
+                 /* cree un objet String pour chaque ligne du rowset parcouru
+                 et le met dans l arrayList llistDisciplines */
                 while (rowSetDiscipline.next()) {
-                    // recupereation du pays uniquement(premiere colonne du rowset recupere)
+                    // recupereation du nom de la discipline
                     listDisciplines.add(rowSetDiscipline.getString(1));
                 }
 

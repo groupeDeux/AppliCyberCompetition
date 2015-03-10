@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- *
+ *Creer la liste des delagation
+ * Apel la page admin.jsp
  * @author fureta
  */
 @WebServlet(name = "GetListDelegation", urlPatterns = {"/GetListDelegation"})
@@ -48,7 +49,7 @@ public class GetListDelegation extends HttpServlet {
              /* cree un objet Delegation pour chaque ligne du rowset parcouru
                 et le met dans l arrayList listDelegation */
              while(rowSetDelegation.next()){
-                // recupereation du pays uniquement(premiere colonne du rowset recupere)
+                // recupereation du pays (premiere colonne ) et du nombre de sportif (2ieme colonne)
                  listDelegations.add(new Delegation(rowSetDelegation.getString(1),rowSetDelegation.getInt(2)));
     
              }

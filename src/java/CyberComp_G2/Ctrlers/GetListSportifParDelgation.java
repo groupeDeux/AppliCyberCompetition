@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- *
+ * Renvoie le contenue Html d'un select contenant
+ * La list des Srpotif de la deleagtion fournie.
  * @author vivi
  */
 @WebServlet(name = "GetListSportifParDelgation", urlPatterns = {"/GetListSportifParDelgation"})
@@ -45,9 +46,6 @@ public class GetListSportifParDelgation extends HttpServlet {
             while(rowSetSportifParDelegation.next()){
                 String nomSportif = rowSetSportifParDelegation.getString("nom");
                 String prenomSportif = rowSetSportifParDelegation.getString("prenom");
-//               if (nomEquipe.equals("null")) {
-//                    nomEquipe="pas de nom";
-//               }
                 rep.append("<option value='").append(rowSetSportifParDelegation.getString("idSportif")).append("'>").append(rowSetSportifParDelegation.getString("idSportif")).append(" : ").append(nomSportif).append(" ").append(prenomSportif);
             }
             out.println(rep);
