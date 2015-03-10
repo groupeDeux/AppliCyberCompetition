@@ -46,7 +46,7 @@ and open the template in the editor.
                                 <li class='active'><a href="GetListEpreuve" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves">Epreuves</a></li>
                                 <li><a href='#' data-toggle="tooltip" data-placement="bottom" title="Acceder aux résultats des épreuves">Resultats</a></li>
                                 <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder au panier">Panier</a></li>
-                                <li><a href='getListDelegation' data-toggle="tooltip" data-placement="bottom" title="Acceder aux fonctions d'administration">Admin</a></li>
+                                <li><a href='GetListDelegation' data-toggle="tooltip" data-placement="bottom" title="Acceder aux fonctions d'administration">Admin</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -66,7 +66,7 @@ and open the template in the editor.
                         <div class='col-xs-3'>
                             <div class='form-group'>
                                 <label>Discipline:</label>
-                                <select class="form-control" id='selectionDelegation'>
+                                <select class="form-control" name='selectDisciplineEpreuve' id='selectionDelegation'>
                                     <option value="">Choix</option>
                                     <option>Discipline1</option>
                                     <option>Discipline2</option>
@@ -135,7 +135,7 @@ and open the template in the editor.
                         int rand = (int )(Math.random() * 5 + 1);
                         
                 %>
-                <div class="row rowEpreuve" data-tags="<%=epreuveSelectionnee.getCategorie()%>,Equipe">
+                <div class="row rowEpreuve" data-tags="<%= epreuveSelectionnee.getCategorie()%>,Equipe">
                     <div class="media">
                         <div class="media-left">
                             <a href="#media<%=i%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-<%=rand%>.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Afficher informations supp."></a>
