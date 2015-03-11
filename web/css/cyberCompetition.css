@@ -118,3 +118,9 @@ footer.footer {
 .rowEpreuve{
     margin-bottom: 20px;
 }
+
+
+h2.text-muted > a{
+    color: #777;
+    text-decoration: none;
+}
