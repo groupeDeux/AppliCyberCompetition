@@ -176,10 +176,10 @@ and open the template in the editor.
                                 </div>
                                 <div class="row" id="ValCreationEquipe" style="display: none">
                                     <div class="form-group">
-                                        <div class="col-xs-3 ">
+                                        <div class="col-xs-2 col-xs-offset-3 ">
                                             <button type="button" class="btn btn-danger btn-block " id="annulerCreerSpoptif" >Annuler</button>
                                         </div>
-                                        <div class="col-xs-6">
+                                        <div class="col-xs-4">
                                             <button  type="submit" class="btn btn-default btn-block " id="validerCreerSpotif">Creer Equipe</button>
                                         </div>
                                     </div>
