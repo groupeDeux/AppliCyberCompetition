@@ -18,12 +18,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- *Renvoie le contenue Html d'un select contenant
- * La list des  equipe de la deleagtion fournie.
+ *Renvoie le contenu Html d'un select contenant
+ * La list des  equipes de la delegation fournie.
  * @author Gato
  */
+
+/*  ATTENTION MEME NOM QUE POUR GETLISTDUNEDELAGATION.JAJA !!!!!!!
+---->  A MODIFIER */
+
 @WebServlet(name = "GetListEquipe", urlPatterns = {"/GetListEquipe"})
-public class GetListEquipe extends HttpServlet {
+public class GetListEquipeDUneDelegation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

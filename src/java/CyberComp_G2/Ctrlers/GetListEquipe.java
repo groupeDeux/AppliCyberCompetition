@@ -6,96 +6,53 @@
 package CyberComp_G2.Ctrlers;
 
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
+import CyberComp_G2.DAO.InscrireParticipantAEpreuve.GetParticipantsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.rmi.server.LogStream.log;
 import java.sql.SQLException;
-import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- *Renvoie le contenue Html d'un select contenant
- * La list des  equipe de la deleagtion fournie.
- * @author Gato
+ * Renvoi une liste d'objets java de classe Equipes
+ * pour toutes les equipes de la competition
+ * @author agathe
  */
-@WebServlet(name = "GetListEquipe", urlPatterns = {"/GetListEquipe"})
-public class GetListEquipe extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+/*  ATTENTION MEME NOM QUE POUR GETLISTDUNEDELAGATION.JAJA !!!!!!!
+---->  A MODIFIER */
+
+@WebServlet(name = "GetListEquipe", urlPatterns = {"/GetListEquipe"})
+public class GetListEquipe {
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         StringBuilder rep = new StringBuilder();
-         String delegation = request.getParameter("delegation");
-         
-         try(PrintWriter out = response.getWriter()){
+        StringBuilder rep = new StringBuilder(); // On en a besoin ici?  
+        String categorie = request.getParameter("categorie"); // qu'est ce que la request  ??
+        
+        try(PrintWriter out = response.getWriter()){
             
-            CachedRowSet rowSetEquipeParDelegation=GetConsulterEquipeDAO.getEquipesDUneDelegation(delegation);
-            out.println("<option value=''>Choix</option>");
-            while(rowSetEquipeParDelegation.next()){
-                String nomEquipe = rowSetEquipeParDelegation.getString("nomEquipe");
-                rep.append("<option value='").append(rowSetEquipeParDelegation.getString("idEquipe")).append("'>").append(rowSetEquipeParDelegation.getString("idEquipe")).append(" : ").append(nomEquipe);
+            // recuperation des donnees BD chargees avec DAO dans un rowSet
+            CachedRowSet rowSetEquipes=GetParticipantsDAO.getEquipes();
+            /*Parcours du rowSet pour creer la liste deroulante 
+             * au format html    ?? 
+             * rowSetEquipe.getString("pays") --> le row set connait le nom des colonnes ??
+             */
+           
+            while(rowSetEquipes.next()){
+                String pays = rowSetEquipes.getString("pays");
+                String idEquipe = rowSetEquipes.getString("idEquipe");
+                rep.append("<option value='").append(rowSetEquipes.getString("idEquipe")).append("'>").append(pays).append(" ").append(idEquipe);
             }
             out.println(rep);
         }catch (SQLException ex){
             log(ex.getMessage());
         }
-
-        
-        
-        
-        
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    } 
+    
 }
