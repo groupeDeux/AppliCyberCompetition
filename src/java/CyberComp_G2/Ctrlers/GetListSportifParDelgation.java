@@ -46,7 +46,7 @@ public class GetListSportifParDelgation extends HttpServlet {
             while(rowSetSportifParDelegation.next()){
                 String nomSportif = rowSetSportifParDelegation.getString("nom");
                 String prenomSportif = rowSetSportifParDelegation.getString("prenom");
-                rep.append("<option value='").append(rowSetSportifParDelegation.getString("idSportif")).append("'>").append(rowSetSportifParDelegation.getString("idSportif")).append(" : ").append(nomSportif).append(" ").append(prenomSportif);
+                rep.append("<option value='").append(rowSetSportifParDelegation.getString("idSportif")).append("'>").append(rowSetSportifParDelegation.getString("idSportif")).append(" : ").append(nomSportif).append(" ").append(prenomSportif).append("</option>");
             }
             out.println(rep);
         }catch (SQLException ex){

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -58,9 +59,19 @@ and open the template in the editor.
                         <p class="lead">Bienvenue sur le site de <strong>CyberCompetition</strong>, ne touchez pas les murs, la peinture est fraiche !</p>
                     </div>    
                 </div>
+
+                <!-- 
+                       Afficher la date de dernier mise à jour Ce tag contient
+                    du code Java nommé un scriptlet.
+                -->
                 <footer class="footer">
-                    <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
+                    <%! Date dateDuJour;%>
+                    <% dateDuJour = new Date();%>
+
+                    <p class='text-muted pull-right'><i> Date de dernier mise à jour : <%= dateDuJour%><BR></i></p>
+
                     <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
+
                 </footer>
             </div>
         </div>
