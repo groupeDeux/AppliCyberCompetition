@@ -5,9 +5,10 @@
  */
 package CyberComp_G2.Ctrlers;
 
-import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
+import CyberComp_G2.DAO.InscrireParticipantAEpreuve.GetParticipantsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.rmi.server.LogStream.log;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,12 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- * Renvoie le contenue Html d'un select contenant
- * La list des Srpotif de la deleagtion fournie.
- * @author vivi
+ *
+ * @author magourar
  */
-@WebServlet(name = "GetListSportifParDelgation", urlPatterns = {"/GetListSportifParDelgation"})
-public class GetListSportifParDelgation extends HttpServlet {
+@WebServlet(name = "GetListSportifParGenre", urlPatterns = {"/GetListSportifParGenre"})
+public class GetListSportifParGenre extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,20 +36,25 @@ public class GetListSportifParDelgation extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        StringBuilder rep = new StringBuilder();
-         String delegation = request.getParameter("delegation");
-         
-         try(PrintWriter out = response.getWriter()){
-            
-            CachedRowSet rowSetSportifParDelegation=GetConsulterEquipeDAO.getSportifsDUneDelegation(delegation);
-            out.println("<option value=''>Choix</option>");
-            while(rowSetSportifParDelegation.next()){
-                String nomSportif = rowSetSportifParDelegation.getString("nom");
-                String prenomSportif = rowSetSportifParDelegation.getString("prenom");
-                rep.append("<option value='").append(rowSetSportifParDelegation.getString("idSportif")).append("'>").append(rowSetSportifParDelegation.getString("idSportif")).append(" : ").append(nomSportif).append(" ").append(prenomSportif).append("</option>");
+        StringBuilder rep = new StringBuilder(); // On en a besoin pour construire la page HTML ?  
+        String categorie = request.getParameter("categorie"); // le controleur récupere le parametre categorie issu de la page Html   ??
+
+        try (PrintWriter out = response.getWriter()) {
+
+            // recuperation des donnees BD chargees avec DAO dans un rowSet
+            CachedRowSet rowSetSportifParGenre = GetParticipantsDAO.getSportifsParGenre(categorie);
+            //Parcours du rowSet pour creer la liste deroulante via "<option value=' de tout les  sportifs  classé par categorie feminin /masculin 
+            // chaque ligne de la liste déroulante comporte l'idSportif + le nom +le prénom 
+
+            while (rowSetSportifParGenre.next()) {
+                String idSportif = rowSetSportifParGenre.getString("idSportif");
+                String nom = rowSetSportifParGenre.getString("nom");
+                String prenom = rowSetSportifParGenre.getString("prenom");
+                //ajouter à la liste déroulante toute les ligne 
+                rep.append("<option value='").append(rowSetSportifParGenre.getString("idSportif")).append("'>").append(idSportif).append(" : ").append(nom).append(" ").append(prenom).append("</option>");
             }
             out.println(rep);
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             log(ex.getMessage());
         }
     }

@@ -26,52 +26,76 @@ public class GetConsulterEquipeDAO {
             "SELECT * FROM viewDelegation order by pays";
     
     public static final String lesEquipesDUneDelegation = 
-            "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant) WHERE pays ='%s' order by idEquipe";
+            "SELECT * FROM LesEquipes E JOIN LesParticipants P "
+            + "on (E.idEquipe=P.idParticipant) WHERE pays ='%s' order by idEquipe";
+    
+    public static final String lesSportifsSelonGenre = 
+            "SELECT * FROM LesSportifs E JOIN LesParticipants P "
+            + "ON (E.idEquipe = P.idParticipant) WHERE pays='%s' AND genre='%s'";
     
     public static final String lesSportifsDUneEquipe = 
-            "SELECT * FROM LESCONSTITUTIONSEQUIPE join LESSPORTIFS USING (idSportif) where idEquipe =%d order by nom";
+            "SELECT * FROM LESCONSTITUTIONSEQUIPE join LESSPORTIFS USING (idSportif) "
+            + "where idEquipe =%d order by nom";
     
     public static final String lesSportifsDUneDelegation = 
-            "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) WHERE pays='%s' order by nom";
+            "SELECT * FROM LesSportifs S JOIN LesParticipants P"
+            + " on (S.idSportif=P.idParticipant) WHERE pays='%s' order by nom";
     
     /**
-     *  retourne la liste des delegations
+     *  retourne la liste des |Delegation|s
      * @return
      * @throws SQLException 
      */
+    
     public static CachedRowSet getDelegations() throws SQLException{
         return getConsulterEquipe(lesDelegations,"");
     }
+    
     /**
-     * retroune la lsite des equipes d'un  delegation
+     * retroune la liste des |Equipe|s d'une |Delegation| donnée
      * @param pays
      * @return
      * @throws SQLException 
      */
+    
     public static CachedRowSet getEquipesDUneDelegation(String pays) 
             throws SQLException{
         return getConsulterEquipe(lesEquipesDUneDelegation, pays);
     }
     
     /**
-     * reroune la liste des sportif d'une equipe
+     * retourne la liste des |Sportif|s du même |Genre| faisant partie de la même 
+     * |Delegation| (pour un |Pays| donné)
+     * @param pays
+     * @param genre
+     * @return
+     * @throws SQLException 
+     */
+    
+    public static CachedRowSet getSportifsSelonGenre(String pays, String genre)
+            throws SQLException {
+        return getConsulterEquipe(lesSportifsSelonGenre, pays, genre);    
+    }
+    /**
+     * retourne la liste des |Sportif|s d'une |Equipe|
      * @param idEquipe
      * @return
      * @throws SQLException
      */
+    
     public static CachedRowSet getSportifsDUneEquipe(int idEquipe) 
             throws SQLException{
         return getConsulterEquipe(lesSportifsDUneEquipe, idEquipe);
     }
     
     
-    
     /**
-     * retroune la lsite des Sportif d'une delegation
+     * retroune la liste des |Sportif|s d'une |Delegation|
      * @param pays
      * @return
      * @throws SQLException
      */
+    
     public static CachedRowSet getSportifsDUneDelegation(String pays) throws SQLException{
         return getConsulterEquipe(lesSportifsDUneDelegation, pays);
     } 
@@ -93,5 +117,14 @@ public class GetConsulterEquipeDAO {
         crs.setCommand(String.format(query,selecteur));
         crs.execute();
         return crs;
+    }
+    
+    private static CachedRowSet getConsulterEquipe(String query, String pays, String genre)
+            throws SQLException {
+        CachedRowSet crs = new CachedRowSetImpl();
+        crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
+        crs.setCommand(String.format(query, pays, genre));
+        crs.execute();
+        return crs; 
     }
 }

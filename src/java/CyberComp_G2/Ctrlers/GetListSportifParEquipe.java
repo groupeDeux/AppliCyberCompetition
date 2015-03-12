@@ -48,7 +48,7 @@ public class GetListSportifParEquipe extends HttpServlet {
 //               if (nomEquipe.equals("null")) {
 //                    nomEquipe="pas de nom";
 //               }
-                rep.append("<option value='").append(rowSetSportifParDelegation.getString("idSportif")).append("'>").append(rowSetSportifParDelegation.getString("idSportif")).append(" : ").append(nomSportif).append(" ").append(prenomSportif);
+                rep.append("<option value='").append(rowSetSportifParDelegation.getString("idSportif")).append("'>").append(rowSetSportifParDelegation.getString("idSportif")).append(" : ").append(nomSportif).append(" ").append(prenomSportif).append("</option>");
             }
             out.println(rep);
         }catch (SQLException ex){

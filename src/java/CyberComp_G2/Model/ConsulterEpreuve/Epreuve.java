@@ -79,6 +79,10 @@ public class Epreuve {
         return nbDePlace;
     }
 
+    public int getIdEpreuve() {
+        return idEpreuve;
+    }
+
     public String getCategorie() {
         return categorie;
     }

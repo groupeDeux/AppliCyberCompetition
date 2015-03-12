@@ -83,7 +83,7 @@ $("select[name='selectDelegationModifier']").on('change', function () {
     var delegation = document.getElementById("selectDelegationModifier").value;
     if (delegation !== "") {
         document.getElementById('selectEquipeModifier').options.length=1;
-        $("#selectEquipeModifier").load("GetListEquipe?delegation="+delegation);
+        $("#selectEquipeModifier").load("GetListEquipeDUneDelegation?delegation="+delegation);
         document.getElementById("selectEquipeModifier").disabled = false;
     }
     if (delegation !== "") {
@@ -112,7 +112,7 @@ $("#selectDelegationSupp").on('change', function () {
    var delegation = document.getElementById("selectDelegationSupp").value;
    if (delegation !== "") {
          document.getElementById('selectEquipeSupp').options.length=1;
-         $("#selectEquipeSupp").load("GetListEquipe?delegation="+delegation);
+         $("#selectEquipeSupp").load("GetListEquipeDUneDelegation?delegation="+delegation);
          document.getElementById("selectEquipeSupp").disabled = false;
     }
 });
@@ -120,7 +120,7 @@ $("#selectDelegationSupp").on('change', function () {
 //$("select[name='selectDelegationModifier']").on('change', function () {
 //    var delegation = document.getElementById("selectDelegationModifier").value;
 //    if (delegation !== "") {
-//        $("#selectEquipeModifier").load("GetListEquipe?delegation="+delegation);
+//        $("#selectEquipeModifier").load("GetListEquipeDUneDelegation?delegation="+delegation);
 //        document.getElementById("selectEquipeModifier").disabled = false;
 //    }
 //    if (delegation !== "") {
