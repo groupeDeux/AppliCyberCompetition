@@ -22,7 +22,7 @@ and open the template in the editor.
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.js" ></script>
-        
+
     </head>
     <body>
         <div class="container">
@@ -47,7 +47,7 @@ and open the template in the editor.
                                 <li><a href="GetListEpreuve" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves">Epreuves</a></li>
                                 <li><a href='#' data-toggle="tooltip" data-placement="bottom" title="Acceder aux résultats des épreuves">Resultats</a></li>
                                 <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder au panier">Panier</a></li>
-                                <li  class='active'><a href='GetListDelegation' data-toggle="tooltip" data-placement="bottom" title="Acceder aux fonctions d'administration">Admin</a></li>
+                                <li  class='active'><a href='admin.jsp' data-toggle="tooltip" data-placement="bottom" title="Acceder aux fonctions d'administration">Admin</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -63,184 +63,129 @@ and open the template in the editor.
                         DEBUT DE LA PAGINATION DU TABLEAU 
                 -->
                 <div class="row">
-                    <div id="tabs">
-                        <ul class="nav nav-tabs">
-                            <li role="presentation" class="active" id ="presentation1"><a href="#tab1">Creer Equipe</a></li>
-                            <li role="presentation" id ="presentation2"><a href="#tab2">Modifier Equipe</a></li>
-                            <li role="presentation"><a href="#tab3">Supprimer Equipe</a></li>
-                            <li role="presentation"><a href="#tab4">Creer Sportif</a></li>
-                        </ul>
 
-                        <div class="row">
-                            <br/>
-                        </div>
-                        <!--
-                                ID TAB1 : CREER UNE EQUIPE
-                        -->
-                        <div id='tab1'>
-                            <form class="form-horizontal">
-                                <div class="well">
-                                    Cette page vous permet de creer une équipe.
+                    <ul class="nav nav-tabs">
+                        <!-- Onglet: choix Epreuve par equipe ou Epreuve individuelle-->
+                        <li role="presentation" class="active" id ="presentation1"><a href="#tab1">Epreuves par équipe</a></li>
+                        <li role="presentation" id ="presentation2"><a href="#tab2">Epreuves individuelles</a></li>
+                    </ul>
+
+                    <div class="row">
+                        <br/>
+                    </div>
+
+                    <!--
+                            ID TAB1 : Inscrire des équipes à une épreuve par équipes
+                    page de l'onglet 1
+                    -->
+                    <div id='tab1'>
+                        <form class="form-horizontal">
+                            <div class="well">
+                                Cette page vous permet d'inscrire des équipes à une épreuve
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+
+                                    <label class='col-xs-3 control-label'>Epreuve:</label>
+                                    <div class='col-xs-6'>
+                                        <select class="form-control" id='selectionEpreuvesEquipe' name='listEpreuvesEquipe'>
+                                            <option value=''>Choix</option>
+                                            <!-- Appel liste Equipe du controler 
+                                            (parametre sur la categorie selon epreuve choisie) -->
+                                        </select>
+                                    </div>
+                                    <div class='col-xs-1 control-label'id="verifEpreuveChoisie"> </div>    
                                 </div>
-                                <h4><strong>L'equipe : </strong></h4>
-                                <div class="row">
-                                    <div class="form-group">
-                                        
-                                        <label class='col-xs-3 control-label'>Délégation :</label>
-                                        <div class='col-xs-6'>
-                                            <select class="form-control" id='selectionDelegationCreer' name='listDeleg'>
-                                                <option value=''>Choix</option>
-                                                <%
-                                                    int i = 0;
-                                                    ArrayList<Delegation> lesDelegations = (ArrayList<Delegation>) request.getAttribute("listDelegations");
-                                                    for (i = 0; i < lesDelegations.size(); i++) {
-                                                        String pays = lesDelegations.get(i).getPays();
-                                                %><option value='<%=pays%>'><%=pays%></option>
-                                                <%
-                                                    };
-                                                %>
-                                            </select>
-                                        </div>
-                                            <div class='col-xs-1 control-label'id="verifDelegationCreer"></div>    
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Nom:</label>
-                                        <div class='col-xs-6'>
-                                            <input type='text' class='form-control' placeholder="Nom de l'équipe" id="nomEquipeCreer">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class='row'>
-                                    <div class='form-group'>
-                                        <label class='col-xs-3 control-label'>Categorie :</label>
-                                        <div class="col-xs-6 " id="radioboutons" >
-                                            <div class='radio-inline'>
-                                                <label>
-                                                    <input  type="radio" name="radioType" value="Masculin" checked>
-                                                    Masculin
-                                                </label>
-                                            </div>
-                                            <div class="radio-inline">
-                                                <label>
-                                                    <input type="radio" name="radioType" value="Feminin">
-                                                    Feminin
-                                                </label>  
-                                            </div>
-                                            <div class="radio-inline">
-                                                <label>
-                                                    <input type="radio" name="radioType" value="Mixte">
-                                                    Mixte
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <div class="col-xs-6 col-xs-offset-3">
-                                            <button type="button" class="btn btn-default btn-block" id="valCreer">Valider</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h4 style="display: none" id="titreLesSportifs"><strong>Les sportifs : </strong></h4>
-                                 <div id="ajout" hidden="true">
-                                    <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Nom :</label>
-                                        <div class='col-xs-6'>
-                                            <select class="form-control" id='selectNomAjouter1'>
-                                                <option value="">Choix</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Nom :</label>
-                                        <div class='col-xs-6'>
-                                            <select class="form-control" id='selectNomAjouter2'>
-                                                <option value="">Choix</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="nbSportif" hidden="true" value="2">2</div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <div class="col-xs-1 col-xs-offset-7">
-                                            <button style="display: none" type="button" class="btn btn-danger btn-block " id="valSuprimerSportif" ><span class="glyphicon glyphicon-minus"></span></button>
-                                        </div>
-                                        <div class="col-xs-1">
-                                            <button style="display: none" type="button" class="btn btn-primary btn-block " id="valAjouterSportif"><span class="glyphicon glyphicon-plus"></span></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" id="ValCreationEquipe" style="display: none">
-                                    <div class="form-group">
-                                        <div class="col-xs-2 col-xs-offset-3 ">
-                                            <button type="button" class="btn btn-danger btn-block " id="annulerCreerSpoptif" >Annuler</button>
-                                        </div>
-                                        <div class="col-xs-4">
-                                            <button  type="submit" class="btn btn-default btn-block " id="validerCreerSpotif">Creer Equipe</button>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </form>
-                        </div>
+                            </div>
+                        </form>
 
                         <!--
-                                ID TAB2 : MODIFIER UNE EQUIPE
+                                 AJOUTER UNE EQUIPE A L EPREUVE
                         -->
 
-                        <div id='tab2'>
-                            <form class="form-horizontal" id="formModifierEquipe">
-                                <div class="well">
-                                    Cette page vous permet de modifier les élements d'une équipe : 
-                                    ajouter un joueur, ou encore supprimer un joueur.
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Délégation :</label>
-                                        <div class='col-xs-6'>
-                                            <select class="form-control" name='selectDelegationModifier' id='selectDelegationModifier'>
-                                                <option value="1">Choix</option>
-                                                <%
-                                                    for (i = 0; i < lesDelegations.size(); i++) {
-                                                        String pays = lesDelegations.get(i).getPays();
-                                                %><option value='<%=pays%>'><%=pays%></option>
-                                                <%
-                                                    };
-                                                %>
-                                            </select>
-                                        </div>
+                        <form class="form-horizontal">
+
+                            <h4> <strong> Ajouter une équipe </strong></h4>
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class='col-xs-3 control-label'> Equipe:</label>
+                                    <div class='col-xs-6'>
+                                        <select class="form-control" id='selectEqAjouter' disabled="true">
+                                            <option value="">Choix</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Equipe :</label>
-                                        <div class='col-xs-6'>
-                                            <select class="form-control" id='selectEquipeModifier' name="selectEquipeModifier" disabled="true">
-                                                <option value="">Choix</option>
-                                                <div id="choixEquipeModifier">
-                                                </div>
-                                            </select>
-                                        </div>
+                                <div class="form-group">
+                                    <div class="col-xs-6 col-xs-offset-3">
+                                        <button type="button" class="btn btn-default btn-block">Ajouter &nbsp;<span class="glyphicon glyphicon-plus"></span></button>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                        </form>
+
+                        <!-- 
+                            SUPPRIMER UNE EQUIPE A L EPREUVE
+                        -->
+
+
+                        <form class="form-horizontal">
+                            <h4>  <strong> Supprimer une equipe </strong></h4>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class='col-xs-3 control-label'> Equipe:</label>
+                                    <div class='col-xs-6'>
+                                        <select class="form-control" selectEquipe='selectEquipeASupprimer'id='selectEquipeASupprimer'disabled="true">
+                                            <option value="">Choix</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class="form-group">
+                                    <div class='col-xs-offset-3 col-xs-6'>
+                                        <button type="button" class="btn btn-danger btn-block">Supprimer&nbsp;<span class="glyphicon glyphicon-trash"></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <!--
+                            ID TAB2 : Inscrire des sportifs à une épreuve individuelle
+                    -->
+                    <div id='tab2'>
+                        <form class="form-horizontal">
+                            <div class="well">
+                                Cette page vous permet d'inscrire des sportifs à une épreuve individuelle
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+
+                                    <label class='col-xs-3 control-label'>Epreuve:</label>
+                                    <div class='col-xs-6'>
+                                        <select class="form-control" id='selectionEpreuvesEquipe' name='listEpreuvesEquipe'>
+                                            <option value=''>Choix</option>
+                                            <!-- Appel liste Equipe du controler 
+                                            (parametre sur la categorie selon epreuve choisie) -->
+                                        </select>
+                                    </div>
+                                    <div class='col-xs-1 control-label'id="verifEpreuveChoisie"> </div>    
+                                </div>
+                            </div>
 
                             <!--
-                                    AJOUTER UN SPORTIF DANS UNE EQUIPE
+                                     AJOUTER UN SPORTIF A L EPREUVE
                             -->
-
-
 
                             <form class="form-horizontal">
 
-                                <h4>Ajouter un <strong>sportif</strong></h4>
+                                <h4> <strong> Ajouter un sportif </strong></h4>
 
                                 <div class="row">
                                     <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Nom :</label>
+                                        <label class='col-xs-3 control-label'> Sportif:</label>
                                         <div class='col-xs-6'>
                                             <select class="form-control" id='selectNomAjouter' disabled="true">
                                                 <option value="">Choix</option>
@@ -256,17 +201,17 @@ and open the template in the editor.
                             </form>
 
                             <!-- 
-                                SUPPRIMER UN SPORTIF DANS UNE EQUIPE
+                                SUPPRIMER UN SPORTIF DE L EPREUVE
                             -->
 
 
                             <form class="form-horizontal">
-                                <h4>Supprimer un <strong>sportif</strong></h4>
+                                <h4>  <strong> Supprimer un sportif </strong></h4>
                                 <div class="row">
                                     <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Nom :</label>
+                                        <label class='col-xs-3 control-label'> Sportif:</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" selectNomAjouter='selectNomASuprimer'id='selectNomASuprimer'disabled="true">
+                                            <select class="form-control" selectEquipe='selectEquipeASupprimer'id='selectEquipeASupprimer'disabled="true">
                                                 <option value="">Choix</option>
                                             </select>
                                         </div>
@@ -280,57 +225,10 @@ and open the template in the editor.
                                     </div>
                                 </div>
                             </form>
-                        </div>
-
-                        <!--
-                                ID TAB3 : SUPPRIMER UNE EQUIPE
-                        -->
-                        <div id='tab3'>
-                            <form class="form-horizontal">
-                                <div class="well">
-                                    Cette page vous permet de supprimer une équipe. Attention ! Toute modification est irréversible.
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Délégation :</label>
-                                        <div class='col-xs-6'>
-                                            <select class="form-control" id='selectDelegationSupp'>
-                                                <option value="">Choix</option>
-                                                <%
-                                                    for (i = 0; i < lesDelegations.size(); i++) {
-                                                        String pays = lesDelegations.get(i).getPays();
-                                                %><option value='<%=pays%>'><%=pays%></option>
-                                                <%
-                                                    };
-                                                %>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Equipe :</label>
-                                        <div class='col-xs-6'>
-                                            <select class="form-control" id='selectEquipeSupp'disabled="true">
-                                                <option value="">Choix</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class='row'>
-                                    <div class="form-group">
-                                        <div class='col-xs-offset-3 col-xs-6'>
-                                            <button type="button" class="btn btn-danger btn-block">Supprimer&nbsp;<span class="glyphicon glyphicon-trash"></span></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div id="tab4">
-                            <h2> #Under Construction</h2>
-                        </div>
-                    </div>        
+                    </div>
                 </div>
+
+
                 <footer class="footer">
                     <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
                     <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
@@ -341,9 +239,10 @@ and open the template in the editor.
             $(document).ready(function () {
                 $("#tabs").tabs();
             });
-            
+
         </script>
-       <script type="text/javascript" src="js/cyberCompetition.js"></script>
-       <script src="js/FormAdmin.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/cyberCompetition.js"></script>
+        <script src="js/FormAdmin.js" type="text/javascript"></script>
     </body>
 </html>
+
