@@ -26,7 +26,7 @@ public class GetConsulterEquipeDAO {
             "SELECT * FROM viewDelegation order by pays";
     
     public static final String lesEquipesDUneDelegation = 
-            "SELECT * FROM LesEquipes E JOIN LesParticipants P "
+            "SELECT * FROM viewEquipes E JOIN LesParticipants P "
             + "on (E.idEquipe=P.idParticipant) WHERE pays ='%s' order by idEquipe";
     
     public static final String lesSportifsSelonGenre = 
