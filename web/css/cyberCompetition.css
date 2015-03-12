@@ -124,3 +124,7 @@ h2.text-muted > a{
     color: #777;
     text-decoration: none;
 }
+
+.erreurForm{
+    color: #c12e2a;
+}

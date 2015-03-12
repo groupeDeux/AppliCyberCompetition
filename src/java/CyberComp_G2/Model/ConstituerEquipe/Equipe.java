@@ -23,21 +23,33 @@ public class Equipe extends Participant{
     private String categorie;
     
     private ArrayList<Sportif> lesMembres;
+    
+    private int nbDeSportif =2 ;
 
     //---------Constructeur---------------------------------------------------
-    public Equipe(int idEquipe,String pays, String nomEquipe, String categorie) throws CategorieException {
+    public Equipe(int idEquipe,String pays, String nomEquipe, String categorie,int nbDeSportif) throws CategorieException {
         super(idEquipe,pays);
         this.nomEquipe = nomEquipe;
         setcategorie(categorie);
         lesMembres = new ArrayList<>();
+        this.nbDeSportif=nbDeSportif;
     }
 
-    public Equipe( int idEquipe, String pays,String categorie) throws CategorieException {
-        this(idEquipe,pays,null,categorie);
+    public Equipe( int idEquipe, String pays,String categorie,int nbDeSportif) throws CategorieException {
+        this(idEquipe,pays,null,categorie,nbDeSportif);
     }
     
+    public int getNbDeSportif() {
+        return nbDeSportif;
+    }
 
- //---------Méthodes---------------------------------------------------
+    //---------Méthodes---------------------------------------------------
+    public void setNbDeSportif(int nbDeSportif) {
+        if (nbDeSportif<2){
+           this.nbDeSportif =2; 
+        }
+        this.nbDeSportif = nbDeSportif;
+    }
 
     public int getIdEquipe() {
         return this.getIdParticipant();
@@ -76,7 +88,7 @@ public class Equipe extends Participant{
     }
     
      /**
-     * Ajoute a un sportif a la chambre si non present et different de null
+     * Ajoute a un sportif a l'equipe si non present et different de null
      * @param sportifAAjouter 
      */
     public void addMembre(Sportif sportifAAjouter){
@@ -93,14 +105,17 @@ public class Equipe extends Participant{
     public ArrayList<Sportif> getLesMembres() {
         return lesMembres;
     }
+    
+    
     /**
      * Suprime le Sportif d'identifiant idSportif si il existe
      * @param idSportif 
      */
     public void delMembre(int idSportif){
-        for (Sportif sportif : lesMembres) {
-            if (sportif.getIdSportif()==idSportif){
-               lesMembres.remove(sportif);
+        int i;
+        for (i=0;i<lesMembres.size();i++) {
+            if (lesMembres.get(i).getIdSportif()==idSportif){
+               lesMembres.remove(i);
             }
         }
     }

@@ -20,7 +20,7 @@ public class Sportif extends Participant{
     private  String nom;
     
     //la date de naissance d'un sportif 
-    private  Date dateNaissance;
+    private  String dateNaissance;
     
     //le genre d'un sportif féminin ou masculin 
     private  String genre;
@@ -41,7 +41,7 @@ public class Sportif extends Participant{
      * @param genre
      * @param descriptionHandicap
      */
-    public Sportif(int idSportif,String pays, String prenom, String nom, Date dateNaissance, String genre, String descriptionHandicap) throws CategorieException {
+    public Sportif(int idSportif,String pays, String prenom, String nom, String dateNaissance, String genre, String descriptionHandicap) throws CategorieException {
         super(idSportif,pays);
         this.prenom = prenom;
         this.nom = nom;
@@ -50,7 +50,7 @@ public class Sportif extends Participant{
         this.descriptionHandicap = descriptionHandicap;
     }
 
-    public Sportif(int idSportif, String pays,String prenom, String nom, Date dateNaissance, String genre) throws CategorieException {
+    public Sportif(int idSportif, String pays,String prenom, String nom, String dateNaissance, String genre) throws CategorieException {
         this(idSportif,pays,prenom,nom,dateNaissance,genre,null);
     }
     
@@ -67,7 +67,7 @@ public class Sportif extends Participant{
         return nom;
     }
 
-    public Date getDateNaissance() {
+    public String getDateNaissance() {
         return dateNaissance;
     }
 
@@ -95,7 +95,7 @@ public class Sportif extends Participant{
 /*
     modifier la date de Naissance d'un sportif 
     */
-    public void  setDateNaissance(Date dateNaissance ) {
+    public void  setDateNaissance(String dateNaissance ) {
     this.dateNaissance= dateNaissance ;
     }
 /*

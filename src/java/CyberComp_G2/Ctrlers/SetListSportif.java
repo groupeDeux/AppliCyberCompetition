@@ -66,7 +66,7 @@ public class SetListSportif extends HttpServlet {
             int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
             String nomEquipe = request.getParameter ("nomEquipe");
             String categorie = request.getParameter ("categorie");
-            Equipe e1 = new Equipe(idEquipe, nomEquipe, categorie);
+            Equipe e1 = new Equipe(idEquipe, nomEquipe, categorie,2);
 
             //envoi de l'objet au dao ModifierEquipeDAO en appelant la méthode addSportif
             ModifierEquipeDAO.addSportif(e1, s1);

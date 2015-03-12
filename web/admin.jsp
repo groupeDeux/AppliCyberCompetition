@@ -4,6 +4,7 @@
     Author     : Gato
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
@@ -89,6 +90,14 @@ and open the template in the editor.
                     </div>
                     </div>
                 </div>
+                <footer class="footer">
+                    
+                    <%! Date dateDuJour;%>
+                    <% dateDuJour = new Date();%>
+                    <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
+                    <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
+
+                </footer>
             </div>  
         </div>
         

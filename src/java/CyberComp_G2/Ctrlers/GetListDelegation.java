@@ -7,8 +7,10 @@
 package CyberComp_G2.Ctrlers;
 
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
+import CyberComp_G2.Exceptions.CategorieException;
 import CyberComp_G2.Model.ConstituerEquipe.Delegation;
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
+import CyberComp_G2.Model.ConstituerEquipe.Sportif;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.CachedRowSet;
 
 /**
@@ -44,6 +47,13 @@ public class GetListDelegation extends HttpServlet {
         
         CachedRowSet rowSetDelegation;
         ArrayList<Delegation> listDelegations = new ArrayList();
+        HttpSession session = request.getSession(true);
+        String delegation = (String) request.getParameter("delegation");
+        String nomEquipe= (String) request.getParameter("nomEquipe");
+        String categorie = (String) request.getParameter("categorie");
+        Equipe newEquipe = null;
+        ArrayList<Sportif> lesSportifs = new ArrayList();
+    
         try{
             // Recuperation rowSet avec appel DAO
              rowSetDelegation= GetConsulterEquipeDAO.getDelegations();
@@ -56,13 +66,44 @@ public class GetListDelegation extends HttpServlet {
              }
                        
         }catch (SQLException ex){
-            
+         log(ex.getMessage());   
         }
         
+        
+        
+        if(delegation!=null && categorie!=null){
+            try{
+                if("".equals(nomEquipe)){
+                    newEquipe = new Equipe(0, delegation, categorie,2);
+                }else{
+                    newEquipe = new Equipe(0,delegation,nomEquipe, categorie,2); 
+                }
+            }catch(CategorieException ex){
+               log(ex.getMessage());
+            }
+             try{
+            
+            CachedRowSet rowSetSportifParDelegation=GetConsulterEquipeDAO.getSportifsDUneDelegation(delegation);
+            while(rowSetSportifParDelegation.next()){
+                String nomSportif = rowSetSportifParDelegation.getString("nom");
+                String prenomSportif = rowSetSportifParDelegation.getString("prenom");
+                int idSportif = rowSetSportifParDelegation.getInt("idsportif");
+                String genre = rowSetSportifParDelegation.getString("genre");
+                String dateNaissance = rowSetSportifParDelegation.getString("dateNaissance");
+                lesSportifs.add(new Sportif(idSportif, delegation,prenomSportif, nomSportif, dateNaissance,genre));
+            }
+
+            }catch (SQLException|CategorieException ex){
+                log(ex.getMessage());
+            }
+            session.setAttribute("lesSportifs", lesSportifs); 
+        }
+        
+       
         /* ajoute l'objet listDelegations en attribut de la reponse */
-        Equipe newEquipe = null;
-        request.setAttribute("newEquipe", newEquipe);
-        request.setAttribute("listDelegations", listDelegations);
+        
+        session.setAttribute("newEquipe", newEquipe);
+        session.setAttribute("listDelegations", listDelegations);
         request.getRequestDispatcher("/WEB-INF/AdministrerEquipe.jsp").forward(request, response);
     }
 

@@ -3,6 +3,8 @@
     Created on : 6 mars 2015, 14:22:31
     Author     : Gato
 --%>
+<%@page import="CyberComp_G2.Model.ConstituerEquipe.Sportif"%>
+<%@page import="CyberComp_G2.Model.ConstituerEquipe.Equipe"%>
 <%@page import="CyberComp_G2.Model.ConstituerEquipe.Delegation"%>
 <%@page import = "java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -89,16 +91,27 @@ and open the template in the editor.
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
                                             <select class="form-control" id='selectionDelegationCreer' name='listDeleg'>
-                                                <option value=''>Choix</option>
-                                                <%
+                                                
+                                                <%  Equipe newEquipe = (Equipe) session.getAttribute("newEquipe");
                                                     int i = 0;
-                                                    ArrayList<Delegation> lesDelegations = (ArrayList<Delegation>) request.getAttribute("listDelegations");
-                                                    for (i = 0; i < lesDelegations.size(); i++) {
-                                                        String pays = lesDelegations.get(i).getPays();
-                                                %><option value='<%=pays%>'><%=pays%></option>
+                                                    ArrayList<Delegation> lesDelegations = (ArrayList<Delegation>) session.getAttribute("listDelegations");
+                                                    ArrayList<Sportif> lesSportifs = (ArrayList<Sportif>) session.getAttribute("lesSportifs");
+                                                    if (newEquipe == null){
+                                                 %> <option value=''>Choix</option>
+                                                 <%          
+                                                      
+                                                        
+                                                        for (i = 0; i < lesDelegations.size(); i++) {
+                                                            String pays = lesDelegations.get(i).getPays();
+                                                %>          <option value='<%=pays%>'><%=pays%></option>
                                                 <%
-                                                    };
+                                                         }
+                                                    }else{
+                                                %> <option value='<%=newEquipe.getPays()%>'><%=newEquipe.getPays()%></option>
+                                                <script> document.getElementById("selectionDelegationCreer").disabled = true;</script>
+                                                <%}
                                                 %>
+                                                    
                                             </select>
                                         </div>
                                             <div class='col-xs-1 control-label'id="verifDelegationCreer"></div>    
@@ -118,19 +131,19 @@ and open the template in the editor.
                                         <div class="col-xs-6 " id="radioboutons" >
                                             <div class='radio-inline'>
                                                 <label>
-                                                    <input  type="radio" name="radioType" value="Masculin" checked>
+                                                    <input  type="radio" name="radioType" value="masculin" checked>
                                                     Masculin
                                                 </label>
                                             </div>
                                             <div class="radio-inline">
                                                 <label>
-                                                    <input type="radio" name="radioType" value="Feminin">
+                                                    <input type="radio" name="radioType" value="feminin">
                                                     Feminin
                                                 </label>  
                                             </div>
                                             <div class="radio-inline">
                                                 <label>
-                                                    <input type="radio" name="radioType" value="Mixte">
+                                                    <input type="radio" name="radioType" value="mixte">
                                                     Mixte
                                                 </label>
                                             </div>
@@ -140,50 +153,63 @@ and open the template in the editor.
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-xs-6 col-xs-offset-3">
-                                            <button type="button" class="btn btn-default btn-block" id="valCreer">Valider</button>
+                                            <button type="button" class="btn btn-default btn-block" id="valCreer" >Valider</button>
                                         </div>
                                     </div>
                                 </div>
-                                <h4 style="display: none" id="titreLesSportifs"><strong>Les sportifs : </strong></h4>
-                                 <div id="ajout" hidden="true">
-                                    <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Nom :</label>
-                                        <div class='col-xs-6'>
-                                            <select class="form-control" id='selectNomAjouter1'>
+                               <%  
+                                   if (newEquipe != null){         
+                                %>
+                                <h4><strong>Les sportifs : </strong></h4>
+                                
+                                 <div id="ajout">
+                                     <% for (i =1;i<=newEquipe.getNbDeSportif();i++){
+                                     %> <div id='divAjoutSportif1' class="form-group">
+                                        <label class='col-xs-3 control-label'>Sportif <%=i%> :</label>
+                                        <div class='col-xs-5'>
+                                            <select  class="form-control"  name ="selectNomAjouter" id='selectNomAjouter<%=i%>'>
                                                 <option value="">Choix</option>
+                                                <%int j;
+                                                int idASelectinner;
+                                                if(newEquipe.getLesMembres().size()>=i){
+                                                    idASelectinner=newEquipe.getLesMembres().get(i-1).getIdSportif();
+                                                }else{
+                                                    idASelectinner=0;
+                                                }
+                                                for (j =0;j<lesSportifs.size();j++){
+                                                    int idSportif =lesSportifs.get(j).getIdParticipant();
+                                                   String  affichage = idSportif+" : "+lesSportifs.get(j).getNom() +" "+lesSportifs.get(j).getPrenom();
+                                                    
+                                                 %>
+                                                <option value="<%=idSportif%>"<%if(idSportif==idASelectinner){%>selected="selected"<%}%> ><%=affichage%></option>
+                                                <%}%>
                                             </select>
                                         </div>
+                                        <div class='col-xs-1'> <button   <% if(newEquipe.getNbDeSportif()==2){%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportif<%=i%>" name='valSupprimerSportif' value='<%=i%>'=><span class="glyphicon glyphicon-minus"></span></button></div>    
                                     </div>
-                                    <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Nom :</label>
-                                        <div class='col-xs-6'>
-                                            <select class="form-control" id='selectNomAjouter2'>
-                                                <option value="">Choix</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                     <%}%>
                                 </div>
-                                <div id="nbSportif" hidden="true" value="2">2</div>
                                 <div class="row">
                                     <div class="form-group">
-                                        <div class="col-xs-1 col-xs-offset-7">
-                                            <button style="display: none" type="button" class="btn btn-danger btn-block " id="valSuprimerSportif" ><span class="glyphicon glyphicon-minus"></span></button>
+                                        <div class="col-xs-offset-7 col-xs-2">
+                                            <button  type="button" class="btn btn-primary btn-block " id="valAjouterSportif"><span class="glyphicon glyphicon-plus"></span></button>
                                         </div>
-                                        <div class="col-xs-1">
-                                            <button style="display: none" type="button" class="btn btn-primary btn-block " id="valAjouterSportif"><span class="glyphicon glyphicon-plus"></span></button>
-                                        </div>
+                                         <div class="col-xs-1 control-labe erreurForm" id="ControlValAjouterSportif">
+                                         </div>
                                     </div>
                                 </div>
                                 <div class="row" id="ValCreationEquipe" style="display: none">
                                     <div class="form-group">
                                         <div class="col-xs-2 col-xs-offset-3 ">
-                                            <button type="button" class="btn btn-danger btn-block " id="annulerCreerSpoptif" >Annuler</button>
+                                            <button type="button" class="btn btn-danger btn-block "  id="annulerCreerSpoptif" >Annuler</button>
                                         </div>
                                         <div class="col-xs-4">
                                             <button  type="submit" class="btn btn-default btn-block " id="validerCreerSpotif">Creer Equipe</button>
                                         </div>
                                     </div>
                                 </div> 
+                                <%}%>
+
                             </form>
                         </div>
 
