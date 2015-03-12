@@ -70,7 +70,7 @@ $('a').tooltip({
      'delay': { show: 1250, hide: 1000 }
 });
 
-/* Changement de l'information pour ouvrir une fenetre */
+/* Changement de l'information pour ouvrir une fenetre
 $('div.row.rowEpreuve').click(function(){
     var info = $(this).find('div[data-info]');
     if(info.attr('data-info')==='close'){
@@ -81,6 +81,8 @@ $('div.row.rowEpreuve').click(function(){
         //info.attr('data-info','close');
     }
 });
+ */
 
-/* Change l'icone si on est sur une epreuve ou non */
+/* Change l'icone si on est sur une epreuve ou non 
 $('div.row.rowEpreuve').hover(function(){$(this).css('cursor','hand');},function(){$(this).css('cursor','pointer');});
+*/

@@ -134,15 +134,20 @@ and open the template in the editor.
                 --%>
                 <div class="row rowEpreuve" data-tags="<%= epreuveSelectionnee.getCategorie()%>,Equipe">
                     <div class="media">
-                        <div class="media-left">
-                            <img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de <%=epreuveSelectionnee.getNomDiscipline()%>' data-toggle="tooltip" data-placement="top" title="Afficher informations supp.">
+                        
+                            <div class="media-left">
+                                <div data-toggle='collapse' href='#media<%=lesId%>'>
+                                <img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de <%=epreuveSelectionnee.getNomDiscipline()%>' data-toggle="tooltip" data-placement="top" title="Afficher informations supp.">
+                            </div>
                         </div>
                         <div class='media-body'>
-                            <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%></h4>
-                            <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
-                            <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
-                            <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
-                            <div class="collapse" data-info="close" id="media<%=lesId%>">
+                            <div data-toggle='collapse' href='#media<%=lesId%>'>
+                                <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%></h4>
+                                <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
+                                <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
+                                <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
+                            </div>
+                            <div class="collapse" id="media<%=lesId%>">
                                 <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                                     Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
@@ -180,28 +185,44 @@ and open the template in the editor.
                                     <div id="collapseBillets<%=lesId%>" class="panel-collapse collapse">
                                         <div class='panel-body'>
                                             <form class="form-inline">
-
-                                                <div class="form-group radio-inline">
-                                                    <input type="radio" name="radioEpreuve<%=lesId%>" value="Billet">
-                                                    <label>Billet</label>
+                                                <div class='col-xs-2'>
+                                                    <div class='form-group'>
+                                                        <strong>Prix: 30€</strong>
+                                                    </div>
                                                 </div>
-
-                                                <div class="form-group radio-inline">
-                                                    <input type="radio" name="radioEpreuve<%=lesId%>" value="TicketVideo">
-                                                    <label>Ticket Video</label>
+                                                <div class='col-xs-1'>
+                                                    <div class='form-group'>
+                                                        <div class="radio-inline">
+                                                            <input type="radio" name="radioEpreuve<%=lesId%>" value="Billet">
+                                                            <label class='control-label'>Billet</label>
+                                                        </div>
+                                                    </div>
                                                 </div>
-
-                                                <div class="form-group">
-                                                    <label>Nombre de places:</label>
-                                                    <select class="form-control" name='nbPlacesEpreuve<%=lesId%>' id='nbPlacesEpreuve<%=lesId%>'>
-                                                        <option value="0">0</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                    </select>
+                                                <div class='col-xs-2'>
+                                                    <div class='form-group'>
+                                                        <div class="radio-inline">
+                                                            <input type="radio" name="radioEpreuve<%=lesId%>" value="TicketVideo">
+                                                            <label class='control-label'>Ticket Video</label>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary pull-right">Ajouter au Panier&nbsp;<span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                                <div class='col-xs-3'>
+                                                    <div class="form-group">
+                                                        <label class='control-label'>Nombre de places:</label>
+                                                        <select class="form-control" name='nbPlacesEpreuve<%=lesId%>' id='nbPlacesEpreuve<%=lesId%>'>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class='col-xs-3'>
+                                                    <div class='form-group'>
+                                                        <button type="submit" class="btn btn-primary pull-right">Ajouter au Panier&nbsp;<span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                                    </div>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
