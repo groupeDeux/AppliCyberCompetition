@@ -45,7 +45,7 @@ public class GetListEquipeParCategorie {
             while(rowSetEquipesParCategorie.next()){
                 String pays = rowSetEquipesParCategorie.getString("pays");
                 String idEquipe = rowSetEquipesParCategorie.getString("idEquipe");
-                rep.append("<option value='").append(rowSetEquipesParCategorie.getString("idEquipe")).append("'>").append(pays).append(" ").append(idEquipe);
+                rep.append("<option value='").append(rowSetEquipesParCategorie.getString("idEquipe")).append("'>").append(pays).append(" ").append(idEquipe).append("</option>");
             }
             out.println(rep);
         }catch (SQLException ex){
