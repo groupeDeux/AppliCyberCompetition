@@ -59,15 +59,34 @@ and open the template in the editor.
                     </div>    
                 </div>
                 <div>
+                    <div class ='row'>
+                        <!--la classe col-xs-4  permet de diviser la zone de travail en 3 champs 
+                        une zone de travail est défini sur 12 colomn 
+                       -->
                    <div class='col-xs-4'>
+                       <!--la classe thumbnail permet de créer les carée
+                       -->
                         <div class='thumbnail'>
+                            <!-- le premier carré contient un bouton pour accéder à la page de 
+                            -->
                             <img src="img/adminEquipe.jpg"alt=".." style="margin-top: 10px;" class="img-rounded">
                             <div class="caption">
-                                <h3 class="text-center">Administrer  les equipes</h3>
-                                <p>Cretion modification et supression d'equipe</p>
-                                <p><a href="GetListDelegation" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Acceder a l'administration des equipes">Administrer Equipe</a></p>
+                                <h3 class="text-center">Administrer les équipes</h3>
+                                <p> Créer, modifier ou supprimer une équipe</p>
+                                <p><a href="GetListDelegation" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Acceder a l'administration des equipes">Accéder à la page </a></p>
                             </div>
                         </div>
+                   </div>
+                    <div class='col-xs-4'>
+                       <div class='thumbnail'>
+                            <img src="img/lesEpreuves.jpg"alt=".." style="margin-top: 8px;width: 10; height: 40" class="img-rounded">
+                            <div class="caption">
+                                <h3 class="text-center">Inscription des participants à des épreuves </h3>
+                                <p> Inscrire, modifier ou supprimer un participant à une épreuve </p>
+                                <p><a href="GetListEpreuveInscription" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Acceder à insciption participant à des épreuves ">Accéder à la page  </a></p>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>  
