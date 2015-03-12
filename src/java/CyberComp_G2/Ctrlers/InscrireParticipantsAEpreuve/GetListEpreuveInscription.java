@@ -32,7 +32,7 @@ import javax.sql.rowset.CachedRowSet;
  *
  * @author vivi
  */
-@WebServlet(name = "GetListEpreuve", urlPatterns = {"/GetListEpreuve"})
+@WebServlet(name = "GetListEpreuveInscription", urlPatterns = {"/GetListEpreuveInscription"})
 public class GetListEpreuveInscription extends HttpServlet {
 
     /**
@@ -81,7 +81,7 @@ public class GetListEpreuveInscription extends HttpServlet {
             ex.printStackTrace();
         }
 
-        /* ajoute l'objet listDelegations en attribut de la reponse */
+        /* ajoute les listes en attribut de la reponse */
         request.setAttribute("listEpreuveEquipe", listEpreuvesEquipe);
         request.setAttribute("listEpreuveInd", listEpreuvesInv);
         request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
