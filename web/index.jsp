@@ -54,22 +54,25 @@ and open the template in the editor.
                     </div>
                 </div>
                 <div class="row">
+                    
                     <div class="jumbotron">
+                        
                         <h1>CyberCompetition</h1>
                         <p class="lead">Bienvenue sur le site de <strong>CyberCompetition</strong>, ne touchez pas les murs, la peinture est fraiche !</p>
+                        
                     </div>    
                 </div>
 
                 <!-- 
-                       Afficher la date de dernier mise à jour Ce tag contient
-                    du code Java nommé un scriptlet.
+               
+                       Afficher la date de la dernière mise à jour .Ce tag contient
+                    du code Java nommé un scriptlet.ref: charte graphique: texte 
                 -->
                 <footer class="footer">
+                    
                     <%! Date dateDuJour;%>
                     <% dateDuJour = new Date();%>
-
-                    <p class='text-muted pull-right'><i> Date de dernier mise à jour : <%= dateDuJour%><BR></i></p>
-
+                    <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
                     <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
 
                 </footer>
