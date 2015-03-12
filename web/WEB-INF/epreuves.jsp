@@ -134,18 +134,20 @@ and open the template in the editor.
                 --%>
                 <div class="row rowEpreuve" data-tags="<%= epreuveSelectionnee.getCategorie()%>,Equipe">
                     <div class="media">
-                        
-                            <div class="media-left">
-                                <div data-toggle='collapse' href='#media<%=lesId%>'>
+                        <div class="media-left">
+                            <%-- Cliquer sur l'image permet d'afficher l'epreuve --%>
+                            <div data-toggle='collapse' href='#media<%=lesId%>'>
                                 <img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de <%=epreuveSelectionnee.getNomDiscipline()%>' data-toggle="tooltip" data-placement="top" title="Afficher informations supp.">
                             </div>
                         </div>
                         <div class='media-body'>
-                            <div data-toggle='collapse' href='#media<%=lesId%>'>
+                            <%-- Cliquer sur cette partie media-heading permet d'afficher l'epreuve --%>
+                            <div data-toggle='collapse' data-zeub href='#media<%=lesId%>'>
                                 <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%></h4>
                                 <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
                                 <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
                                 <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
+                                <br/>
                             </div>
                             <div class="collapse" id="media<%=lesId%>">
                                 <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.

@@ -48,7 +48,7 @@ $("#toutTag").click(function () {
  * on clique sur un des boutons contenant un "tagName"
  * Attention, les boutons ont un ID : qui correspond à la catégorie*/
 $('li[role="presentation"]').click(function () {
-    if ($(this).attr("id") !== null && $(this).attr("id") !=="toutTag") {
+    if ($(this).attr("id") !== null && $(this).attr("id") !== "toutTag") {
         $epreuves.hide().filter(tagged[$(this).attr("id")]).show();
     }
 });
@@ -60,29 +60,40 @@ $("li[role='presentation']").click(function () {
 });
 
 
-/* Affichage des tooltips : Permet de respect la charte graphique */ 
+/* Affichage des tooltips : Permet de respect la charte graphique */
 /* Code Javascript permettant d'afficher un tooltip via bootstrap */
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
 $('a').tooltip({
-     'delay': { show: 1250, hide: 1000 }
+    'delay': {show: 1250, hide: 1000}
 });
 
 /* Changement de l'information pour ouvrir une fenetre
-$('div.row.rowEpreuve').click(function(){
-    var info = $(this).find('div[data-info]');
-    if(info.attr('data-info')==='close'){
-        info.addClass('in');
-        info.attr('data-info','open');
-    }else{
-        //info.removeClass('in');
-        //info.attr('data-info','close');
-    }
-});
+ $('div.row.rowEpreuve').click(function(){
+ var info = $(this).find('div[data-info]');
+ if(info.attr('data-info')==='close'){
+ info.addClass('in');
+ info.attr('data-info','open');
+ }else{
+ //info.removeClass('in');
+ //info.attr('data-info','close');
+ }
+ });
  */
 
 /* Change l'icone si on est sur une epreuve ou non 
-$('div.row.rowEpreuve').hover(function(){$(this).css('cursor','hand');},function(){$(this).css('cursor','pointer');});
-*/
+ $('div.row.rowEpreuve').hover(function(){$(this).css('cursor','hand');},function(){$(this).css('cursor','pointer');});
+ */
+
+$('div[data-zeub]').hover(
+        function () {
+            $(this).css('cursor', 'hand');
+            $(this).css('background-color', '#F5F5F5');
+        },
+        function () {
+            $(this).css('cursor','pointer');
+            $(this).css('background-color', '#FFFFFF');
+        }
+);
