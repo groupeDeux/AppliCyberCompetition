@@ -57,7 +57,7 @@ and open the template in the editor.
                         TITRE DE LA PAGE 
                 --> 
                 <div class="page-header">
-                    <h2 class="text-center"><small>Administration des</small><span id="titreAdmin"> Equipes</span></h2>
+                    <h2 class="text-center"><span id="titreAdmin"> Inscriptions aux épreuves</span></h2>
                 </div>
                 <!-- 
                         DEBUT DE LA PAGINATION DU TABLEAU 
