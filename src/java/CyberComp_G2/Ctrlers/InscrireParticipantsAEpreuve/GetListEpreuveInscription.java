@@ -58,9 +58,6 @@ public class GetListEpreuveInscription extends HttpServlet {
             // Recuperation rowSet avec appel DAO
                 rowSetEpreuveEquipe = GetConsulterEpreuveDAO.getEpreuvesEquipe();
 
-            } else {
-                rowSetEpreuveEquipe = GetConsulterEpreuveDAO.getEpreuvesParDisciplineEquipe(nomDiscipline);
-            }
 
             /* cree un objet Epreuve pour chaque ligne du rowset parcouru
              et le met dans l arrayList listEpreuvePArEquipe */
@@ -79,22 +76,12 @@ public class GetListEpreuveInscription extends HttpServlet {
                 listEpreuvesInv.add(new EpreuveIndividuelle(rowSetEpreuveInv.getInt(1), rowSetEpreuveInv.getString(2), rowSetEpreuveInv.getString(3), rowSetEpreuveInv.getString(4), rowSetEpreuveInv.getString(5), rowSetEpreuveInv.getString(6), rowSetEpreuveInv.getDouble(7), rowSetEpreuveInv.getInt(8), rowSetEpreuveInv.getString(9), rowSetEpreuveInv.getInt(10)));
             }
 
-            /* Recupere la liste des disciplines dans un rowSetDiscipline */
-            rowSetDiscipline = GetConsulterDisciplineDAO.getDisciplines();
-            /* cree un objet String pour chaque ligne du rowset parcouru
-             et le met dans l arrayList llistDisciplines */
-            while (rowSetDiscipline.next()) {
-                // recupereation du nom de la discipline
-                listDisciplines.add(rowSetDiscipline.getString(1));
-            }
-
         } catch (SQLException | CategorieException | nbPlaceAcheterExeception ex) {
             log(ex.getMessage());
             ex.printStackTrace();
         }
 
         /* ajoute l'objet listDelegations en attribut de la reponse */
-        request.setAttribute("listDisciplines", listDisciplines);
         request.setAttribute("listEpreuveEquipe", listEpreuvesEquipe);
         request.setAttribute("listEpreuveInd", listEpreuvesInv);
         request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
