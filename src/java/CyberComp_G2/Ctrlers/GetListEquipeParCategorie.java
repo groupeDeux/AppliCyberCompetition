@@ -25,7 +25,7 @@ import javax.sql.rowset.CachedRowSet;
 
 
 @WebServlet(name = "GetListEquipe", urlPatterns = {"/GetListEquipe"})
-public class GetListEquipeParGenre {
+public class GetListEquipeParCategorie {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
