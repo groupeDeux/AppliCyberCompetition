@@ -23,10 +23,8 @@ import javax.sql.rowset.CachedRowSet;
  * @author Gato
  */
 
-/*  ATTENTION MEME NOM QUE POUR GETLISTDUNEDELAGATION.JAJA !!!!!!!
----->  A MODIFIER */
 
-@WebServlet(name = "GetListEquipe", urlPatterns = {"/GetListEquipe"})
+@WebServlet(name = "GetListEquipeDUneDelegation", urlPatterns = {"/GetListEquipeDUneDelegation"})
 public class GetListEquipeDUneDelegation extends HttpServlet {
 
     /**

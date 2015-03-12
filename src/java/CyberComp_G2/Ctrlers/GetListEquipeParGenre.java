@@ -23,11 +23,9 @@ import javax.sql.rowset.CachedRowSet;
  * @author agathe
  */
 
-/*  ATTENTION MEME NOM QUE POUR GETLISTDUNEDELAGATION.JAJA !!!!!!!
----->  A MODIFIER */
 
 @WebServlet(name = "GetListEquipe", urlPatterns = {"/GetListEquipe"})
-public class GetListEquipe {
+public class GetListEquipeParGenre {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -38,16 +36,16 @@ public class GetListEquipe {
         try(PrintWriter out = response.getWriter()){
             
             // recuperation des donnees BD chargees avec DAO dans un rowSet
-            CachedRowSet rowSetEquipes=GetParticipantsDAO.getEquipes();
+            CachedRowSet rowSetEquipesParCategorie=GetParticipantsDAO.getEquipesParCategorie(categorie);
             /*Parcours du rowSet pour creer la liste deroulante 
              * au format html    ?? 
              * rowSetEquipe.getString("pays") --> le row set connait le nom des colonnes ??
              */
            
-            while(rowSetEquipes.next()){
-                String pays = rowSetEquipes.getString("pays");
-                String idEquipe = rowSetEquipes.getString("idEquipe");
-                rep.append("<option value='").append(rowSetEquipes.getString("idEquipe")).append("'>").append(pays).append(" ").append(idEquipe);
+            while(rowSetEquipesParCategorie.next()){
+                String pays = rowSetEquipesParCategorie.getString("pays");
+                String idEquipe = rowSetEquipesParCategorie.getString("idEquipe");
+                rep.append("<option value='").append(rowSetEquipesParCategorie.getString("idEquipe")).append("'>").append(pays).append(" ").append(idEquipe);
             }
             out.println(rep);
         }catch (SQLException ex){
