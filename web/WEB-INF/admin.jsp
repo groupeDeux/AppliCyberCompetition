@@ -80,7 +80,7 @@ and open the template in the editor.
                         <div id='tab1'>
                             <form class="form-horizontal">
                                 <div class="well">
-                                    Cette page vous permet de creer une équipe.
+                                    Cette page vous permet de créer une équipe.
                                 </div>
                                 <h4><strong>L'equipe : </strong></h4>
                                 <div class="row">
