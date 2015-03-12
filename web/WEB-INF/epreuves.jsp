@@ -70,10 +70,10 @@ and open the template in the editor.
                                 <select class="form-control" name='selectDisciplineEpreuve' id='selectionDelegation'>
                                     <option value="Tout">Tout</option>
                                     <%
-                                      int nDiscipline=0;
-                                      ArrayList<String> lesDisciplines = (ArrayList<String>) request.getAttribute("listDisciplines");
-                                      for(nDiscipline=0; nDiscipline<lesDisciplines.size();nDiscipline++){
-                                          String discipline = lesDisciplines.get(nDiscipline);
+                                        int nDiscipline = 0;
+                                        ArrayList<String> lesDisciplines = (ArrayList<String>) request.getAttribute("listDisciplines");
+                                        for (nDiscipline = 0; nDiscipline < lesDisciplines.size(); nDiscipline++) {
+                                            String discipline = lesDisciplines.get(nDiscipline);
                                     %>
                                     <option value='<%=discipline%>'><%=discipline%></option>
                                     <% }; %>
@@ -106,7 +106,7 @@ and open the template in the editor.
                     <br/>
                 </div>
 
-                
+
                 <div class='row'>
                     <h3 class='pull-right'>Disciplines</h3>
                     <h3 class='col-xs-offset-1'>&nbsp;&nbsp;&nbsp;&nbsp;Epreuves</h3>
@@ -115,40 +115,74 @@ and open the template in the editor.
 
                 <!--
                         MEDIA DE LA LISTE DES EPREUVES
-                -->    <%
+                -->    
+                <%
                     int i;
-                    int lesId=0;
+                    int lesId = 0;
                     ArrayList<Epreuve> lesEpreuves = (ArrayList<Epreuve>) request.getAttribute("listEpreuveEquipe");
                     for (i = 0; i < lesEpreuves.size(); i++) {
                         Epreuve epreuveSelectionnee = lesEpreuves.get(i);
-                        lesId=lesId+i;
+                        lesId = lesId + i;
                 %>
                 <div class="row rowEpreuve" data-tags="<%= epreuveSelectionnee.getCategorie()%>,Equipe">
+
                     <div class="media">
                         <div class="media-left">
-                            <a href="#media<%=lesId%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Afficher informations supp."></a>
+                            <img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de <%=epreuveSelectionnee.getNomDiscipline()%>' data-toggle="tooltip" data-placement="top" title="Afficher informations supp.">
                         </div>
-
                         <div class='media-body'>
                             <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%></h4>
                             <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
                             <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
                             <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
-                            <div class="collapse"  id="media<%=lesId%>">
+                            <div class="collapse" data-info="close" id="media<%=lesId%>">
                                 <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                                     Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Acheter un Ticket Video ou un Billet pour l'épreuve.
+                                    </div>
+                                    <div class='panel-body'>
+                                        <form class="form-inline">
+                                            <div class="col-xs-2">
+                                                <div class="radio-inline">
+                                                    <input type="radio" name="radioEpreuve<%=lesId%>" value="Billet">
+                                                    <label>Billet</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-2 radio-inline">
+
+                                                <input type="radio" name="radioEpreuve<%=lesId%>" value="TicketVideo">
+                                                <label>Ticket Video</label>
+
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label>Nombre de places:</label>
+                                                <select class="form-control" name='nbPlacesEpreuve<%=lesId%>' id='nbPlacesEpreuve<%=lesId%>'>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary pull-right">Ajouter au Panier&nbsp;<span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <%}%>
                 <%
-                    
+
                     lesEpreuves = (ArrayList<Epreuve>) request.getAttribute("listEpreuveInd");
                     for (i = 0; i < lesEpreuves.size(); i++) {
                         Epreuve epreuveSelectionnee = lesEpreuves.get(i);
-                        lesId=lesId+i;
+                        lesId = lesId + i;
                 %>
                 <div class="row rowEpreuve" data-tags="<%=epreuveSelectionnee.getCategorie()%>,Individuelle">
                     <div class="media">
@@ -180,7 +214,6 @@ and open the template in the editor.
             </div>
         </div>
         <script src="js/bootstrap.js" type="text/javascript"></script>
-        <script src="js/cyberCompetition.js" type="text/javascript"></script>
-        <script src="js/filtreEpreuve.js" type="text/javascript"></script>
+        <script src="js/jsEpreuve.js" type="text/javascript"></script>
     </body>
 </html>
