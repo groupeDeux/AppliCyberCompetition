@@ -124,8 +124,15 @@ and open the template in the editor.
                         Epreuve epreuveSelectionnee = lesEpreuves.get(i);
                         lesId = lesId + i;
                 %>
-                <div class="row rowEpreuve" data-tags="<%= epreuveSelectionnee.getCategorie()%>,Equipe">
 
+
+                <%--
+                    Creation d'un onglet d'une epreuve, a chaque epreuve correspond un data-tags qui permet d'etre référencé par la catégorie est par Equipe ou Individuel
+                    media-left: correspond au placement de l'image dans les medias
+                    media-body: correspond au corps du medias
+                    Dans ce corps ce trouve deux tableaux qui peuvent être agrandit sous forme de "panel panel-default"
+                --%>
+                <div class="row rowEpreuve" data-tags="<%= epreuveSelectionnee.getCategorie()%>,Equipe">
                     <div class="media">
                         <div class="media-left">
                             <img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de <%=epreuveSelectionnee.getNomDiscipline()%>' data-toggle="tooltip" data-placement="top" title="Afficher informations supp.">
@@ -140,36 +147,63 @@ and open the template in the editor.
 
                                     Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
 
+                                <%--
+                                        LISTE DES PARTICIPANTS
+                                        Panel d'affichage de la liste des participants à l'epreuve 
+                                        panel-heading: Titre de cette page
+                                        panel-body: corps de la page a afficher
+                                --%>
                                 <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        Acheter un Ticket Video ou un Billet pour l'épreuve.
+                                    <div class="panel-heading" data-toggle='collapse' href='#collapseParticipants<%=lesId%>'>
+                                        <h4>
+                                            Liste des participants de l'épreuve
+                                        </h4>
                                     </div>
-                                    <div class='panel-body'>
-                                        <form class="form-inline">
-                                            <div class="col-xs-2">
-                                                <div class="radio-inline">
+                                    <div id="collapseParticipants<%=lesId%>" class="panel-collapse collapse">
+                                        <div class='panel-body'>
+                                            ===========
+                                        </div>
+                                    </div>
+                                </div>
+                                <%--
+                                        ACHETER UN BILLET
+                                        Panel d'affichage pouracheter un billet
+                                        panel-heading: Titre de cette page
+                                        panel-body: corps de la page a afficher
+                                --%>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" data-toggle='collapse' href='#collapseBillets<%=lesId%>'>
+                                        <h4>
+                                            Acheter un billet ou un ticket video.
+                                        </h4>
+                                    </div>
+                                    <div id="collapseBillets<%=lesId%>" class="panel-collapse collapse">
+                                        <div class='panel-body'>
+                                            <form class="form-inline">
+
+                                                <div class="form-group radio-inline">
                                                     <input type="radio" name="radioEpreuve<%=lesId%>" value="Billet">
                                                     <label>Billet</label>
                                                 </div>
-                                            </div>
-                                            <div class="col-xs-2 radio-inline">
 
-                                                <input type="radio" name="radioEpreuve<%=lesId%>" value="TicketVideo">
-                                                <label>Ticket Video</label>
+                                                <div class="form-group radio-inline">
+                                                    <input type="radio" name="radioEpreuve<%=lesId%>" value="TicketVideo">
+                                                    <label>Ticket Video</label>
+                                                </div>
 
-                                            </div>
-                                            <div class="col-xs-3">
-                                                <label>Nombre de places:</label>
-                                                <select class="form-control" name='nbPlacesEpreuve<%=lesId%>' id='nbPlacesEpreuve<%=lesId%>'>
-                                                    <option value="0">0</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                </select>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary pull-right">Ajouter au Panier&nbsp;<span class="glyphicon glyphicon-shopping-cart"></span></button>
-                                        </form>
+                                                <div class="form-group">
+                                                    <label>Nombre de places:</label>
+                                                    <select class="form-control" name='nbPlacesEpreuve<%=lesId%>' id='nbPlacesEpreuve<%=lesId%>'>
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary pull-right">Ajouter au Panier&nbsp;<span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

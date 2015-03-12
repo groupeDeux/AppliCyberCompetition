@@ -77,8 +77,8 @@ $('div.row.rowEpreuve').click(function(){
         info.addClass('in');
         info.attr('data-info','open');
     }else{
-        info.removeClass('in');
-        info.attr('data-info','close');
+        //info.removeClass('in');
+        //info.attr('data-info','close');
     }
 });
 
