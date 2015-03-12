@@ -36,6 +36,28 @@ public class GetParticipantsDAO {
             "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) where S.genre='%s";
     
     
+     /*Selection des Equipes compatibles en categorie avec une epreuve: idEpreuve*/
+        public static final String lesEquipesCompatiblesEpreuve = 
+            "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant)"
+                + "where E.categorie= %s";
+        
+        /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve*/
+        public static final String lesSportifsCompatiblesEpreuve = 
+            "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)"
+                + "where S.categorie= %s";
+        
+             /*Selection des Equipes compatibles en cat et nbInscritsavec une epreuve: idEpreuve
+        public static final String lesEquipesCompatiblesEpreuveNb = 
+            "A REDIGER count(idSportif) group by idEquipe et categorie";*/
+        
+        /*Selection des Equipes inscrits à une épreuve: idEpreuve*/
+        public static final String lesEquipesInscritsEpreuve = 
+            "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant)"
+                + " Join lesParticipations P2 on (E.idEquipe=P2.idParticipant) "
+                + "where P2.idEpreuve= %d";
+
+        
+        
     /*-------------------------------------------------------------
     Construction des RowSet: appel d'une focntion 
     avec une requete et un parametre 
