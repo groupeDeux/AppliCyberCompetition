@@ -36,25 +36,32 @@ public class GetParticipantsDAO {
             "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) where S.genre='%s";
     
     
-     /*Selection des Equipes compatibles en categorie avec une epreuve: idEpreuve*/
-        public static final String lesEquipesCompatiblesEpreuve = 
-            "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant)"
-                + "where E.categorie= %s";
+    
+    /* Recuperation categorie a passer en param aux autres requetes*/
+    public static final String laCategorie
+            = "SELECT E.categorie FROM LesEpreuves where E.idEpreuve= %d";
+    
+    /* Recuperation NbDePlace a passer en param aux autre requetes*/
+    public static final String leNbDePlace
+            = "SELECT E.NbDePlace FROM LesEpreuves where E.idEpreuve= %d";
         
-        /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve*/
-        public static final String lesSportifsCompatiblesEpreuve = 
-            "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)"
-                + "where S.categorie= %s";
-        
-             /*Selection des Equipes compatibles en cat et nbInscritsavec une epreuve: idEpreuve
-        public static final String lesEquipesCompatiblesEpreuveNb = 
-            "A REDIGER count(idSportif) group by idEquipe et categorie";*/
-        
-        /*Selection des Equipes inscrits à une épreuve: idEpreuve*/
-        public static final String lesEquipesInscritsEpreuve = 
-            "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant)"
-                + " Join lesParticipations P2 on (E.idEquipe=P2.idParticipant) "
-                + "where P2.idEpreuve= %d";
+     /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve*/
+    public static final String lesSportifsCompatiblesEpreuve
+            = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)"
+            + "where S.genre= %s";
+
+    /*Selection des Equipes compatibles en cat et nbInscritsavec une epreuve: idEpreuve*/
+    public static final String lesEquipesCompatiblesEpreuveNb
+            = "Select R1.idEquipe, E.nomEquipe, E.categorie, P.IDPARTICIPANT,P.pays from"
+            + "(select idEquipe,count(idSportif) as NbSportifs from LesConstitutionsEquipe group by idEquipe) R1"
+            + "join LesEquipes E on (R1.idEquipe=E.idEquipe) join LesParticipants P on (E.idEquipe=P.idParticipant)"
+            + "where (NbSportifs=%d and E.categorie='%s)";
+
+    /*Selection des Equipes inscrits à une épreuve: idEpreuve*/
+    public static final String lesEquipesInscritesEpreuve
+            = "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant)"
+            + " Join lesParticipations P2 on (E.idEquipe=P2.idParticipant) "
+            + "where P2.idEpreuve= %d";
 
         
         
@@ -112,6 +119,17 @@ public class GetParticipantsDAO {
         return getConsulterParticipants(lesSportifsParGenre,categorie);
     }
     
+     /**
+     * retourne la liste des equipe inscrite a une epreuve
+     * @param idEpreuve
+     * @return
+     * @throws SQLException 
+     */
+    public static CachedRowSet getEquipesInscrites(int idEpreuve) 
+            throws SQLException{
+        return getConsulterParticipants(lesEquipesInscritesEpreuve,idEpreuve);
+    }
+    
     
     /*-------------------------------------------------------------
     Fonction appelee pour construction des RowSet
@@ -129,7 +147,7 @@ public class GetParticipantsDAO {
     Fonction appele pour construction des RowSet
     execute la "query"=requete avec un "selecteur"=parametre (int)
     -------------------------------------------------------------*/
-    private static CachedRowSet getConsulterEquipe(String query, int selecteur) 
+    private static CachedRowSet getConsulterParticipants(String query, int selecteur) 
             throws SQLException {
         CachedRowSet crs = new CachedRowSetImpl();
         crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");

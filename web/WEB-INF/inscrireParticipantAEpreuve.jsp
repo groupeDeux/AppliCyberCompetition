@@ -4,6 +4,7 @@
     Author     : Gato
 --%>
 
+<%@page import="CyberComp_G2.Model.ConstituerEquipe.Equipe"%>
 <%@page import="CyberComp_G2.Model.ConsulterEpreuve.EpreuveParEquipe"%>
 <%@page import="CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterEpreuveDAO"%>
 <%@page import="CyberComp_G2.Model.ConstituerEquipe.Delegation"%>
@@ -91,19 +92,19 @@ and open the template in the editor.
 
                                     <label class='col-xs-3 control-label'>Epreuve:</label>
                                     <div class='col-xs-6'>
-                                        <select class="form-control" id='selectionEpreuvesEquipe' name='listEpreuvesEquipe'>
+                                        <select class="form-control" id='selectionEpreuveEquipe' name='listEpreuvesEquipe'>
                                             <option value=''>Choix</option>
-                                             <%
-                                                 int i=0;
-                                                  ArrayList<EpreuveParEquipe> lesEpreuvesEquipe = (ArrayList<EpreuveParEquipe>) request.getAttribute("listEpreuveEquipe");
-                                                    for (i = 0; i < lesEpreuvesEquipe.size(); i++) {
-                                                        int idEpreuve = lesEpreuvesEquipe.get(i).getIdEpreuve();
-                                                        String nomEpreuve=lesEpreuvesEquipe.get(i).getNomEpreuve();
-                                                        String categorie=lesEpreuvesEquipe.get(i).getCategorie();
-                                                        
-                                                %>      <option value='<%=idEpreuve%>'><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%>  </option>
-                                                <% }; %>
-                                           
+                                            <%
+                                                int i = 0;
+                                                ArrayList<EpreuveParEquipe> lesEpreuvesEquipe = (ArrayList<EpreuveParEquipe>) request.getAttribute("listEpreuveEquipe");
+                                                for (i = 0; i < lesEpreuvesEquipe.size(); i++) {
+                                                    int idEpreuve = lesEpreuvesEquipe.get(i).getIdEpreuve();
+                                                    String nomEpreuve = lesEpreuvesEquipe.get(i).getNomEpreuve();
+                                                    String categorie = lesEpreuvesEquipe.get(i).getCategorie();
+
+                                            %>      <option value='<%=idEpreuve%>'><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%>  </option>
+                                            <% }; %>
+
                                         </select>
                                     </div>
                                     <div class='col-xs-1 control-label'id="verifEpreuveChoisie"> </div>    
@@ -111,6 +112,27 @@ and open the template in the editor.
                             </div>
                         </form>
 
+                        <!--
+                                 AFFICHER LES EQUIPE DEJA INSCRIT A L' EPREUVE CHOISIE
+                        -->
+
+                        <form class="form-horizontal">
+
+                            <h4> <strong> Les équipes isncrites </strong></h4>
+
+                            <div>
+                                <%
+                                    int j = 0;
+                                    ArrayList<Equipe> lesEquipesInscrites = (ArrayList<Equipe>) request.getAttribute("listEquipesInscrites");
+                                    for (j = 0; j < lesEpreuvesEquipe.size(); j++) {
+                                        int idEquipe = lesEquipesInscrites.get(i).getIdEquipe();
+                                        String nomEquipe = lesEquipesInscrites.get(i).getNomEquipe();
+                                        //String pays = lesEpreuvesEquipe.get(i).getPays();  Comment recuperer le pays car pas une methode de equipe
+
+                                %>      <option value='<%=idEquipe%>'><%= idEquipe%> : <%=nomEquipe%>  </option>
+                                <% };%>
+                            </div>
+                        </form>
                         <!--
                                  AJOUTER UNE EQUIPE A L EPREUVE
                         -->
