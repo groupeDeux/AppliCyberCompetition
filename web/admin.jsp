@@ -42,28 +42,37 @@ and open the template in the editor.
                         <h2 class="text-muted"><a href="index.jsp" data-toggle="tooltip" data-placement="right" title="Acceder à l'accueil">CyberCompetition</a></h2>
                         <nav>
                             <ul class="nav nav-justified">
-                                <li class='active'><a href="index.jsp" data-toggle="tooltip" data-placement="bottom" title="Acceder à l'accueil">Accueil</a></li>
+                                <li><a href="index.jsp" data-toggle="tooltip" data-placement="bottom" title="Acceder à l'accueil">Accueil</a></li>
                                 <li><a href="GetListDiscipline" data-toggle="tooltip" data-placement="bottom" title="Acceder aux disciplines">Disciplines</a></li>
                                 <li><a href="GetListEpreuve" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves">Epreuves</a></li>
                                 <li><a href='#' data-toggle="tooltip" data-placement="bottom" title="Acceder aux résultats des épreuves">Resultats</a></li>
                                 <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder au panier">Panier</a></li>
-                                <li><a href="admin.jsp" data-toggle="tooltip" data-placement="bottom" title="Acceder aux fonctions d'administration">Admin</a></li>
+                                <li class='active'><a href="admin.jsp" data-toggle="tooltip" data-placement="bottom" title="Acceder aux fonctions d'administration">Admin</a></li>
                             </ul>
                         </nav>
                     </div>
                 </div>
                 <div class="row">
                     <div class="jumbotron">
-                        <h1>CyberCompetition</h1>
-                        <p class="lead">Bienvenue sur le site de <strong>CyberCompetition</strong>, ne touchez pas les murs, la peinture est fraiche !</p>
+                        <h1>Administration</h1>
+                        <p class="lead">Bienvenue sur administration de <strong>CyberCompetition</strong></p>
                     </div>    
                 </div>
-                <footer class="footer">
-                    <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
-                    <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
-                </footer>
-            </div>
+                <div>
+                   <div class='col-xs-4'>
+                        <div class='thumbnail'>
+                            <img src="img/adminEquipe.jpg"alt=".." style="margin-top: 10px;" class="img-rounded">
+                            <div class="caption">
+                                <h3 class="text-center">Administrer  les equipes</h3>
+                                <p>Cretion modification et supression d'equipe</p>
+                                <p><a href="GetListDelegation" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Acceder a l'administration des equipes">Administrer Equipe</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
         </div>
+        
         <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/cyberCompetition.js" ></script>

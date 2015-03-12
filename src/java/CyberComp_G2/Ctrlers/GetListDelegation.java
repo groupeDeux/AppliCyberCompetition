@@ -63,7 +63,7 @@ public class GetListDelegation extends HttpServlet {
         Equipe newEquipe = null;
         request.setAttribute("newEquipe", newEquipe);
         request.setAttribute("listDelegations", listDelegations);
-        request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/AdministrerEquipe.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

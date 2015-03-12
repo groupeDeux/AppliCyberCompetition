@@ -8,7 +8,7 @@
             name="jdbc/BDCyberCompetition" 
             password="bd2015" 
             type="javax.sql.DataSource" 
-            url="jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:ufrmia"
+            url="jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:ufrima"
             username="danjouv"/>
 </Context>
     
