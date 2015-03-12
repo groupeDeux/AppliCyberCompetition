@@ -299,7 +299,7 @@ and open the template in the editor.
                                                 <%
                                                     for (i = 0; i < lesDelegations.size(); i++) {
                                                         String pays = lesDelegations.get(i).getPays();
-                                                %><option value='<%=pays%>'><%=pays%></option>
+                                                %>      <option value='<%=pays%>'><%=pays%></option>
                                                 <%
                                                     };
                                                 %>
