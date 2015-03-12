@@ -28,7 +28,7 @@ public class EpreuveParEquipe extends Epreuve{
         return nbPersonneFixe;
     }
     /**
-     * Verifir que le nombre de personneFixé est supétieure a 2
+     * Verifier que le nombre de personneFixé est supétieure a 2
      * @param nbPersonneFixe
      * @throws nbPersonneFixeExcepetion 
      */
