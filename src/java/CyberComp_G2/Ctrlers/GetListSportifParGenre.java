@@ -47,11 +47,11 @@ public class GetListSportifParGenre extends HttpServlet {
             // chaque ligne de la liste déroulante comporte l'idSportif + le nom +le prénom 
 
             while (rowSetSportifParGenre.next()) {
-                int idSportif = rowSetSportifParGenre.getInt("idSportif");
+                String idSportif = rowSetSportifParGenre.getString("idSportif");
                 String nom = rowSetSportifParGenre.getString("nom");
                 String prenom = rowSetSportifParGenre.getString("prenom");
                 //ajouter à la liste déroulante toute les ligne 
-                rep.append("<option value='").append(rowSetSportifParGenre.getInt("idSportif")).append("'>").append(idSportif).append(" : ").append(nom).append(" ").append(prenom).append("</option>");
+                rep.append("<option value='").append(rowSetSportifParGenre.getString("idSportif")).append("'>").append(idSportif).append(" : ").append(nom).append(" ").append(prenom).append("</option>");
             }
             out.println(rep);
         } catch (SQLException ex) {
