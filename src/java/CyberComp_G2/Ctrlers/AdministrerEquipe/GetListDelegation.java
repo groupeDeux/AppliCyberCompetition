@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package CyberComp_G2.Ctrlers;
+package CyberComp_G2.Ctrlers.AdministrerEquipe;
 
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
 import CyberComp_G2.Exceptions.CategorieException;

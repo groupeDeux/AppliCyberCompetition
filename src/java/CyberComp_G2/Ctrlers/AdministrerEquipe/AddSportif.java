@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CyberComp_G2.Ctrlers;
+package CyberComp_G2.Ctrlers.AdministrerEquipe;
 
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import CyberComp_G2.Model.ConstituerEquipe.Sportif;
@@ -50,7 +50,7 @@ public class AddSportif extends HttpServlet {
         }
         newEquipe.setNbDeSportif(newEquipe.getNbDeSportif()+1);
         session.setAttribute("newEquipe", newEquipe);
-        request.getRequestDispatcher("/WEB-INF/AdministrerEquipe.jsp#titreLesSportifs").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/AdministrerEquipe.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
