@@ -87,13 +87,51 @@ $('a').tooltip({
  $('div.row.rowEpreuve').hover(function(){$(this).css('cursor','hand');},function(){$(this).css('cursor','pointer');});
  */
 
-$('div[data-zeub]').hover(
+/*
+$('div[data-info]').hover(
         function () {
             $(this).css('cursor', 'hand');
-            $(this).css('background-color', '#F5F5F5');
+
         },
         function () {
-            $(this).css('cursor','pointer');
-            $(this).css('background-color', '#FFFFFF');
+            $(this).css('cursor', 'pointer');
+
         }
 );
+
+*/
+
+/*  Changement du pointeur au passage au dessus d'un data-toggle*/
+/*$('div[data-toggle]:not([class])').hover */
+$('div[data-toggle]').hover(
+        function () {
+            $(this).css('cursor', 'hand');
+
+        },
+        function () {
+            $(this).css('cursor', 'pointer');
+
+        }
+);
+
+
+/* Changement du glyphicon quand on clic tu l'un des affichages des epreuves  */
+$('div[data-info]').click(
+        function () {
+            if ($(this).attr('data-info') === 'close') {
+                $(this).attr('data-info', 'open');
+                $(this).find('span').removeClass('glyphicon-menu-down').addClass('glyphicon-menu-up');
+            } else {
+                $(this).attr('data-info', 'close');
+                $(this).find('span').removeClass('glyphicon-menu-up').addClass('glyphicon-menu-down');
+            }
+        }
+);
+
+/* Changement du glyphicon quand on click sur les panel heading */
+$('div.panel-heading[data-toggle]').click(function(){
+     var glyph = $(this).find('span');
+     if(glyph.attr('class')==='pull-right glyphicon glyphicon-menu-down'){glyph.attr('class','pull-right glyphicon glyphicon-menu-up');}
+     else{glyph.attr('class','pull-right glyphicon glyphicon-menu-down');}
+});
+

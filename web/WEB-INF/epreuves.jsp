@@ -142,9 +142,10 @@ and open the template in the editor.
                         </div>
                         <div class='media-body'>
                             <%-- Cliquer sur cette partie media-heading permet d'afficher l'epreuve --%>
-                            <div data-toggle='collapse' data-zeub href='#media<%=lesId%>'>
-                                <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%></h4>
+                            <div data-toggle='collapse' data-info='close' href='#media<%=lesId%>'>
+                                <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%>&nbsp;</h4>
                                 <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
+                                <div class='pull-right'><h3><span class='glyphicon glyphicon-menu-down' style='color:#337AB7;'></span>&nbsp;</h3></div>
                                 <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
                                 <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
                                 <br/>
@@ -164,6 +165,7 @@ and open the template in the editor.
                                     <div class="panel-heading" data-toggle='collapse' href='#collapseParticipants<%=lesId%>'>
                                         <h4>
                                             Liste des participants de l'épreuve
+                                            <span class='pull-right glyphicon glyphicon-menu-down'></span>
                                         </h4>
                                     </div>
                                     <div id="collapseParticipants<%=lesId%>" class="panel-collapse collapse">
@@ -182,6 +184,7 @@ and open the template in the editor.
                                     <div class="panel-heading" data-toggle='collapse' href='#collapseBillets<%=lesId%>'>
                                         <h4>
                                             Acheter un billet ou un ticket video.
+                                            <span class='pull-right glyphicon glyphicon-menu-down'></span>
                                         </h4>
                                     </div>
                                     <div id="collapseBillets<%=lesId%>" class="panel-collapse collapse">
@@ -234,6 +237,10 @@ and open the template in the editor.
                     </div>
                 </div>
                 <%}%>
+                
+                <%--
+                    LISTE DES PARTICIPANTS INDIVIDUELLES
+                --%>
                 <%
 
                     lesEpreuves = (ArrayList<Epreuve>) request.getAttribute("listEpreuveInd");
@@ -241,21 +248,106 @@ and open the template in the editor.
                         Epreuve epreuveSelectionnee = lesEpreuves.get(i);
                         lesId = lesId + i;
                 %>
-                <div class="row rowEpreuve" data-tags="<%=epreuveSelectionnee.getCategorie()%>,Individuelle">
+                <div class="row rowEpreuve" data-tags="<%= epreuveSelectionnee.getCategorie()%>,Individuel">
                     <div class="media">
                         <div class="media-left">
-                            <a href="#media<%=lesId%>" data-toggle="collapse" aria-expanded="false"><img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de ski' data-toggle="tooltip" data-placement="top" title="Afficher informations supp."></a>
+                            <%-- Cliquer sur l'image permet d'afficher l'epreuve --%>
+                            <div data-toggle='collapse' href='#media<%=lesId%>'>
+                                <img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de <%=epreuveSelectionnee.getNomDiscipline()%>' data-toggle="tooltip" data-placement="top" title="Afficher informations supp.">
+                            </div>
                         </div>
-
                         <div class='media-body'>
-                            <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%></h4>
-                            <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
-                            <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
-                            <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
-                            <div class="collapse"  id="media<%=lesId%>">
+                            <%-- Cliquer sur cette partie media-heading permet d'afficher l'epreuve --%>
+                            <div data-toggle='collapse' data-info='close' href='#media<%=lesId%>'>
+                                <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%>&nbsp;</h4>
+                                <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
+                                <div class='pull-right'><h3><span class='glyphicon glyphicon-menu-down' style='color:#337AB7;'></span>&nbsp;</h3></div>
+                                <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
+                                <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
+                                <br/>
+                            </div>
+                            <div class="collapse" id="media<%=lesId%>">
                                 <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                                     Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+
+                                <%--
+                                        LISTE DES PARTICIPANTS
+                                        Panel d'affichage de la liste des participants à l'epreuve 
+                                        panel-heading: Titre de cette page
+                                        panel-body: corps de la page a afficher
+                                --%>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" data-toggle='collapse' href='#collapseParticipants<%=lesId%>'>
+                                        <h4>
+                                            Liste des participants de l'épreuve
+                                            <span class='pull-right glyphicon glyphicon-menu-down'></span>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseParticipants<%=lesId%>" class="panel-collapse collapse">
+                                        <div class='panel-body'>
+                                            ===========
+                                        </div>
+                                    </div>
+                                </div>
+                                <%--
+                                        ACHETER UN BILLET
+                                        Panel d'affichage pouracheter un billet
+                                        panel-heading: Titre de cette page
+                                        panel-body: corps de la page a afficher
+                                --%>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" data-toggle='collapse' href='#collapseBillets<%=lesId%>'>
+                                        <h4>
+                                            Acheter un billet ou un ticket video.
+                                            <span class='pull-right glyphicon glyphicon-menu-down'></span>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseBillets<%=lesId%>" class="panel-collapse collapse">
+                                        <div class='panel-body'>
+                                            <form class="form-inline">
+                                                <div class='col-xs-2'>
+                                                    <div class='form-group'>
+                                                        <strong>Prix: 30€</strong>
+                                                    </div>
+                                                </div>
+                                                <div class='col-xs-1'>
+                                                    <div class='form-group'>
+                                                        <div class="radio-inline">
+                                                            <input type="radio" name="radioEpreuve<%=lesId%>" value="Billet">
+                                                            <label class='control-label'>Billet</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='col-xs-2'>
+                                                    <div class='form-group'>
+                                                        <div class="radio-inline">
+                                                            <input type="radio" name="radioEpreuve<%=lesId%>" value="TicketVideo">
+                                                            <label class='control-label'>Ticket Video</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='col-xs-3'>
+                                                    <div class="form-group">
+                                                        <label class='control-label'>Nombre de places:</label>
+                                                        <select class="form-control" name='nbPlacesEpreuve<%=lesId%>' id='nbPlacesEpreuve<%=lesId%>'>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class='col-xs-3'>
+                                                    <div class='form-group'>
+                                                        <button type="submit" class="btn btn-primary pull-right">Ajouter au Panier&nbsp;<span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
