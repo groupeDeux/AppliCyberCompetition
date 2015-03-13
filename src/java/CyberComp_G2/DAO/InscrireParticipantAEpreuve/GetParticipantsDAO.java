@@ -146,8 +146,7 @@ public class GetParticipantsDAO {
          String categorie=rowSetCategorie.getString("categorie");
          // NbPersonneFixe de l epreuve dans une variable java
          CachedRowSet rowSetNbPersonneFixe=getConsulterParticipants(leNbPersonneFixe,idEpreuve);
-         int nbPersonneFixe=rowSetNbPersonneFixe.getInt("NbPersonneFixe");
-         
+         int nbPersonneFixe=rowSetNbPersonneFixe.getInt("NbPersonneFixe");      
          
         return getConsulterParticipants( lesEquipesCompatiblesEpreuve,categorie,nbPersonneFixe) ;
     }
