@@ -50,7 +50,24 @@ public class GetParticipantsDAO {
             = "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre P.IDPARTICIPANT,P.pays"
             + "from viewEquipe V"
             + "join LesParticipants P on (V.idEquipe=P.idParticipant)"
-            + "where (V.NbMembre=%d and V.categorie='%s)";
+            + "where (V.NbMembre=%d and V.categorie='%s )";
+    
+    
+    
+    /* Compatibles et non deja inscrits -------> METHODE a ecrire (requete avec 3 parametres */ 
+    public static final String lesEquipesCompatiblesEtNonInscrit
+            ="Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre P.IDPARTICIPANT,P.pays "
+            + "from viewEquipe V "
+            + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
+            + "where (V.NbMembre=%d and V.categorie='%s ) "
+            +"minus "
+            +"Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre P.IDPARTICIPANT,P.pays "
+            + "from viewEquipe V "
+            + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
+            + "join lesParticipations P2 "
+            + "on (P2.idParticipant=P.idParticipant) "
+            + "where (V.NbMembre=%d and V.categorie='%s and P2.idEpreuve=%s )";
+  
     /*--------------------------------------------------------------------------
     
     */    
