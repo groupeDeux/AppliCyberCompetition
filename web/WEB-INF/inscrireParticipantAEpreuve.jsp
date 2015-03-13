@@ -113,26 +113,7 @@ and open the template in the editor.
                                                 %>
 
                                             </select>
-                                                <select class="form-control" id='selectionEpreuveEquipe' name='listEpreuvesInv'>
-                                                <option value=''>Choix</option>
-                                                <%
-                                                    ArrayList<EpreuveIndividuelle> lesEpreuvesIndividuelles = (ArrayList<EpreuveIndividuelle>) request.getAttribute("listEpreuveInd");
-                                                    if (lesEpreuvesIndividuelles != null) {
-                                                        int i = 0;
-                                                        for (i = 0; i < lesEpreuvesIndividuelles.size(); i++) {
-                                                            int idEpreuve = lesEpreuvesIndividuelles.get(i).getIdEpreuve();
-                                                            String nomEpreuve = lesEpreuvesIndividuelles.get(i).getNomEpreuve();
-                                                            String categorie = lesEpreuvesIndividuelles.get(i).getCategorie();
 
-                                                %>      <option value='<%=idEpreuve%>'><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%>  </option>
-                                                <% };
-                                                    } else {
-                                                        // bouton fixe sur epreuve choisi = 
-                                                        //EpreuveParEquipe EpreuveChoisi = (Epreuve) request.getAttribute("EpreuveChoisi");
-                                                    }
-                                                %>
-
-                                            </select>
                                         </div>
                                         <div class='col-xs-1 control-label'id="verifEpreuveChoisie"> </div>    
                                     </div>
@@ -228,10 +209,26 @@ and open the template in the editor.
 
                                         <label class='col-xs-3 control-label'>Epreuve:</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectionEpreuvesEquipe' name='listEpreuvesEquipe'>
+                                            <select class="form-control" id='selectionEpreuveEquipe' name='listEpreuvesInv'>
                                                 <option value=''>Choix</option>
-                                                <!-- Appel liste Equipe du controler 
-                                                (parametre sur la categorie selon epreuve choisie) -->
+                                                <%
+                                                    ArrayList<EpreuveIndividuelle> lesEpreuvesIndividuelles = (ArrayList<EpreuveIndividuelle>) request.getAttribute("listEpreuveInd");
+                                                    if (lesEpreuvesIndividuelles != null) {
+                                                        int i = 0;
+                                                        for (i = 0; i < lesEpreuvesIndividuelles.size(); i++) {
+                                                            int idEpreuve = lesEpreuvesIndividuelles.get(i).getIdEpreuve();
+                                                            String nomEpreuve = lesEpreuvesIndividuelles.get(i).getNomEpreuve();
+                                                            String categorie = lesEpreuvesIndividuelles.get(i).getCategorie();
+
+                                                %>      <option value='<%=idEpreuve%>'><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%>  </option>
+                                                <% };
+                                                    } else {
+                                                        // bouton fixe sur epreuve choisi = 
+                                                        //EpreuveParEquipe EpreuveChoisi = (Epreuve) request.getAttribute("EpreuveChoisi");
+                                                    }
+                                                %>
+
+                                            </select>
                                             </select>
                                         </div>
                                         <div class='col-xs-1 control-label'id="verifEpreuveChoisie"> </div>    
@@ -305,7 +302,7 @@ and open the template in the editor.
                     });
                 </script>
                 <script type="text/javascript" src="js/cyberCompetition.js"></script>
-                <script src="js/FormAdmin.js" type="text/javascript"></script>
+                <script src="js/jsInscrireParticipantsAEpreuve.js" type="text/javascript"></script>
                 </body>
                 </html>
 
