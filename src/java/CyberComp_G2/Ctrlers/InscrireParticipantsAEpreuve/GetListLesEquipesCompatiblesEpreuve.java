@@ -26,8 +26,8 @@ import javax.sql.rowset.CachedRowSet;
  *
  * @author magourar
  */
-@WebServlet(name = "getListLesEquipesCompatiblesEpreuve", urlPatterns = {"/getListLesEquipesCompatiblesEpreuve"})
-public class getListLesEquipesCompatiblesEpreuve extends HttpServlet {
+@WebServlet(name = "GetListLesEquipesCompatiblesEpreuve", urlPatterns = {"/GetListLesEquipesCompatiblesEpreuve"})
+public class GetListLesEquipesCompatiblesEpreuve extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -58,7 +58,7 @@ public class getListLesEquipesCompatiblesEpreuve extends HttpServlet {
         } catch (SQLException ex) {
             log(ex.getMessage());
         } catch (CategorieException ex) {
-            Logger.getLogger(getListLesEquipesCompatiblesEpreuve.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetListLesEquipesCompatiblesEpreuve.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         /* ajoute la liste en attribut de la reponse */
