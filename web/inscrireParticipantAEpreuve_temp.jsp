@@ -94,16 +94,7 @@ and open the template in the editor.
                                         <div class='col-xs-6'>
                                             <select class="form-control" id='selectionEpreuveEquipe' name='listEpreuvesEquipe'>
                                                 <option value=''>Choix</option>
-                                                <%
-                                                    int i = 0;
-                                                    ArrayList<EpreuveParEquipe> lesEpreuvesEquipe = (ArrayList<EpreuveParEquipe>) request.getAttribute("listEpreuveEquipe");
-                                                    for (i = 0; i < lesEpreuvesEquipe.size(); i++) {
-                                                        int idEpreuve = lesEpreuvesEquipe.get(i).getIdEpreuve();
-                                                        String nomEpreuve = lesEpreuvesEquipe.get(i).getNomEpreuve();
-                                                        String categorie = lesEpreuvesEquipe.get(i).getCategorie();
-
-                                                %>      <option value='<%=idEpreuve%>'><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%>  </option>
-                                                <% }; %>
+                                               
 
                                             </select>
                                         </div>
@@ -121,16 +112,7 @@ and open the template in the editor.
                                 <h4> <strong> Les équipes isncrites </strong></h4>
 
                                 <div>
-                                    <%
-                                        int j = 0;
-                                        ArrayList<Equipe> lesEquipesInscrites = (ArrayList<Equipe>) request.getAttribute("listEquipesInscrites");
-                                        for (j = 0; j < lesEquipesInscrites.size(); j++) {
-                                            int idEquipe = lesEquipesInscrites.get(i).getIdEquipe();
-                                            String nomEquipe = lesEquipesInscrites.get(i).getNomEquipe();
-                                            String pays = lesEquipesInscrites.get(i).getPays();  //Comment recuperer le pays car pas une methode de equipe
-
-                                    %>      <div><%= idEquipe%> : <%=nomEquipe%>  </div>
-                                    <% };%>
+                                
                                 </div>
                             </form>
                             <!--

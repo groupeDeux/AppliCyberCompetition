@@ -47,7 +47,6 @@ public class GetListEpreuveInscription extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //if(nomDiscipline.equals("Tout")){nomDiscipline=null;}
         CachedRowSet rowSetEpreuveEquipe;
         CachedRowSet rowSetEpreuveInv;
 

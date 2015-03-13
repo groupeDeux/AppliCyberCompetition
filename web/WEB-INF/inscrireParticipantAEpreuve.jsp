@@ -95,15 +95,21 @@ and open the template in the editor.
                                             <select class="form-control" id='selectionEpreuveEquipe' name='listEpreuvesEquipe'>
                                                 <option value=''>Choix</option>
                                                 <%
-                                                    int i = 0;
                                                     ArrayList<EpreuveParEquipe> lesEpreuvesEquipe = (ArrayList<EpreuveParEquipe>) request.getAttribute("listEpreuveEquipe");
-                                                    for (i = 0; i < lesEpreuvesEquipe.size(); i++) {
-                                                        int idEpreuve = lesEpreuvesEquipe.get(i).getIdEpreuve();
-                                                        String nomEpreuve = lesEpreuvesEquipe.get(i).getNomEpreuve();
-                                                        String categorie = lesEpreuvesEquipe.get(i).getCategorie();
+                                                    if (lesEpreuvesEquipe != null) {
+                                                        int i = 0;
+                                                        for (i = 0; i < lesEpreuvesEquipe.size(); i++) {
+                                                            int idEpreuve = lesEpreuvesEquipe.get(i).getIdEpreuve();
+                                                            String nomEpreuve = lesEpreuvesEquipe.get(i).getNomEpreuve();
+                                                            String categorie = lesEpreuvesEquipe.get(i).getCategorie();
 
                                                 %>      <option value='<%=idEpreuve%>'><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%>  </option>
-                                                <% }; %>
+                                                <% };
+                                                    } else {
+                                                        // bouton fixe sur epreuve choisi = 
+                                                                //EpreuveParEquipe EpreuveChoisi = (Epreuve) request.getAttribute("EpreuveChoisi");
+                                                    }
+                                                %>
 
                                             </select>
                                         </div>

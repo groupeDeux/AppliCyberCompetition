@@ -46,12 +46,12 @@ public class GetParticipantsDAO {
             ="SELECT E.NbPersonneFixe FROM LesEpreuvesParEquipe where E.idEpreuve= %d";
         
      /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve*/
-    public static final String lesSportifsCompatiblesEpreuve
+    public static final String lesSportifsCompatiblesEpreuveCat
             = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)"
             + "where S.genre= %s";
 
     /*Selection des Equipes compatibles en cat et nbInscritsavec une epreuve: idEpreuve*/
-    public static final String lesEquipesCompatiblesEpreuveNb
+    public static final String lesEquipesCompatiblesEpreuve
             = "Select V.idEquipe, V.nomEquipe, V.categorie, P.IDPARTICIPANT,P.pays"
             + "from viewEquipe V"
             + "join LesParticipants P on (V.idEquipe=P.idParticipant)"
