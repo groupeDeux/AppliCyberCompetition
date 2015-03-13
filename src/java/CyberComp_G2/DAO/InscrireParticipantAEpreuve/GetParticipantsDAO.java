@@ -36,7 +36,7 @@ public class GetParticipantsDAO {
             "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) where S.genre='%s";
     
     
-    
+    /*---- Requete a mettre dans la fonction getEquipesCompatibles------------ 
     /* Recuperation categorie a passer en param aux autres requetes*/
     public static final String laCategorie
             = "SELECT E.categorie FROM LesEpreuves where E.idEpreuve= %d";
@@ -44,18 +44,20 @@ public class GetParticipantsDAO {
     /* Recuperation NbFixeSportif a passer en param aux autre requetes*/
     public static final String leNbPersonneFixe
             ="SELECT E.NbPersonneFixe FROM LesEpreuvesParEquipe where E.idEpreuve= %d";
-        
-     /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve*/
-    public static final String lesSportifsCompatiblesEpreuveCat
-            = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)"
-            + "where S.genre= %s";
-
+    
     /*Selection des Equipes compatibles en cat et nbInscritsavec une epreuve: idEpreuve*/
     public static final String lesEquipesCompatiblesEpreuve
             = "Select V.idEquipe, V.nomEquipe, V.categorie, P.IDPARTICIPANT,P.pays"
             + "from viewEquipe V"
             + "join LesParticipants P on (V.idEquipe=P.idParticipant)"
-            + "where (NbSportifs=%d and E.categorie='%s)"; 
+            + "where (NbSportifs=%d and E.categorie='%s)";
+    /*--------------------------------------------------------------------------
+    
+    */    
+     /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve*/
+    public static final String lesSportifsCompatiblesEpreuveCat
+            = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)"
+            + "where S.genre= %s"; 
 
     /*Selection des Equipes inscrits à une épreuve: idEpreuve*/
     public static final String lesEquipesInscritesEpreuve
