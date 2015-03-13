@@ -56,7 +56,7 @@ public class GetListEquipesInscrites extends HttpServlet {
              et le met dans l arrayList listEquipesInscrites */
             while (rowSetEquipesInscrites.next()) {
                 // recupereation les informations de  l'quipe
-                listEquipesInscrites.add(new Equipe(rowSetEquipesInscrites.getInt("idEquipe"), rowSetEquipesInscrites.getString("pays"), rowSetEquipesInscrites.getString("nomEquipe"),rowSetEquipesInscrites.getString("categorie"),rowSetEquipesInscrites.getInt("nbDeSportif")));
+                listEquipesInscrites.add(new Equipe(rowSetEquipesInscrites.getInt("idEquipe"), rowSetEquipesInscrites.getString("pays"), rowSetEquipesInscrites.getString("nomEquipe"),rowSetEquipesInscrites.getString("categorie"),rowSetEquipesInscrites.getInt("nbMembre")));
             }
         } catch (SQLException ex) {
             log(ex.getMessage());

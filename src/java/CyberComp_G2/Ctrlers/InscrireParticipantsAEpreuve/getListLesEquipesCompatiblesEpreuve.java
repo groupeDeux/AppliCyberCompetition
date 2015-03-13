@@ -6,13 +6,21 @@
 
 package CyberComp_G2.Ctrlers.InscrireParticipantsAEpreuve;
 
+import CyberComp_G2.DAO.InscrireParticipantAEpreuve.GetParticipantsDAO;
+import CyberComp_G2.Exceptions.CategorieException;
+import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.CachedRowSet;
 
 /**
  *
@@ -32,19 +40,30 @@ public class getListLesEquipesCompatiblesEpreuve extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet getListLesEquipesCompatiblesEpreuve</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet getListLesEquipesCompatiblesEpreuve at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        ArrayList<Equipe> listEquipesCompatibles = new ArrayList();
+        String idEpreuve = request.getParameter("idEpreuve");
+
+        try {
+
+            // recuperation des donnees BD chargees avec DAO dans un rowSet
+            CachedRowSet rowSetEquipesCompatibles = GetParticipantsDAO.getLesEquipesCompatiblesEpreuve(Integer.parseInt(idEpreuve));
+           
+             /* cree un objet Equipe pour chaque ligne du rowset parcouru
+             et le met dans l arrayList listEquipesInscrites */
+            while (rowSetEquipesCompatibles.next()) {
+                // recupereation les informations de  l'quipe
+                listEquipesCompatibles.add(new Equipe(rowSetEquipesCompatibles.getInt("idEquipe"), rowSetEquipesCompatibles.getString("pays"), rowSetEquipesCompatibles.getString("nomEquipe"),rowSetEquipesCompatibles.getString("categorie"),rowSetEquipesCompatibles.getInt("nbMembre")));
+            }
+        } catch (SQLException ex) {
+            log(ex.getMessage());
+        } catch (CategorieException ex) {
+            Logger.getLogger(getListLesEquipesCompatiblesEpreuve.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        /* ajoute la liste en attribut de la reponse */
+        request.setAttribute("listEquipesCompatibles", listEquipesCompatibles);
+        request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
