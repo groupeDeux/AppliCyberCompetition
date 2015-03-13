@@ -47,10 +47,10 @@ public class GetParticipantsDAO {
     
     /*Selection des Equipes compatibles en cat et nbInscritsavec une epreuve: idEpreuve*/
     public static final String lesEquipesCompatiblesEpreuve
-            = "Select V.idEquipe, V.nomEquipe, V.categorie, P.IDPARTICIPANT,P.pays"
+            = "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre P.IDPARTICIPANT,P.pays"
             + "from viewEquipe V"
             + "join LesParticipants P on (V.idEquipe=P.idParticipant)"
-            + "where (NbSportifs=%d and E.categorie='%s)";
+            + "where (V.NbMembre=%d and V.categorie='%s)";
     /*--------------------------------------------------------------------------
     
     */    
@@ -61,7 +61,7 @@ public class GetParticipantsDAO {
 
     /*Selection des Equipes inscrits à une épreuve: idEpreuve*/
     public static final String lesEquipesInscritesEpreuve
-            = "SELECT * FROM LesEquipes E JOIN LesParticipants P on (E.idEquipe=P.idParticipant)"
+            = "SELECT * FROM viewEquipe E JOIN LesParticipants P on (E.idEquipe=P.idParticipant)"
             + " Join lesParticipations P2 on (E.idEquipe=P2.idParticipant) "
             + "where P2.idEpreuve= %d";
 
