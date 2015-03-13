@@ -35,7 +35,7 @@ public class GetParticipantsDAO {
     public static final String lesSportifsParGenre = 
             "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) where S.genre='%s";
     
-    
+    /*------------------------------------------------------------------------
     /*---- Requete a mettre dans la fonction getEquipesCompatibles------------ 
     /* Recuperation categorie a passer en param aux autres requetes*/
     public static final String laCategorie
@@ -136,8 +136,20 @@ public class GetParticipantsDAO {
         return getConsulterParticipants(lesSportifsCompatiblesEpreuveCat,idEpreuve);
     }
 
-    public static CachedRowSet getLesEquipesCompatiblesEpreuve(int idEpreuve)throws SQLException {
-        return getConsulterParticipants( lesEquipesCompatiblesEpreuve,idEpreuve) ;
+    
+    
+    /* fonction pour sortir les equipes compatible en categorie et en nbMembre à une epreuve donnée*/
+     public static CachedRowSet getLesEquipesCompatiblesEpreuve(int idEpreuve)throws SQLException {
+         
+         // categorie de l epreuve dans uen variable java
+         CachedRowSet rowSetCategorie=getConsulterParticipants(laCategorie,idEpreuve);
+         String categorie=rowSetCategorie.getString("categorie");
+         // NbPersonneFixe de l epreuve dans une variable java
+         CachedRowSet rowSetNbPersonneFixe=getConsulterParticipants(leNbPersonneFixe,idEpreuve);
+         int nbPersonneFixe=rowSetCategorie.getInt("NbPersonneFixe");
+         
+         
+        return getConsulterParticipants( lesEquipesCompatiblesEpreuve,categorie,nbPersonneFixe) ;
     }
     
     
@@ -162,6 +174,19 @@ public class GetParticipantsDAO {
         CachedRowSet crs = new CachedRowSetImpl();
         crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
         crs.setCommand(String.format(query,selecteur));
+        crs.execute();
+        return crs;
+    }
+    
+    /*-------------------------------------------------------------
+    Fonction appele pour construction des RowSet
+    execute la "query"=requete avec les "selecteur"=parametres
+    -------------------------------------------------------------*/
+    private static CachedRowSet getConsulterParticipants(String query, String categorie,int nbFixe) 
+            throws SQLException {
+        CachedRowSet crs = new CachedRowSetImpl();
+        crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
+        crs.setCommand(String.format(query,categorie,nbFixe));
         crs.execute();
         return crs;
     }
