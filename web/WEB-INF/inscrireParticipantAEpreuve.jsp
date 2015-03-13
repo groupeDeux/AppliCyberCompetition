@@ -113,12 +113,12 @@ and open the template in the editor.
                             </form>
 
                             <!--
-                                     AFFICHER LES EQUIPE DEJA INSCRIT A L' EPREUVE CHOISIE
+                                     AFFICHER LES EQUIPES DEJA INSCRITES A L' EPREUVE CHOISIE
                             -->
 
                             <form class="form-horizontal">
 
-                                <h4> <strong> Les équipes isncrites </strong></h4>
+                                <h4> <strong> Les équipes inscrites </strong></h4>
 
                                 <div>
                                     <%
