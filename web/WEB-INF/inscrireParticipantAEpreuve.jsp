@@ -71,8 +71,8 @@ and open the template in the editor.
                     <div id="tabs">      
                         <ul class="nav nav-tabs">
                             <!-- Onglet: choix Epreuve par equipe ou Epreuve individuelle-->
-                            <li role="presentation" class="active" id ="presentation1"><a href="#tab1">Epreuves par équipe</a></li>
-                            <li role="presentation" id ="presentation2"><a href="#tab2">Epreuves individuelles</a></li>
+                            <li role="presentation" class="active" id ="InscrireEquipeEpreuve"><a href="#tab1">Epreuves par équipe</a></li>
+                            <li role="presentation" id ="inscrireSportifEpreuve"><a href="#tab2">Epreuves individuelles</a></li>
                         </ul>
 
                         <div class="row">
@@ -124,25 +124,33 @@ and open the template in the editor.
                                      AFFICHER LES EQUIPES DEJA INSCRITES A L' EPREUVE CHOISIE
                             -->
 
-                            <form class="form-horizontal">
 
-                                <h4> <strong> Les équipes inscrites </strong></h4>
-
-                                <div>
-                                    <%
-                                        int j = 0;
-                                        ArrayList<Equipe> lesEquipesInscrites = (ArrayList<Equipe>) request.getAttribute("listEquipesInscrites");
-                                        if (lesEquipesInscrites != null) {
+                            <h4> <strong> Les équipes inscrites </strong></h4>
+                            <div>
+                                <%
+                                    int j = 0;
+                                    ArrayList<Equipe> lesEquipesInscrites = (ArrayList<Equipe>) request.getAttribute("listEquipesInscrites");
+                                    if (lesEquipesInscrites != null) {
+                                        if (lesEquipesInscrites.size() != 0) {
                                             for (j = 0; j < lesEquipesInscrites.size(); j++) {
                                                 int idEquipe = lesEquipesInscrites.get(j).getIdEquipe();
-                                                String nomEquipe = lesEquipesInscrites.get(j).getNomEquipe();
-                                                String pays = lesEquipesInscrites.get(j).getPays();  //Comment recuperer le pays car pas une methode de equipe
+                                                //String nomEquipe = lesEquipesInscrites.get(j).getNomEquipe();
+                                                String pays = lesEquipesInscrites.get(j).getPays();  //methode de superClasse Participant
 
-                                    %>      <div><%= idEquipe%> : <%=nomEquipe%>  </div>
-                                    <% }
-                                        };%>
-                                </div>
-                            </form>
+                                                %> <div><%=idEquipe%> : <%=idEquipe%>  - <%=pays%>  </div>
+                                            <% }
+                                        } 
+                                        else { %> 
+                                            <div> Aucun participant pour le moment !  </div>
+                                        <% }
+
+                                    } else { %>
+                                        <div> Pas d'épreuve choisie  </div>
+                                <%
+                                    }
+                                %>
+                            </div>
+
                             <!--
                                      AJOUTER UNE EQUIPE A L EPREUVE
                             -->
