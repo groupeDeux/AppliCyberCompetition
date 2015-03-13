@@ -126,29 +126,7 @@ and open the template in the editor.
 
 
                             <h4> <strong> Les équipes inscrites </strong></h4>
-                            <div>
-                                <%
-                                    int j = 0;
-                                    ArrayList<Equipe> lesEquipesInscrites = (ArrayList<Equipe>) request.getAttribute("listEquipesInscrites");
-                                    if (lesEquipesInscrites != null) {
-                                        if (lesEquipesInscrites.size() != 0) {
-                                            for (j = 0; j < lesEquipesInscrites.size(); j++) {
-                                                int idEquipe = lesEquipesInscrites.get(j).getIdEquipe();
-                                                //String nomEquipe = lesEquipesInscrites.get(j).getNomEquipe();
-                                                String pays = lesEquipesInscrites.get(j).getPays();  //methode de superClasse Participant
-
-                                                %> <div><%=idEquipe%> : <%=idEquipe%>  - <%=pays%>  </div>
-                                            <% }
-                                        } 
-                                        else { %> 
-                                            <div> Aucun participant pour le moment !  </div>
-                                        <% }
-
-                                    } else { %>
-                                        <div> Pas d'épreuve choisie  </div>
-                                <%
-                                    }
-                                %>
+                            <div id="equipeInscrites">
                             </div>
 
                             <!--
@@ -217,11 +195,11 @@ and open the template in the editor.
 
                                         <label class='col-xs-3 control-label'>Epreuve:</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectionEpreuveEquipe' name='listEpreuvesInv'>
+                                            <select class="form-control" id='selectionEpreuveEquipe' name='listEpreuvesEquipe'>
                                                 <option value=''>Choix</option>
                                                 <%
-                                                    ArrayList<EpreuveIndividuelle> lesEpreuvesIndividuelles = (ArrayList<EpreuveIndividuelle>) request.getAttribute("listEpreuveInd");
-                                                    if (lesEpreuvesIndividuelles != null) {
+                                                    ArrayList<EpreuveIndividuelle> lesEpreuvesIndividuelles = (ArrayList<EpreuveIndividuelle>) request.getAttribute("listEpreuvesInv");
+                                                    if (lesEpreuvesEquipe != null) {
                                                         int i = 0;
                                                         for (i = 0; i < lesEpreuvesIndividuelles.size(); i++) {
                                                             int idEpreuve = lesEpreuvesIndividuelles.get(i).getIdEpreuve();

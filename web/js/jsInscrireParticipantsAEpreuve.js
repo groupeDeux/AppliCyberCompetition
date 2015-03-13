@@ -10,6 +10,14 @@ $("#selectionEpreuveEquipe").on('change', function () {
     alert();
     //recuperation de l'idEpreuve choisi
     var idEpreuve=document.getElementById("selectionEpreuveEquipe").value;
+    $("#equipeInscrites").load("GetListEquipesInscrites?idEpreuve="+idEpreuve);
     
-     document.location.href="GetListEquipesInscrites?idEpreuve="+idEpreuve;
+   //  document.location.href="GetListEquipesInscrites?idEpreuve="+idEpreuve;
+});
+$("#selectionEpreuveIndividuelle").on('click', function () {
+    alert();
+    //recuperation de l'idEpreuve choisi
+    var idEquipe=document.getElementById("selectionEpreuveIndividuelle").value;
+    
+     document.location.href="GetListEquipesInscrites?idEpreuve="+idEquipe;
 });
