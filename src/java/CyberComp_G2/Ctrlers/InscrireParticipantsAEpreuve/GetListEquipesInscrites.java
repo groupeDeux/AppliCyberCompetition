@@ -81,7 +81,7 @@ public class GetListEquipesInscrites extends HttpServlet {
         /* ajoute la liste en attribut de la reponse */
         request.setAttribute("listEquipesInscrites", listEquipesInscrites);
         request.setAttribute("listEquipesCompatibles", listEquipesCompatibles);
-        request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/equipesInscrites.jsp").forward(request, response);
     }
 
 
