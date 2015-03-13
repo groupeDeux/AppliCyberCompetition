@@ -44,11 +44,14 @@ public class GetListEquipesInscrites extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ArrayList<Equipe> listEquipesInscrites = new ArrayList();
         String idEpreuve = request.getParameter("idEpreuve");
+        ArrayList<Equipe> listEquipesInscrites = new ArrayList();
+        ArrayList<Equipe> listEquipesCompatibles = new ArrayList();
+        
 
         try {
 
+             /* ----- Les equipes inscrites ----- */
             // recuperation des donnees BD chargees avec DAO dans un rowSet
             CachedRowSet rowSetEquipesInscrites = GetParticipantsDAO.getEquipesInscrites(Integer.parseInt(idEpreuve));
            
@@ -58,14 +61,26 @@ public class GetListEquipesInscrites extends HttpServlet {
                 // recupereation les informations de  l'quipe
                 listEquipesInscrites.add(new Equipe(rowSetEquipesInscrites.getInt("idEquipe"), rowSetEquipesInscrites.getString("pays"), rowSetEquipesInscrites.getString("nomEquipe"),rowSetEquipesInscrites.getString("categorie"),rowSetEquipesInscrites.getInt("nbMembre")));
             }
-        } catch (SQLException ex) {
+            
+            
+            /* ----- Les equipes compatibles ----- */
+         // recuperation des donnees BD chargees avec DAO dans un rowSet
+            CachedRowSet rowSetEquipesCompatibles = GetParticipantsDAO.getLesEquipesCompatiblesEpreuve(Integer.parseInt(idEpreuve));
+           
+             /* cree un objet Equipe pour chaque ligne du rowset parcouru
+             et le met dans l arrayList listEquipesCompatibles */
+            while (rowSetEquipesCompatibles.next()) {
+                // recupereation les informations de  l'quipe
+                listEquipesCompatibles.add(new Equipe(rowSetEquipesCompatibles.getInt("idEquipe"), rowSetEquipesCompatibles.getString("pays"), rowSetEquipesCompatibles.getString("nomEquipe"),rowSetEquipesCompatibles.getString("categorie"),rowSetEquipesCompatibles.getInt("nbMembre")));
+            }
+        } catch (SQLException|CategorieException ex) {
             log(ex.getMessage());
-        } catch (CategorieException ex) {
-            Logger.getLogger(GetListEquipesInscrites.class.getName()).log(Level.SEVERE, null, ex);
-        }
+           }
+        
         
         /* ajoute la liste en attribut de la reponse */
         request.setAttribute("listEquipesInscrites", listEquipesInscrites);
+        request.setAttribute("listEquipesCompatibles", listEquipesCompatibles);
         request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
     }
 

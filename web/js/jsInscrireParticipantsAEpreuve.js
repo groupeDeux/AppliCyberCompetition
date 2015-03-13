@@ -12,5 +12,4 @@ $("#selectionEpreuveEquipe").on('change', function () {
     var idEpreuve=document.getElementById("selectionEpreuveEquipe").value;
     
      document.location.href="GetListEquipesInscrites?idEpreuve="+idEpreuve;
-     document.location.href="GetListLesEquipesCompatiblesEpreuve?idEpreuve="+idEpreuve;
 });
