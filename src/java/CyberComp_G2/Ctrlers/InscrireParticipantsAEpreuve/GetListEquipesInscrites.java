@@ -15,6 +15,8 @@ import java.io.PrintWriter;
 import static java.rmi.server.LogStream.log;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,21 +45,23 @@ public class GetListEquipesInscrites extends HttpServlet {
             throws ServletException, IOException {
 
         ArrayList<Equipe> listEquipesInscrites = new ArrayList();
-        int idEpreuve = Integer.parseInt(request.getParameter("idEpreuve"));
+        String idEpreuve = request.getParameter("idEpreuve");
 
         try {
 
             // recuperation des donnees BD chargees avec DAO dans un rowSet
-            CachedRowSet rowSetEquipesInscrites = GetParticipantsDAO.getEquipesInscrites(idEpreuve);
+            CachedRowSet rowSetEquipesInscrites = GetParticipantsDAO.getEquipesInscrites(Integer.parseInt(idEpreuve));
            
              /* cree un objet Equipe pour chaque ligne du rowset parcouru
              et le met dans l arrayList listEquipesInscrites */
             while (rowSetEquipesInscrites.next()) {
                 // recupereation les informations de  l'quipe
-                listEquipesInscrites.add(new Equipe(rowSetEquipesInscrites.getInt("idEquipe"), rowSetEquipesInscrites.getString("nomEquipe"), rowSetEquipesInscrites.getString("pays")));
+                listEquipesInscrites.add(new Equipe(rowSetEquipesInscrites.getInt("idEquipe"), rowSetEquipesInscrites.getString("pays"), rowSetEquipesInscrites.getString("nomEquipe"),rowSetEquipesInscrites.getString("categorie"),rowSetEquipesInscrites.getInt("nbDeSportif")));
             }
         } catch (SQLException ex) {
             log(ex.getMessage());
+        } catch (CategorieException ex) {
+            Logger.getLogger(GetListEquipesInscrites.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         /* ajoute la liste en attribut de la reponse */
