@@ -107,7 +107,7 @@ and open the template in the editor.
                                                 <% };
                                                     } else {
                                                         // bouton fixe sur epreuve choisi = 
-                                                                //EpreuveParEquipe EpreuveChoisi = (Epreuve) request.getAttribute("EpreuveChoisi");
+                                                        //EpreuveParEquipe EpreuveChoisi = (Epreuve) request.getAttribute("EpreuveChoisi");
                                                     }
                                                 %>
 
@@ -130,13 +130,15 @@ and open the template in the editor.
                                     <%
                                         int j = 0;
                                         ArrayList<Equipe> lesEquipesInscrites = (ArrayList<Equipe>) request.getAttribute("listEquipesInscrites");
-                                        for (j = 0; j < lesEquipesInscrites.size(); j++) {
-                                            int idEquipe = lesEquipesInscrites.get(i).getIdEquipe();
-                                            String nomEquipe = lesEquipesInscrites.get(i).getNomEquipe();
-                                            String pays = lesEquipesInscrites.get(i).getPays();  //Comment recuperer le pays car pas une methode de equipe
+                                        if (lesEquipesInscrites != null) {
+                                            for (j = 0; j < lesEquipesInscrites.size(); j++) {
+                                                int idEquipe = lesEquipesInscrites.get(j).getIdEquipe();
+                                                String nomEquipe = lesEquipesInscrites.get(j).getNomEquipe();
+                                                String pays = lesEquipesInscrites.get(j).getPays();  //Comment recuperer le pays car pas une methode de equipe
 
                                     %>      <div><%= idEquipe%> : <%=nomEquipe%>  </div>
-                                    <% };%>
+                                    <% }
+                                        };%>
                                 </div>
                             </form>
                             <!--

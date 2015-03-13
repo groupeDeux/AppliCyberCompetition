@@ -6,7 +6,11 @@
 
 /*Page javaScript pour l inscription des participants aux epreuves
  * Ctrler GetListEquipe/GetListSportifs/GetListEpreuve  <--> InscrireParticipantsAEpreuves.jsp*/
-$("#valCreer").on('click', function () {
+$("#SelectionEpreuveEquipe").on('change', function () {
     
+    //recuperation de l'idEpreuve choisi
+    var idEpreuve=document.getElementById("SelectionEpreuveEquipe").value;
     
+     document.location.href="GetListEquipesInscrites?idEpreuve="+idEpreuve;
+   
 });
