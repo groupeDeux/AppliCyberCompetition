@@ -6,6 +6,7 @@
 package CyberComp_G2.Ctrlers;
 
 import CyberComp_G2.DAO.InscrireParticipantAEpreuve.GetParticipantsDAO;
+import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.rmi.server.LogStream.log;
@@ -57,6 +58,8 @@ public class GetListSportifParGenre extends HttpServlet {
         } catch (SQLException ex) {
             log(ex.getMessage());
         }
+        
+     
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

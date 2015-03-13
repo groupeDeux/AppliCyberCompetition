@@ -80,7 +80,7 @@ public class GetListEpreuveInscription extends HttpServlet {
             ex.printStackTrace();
         }
 
-        /* ajoute les listes en attribut de la reponse */
+        /* ajoute les listes en attribut de la reponse et appele la page jsp */
         request.setAttribute("listEpreuveEquipe", listEpreuvesEquipe);
         request.setAttribute("listEpreuveInd", listEpreuvesInv);
         request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
