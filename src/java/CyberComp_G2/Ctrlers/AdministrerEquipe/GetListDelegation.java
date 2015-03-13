@@ -81,9 +81,15 @@ public class GetListDelegation extends HttpServlet {
             }catch(CategorieException ex){
                log(ex.getMessage());
             }
-             try{
+            try{
+                 CachedRowSet rowSetSportifParDelegation;
+                 
+                if ("mixte".equals(categorie)){
+                    rowSetSportifParDelegation=GetConsulterEquipeDAO.getSportifsDUneDelegation(delegation);
+                } else{
+                    rowSetSportifParDelegation=GetConsulterEquipeDAO.getSportifsSelonGenre(delegation,categorie);
+                }
             
-            CachedRowSet rowSetSportifParDelegation=GetConsulterEquipeDAO.getSportifsDUneDelegation(delegation);
             while(rowSetSportifParDelegation.next()){
                 String nomSportif = rowSetSportifParDelegation.getString("nom");
                 String prenomSportif = rowSetSportifParDelegation.getString("prenom");

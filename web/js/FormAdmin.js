@@ -8,37 +8,58 @@ $("#valCreer").on('click', function () {
     var delegation = document.getElementById("selectionDelegationCreer").value;
     var nomEquipe = document.getElementById("nomEquipeCreer").value;
     var categorie = $('input:radio[name=radioType]:checked').val();
-    if(delegation === "") {    
+    if(delegation === "") { 
+         document.getElementById("verifDelegationCreer").innerHTML="<span class='glyphicon glyphicon-remove'></span>";
     }else{
-        //document.location.href="GetListEpreuve";
-//        $("#tabs").tabs({
-//            active: 1
-//        });
-//        $("#presentation1").removeClass('active');
-//        $("#presentation2").addClass('active');
-//        document.getElementById("selectDelegationModifier").value=delegation;
-//        document.getElementById('selectEquipeModifier').options.length=1;
-//        $("#selectEquipeModifier").append("<option value='newEquipe'>newEquipe : " + nomEquipe +"</option>");
-//        document.getElementById("selectEquipeModifier").value="newEquipe";
-//        document.getElementById("selectEquipeModifier").disabled=false;
-//        $("#selectNomAjouter").load("GetListSportifParDelgation?delegation="+delegation);
-//        document.getElementById('selectNomASuprimer').options.length=1;
-//        document.getElementById("selectNomAjouter").disabled = false;
-//        document.getElementById("selectNomASuprimer").disabled = false;
-//        var categorie = $('input:radio[name=radioType]:checked').val();
-//       document.getElementById('ajout').style.display="block";
-//        document.getElementById('valCreer').style.display="none";
-//        document.getElementById('radioboutons').innerHTML=categorie;
-//        document.getElementById("selectionDelegationCreer").disabled = true;
-//        document.getElementById('valAjouterSportif').style.display="block";
-//        document.getElementById('ValCreationEquipe').style.display="block";
-//         document.getElementById('titreLesSportifs').style.display="block";
-//        $("#selectNomAjouter1").load("GetListSportifParDelgation?delegation="+delegation);
-//        $("#selectNomAjouter2").load("GetListSportifParDelgation?delegation="+delegation);
+       document.getElementById("verifDelegationCreer").innerHTML="";
        document.location.href="GetListDelegation?delegation="+delegation+"&nomEquipe="+nomEquipe+"&categorie="+categorie;
     }
     
 });
+
+$("#validerCreerEquipe").on('click', function () {
+   var nbSportif=1;
+   var sportifsSontSelectionner= true;
+   var url ="CreerEquipe?";
+   $("select[name='selectNomAjouter']").each(function (){
+       if($(this).val()===""){
+            sportifsSontSelectionner = false ; 
+       }else{
+           if (nbSportif ===1){
+                url = url + "sportifSelect"+nbSportif+"="+$(this).val();
+           }else{
+                url = url + "&sportifSelect"+nbSportif+"="+$(this).val();   
+           }
+           nbSportif++;
+       }
+   });
+   
+   if (sportifsSontSelectionner === false){
+       document.getElementById("ControlValAjouterSportif").innerHTML="Selectionner tout les sportifs";
+   }else{
+        document.location.href=url;
+   }
+});
+
+
+$("select[name='selectNomAjouter']").on('change',function (){
+    var nbDeSportifIdentique =0;
+    if($(this).val()!==""){
+       var idSprotifChange =$(this).val();
+      $("select[name='selectNomAjouter']").each(function (){
+         if(idSprotifChange === $(this).val()){
+             nbDeSportifIdentique++;
+         }
+      }); 
+    }
+    if (nbDeSportifIdentique >1){
+        $(this).val("");
+        document.getElementById("ControlValAjouterSportif").innerHTML="Sportif deja present";
+    }else{
+        document.getElementById("ControlValAjouterSportif").innerHTML="";
+    }
+});
+
 
 $("#annulerCreerSpoptif").on('click', function () {
     document.location.href="GetListDelegation";
@@ -80,16 +101,6 @@ $("button[name='valSupprimerSportif']").on('click', function () {
        }
    });
     document.location.href=url;
-//    var nbSportif = document.getElementById("nbSportif").innerHTML;
-//    
-//    v_div_parent = document.getElementById("ajout");
-//    v_div_enfant1 = document.getElementById("divAjoutSportif"+nbSportif);
-//    v_div_parent.removeChild(v_div_enfant1);
-//    nbSportif --;
-//    document.getElementById('nbSportif').innerHTML=nbSportif;
-//    if(nbSportif<3){
-//       document.getElementById('valSuprimerSportif').style.display="none";  
-//    }
 });
 
 $("#selectionDelegationCreer").on('change', function () {
@@ -97,7 +108,7 @@ $("#selectionDelegationCreer").on('change', function () {
     if(delegation === "") {
         document.getElementById("verifDelegationCreer").innerHTML="<span class='glyphicon glyphicon-remove'></span>";
     }else{
-        document.getElementById("verifDelegationCreer").innerHTML="<span class='glyphicon glyphicon-ok'></span>";
+        document.getElementById("verifDelegationCreer").innerHTML="";
     }
 });
 

@@ -31,7 +31,7 @@ public class GetConsulterEquipeDAO {
     
     public static final String lesSportifsSelonGenre = 
             "SELECT * FROM LesSportifs E JOIN LesParticipants P "
-            + "ON (E.idEquipe = P.idParticipant) WHERE pays='%s' AND genre='%s'";
+            + "ON (E.idSportif = P.idParticipant) WHERE pays='%s' AND genre='%s'";
     
     public static final String lesSportifsDUneEquipe = 
             "SELECT * FROM LESCONSTITUTIONSEQUIPE join LESSPORTIFS USING (idSportif) "

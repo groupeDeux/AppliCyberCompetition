@@ -87,12 +87,19 @@ and open the template in the editor.
                                 <h4><strong>L'equipe : </strong></h4>
                                 <div class="row">
                                     <div class="form-group">
-                                        
+                                        <%  Equipe newEquipe = (Equipe) session.getAttribute("newEquipe");
+                                            String categorie="";
+                                            String nomEquipe= null;
+                                            if(newEquipe != null){
+                                                categorie =newEquipe.getCategorie();
+                                                nomEquipe = newEquipe.getNomEquipe();
+                                            }
+                                         %>
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectionDelegationCreer' name='listDeleg'>
+                                            <select  <%if(newEquipe != null){%> disabled="true" <%}%> class="form-control" id='selectionDelegationCreer' name='listDeleg'>
                                                 
-                                                <%  Equipe newEquipe = (Equipe) session.getAttribute("newEquipe");
+                                                <%  
                                                     int i = 0;
                                                     ArrayList<Delegation> lesDelegations = (ArrayList<Delegation>) session.getAttribute("listDelegations");
                                                     ArrayList<Sportif> lesSportifs = (ArrayList<Sportif>) session.getAttribute("lesSportifs");
@@ -108,20 +115,19 @@ and open the template in the editor.
                                                          }
                                                     }else{
                                                 %> <option value='<%=newEquipe.getPays()%>'><%=newEquipe.getPays()%></option>
-                                                <script> document.getElementById("selectionDelegationCreer").disabled = true;</script>
                                                 <%}
                                                 %>
                                                     
                                             </select>
                                         </div>
-                                            <div class='col-xs-1 control-label'id="verifDelegationCreer"></div>    
+                                            <div class='col-xs-1 control-label erreurForm'id="verifDelegationCreer"></div>    
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Nom:</label>
                                         <div class='col-xs-6'>
-                                            <input type='text' class='form-control' placeholder="Nom de l'équipe" id="nomEquipeCreer">
+                                            <input type='text'   <%if(newEquipe != null){%> disabled="true" <%}%>class='form-control' placeholder="Nom de l'équipe" id="nomEquipeCreer" <%if(nomEquipe !=null){%> value="<%= nomEquipe%>" <%}%>></input>
                                         </div>
                                     </div>
                                 </div>
@@ -131,25 +137,26 @@ and open the template in the editor.
                                         <div class="col-xs-6 " id="radioboutons" >
                                             <div class='radio-inline'>
                                                 <label>
-                                                    <input  type="radio" name="radioType" value="masculin" checked>
+                                                    <input <%if(newEquipe != null){%> disabled="true" <% }%> type="radio" name="radioType" value="masculin" <%if(categorie.equals("masculin")||categorie.equals("")){%>checked<% }%> >
                                                     Masculin
                                                 </label>
                                             </div>
                                             <div class="radio-inline">
                                                 <label>
-                                                    <input type="radio" name="radioType" value="feminin">
+                                                    <input <%if(newEquipe != null){%> disabled="true" <%}%>type="radio" name="radioType" value="feminin" <%if(categorie.equals("feminin")){%>checked<% }%> >
                                                     Feminin
                                                 </label>  
                                             </div>
                                             <div class="radio-inline">
                                                 <label>
-                                                    <input type="radio" name="radioType" value="mixte">
+                                                    <input <%if(newEquipe != null){%> disabled="true" <%}%> type="radio" name="radioType" value="mixte" <%if(categorie.equals("mixte")){%>checked<% }%>>
                                                     Mixte
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                 <%  if(newEquipe == null){ %>          
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-xs-6 col-xs-offset-3">
@@ -158,7 +165,7 @@ and open the template in the editor.
                                     </div>
                                 </div>
                                <%  
-                                   if (newEquipe != null){         
+                                   }else{         
                                 %>
                                 <h4><strong>Les sportifs : </strong></h4>
                                 
@@ -191,20 +198,21 @@ and open the template in the editor.
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
-                                        <div class="col-xs-offset-7 col-xs-2">
+                                        <div class="col-xs-offset-5 col-xs-2 erreurForm" id="ControlValAjouterSportif">
+                                           
+                                        </div>
+                                        <div class="col-xs-2">
                                             <button  type="button" class="btn btn-primary btn-block " id="valAjouterSportif"><span class="glyphicon glyphicon-plus"></span></button>
                                         </div>
-                                         <div class="col-xs-1 control-labe erreurForm" id="ControlValAjouterSportif">
-                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" id="ValCreationEquipe" style="display: none">
+                                <div class="row" id="ValCreationEquipe">
                                     <div class="form-group">
                                         <div class="col-xs-2 col-xs-offset-3 ">
                                             <button type="button" class="btn btn-danger btn-block "  id="annulerCreerSpoptif" >Annuler</button>
                                         </div>
                                         <div class="col-xs-4">
-                                            <button  type="submit" class="btn btn-default btn-block " id="validerCreerSpotif">Creer Equipe</button>
+                                            <button  type="button" class="btn btn-default btn-block " id="validerCreerEquipe">Creer Equipe</button>
                                         </div>
                                     </div>
                                 </div> 
