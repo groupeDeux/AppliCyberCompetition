@@ -4,6 +4,7 @@
     Author     : Gato
 --%>
 
+<%@page import="CyberComp_G2.Model.ConsulterEpreuve.EpreuveIndividuelle"%>
 <%@page import="CyberComp_G2.Model.ConstituerEquipe.Equipe"%>
 <%@page import="CyberComp_G2.Model.ConsulterEpreuve.EpreuveParEquipe"%>
 <%@page import="CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterEpreuveDAO"%>
@@ -102,6 +103,26 @@ and open the template in the editor.
                                                             int idEpreuve = lesEpreuvesEquipe.get(i).getIdEpreuve();
                                                             String nomEpreuve = lesEpreuvesEquipe.get(i).getNomEpreuve();
                                                             String categorie = lesEpreuvesEquipe.get(i).getCategorie();
+
+                                                %>      <option value='<%=idEpreuve%>'><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%>  </option>
+                                                <% };
+                                                    } else {
+                                                        // bouton fixe sur epreuve choisi = 
+                                                        //EpreuveParEquipe EpreuveChoisi = (Epreuve) request.getAttribute("EpreuveChoisi");
+                                                    }
+                                                %>
+
+                                            </select>
+                                                <select class="form-control" id='selectionEpreuveEquipe' name='listEpreuvesInv'>
+                                                <option value=''>Choix</option>
+                                                <%
+                                                    ArrayList<EpreuveIndividuelle> lesEpreuvesIndividuelles = (ArrayList<EpreuveIndividuelle>) request.getAttribute("listEpreuveInd");
+                                                    if (lesEpreuvesIndividuelles != null) {
+                                                        int i = 0;
+                                                        for (i = 0; i < lesEpreuvesIndividuelles.size(); i++) {
+                                                            int idEpreuve = lesEpreuvesIndividuelles.get(i).getIdEpreuve();
+                                                            String nomEpreuve = lesEpreuvesIndividuelles.get(i).getNomEpreuve();
+                                                            String categorie = lesEpreuvesIndividuelles.get(i).getCategorie();
 
                                                 %>      <option value='<%=idEpreuve%>'><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%>  </option>
                                                 <% };

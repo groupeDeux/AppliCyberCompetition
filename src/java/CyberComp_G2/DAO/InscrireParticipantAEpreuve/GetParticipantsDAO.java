@@ -129,6 +129,14 @@ public class GetParticipantsDAO {
             throws SQLException{
         return getConsulterParticipants(lesEquipesInscritesEpreuve,idEpreuve);
     }
+
+    public static CachedRowSet getLesSportifsCompatiblesEpreuveCat(int idEpreuve)  throws SQLException {
+        return getConsulterParticipants(lesSportifsCompatiblesEpreuveCat,idEpreuve);
+    }
+
+    public static CachedRowSet getLesEquipesCompatiblesEpreuve(int idEpreuve)throws SQLException {
+        return getConsulterParticipants( lesEquipesCompatiblesEpreuve,idEpreuve) ;
+    }
     
     
     /*-------------------------------------------------------------

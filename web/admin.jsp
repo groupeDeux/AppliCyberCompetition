@@ -74,7 +74,7 @@ and open the template in the editor.
                             <div class="caption">
                                 <h3 class="text-center">Administrer les équipes</h3>
                                 <p> Créer, modifier ou supprimer une équipe</p>
-                                <p><a href="GetListDelegation" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Acceder a l'administration des equipes">Accéder à la page </a></p>
+                                <p><a href="GetListDelegation" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Accéder à l'administration des équipes">Accéder à la page </a></p>
                             </div>
                         </div>
                    </div>
@@ -84,7 +84,7 @@ and open the template in the editor.
                             <div class="caption">
                                 <h3 class="text-center">Inscription des participants à des épreuves </h3>
                                 <p> Inscrire, modifier ou supprimer un participant à une épreuve </p>
-                                <p><a href="GetListEpreuveInscription" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Acceder à insciption participant à des épreuves ">Accéder à la page  </a></p>
+                                <p><a href="GetListEpreuveInscription" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Accéder à l'insciption des participants à des épreuves ">Accéder à la page  </a></p>
                             </div>
                         </div>
                     </div>

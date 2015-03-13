@@ -49,14 +49,12 @@ public class SetListSportif extends HttpServlet {
         //2 on crée l'objet sportif 
         //3 on l'envoi au dao en appelant la methode  addSportif(sportif, equipe)
         StringBuilder rep = new StringBuilder();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             String idSportifstr = request.getParameter("idSportif");
             int idSportif = Integer.parseInt(idSportifstr);
             String nom = request.getParameter("nom");
             String prenom = request.getParameter("prenom");
-            String dateNaissanceStr = request.getParameter("dateNaissance");
-            Date dateNaissance = (Date) sdf.parse(dateNaissanceStr);
+            String dateNaissance = request.getParameter("dateNaissance");    
             String genre = request.getParameter("genre");
             String pays = request.getParameter("pays");
             String descriptionHandicap = request.getParameter("descriptionHandicap");
