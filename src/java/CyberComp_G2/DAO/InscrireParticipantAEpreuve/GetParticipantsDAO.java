@@ -41,9 +41,9 @@ public class GetParticipantsDAO {
     public static final String laCategorie
             = "SELECT E.categorie FROM LesEpreuves where E.idEpreuve= %d";
     
-    /* Recuperation NbDePlace a passer en param aux autre requetes*/
-    public static final String leNbDePlace
-            = "SELECT E.NbDePlace FROM LesEpreuves where E.idEpreuve= %d";
+    /* Recuperation NbFixeSportif a passer en param aux autre requetes*/
+    public static final String leNbPersonneFixe
+            ="SELECT E.NbPersonneFixe FROM LesEpreuvesParEquipe where E.idEpreuve= %d";
         
      /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve*/
     public static final String lesSportifsCompatiblesEpreuve
@@ -52,10 +52,10 @@ public class GetParticipantsDAO {
 
     /*Selection des Equipes compatibles en cat et nbInscritsavec une epreuve: idEpreuve*/
     public static final String lesEquipesCompatiblesEpreuveNb
-            = "Select R1.idEquipe, E.nomEquipe, E.categorie, P.IDPARTICIPANT,P.pays from"
-            + "(select idEquipe,count(idSportif) as NbSportifs from LesConstitutionsEquipe group by idEquipe) R1"
-            + "join LesEquipes E on (R1.idEquipe=E.idEquipe) join LesParticipants P on (E.idEquipe=P.idParticipant)"
-            + "where (NbSportifs=%d and E.categorie='%s)";
+            = "Select V.idEquipe, V.nomEquipe, V.categorie, P.IDPARTICIPANT,P.pays"
+            + "from viewEquipe V"
+            + "join LesParticipants P on (V.idEquipe=P.idParticipant)"
+            + "where (NbSportifs=%d and E.categorie='%s)"; 
 
     /*Selection des Equipes inscrits à une épreuve: idEpreuve*/
     public static final String lesEquipesInscritesEpreuve

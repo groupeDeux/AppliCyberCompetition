@@ -40,7 +40,7 @@ public class GetListEquipesInscrites extends HttpServlet {
      * @throws CyberComp_G2.Exceptions.CategorieException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, CategorieException {
+            throws ServletException, IOException {
 
         ArrayList<Equipe> listEquipesInscrites = new ArrayList();
         int idEpreuve = Integer.parseInt(request.getParameter("idEpreuve"));
@@ -56,7 +56,7 @@ public class GetListEquipesInscrites extends HttpServlet {
                 // recupereation les informations de  l'quipe
                 listEquipesInscrites.add(new Equipe(rowSetEquipesInscrites.getInt("idEquipe"), rowSetEquipesInscrites.getString("nomEquipe"), rowSetEquipesInscrites.getString("pays")));
             }
-        } catch (SQLException | CategorieException ex) {
+        } catch (SQLException ex) {
             log(ex.getMessage());
         }
         
