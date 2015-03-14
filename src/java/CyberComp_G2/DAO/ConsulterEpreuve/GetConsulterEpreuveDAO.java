@@ -69,7 +69,7 @@ public class GetConsulterEpreuveDAO {
             + "order by nomEpreuve";
 
     /*
-     Requete qui retourne la liste des disciplines
+     Requete qui permet de retourner la liste des disciplines
      */
     public static final String lesDisciplines
             = "SELECT nomDiscipline FROM viewEpreuve GROUP BY (nomDiscipline)";

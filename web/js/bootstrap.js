@@ -562,7 +562,7 @@ if (typeof jQuery === 'undefined') {
 
   Collapse.DEFAULTS = {
     toggle: true,
-    trigger: '[data-toggle="collapse"]'
+    trigger: '[data-toggle~="collapse"]'
   }
 
   Collapse.prototype.dimension = function () {
@@ -665,7 +665,7 @@ if (typeof jQuery === 'undefined') {
 
   Collapse.prototype.getParent = function () {
     return $(this.options.parent)
-      .find('[data-toggle="collapse"][data-parent="' + this.options.parent + '"]')
+      .find('[data-toggle~="collapse"][data-parent="' + this.options.parent + '"]')
       .each($.proxy(function (i, element) {
         var $element = $(element)
         this.addAriaAndCollapsedClass(getTargetFromTrigger($element), $element)
@@ -724,7 +724,7 @@ if (typeof jQuery === 'undefined') {
   // COLLAPSE DATA-API
   // =================
 
-  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
+  $(document).on('click.bs.collapse.data-api', '[data-toggle~="collapse"]', function (e) {
     var $this   = $(this)
 
     if (!$this.attr('data-target')) e.preventDefault()

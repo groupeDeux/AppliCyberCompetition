@@ -60,15 +60,58 @@ $("li[role='presentation']").click(function () {
 });
 
 
-/* Affichage des tooltips : Permet de respect la charte graphique */
-/* Code Javascript permettant d'afficher un tooltip via bootstrap */
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-});
+
 
 $('a').tooltip({
     'delay': {show: 1250, hide: 1000}
 });
+
+
+
+/*  Changement du pointeur au passage au dessus d'un data-toggle*/
+/*$('div[data-toggle]:not([class])').hover */
+$('div[data-toggle]').hover(
+        function () {
+            $(this).css('cursor', 'hand');
+
+        },
+        function () {
+            $(this).css('cursor', 'pointer');
+
+        }
+);
+
+
+/* Changement du glyphicon quand on clic tu l'un des affichages des epreuves  */
+$('div[data-info]').click(
+        function () {
+            if ($(this).attr('data-info') === 'close') {
+                $(this).attr('data-info', 'open');
+                $(this).find('span').removeClass('glyphicon-menu-down').addClass('glyphicon-menu-up').css('color','#337AB7');
+                
+            } else {
+                $(this).attr('data-info', 'close');
+                $(this).find('span').removeClass('glyphicon-menu-up').addClass('glyphicon-menu-down');
+            }
+            
+        }
+);
+
+/* Changement du glyphicon quand on click sur les panel heading */
+$('div.panel-heading[data-toggle]').click(function(){
+     var glyph = $(this).find('span');
+     if(glyph.attr('class')==='pull-right glyphicon glyphicon-menu-down'){glyph.attr('class','pull-right glyphicon glyphicon-menu-up');}
+     else{glyph.attr('class','pull-right glyphicon glyphicon-menu-down');}
+});
+
+/* Affichage des tooltips : Permet de respect la charte graphique */
+/* Code Javascript permettant d'afficher un tooltip via bootstrap */
+$(function () {
+    $('[data-toggle~="tooltip"]').tooltip();
+});
+
+//$('span[class]').hover(function(){$(this).css('color','#337AB7');});
+
 
 /* Changement de l'information pour ouvrir une fenetre
  $('div.row.rowEpreuve').click(function(){
@@ -100,38 +143,3 @@ $('div[data-info]').hover(
 );
 
 */
-
-/*  Changement du pointeur au passage au dessus d'un data-toggle*/
-/*$('div[data-toggle]:not([class])').hover */
-$('div[data-toggle]').hover(
-        function () {
-            $(this).css('cursor', 'hand');
-
-        },
-        function () {
-            $(this).css('cursor', 'pointer');
-
-        }
-);
-
-
-/* Changement du glyphicon quand on clic tu l'un des affichages des epreuves  */
-$('div[data-info]').click(
-        function () {
-            if ($(this).attr('data-info') === 'close') {
-                $(this).attr('data-info', 'open');
-                $(this).find('span').removeClass('glyphicon-menu-down').addClass('glyphicon-menu-up');
-            } else {
-                $(this).attr('data-info', 'close');
-                $(this).find('span').removeClass('glyphicon-menu-up').addClass('glyphicon-menu-down');
-            }
-        }
-);
-
-/* Changement du glyphicon quand on click sur les panel heading */
-$('div.panel-heading[data-toggle]').click(function(){
-     var glyph = $(this).find('span');
-     if(glyph.attr('class')==='pull-right glyphicon glyphicon-menu-down'){glyph.attr('class','pull-right glyphicon glyphicon-menu-up');}
-     else{glyph.attr('class','pull-right glyphicon glyphicon-menu-down');}
-});
-

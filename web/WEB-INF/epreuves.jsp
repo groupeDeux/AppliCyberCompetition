@@ -144,10 +144,10 @@ and open the template in the editor.
                         </div>
                         <div class='media-body'>
                             <%-- Cliquer sur cette partie media-heading permet d'afficher l'epreuve --%>
-                            <div data-toggle='collapse' data-info='close' href='#media<%=lesId%>'>
+                            <div data-toggle='collapse tooltip' data-placement="top" title="Afficher informations supp." data-info='close' href='#media<%=lesId%>'>
                                 <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%>&nbsp;</h4>
                                 <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
-                                <div class='pull-right'><h3><span class='glyphicon glyphicon-menu-down' style='color:#337AB7;'></span>&nbsp;</h3></div>
+                                <div class='pull-right'><h3><span class='glyphicon glyphicon-menu-down'></span>&nbsp;</h3></div>
                                 <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
                                 <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
                                 <br/>

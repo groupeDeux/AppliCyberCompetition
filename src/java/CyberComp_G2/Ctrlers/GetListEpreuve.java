@@ -48,7 +48,7 @@ public class GetListEpreuve extends HttpServlet {
             throws ServletException, IOException {
 
         String nomDiscipline = request.getParameter("selectDisciplineEpreuve");
-        //if(nomDiscipline.equals("Tout")){nomDiscipline=null;}
+        
         CachedRowSet rowSetEpreuveEquipe;
         CachedRowSet rowSetEpreuveInv;
         CachedRowSet rowSetDiscipline;
