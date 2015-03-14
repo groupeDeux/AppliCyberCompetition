@@ -23,6 +23,8 @@ body {
     min-height: 100%!important;
     position:relative!important;
 }
+
+
  
 footer.footer {
     height:30px;
@@ -120,6 +122,47 @@ footer.footer {
 }
 
 
+.rowPanier{
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center ;
+    vertical-align: middle ;
+}
+
+.bordureDroite{
+    border-right: 1px solid #ccc;
+
+    
+}
+
+
+.rowPanierBarre{
+    background-color:#ccc ;
+    border: 1px solid black ;
+    border-radius: 3px;
+    text-align: center ;
+    vertical-align: middle ;
+}
+
+.rowPanierCadre{
+    background-color:#ccc ;
+    border: 1px solid black ;
+    border-radius: 3px;
+ }  
+ 
+ .rowPanierFormulaire{
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+ } 
+.centered-text {
+    text-align:center ;
+
+}    
+
+ 
+ 
 h2.text-muted > a{
     color: #777;
     text-decoration: none;
