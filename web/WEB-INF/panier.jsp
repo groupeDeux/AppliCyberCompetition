@@ -411,7 +411,7 @@ and open the template in the editor.
                       <div class="col-xs-9">
                         <div>
                             <br>
-                            <strong>Confirmation du paiement:   </strong>
+                            <strong>Confirmation du paiement  </strong>
                             <br>
                             <br>
                         </div>
@@ -505,7 +505,7 @@ and open the template in the editor.
                <br>
                <br>
              <!-- 
-                  4EME ACHAT TERMINE/ AFFICHAGE NUMERO TRANSACTION
+                  4EME PARTIE ACHAT TERMINE/ AFFICHAGE NUMERO TRANSACTION
                   -->  
                   
              <div class ="rowPanierBarre">  
@@ -515,6 +515,7 @@ and open the template in the editor.
                         <div>
                             <br>
                             <strong>Commande terminée   </strong>
+                            <br>
                             <br>
                         </div>
                       </div>
@@ -536,7 +537,7 @@ and open the template in the editor.
                   <br>
                   <br>
                     <button type="submit" class="btn btn-default">
-                        <span class="glyphicon glyphicon-euro" aria-hidden="true">
+                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
                         </span>
                         Revenir à la page d'acceuil    
                     </button>
@@ -547,26 +548,18 @@ and open the template in the editor.
               </div>   
              </div> 
                 
-                  
-            </div>
+           </div>
             </div>             
-            
-                  
                <br>
                <br>
-              
             <!--
                         FOOTER DE LA PAGE
                 -->
-            
-                
-                <footer class="footer">
+             <footer class="footer">
                   <div>
-                   
                   </div>
                 </footer>  
-            
-                  
+              
                  <!-- 
                    fin code
                 -->
