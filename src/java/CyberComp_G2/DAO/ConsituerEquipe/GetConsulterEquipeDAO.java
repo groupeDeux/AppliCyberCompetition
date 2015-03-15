@@ -6,19 +6,16 @@
 package CyberComp_G2.DAO.ConsituerEquipe;
 
 
+import CyberComp_G2.utils.ConnexionBD;
 import com.sun.rowset.CachedRowSetImpl;
-import java.sql.Connection;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import javax.sql.DataSource;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- *
- * @author vivi
+ * Gère les requêtes relatives à la constitution d'une équipe
+ * @author vivi, oprisora
  */
 public class GetConsulterEquipeDAO {
     
@@ -47,10 +44,10 @@ public class GetConsulterEquipeDAO {
      * @throws SQLException 
      */
     
-    public static CachedRowSet getDelegations() throws SQLException{
-        return getConsulterEquipe(lesDelegations,"");
+    public CachedRowSet getDelegations() throws SQLException{
+        return ConnexionBD.INSTANCE.executeRequete(lesDelegations);
     }
-    
+
     /**
      * retroune la liste des |Equipe|s d'une |Delegation| donnée
      * @param pays
@@ -58,9 +55,9 @@ public class GetConsulterEquipeDAO {
      * @throws SQLException 
      */
     
-    public static CachedRowSet getEquipesDUneDelegation(String pays) 
+    public CachedRowSet getEquipesDUneDelegation(String pays)
             throws SQLException{
-        return getConsulterEquipe(lesEquipesDUneDelegation, pays);
+        return ConnexionBD.INSTANCE.executeRequete(lesEquipesDUneDelegation, pays);
     }
     
     /**
@@ -71,10 +68,9 @@ public class GetConsulterEquipeDAO {
      * @return
      * @throws SQLException 
      */
-    
-    public static CachedRowSet getSportifsSelonGenre(String pays, String genre)
+    public CachedRowSet getSportifsSelonGenre(String pays, String genre)
             throws SQLException {
-        return getConsulterEquipe(lesSportifsSelonGenre, pays, genre);    
+        return ConnexionBD.INSTANCE.executeRequete(lesSportifsSelonGenre, pays, genre);
     }
     /**
      * retourne la liste des |Sportif|s d'une |Equipe|
@@ -83,48 +79,20 @@ public class GetConsulterEquipeDAO {
      * @throws SQLException
      */
     
-    public static CachedRowSet getSportifsDUneEquipe(int idEquipe) 
+    public CachedRowSet getSportifsDUneEquipe(int idEquipe)
             throws SQLException{
-        return getConsulterEquipe(lesSportifsDUneEquipe, idEquipe);
+        return ConnexionBD.INSTANCE.executeRequete(lesSportifsDUneEquipe, idEquipe);
     }
-    
-    
+
     /**
      * retroune la liste des |Sportif|s d'une |Delegation|
      * @param pays
      * @return
      * @throws SQLException
      */
-    
-    public static CachedRowSet getSportifsDUneDelegation(String pays) throws SQLException{
-        return getConsulterEquipe(lesSportifsDUneDelegation, pays);
-    } 
-    
-    
-    private static CachedRowSet getConsulterEquipe(String query, String selecteur) 
-            throws SQLException {
-        CachedRowSet crs = new CachedRowSetImpl();
-        crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
-        crs.setCommand(String.format(query,selecteur));
-        crs.execute();
-        return crs;
+
+    public CachedRowSet getSportifsDUneDelegation(String pays) throws SQLException{
+        return ConnexionBD.INSTANCE.executeRequete(lesSportifsDUneDelegation, pays);
     }
-    
-    private static CachedRowSet getConsulterEquipe(String query, int selecteur) 
-            throws SQLException {
-        CachedRowSet crs = new CachedRowSetImpl();
-        crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
-        crs.setCommand(String.format(query,selecteur));
-        crs.execute();
-        return crs;
-    }
-    
-    private static CachedRowSet getConsulterEquipe(String query, String pays, String genre)
-            throws SQLException {
-        CachedRowSet crs = new CachedRowSetImpl();
-        crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
-        crs.setCommand(String.format(query, pays, genre));
-        crs.execute();
-        return crs; 
-    }
+
 }
