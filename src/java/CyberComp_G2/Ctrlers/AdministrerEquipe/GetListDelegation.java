@@ -56,7 +56,7 @@ public class GetListDelegation extends HttpServlet {
     
         try{
             // Recuperation rowSet avec appel DAO
-             rowSetDelegation= GetConsulterEquipeDAO.getDelegations();
+             rowSetDelegation= new GetConsulterEquipeDAO().getDelegations();
              /* cree un objet Delegation pour chaque ligne du rowset parcouru
                 et le met dans l arrayList listDelegation */
              while(rowSetDelegation.next()){
@@ -85,9 +85,9 @@ public class GetListDelegation extends HttpServlet {
                  CachedRowSet rowSetSportifParDelegation;
                  
                 if ("mixte".equals(categorie)){
-                    rowSetSportifParDelegation=GetConsulterEquipeDAO.getSportifsDUneDelegation(delegation);
+                    rowSetSportifParDelegation= new GetConsulterEquipeDAO().getSportifsDUneDelegation(delegation);
                 } else{
-                    rowSetSportifParDelegation=GetConsulterEquipeDAO.getSportifsSelonGenre(delegation,categorie);
+                    rowSetSportifParDelegation= new GetConsulterEquipeDAO().getSportifsSelonGenre(delegation,categorie);
                 }
             
             while(rowSetSportifParDelegation.next()){

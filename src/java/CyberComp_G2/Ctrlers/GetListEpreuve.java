@@ -60,10 +60,10 @@ public class GetListEpreuve extends HttpServlet {
         try {
             // Recuperation rowSet avec appel DAO
             if (nomDiscipline == null || nomDiscipline.equals("Tout")) {
-                rowSetEpreuveEquipe = GetConsulterEpreuveDAO.getEpreuvesEquipe();
+                rowSetEpreuveEquipe = new GetConsulterEpreuveDAO().getEpreuvesEquipe();
 
             } else {
-                rowSetEpreuveEquipe = GetConsulterEpreuveDAO.getEpreuvesParDisciplineEquipe(nomDiscipline);
+                rowSetEpreuveEquipe = new GetConsulterEpreuveDAO().getEpreuvesParDisciplineEquipe(nomDiscipline);
             }
 
             /* cree un objet Epreuve pour chaque ligne du rowset parcouru
@@ -76,9 +76,9 @@ public class GetListEpreuve extends HttpServlet {
                 
              */
             if (nomDiscipline == null || nomDiscipline.equals("Tout")) {
-                rowSetEpreuveInv = GetConsulterEpreuveDAO.getEpreuvesInv();
+                rowSetEpreuveInv = new GetConsulterEpreuveDAO().getEpreuvesInv();
             } else {
-                rowSetEpreuveInv = GetConsulterEpreuveDAO.getEpreuvesParDisciplineInv(nomDiscipline);
+                rowSetEpreuveInv = new GetConsulterEpreuveDAO().getEpreuvesParDisciplineInv(nomDiscipline);
             }
             /* cree un objet Epreuve pour chaque ligne du rowset parcouru
              et le met dans l arrayList listEpreuveInv */

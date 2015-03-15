@@ -55,7 +55,7 @@ public class GetListEpreuveInscription extends HttpServlet {
 
         try {
             /* Epreuve par equipe - Recuperation rowSet avec appel DAO*/ 
-                rowSetEpreuveEquipe = GetConsulterEpreuveDAO.getEpreuvesEquipe();
+                rowSetEpreuveEquipe = new GetConsulterEpreuveDAO().getEpreuvesEquipe();
 
             /* cree un objet Epreuve pour chaque ligne du rowset parcouru
              et le met dans l arrayList listEpreuvePArEquipe */
@@ -65,7 +65,7 @@ public class GetListEpreuveInscription extends HttpServlet {
             }
             
             /* Epreuve individuelle */
-                rowSetEpreuveInv = GetConsulterEpreuveDAO.getEpreuvesInv();
+                rowSetEpreuveInv = new GetConsulterEpreuveDAO().getEpreuvesInv();
 
             /* cree un objet Epreuve pour chaque ligne du rowset parcouru 
                 et le met dans l arrayList listEpreuveInv */

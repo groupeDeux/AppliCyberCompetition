@@ -40,7 +40,7 @@ public class GetListSportifParEquipe extends HttpServlet {
          String idEquipe = request.getParameter("idEquipe");
          
          try(PrintWriter out = response.getWriter()){
-            CachedRowSet rowSetSportifParDelegation=GetConsulterEquipeDAO.getSportifsDUneEquipe(Integer.parseInt(idEquipe));
+            CachedRowSet rowSetSportifParDelegation= new GetConsulterEquipeDAO().getSportifsDUneEquipe(Integer.parseInt(idEquipe));
             out.println("<option value=''>Choix</option>");
             while(rowSetSportifParDelegation.next()){
                 String nomSportif = rowSetSportifParDelegation.getString("nom");

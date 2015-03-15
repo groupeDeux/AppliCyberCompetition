@@ -67,8 +67,8 @@ public class SetListSportif extends HttpServlet {
             Equipe e1 = new Equipe(idEquipe, nomEquipe, categorie,2);
 
             //envoi de l'objet au dao ModifierEquipeDAO en appelant la méthode addSportif
-            ModifierEquipeDAO.addSportif(e1, s1);
-        } catch (SQLException ex) {
+            //ModifierEquipeDAO.addSportif(e1, s1);
+        } catch (Exception ex) {
         }
     }
 

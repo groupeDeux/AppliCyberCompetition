@@ -44,7 +44,7 @@ public class GetListEquipeDUneDelegation extends HttpServlet {
          
          try(PrintWriter out = response.getWriter()){
             
-            CachedRowSet rowSetEquipeParDelegation=GetConsulterEquipeDAO.getEquipesDUneDelegation(delegation);
+            CachedRowSet rowSetEquipeParDelegation = new GetConsulterEquipeDAO().getEquipesDUneDelegation(delegation);
             out.println("<option value=''>Choix</option>");
             while(rowSetEquipeParDelegation.next()){
                 String nomEquipe = rowSetEquipeParDelegation.getString("nomEquipe");

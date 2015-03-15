@@ -35,7 +35,7 @@ public class ctrlerTemp extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
         try{
-            CachedRowSet coucou = GetConsulterEquipeDAO.getDelegations();
+            CachedRowSet coucou = new GetConsulterEquipeDAO().getDelegations();
        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
