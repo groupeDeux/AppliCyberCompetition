@@ -25,8 +25,8 @@ import javax.sql.DataSource;
  *
  * @author vivi
  */
-@WebServlet(name = "CreerEquipe", urlPatterns = {"/CreerEquipe"})
-public class CreerEquipe extends HttpServlet {
+@WebServlet(name = "ModifierEquipe", urlPatterns = {"/ModifierEquipe"})
+public class ModifierEquipe extends HttpServlet {
     
     @Resource (name="jdbc/BDCyberCompetition")
     private  DataSource dataSource;
@@ -41,23 +41,43 @@ public class CreerEquipe extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-       HttpSession session = request.getSession(true);
-        Equipe newEquipe = (Equipe) session.getAttribute("newEquipe");
-        ArrayList<Sportif> lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifs");        
-        int i,j;
-        for(i=1;i<=newEquipe.getNbDeSportif();i++){
-            for(j=0;j<lesSportifs.size();j++){
-                if(lesSportifs.get(j).getIdSportif()==Integer.parseInt(request.getParameter("sportifSelect"+i))){
-                   newEquipe.addMembre(lesSportifs.get(j));
-                }
-            }
+        
+        HttpSession session = request.getSession(true);
+        String estUneCreation = request.getParameter("Creation");
+        ArrayList<Sportif> lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifs");
+       
+        if (null != estUneCreation)switch (estUneCreation) {
+            case "true":
+                Equipe newEquipe = (Equipe) session.getAttribute("newEquipe");
+                int i,j;
+                for(i=1;i<=newEquipe.getNbDeSportif();i++){
+                    for(j=0;j<lesSportifs.size();j++){
+                        if(lesSportifs.get(j).getIdSportif()==Integer.parseInt(request.getParameter("sportifSelect"+i))){
+                            newEquipe.addMembre(lesSportifs.get(j));
+                        }
+                    }
+                }   try{
+                ModifierEquipeDAO.addEquipe(dataSource,newEquipe);  
+            }catch(SQLException ex){
+                log(ex.getMessage());
+            }   break;
+            case "false":
+                Equipe equipe = (Equipe) session.getAttribute("modifEquipe");
+                for(i=1;i<=equipe.getNbDeSportif();i++){
+                    for(j=0;j<lesSportifs.size();j++){
+                        if(lesSportifs.get(j).getIdSportif()==Integer.parseInt(request.getParameter("sportifSelect"+i))){
+                            equipe.addMembre(lesSportifs.get(j));
+                        }
+                    }
+                }   //try{
+//                ModifierEquipeDAO.modifEquipe(dataSource,equipe);  
+//            }catch(SQLException ex){
+//                log(ex.getMessage());
+//            }
+            break;
         }
-        try{
-         ModifierEquipeDAO.addEquipe(dataSource,newEquipe);   
-        }catch(SQLException ex){
-            log(ex.getMessage());
-        }
+         
+        
         
         
         

@@ -265,55 +265,36 @@ and open the template in the editor.
                             <!--
                                     AJOUTER UN SPORTIF DANS UNE EQUIPE
                             -->
-
-
-
-                            <form class="form-horizontal">
-
-                                <h4>Ajouter un <strong>sportif</strong></h4>
-
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Nom :</label>
-                                        <div class='col-xs-6'>
-                                            <select class="form-control" id='selectNomAjouter' disabled="true">
+                            <div id="ajoutModif">
+                                <% Equipe equipeModif =(Equipe) session.getAttribute("equipeModif");
+                                    if (equipeModif !=null){
+                                       for (i =1;i<=equipeModif.getNbDeSportif();i++){
+                                     %> <div id='divAjoutSportif1' class="form-group">
+                                        <label class='col-xs-3 control-label'>Sportif <%=i%> :</label>
+                                        <div class='col-xs-5'>
+                                            <select  class="form-control"  name ="selectNomAjouter" id='selectNomAjouter<%=i%>'>
                                                 <option value="">Choix</option>
+                                                <%int j;
+                                                int idASelectinner;
+                                                if(newEquipe.getLesMembres().size()>=i){
+                                                    idASelectinner=newEquipe.getLesMembres().get(i-1).getIdSportif();
+                                                }else{
+                                                    idASelectinner=0;
+                                                }
+                                                for (j =0;j<lesSportifs.size();j++){
+                                                    int idSportif =lesSportifs.get(j).getIdParticipant();
+                                                   String  affichage = idSportif+" : "+lesSportifs.get(j).getNom() +" "+lesSportifs.get(j).getPrenom();
+                                                    
+                                                 %>
+                                                <option value="<%=idSportif%>"<%if(idSportif==idASelectinner){%>selected="selected"<%}%> ><%=affichage%></option>
+                                                <%}%>
                                             </select>
                                         </div>
+                                        <div class='col-xs-1'> <button   <% if(newEquipe.getNbDeSportif()==2){%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportif<%=i%>" name='valSupprimerSportif' value='<%=i%>'=><span class="glyphicon glyphicon-minus"></span></button></div>    
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-xs-6 col-xs-offset-3">
-                                            <button type="button" class="btn btn-default btn-block">Ajouter &nbsp;<span class="glyphicon glyphicon-plus"></span></button>
-                                        </div>
-                                    </div>
+                                     <%}%>
                                 </div>
-                            </form>
-
-                            <!-- 
-                                SUPPRIMER UN SPORTIF DANS UNE EQUIPE
-                            -->
-
-
-                            <form class="form-horizontal">
-                                <h4>Supprimer un <strong>sportif</strong></h4>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Nom :</label>
-                                        <div class='col-xs-6'>
-                                            <select class="form-control" selectNomAjouter='selectNomASuprimer'id='selectNomASuprimer'disabled="true">
-                                                <option value="">Choix</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class='row'>
-                                    <div class="form-group">
-                                        <div class='col-xs-offset-3 col-xs-6'>
-                                            <button type="button" class="btn btn-danger btn-block">Supprimer&nbsp;<span class="glyphicon glyphicon-trash"></span></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                              <%}%> 
                         </div>
 
                         <!--
@@ -354,7 +335,7 @@ and open the template in the editor.
                                 <div class='row'>
                                     <div class="form-group">
                                         <div class='col-xs-offset-3 col-xs-6'>
-                                            <button type="button" class="btn btn-danger btn-block">Supprimer&nbsp;<span class="glyphicon glyphicon-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-block" id="supprimerEquipe">Supprimer&nbsp;<span class="glyphicon glyphicon-trash"></span></button>
                                         </div>
                                     </div>
                                 </div>

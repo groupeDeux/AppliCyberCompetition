@@ -23,7 +23,7 @@ public class GetConsulterEquipeDAO {
             "SELECT * FROM viewDelegation order by pays";
     
     public static final String lesEquipesDUneDelegation = 
-            "SELECT * FROM viewEquipes E JOIN LesParticipants P "
+            "SELECT * FROM viewEquipe E JOIN LesParticipants P "
             + "on (E.idEquipe=P.idParticipant) WHERE pays ='%s' order by idEquipe";
     
     public static final String lesSportifsSelonGenre = 
@@ -31,7 +31,7 @@ public class GetConsulterEquipeDAO {
             + "ON (E.idSportif = P.idParticipant) WHERE pays='%s' AND genre='%s'";
     
     public static final String lesSportifsDUneEquipe = 
-            "SELECT * FROM LESCONSTITUTIONSEQUIPE join LESSPORTIFS USING (idSportif) "
+            "SELECT * FROM LESCONSTITUTIONSEQUIPE join LESSPORTIFS  USING (idSportif) join viewEquipe USING(idEquipe) "
             + "where idEquipe =%d order by nom";
     
     public static final String lesSportifsDUneDelegation = 
@@ -68,7 +68,7 @@ public class GetConsulterEquipeDAO {
      * @return
      * @throws SQLException 
      */
-    public CachedRowSet getSportifsSelonGenre(String pays, String genre)
+    public  static CachedRowSet getSportifsSelonGenre(String pays, String genre)
             throws SQLException {
         return ConnexionBD.INSTANCE.executeRequete(lesSportifsSelonGenre, pays, genre);
     }
@@ -79,7 +79,7 @@ public class GetConsulterEquipeDAO {
      * @throws SQLException
      */
     
-    public CachedRowSet getSportifsDUneEquipe(int idEquipe)
+    public static CachedRowSet getSportifsDUneEquipe(int idEquipe)
             throws SQLException{
         return ConnexionBD.INSTANCE.executeRequete(lesSportifsDUneEquipe, idEquipe);
     }
@@ -91,7 +91,7 @@ public class GetConsulterEquipeDAO {
      * @throws SQLException
      */
 
-    public CachedRowSet getSportifsDUneDelegation(String pays) throws SQLException{
+    public static CachedRowSet getSportifsDUneDelegation(String pays) throws SQLException{
         return ConnexionBD.INSTANCE.executeRequete(lesSportifsDUneDelegation, pays);
     }
 

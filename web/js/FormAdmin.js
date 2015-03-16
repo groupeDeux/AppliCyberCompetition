@@ -20,16 +20,12 @@ $("#valCreer").on('click', function () {
 $("#validerCreerEquipe").on('click', function () {
    var nbSportif=1;
    var sportifsSontSelectionner= true;
-   var url ="CreerEquipe?";
+   var url ="ModifierEquipe?Creation=true";
    $("select[name='selectNomAjouter']").each(function (){
        if($(this).val()===""){
             sportifsSontSelectionner = false ; 
        }else{
-           if (nbSportif ===1){
-                url = url + "sportifSelect"+nbSportif+"="+$(this).val();
-           }else{
-                url = url + "&sportifSelect"+nbSportif+"="+$(this).val();   
-           }
+           url = url + "&sportifSelect"+nbSportif+"="+$(this).val();   
            nbSportif++;
        }
    });
@@ -134,10 +130,7 @@ $("select[name='selectDelegationModifier']").on('change', function () {
 $("#selectEquipeModifier").on('change', function (){
     var idEquipe = document.getElementById("selectEquipeModifier").value;
     if (idEquipe !== "") {
-        //document.getElementById('selectNomASuprimer').options.length=1;
-        $("#selectNomASuprimer").load("GetListSportifParEquipe?idEquipe="+idEquipe);
-        document.getElementById("selectNomAjouter").disabled = false;
-        document.getElementById("selectNomASuprimer").disabled = false;
+        document.location.href="initEquipeModif?idEquipe="+idEquipe;
     }
 });
 
@@ -153,6 +146,10 @@ $("#selectDelegationSupp").on('change', function () {
     }
 });
 
+$("#supprimerEquipe").on('click',function (){
+    var idEquipeAsupprimer = $("#selectEquipeSupp").val();
+    document.location.href="SupprimerEquipe?idEquipe="+idEquipeAsupprimer;
+});
 //$("select[name='selectDelegationModifier']").on('change', function () {
 //    var delegation = document.getElementById("selectDelegationModifier").value;
 //    if (delegation !== "") {

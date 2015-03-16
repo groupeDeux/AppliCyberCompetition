@@ -97,26 +97,12 @@ and open the template in the editor.
                                          %>
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
-                                            <select  <%if(newEquipe != null){%> disabled="true" <%}%> class="form-control" id='selectionDelegationCreer' name='listDeleg'>
+                                            <select   disabled="true" class="form-control" id='selectionDelegationCreer' name='listDeleg'>
                                                 
-                                                <%  
-                                                    int i = 0;
-                                                    ArrayList<Delegation> lesDelegations = (ArrayList<Delegation>) session.getAttribute("listDelegations");
-                                                    ArrayList<Sportif> lesSportifs = (ArrayList<Sportif>) session.getAttribute("lesSportifs");
-                                                    if (newEquipe == null){
-                                                 %> <option value=''>Choix</option>
-                                                 <%          
-                                                      
-                                                        
-                                                        for (i = 0; i < lesDelegations.size(); i++) {
-                                                            String pays = lesDelegations.get(i).getPays();
-                                                %>          <option value='<%=pays%>'><%=pays%></option>
-                                                <%
-                                                         }
-                                                    }else{
-                                                %> <option value='<%=newEquipe.getPays()%>'><%=newEquipe.getPays()%></option>
-                                                <%}
-                                                %>
+                                                 <option value=''>Choix</option>
+                                                          <option value=''></option>
+                                                 <option value=''></option>
+                                                
                                                     
                                             </select>
                                         </div>
@@ -137,13 +123,13 @@ and open the template in the editor.
                                         <div class="col-xs-6 " id="radioboutons" >
                                             <div class='radio-inline'>
                                                 <label>
-                                                    <input <%if(newEquipe != null){%> disabled="true" <% }%> type="radio" name="radioType" value="masculin" <%if(categorie.equals("masculin")||categorie.equals("")){%>checked<% }%> >
+                                                    <input  disabled="true"  type="radio" name="radioType" value="masculin" checked >
                                                     Masculin
                                                 </label>
                                             </div>
                                             <div class="radio-inline">
                                                 <label>
-                                                    <input <%if(newEquipe != null){%> disabled="true" <%}%>type="radio" name="radioType" value="feminin" <%if(categorie.equals("feminin")){%>checked<% }%> >
+                                                    <input  disabled="true" type="radio" name="radioType" value="feminin" checked>
                                                     Feminin
                                                 </label>  
                                             </div>

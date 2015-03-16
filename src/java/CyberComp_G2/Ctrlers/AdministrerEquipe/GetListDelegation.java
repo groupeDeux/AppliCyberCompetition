@@ -85,9 +85,9 @@ public class GetListDelegation extends HttpServlet {
                  CachedRowSet rowSetSportifParDelegation;
                  
                 if ("mixte".equals(categorie)){
-                    rowSetSportifParDelegation= new GetConsulterEquipeDAO().getSportifsDUneDelegation(delegation);
+                    rowSetSportifParDelegation= GetConsulterEquipeDAO.getSportifsDUneDelegation(delegation);
                 } else{
-                    rowSetSportifParDelegation= new GetConsulterEquipeDAO().getSportifsSelonGenre(delegation,categorie);
+                    rowSetSportifParDelegation= GetConsulterEquipeDAO.getSportifsSelonGenre(delegation,categorie);
                 }
             
             while(rowSetSportifParDelegation.next()){
