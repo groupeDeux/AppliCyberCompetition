@@ -115,8 +115,9 @@ $("select[name='selectDelegationModifier']").on('change', function () {
     var delegation = document.getElementById("selectDelegationModifier").value;
     if (delegation !== "") {
         document.getElementById('selectEquipeModifier').options.length=1;
-        $("#selectEquipeModifier").load("GetListEquipeDUneDelegation?delegation="+delegation);
         document.getElementById("selectEquipeModifier").disabled = false;
+        document.location.href="GetListEquipeDUneDelegation?delegation="+delegation;
+        
     }
 });
 

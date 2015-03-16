@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -80,14 +82,14 @@ public class initEquipeModif extends HttpServlet {
                 lesSportifs.add(new Sportif(idSportif, delegation,prenomSportif, nomSportif, dateNaissance,genre));
             }
 
+           
             }catch (SQLException|CategorieException ex){
-                log(ex.getMessage());
+            log(ex.getMessage());
             }
-            
         
         session.setAttribute("lesSportifsModif", lesSportifs); 
         session.setAttribute("modifEquipe", modifEquipe);
-         
+        session.setAttribute("tabs", 2);
         request.getRequestDispatcher("/WEB-INF/AdministrerEquipe.jsp").forward(request, response);
         
     }

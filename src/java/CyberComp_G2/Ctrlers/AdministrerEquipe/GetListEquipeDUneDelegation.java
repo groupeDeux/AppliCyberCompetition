@@ -3,18 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CyberComp_G2.Ctrlers;
+package CyberComp_G2.Ctrlers.AdministrerEquipe;
 
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
+import CyberComp_G2.Exceptions.CategorieException;
+import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.CachedRowSet;
 
 /**
@@ -42,20 +46,23 @@ public class GetListEquipeDUneDelegation extends HttpServlet {
          StringBuilder rep = new StringBuilder();
          String delegation = request.getParameter("delegation");
          
-         try(PrintWriter out = response.getWriter()){
-            
-            CachedRowSet rowSetEquipeParDelegation = new GetConsulterEquipeDAO().getEquipesDUneDelegation(delegation);
-            out.println("<option value=''>Choix</option>");
-            while(rowSetEquipeParDelegation.next()){
+         ArrayList<Equipe> lesEquipes = new ArrayList();
+          try{
+          
+          CachedRowSet rowSetEquipeParDelegation = new GetConsulterEquipeDAO().getEquipesDUneDelegation(delegation);
+          while(rowSetEquipeParDelegation.next()){
                 String nomEquipe = rowSetEquipeParDelegation.getString("nomEquipe");
-                rep.append("<option value='").append(rowSetEquipeParDelegation.getString("idEquipe")).append("'>").append(rowSetEquipeParDelegation.getString("idEquipe")).append(" : ").append(nomEquipe);
-            }
-            out.println(rep);
-        }catch (SQLException ex){
-            log(ex.getMessage());
-        }
-
-        
+             lesEquipes.add(new Equipe(rowSetEquipeParDelegation.getInt("idEquipe"), delegation, rowSetEquipeParDelegation.getString("categorie"),rowSetEquipeParDelegation.getInt("nbMembre")));
+          }
+          }catch(SQLException| CategorieException ex){
+            log(ex.getMessage());       
+           }
+          HttpSession session = request.getSession(true);
+          session.setAttribute("lesEquipes", lesEquipes);
+        session.setAttribute("tabs", 2);
+        request.setAttribute("delegation", delegation);
+        session.setAttribute("modifEquipe", null);
+        request.getRequestDispatcher("/WEB-INF/AdministrerEquipe.jsp").forward(request, response);
         
         
         
