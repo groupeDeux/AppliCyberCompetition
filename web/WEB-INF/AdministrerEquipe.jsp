@@ -24,7 +24,7 @@ and open the template in the editor.
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.js" ></script>
-        
+
     </head>
     <body>
         <div class="container">
@@ -88,46 +88,44 @@ and open the template in the editor.
                                 <div class="row">
                                     <div class="form-group">
                                         <%  Equipe newEquipe = (Equipe) session.getAttribute("newEquipe");
-                                            String categorie="";
-                                            String nomEquipe= null;
-                                            if(newEquipe != null){
-                                                categorie =newEquipe.getCategorie();
+                                            String categorie = "";
+                                            String nomEquipe = null;
+                                            if (newEquipe != null) {
+                                                categorie = newEquipe.getCategorie();
                                                 nomEquipe = newEquipe.getNomEquipe();
                                             }
-                                         %>
+                                        %>
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
-                                            <select  <%if(newEquipe != null){%> disabled="true" <%}%> class="form-control" id='selectionDelegationCreer' name='listDeleg'>
-                                                
-                                                <%  
+                                            <select  <%if (newEquipe != null) {%> disabled="true" <%}%> class="form-control" id='selectionDelegationCreer' name='listDeleg'>
+
+                                                <%
                                                     int i = 0;
                                                     ArrayList<Delegation> lesDelegations = (ArrayList<Delegation>) session.getAttribute("listDelegations");
                                                     ArrayList<Sportif> lesSportifs = (ArrayList<Sportif>) session.getAttribute("lesSportifs");
-                                                    if (newEquipe == null){
-                                                 %> <option value=''>Choix</option>
-                                                 <%          
-                                                      
-                                                        
-                                                        for (i = 0; i < lesDelegations.size(); i++) {
-                                                            String pays = lesDelegations.get(i).getPays();
+                                                    if (newEquipe == null) {
+                                                %> <option value=''>Choix</option>
+                                                <%
+                                                    for (i = 0; i < lesDelegations.size(); i++) {
+                                                        String pays = lesDelegations.get(i).getPays();
                                                 %>          <option value='<%=pays%>'><%=pays%></option>
                                                 <%
-                                                         }
-                                                    }else{
+                                                    }
+                                                } else {
                                                 %> <option value='<%=newEquipe.getPays()%>'><%=newEquipe.getPays()%></option>
                                                 <%}
                                                 %>
-                                                    
+
                                             </select>
                                         </div>
-                                            <div class='col-xs-1 control-label erreurForm'id="verifDelegationCreer"></div>    
+                                        <div class='col-xs-1 control-label erreurForm'id="verifDelegationCreer"></div>    
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Nom:</label>
                                         <div class='col-xs-6'>
-                                            <input type='text'   <%if(newEquipe != null){%> disabled="true" <%}%>class='form-control' placeholder="Nom de l'équipe" id="nomEquipeCreer" <%if(nomEquipe !=null){%> value="<%= nomEquipe%>" <%}%>></input>
+                                            <input type='text'   <%if (newEquipe != null) {%> disabled="true" <%}%>class='form-control' placeholder="Nom de l'équipe" id="nomEquipeCreer" <%if (nomEquipe != null) {%> value="<%= nomEquipe%>" <%}%>></input>
                                         </div>
                                     </div>
                                 </div>
@@ -137,26 +135,26 @@ and open the template in the editor.
                                         <div class="col-xs-6 " id="radioboutons" >
                                             <div class='radio-inline'>
                                                 <label>
-                                                    <input <%if(newEquipe != null){%> disabled="true" <% }%> type="radio" name="radioType" value="masculin" <%if(categorie.equals("masculin")||categorie.equals("")){%>checked<% }%> >
+                                                    <input <%if (newEquipe != null) {%> disabled="true" <% }%> type="radio" name="radioType" value="masculin" <%if (categorie.equals("masculin") || categorie.equals("")) {%>checked<% }%> >
                                                     Masculin
                                                 </label>
                                             </div>
                                             <div class="radio-inline">
                                                 <label>
-                                                    <input <%if(newEquipe != null){%> disabled="true" <%}%>type="radio" name="radioType" value="feminin" <%if(categorie.equals("feminin")){%>checked<% }%> >
+                                                    <input <%if (newEquipe != null) {%> disabled="true" <%}%>type="radio" name="radioType" value="feminin" <%if (categorie.equals("feminin")) {%>checked<% }%> >
                                                     Feminin
                                                 </label>  
                                             </div>
                                             <div class="radio-inline">
                                                 <label>
-                                                    <input <%if(newEquipe != null){%> disabled="true" <%}%> type="radio" name="radioType" value="mixte" <%if(categorie.equals("mixte")){%>checked<% }%>>
+                                                    <input <%if (newEquipe != null) {%> disabled="true" <%}%> type="radio" name="radioType" value="mixte" <%if (categorie.equals("mixte")) {%>checked<% }%>>
                                                     Mixte
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                 <%  if(newEquipe == null){ %>          
+                                <%  if (newEquipe == null) { %>          
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-xs-6 col-xs-offset-3">
@@ -164,42 +162,42 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                 </div>
-                               <%  
-                                   }else{         
+                                <%
+                                } else {
                                 %>
                                 <h4><strong>Les sportifs : </strong></h4>
-                                
-                                 <div id="ajout">
-                                     <% for (i =1;i<=newEquipe.getNbDeSportif();i++){
-                                     %> <div id='divAjoutSportif1' class="form-group">
+
+                                <div id="ajout">
+                                    <% for (i = 1; i <= newEquipe.getNbDeSportif(); i++) {
+                                    %> <div id='divAjoutSportif1' class="form-group">
                                         <label class='col-xs-3 control-label'>Sportif <%=i%> :</label>
                                         <div class='col-xs-5'>
                                             <select  class="form-control"  name ="selectNomAjouter" id='selectNomAjouter<%=i%>'>
                                                 <option value="">Choix</option>
                                                 <%int j;
-                                                int idASelectinner;
-                                                if(newEquipe.getLesMembres().size()>=i){
-                                                    idASelectinner=newEquipe.getLesMembres().get(i-1).getIdSportif();
-                                                }else{
-                                                    idASelectinner=0;
-                                                }
-                                                for (j =0;j<lesSportifs.size();j++){
-                                                    int idSportif =lesSportifs.get(j).getIdParticipant();
-                                                   String  affichage = idSportif+" : "+lesSportifs.get(j).getNom() +" "+lesSportifs.get(j).getPrenom();
-                                                    
-                                                 %>
-                                                <option value="<%=idSportif%>"<%if(idSportif==idASelectinner){%>selected="selected"<%}%> ><%=affichage%></option>
+                                                    int idASelectinner;
+                                                    if (newEquipe.getLesMembres().size() >= i) {
+                                                        idASelectinner = newEquipe.getLesMembres().get(i - 1).getIdSportif();
+                                                    } else {
+                                                        idASelectinner = 0;
+                                                    }
+                                                    for (j = 0; j < lesSportifs.size(); j++) {
+                                                        int idSportif = lesSportifs.get(j).getIdParticipant();
+                                                        String affichage = idSportif + " : " + lesSportifs.get(j).getNom() + " " + lesSportifs.get(j).getPrenom();
+
+                                                %>
+                                                <option value="<%=idSportif%>"<%if (idSportif == idASelectinner) {%>selected="selected"<%}%> ><%=affichage%></option>
                                                 <%}%>
                                             </select>
                                         </div>
-                                        <div class='col-xs-1'> <button   <% if(newEquipe.getNbDeSportif()==2){%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportif<%=i%>" name='valSupprimerSportif' value='<%=i%>'=><span class="glyphicon glyphicon-minus"></span></button></div>    
+                                        <div class='col-xs-1'> <button   <% if (newEquipe.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportif<%=i%>" name='valSupprimerSportif' value='<%=i%>'=><span class="glyphicon glyphicon-minus"></span></button></div>    
                                     </div>
-                                     <%}%>
+                                    <%}%>
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-xs-offset-5 col-xs-2 erreurForm" id="ControlValAjouterSportif">
-                                           
+
                                         </div>
                                         <div class="col-xs-2">
                                             <button  type="button" class="btn btn-primary btn-block " id="valAjouterSportif"><span class="glyphicon glyphicon-plus"></span></button>
@@ -260,41 +258,72 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            
 
                             <!--
                                     AJOUTER UN SPORTIF DANS UNE EQUIPE
                             -->
                             <div id="ajoutModif">
-                                <% Equipe equipeModif =(Equipe) session.getAttribute("equipeModif");
-                                    if (equipeModif !=null){
-                                       for (i =1;i<=equipeModif.getNbDeSportif();i++){
-                                     %> <div id='divAjoutSportif1' class="form-group">
-                                        <label class='col-xs-3 control-label'>Sportif <%=i%> :</label>
-                                        <div class='col-xs-5'>
-                                            <select  class="form-control"  name ="selectNomAjouter" id='selectNomAjouter<%=i%>'>
+                                <% Equipe equipeModif = (Equipe) session.getAttribute("modifEquipe");
+                                 ArrayList<Sportif> lesSportifsModif = (ArrayList<Sportif>) session.getAttribute("lesSportifsModif");
+                                    if (equipeModif != null) {
+                                        for (i = 1; i <= equipeModif.getNbDeSportif(); i++) {%> 
+                                        <div id='divAjoutSportif2' class="form-group">
+                                         <label class='col-xs-3 control-label'>Sportif <%=i%> :</label>
+                                         <div class='col-xs-5'>
+                                            <select  class="form-control"  name ="selectModifier" id='selectNomModifier<%=i%>'>
                                                 <option value="">Choix</option>
-                                                <%int j;
-                                                int idASelectinner;
-                                                if(newEquipe.getLesMembres().size()>=i){
-                                                    idASelectinner=newEquipe.getLesMembres().get(i-1).getIdSportif();
-                                                }else{
-                                                    idASelectinner=0;
-                                                }
-                                                for (j =0;j<lesSportifs.size();j++){
-                                                    int idSportif =lesSportifs.get(j).getIdParticipant();
-                                                   String  affichage = idSportif+" : "+lesSportifs.get(j).getNom() +" "+lesSportifs.get(j).getPrenom();
-                                                    
-                                                 %>
-                                                <option value="<%=idSportif%>"<%if(idSportif==idASelectinner){%>selected="selected"<%}%> ><%=affichage%></option>
-                                                <%}%>
-                                            </select>
+                                                <%int idASelectinner;
+                                                    int j;
+                                                    if (equipeModif.getLesMembres().size() >= i) {
+                                                        idASelectinner = equipeModif.getLesMembres().get(i - 1).getIdSportif();
+                                                    } else {
+                                                        idASelectinner = 0;
+                                                    }
+                                                    for (j = 0; j < lesSportifsModif.size(); j++) {
+                                                    int idSportif = lesSportifsModif.get(j).getIdParticipant();
+                                                    String affichage = idSportif + " : " + lesSportifsModif.get(j).getNom() + " " + lesSportifsModif.get(j).getPrenom();
+                                                %>
+                                            <option value="<%=idSportif%>"<%if (idSportif == idASelectinner) {%>selected="selected"<%}%> ><%=affichage%></option>
+                                            <%}%>
+                                            </select>    
+                                         </div>
+                                        <div class='col-xs-1'> <button   <% if (equipeModif.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportifModif<%=i%>" name='valSupprimerSportif' value='<%=i%>'><span class="glyphicon glyphicon-minus"></span></button></div>    
                                         </div>
-                                        <div class='col-xs-1'> <button   <% if(newEquipe.getNbDeSportif()==2){%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportif<%=i%>" name='valSupprimerSportif' value='<%=i%>'=><span class="glyphicon glyphicon-minus"></span></button></div>    
+                                    <%}%> 
+                                <%}%> 
+                            </div>
+                            </form>
+                           <%--<div id="ajoutModif">
+                                <% Equipe equipeModif = (Equipe) session.getAttribute("modifEquipe");
+                                    if (equipeModif != null) {
+                                        for (i = 1; i <= equipeModif.getNbDeSportif(); i++) {
+                                %> <div id='divAjoutSportif2' class="form-group">
+                                    <label class='col-xs-3 control-label'>Sportif <%=i%> :</label>
+                                    <div class='col-xs-5'>
+                                        <select  class="form-control"  name ="selectModifier" id='selectNomModifier<%=i%>'>
+                                            <option value="">Choix</option>
+                                            <%int j;
+                                                int idASelectinner;
+                                                if (equipeModif.getLesMembres().size() >= i) {
+                                                    idASelectinner = equipeModif.getLesMembres().get(i - 1).getIdSportif();
+                                                } else {
+                                                    idASelectinner = 0;
+                                                }
+                                                for (j = 0; j < lesSportifs.size(); j++) {
+                                                    int idSportif = lesSportifs.get(j).getIdParticipant();
+                                                    String affichage = idSportif + " : " + lesSportifs.get(j).getNom() + " " + lesSportifs.get(j).getPrenom();
+
+                                            %>
+                                            <option value="<%=idSportif%>"<%if (idSportif == idASelectinner) {%>selected="selected"<%}%> ><%=affichage%></option>
+                                            <%}%>
+                                        </select>
                                     </div>
-                                     <%}%>
+                                    <div class='col-xs-1'> <button   <% if (equipeModif.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportifModif<%=i%>" name='valSupprimerSportif' value='<%=i%>'><span class="glyphicon glyphicon-minus"></span></button></div>    
                                 </div>
-                              <%}%> 
+                                <%}%>
+                                <%}%> 
+                            </div>  --%>
                         </div>
 
                         <!--
@@ -356,9 +385,9 @@ and open the template in the editor.
             $(document).ready(function () {
                 $("#tabs").tabs();
             });
-            
+
         </script>
-       <script type="text/javascript" src="js/cyberCompetition.js"></script>
-       <script src="js/FormAdmin.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/cyberCompetition.js"></script>
+        <script src="js/FormAdmin.js" type="text/javascript"></script>
     </body>
 </html>

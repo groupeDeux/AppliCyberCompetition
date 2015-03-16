@@ -118,11 +118,6 @@ $("select[name='selectDelegationModifier']").on('change', function () {
         $("#selectEquipeModifier").load("GetListEquipeDUneDelegation?delegation="+delegation);
         document.getElementById("selectEquipeModifier").disabled = false;
     }
-    if (delegation !== "") {
-        document.getElementById('selectNomAjouter').options.length=1;
-        $("#selectNomAjouter").load("GetListSportifParDelgation?delegation="+delegation);
-        
-    }
 });
 
 
