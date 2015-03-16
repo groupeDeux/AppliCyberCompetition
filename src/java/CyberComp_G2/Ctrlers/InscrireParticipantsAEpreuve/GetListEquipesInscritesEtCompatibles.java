@@ -22,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.CachedRowSet;
 
 /**
@@ -78,10 +79,12 @@ public class GetListEquipesInscritesEtCompatibles extends HttpServlet {
            }
         
         
+        // session pour passer les attributs
+        HttpSession session = request.getSession(true);
         /* ajoute la liste en attribut de la reponse */
-        request.setAttribute("listEquipesInscrites", listEquipesInscrites);
-        request.setAttribute("listEquipesCompatibles", listEquipesCompatibles);
-        request.getRequestDispatcher("WEB-INF/inscrireParticipantsAEpreuve.jsp").forward(request, response);
+        session.setAttribute("listEquipesInscrites", listEquipesInscrites);
+        session.setAttribute("listEquipesCompatibles", listEquipesCompatibles);
+        request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
         //request.getRequestDispatcher("WEB-INF/equipesInscrites.jsp").forward(request, response);
     }
 

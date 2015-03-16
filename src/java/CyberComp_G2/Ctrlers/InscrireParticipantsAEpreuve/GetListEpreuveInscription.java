@@ -24,6 +24,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.CachedRowSet;
 
 /**
@@ -79,9 +80,11 @@ public class GetListEpreuveInscription extends HttpServlet {
             ex.printStackTrace();
         }
 
+        // session pour passer les attributs
+        HttpSession session = request.getSession(true);
         /* ajoute les listes en attribut de la reponse et appele la page jsp */
-        request.setAttribute("listEpreuveEquipe", listEpreuvesEquipe);
-        request.setAttribute("listEpreuvesInv", listEpreuvesInv);
+        session.setAttribute("listEpreuveEquipe", listEpreuvesEquipe);
+        session.setAttribute("listEpreuvesInv", listEpreuvesInv);
         request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
     }
 
