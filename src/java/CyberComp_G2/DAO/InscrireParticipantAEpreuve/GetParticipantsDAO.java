@@ -50,23 +50,23 @@ public class GetParticipantsDAO {
             = "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre P.IDPARTICIPANT,P.pays"
             + "from viewEquipe V"
             + "join LesParticipants P on (V.idEquipe=P.idParticipant)"
-            + "where (V.NbMembre=%d and V.categorie='%s )";
+            + "where (V.NbMembre=%d and V.categorie=%s )";
     
     
     
     /* Compatibles et non deja inscrits -------> METHODE a ecrire (requete avec 3 parametres */ 
-    public static final String lesEquipesCompatiblesEtNonInscrit
-            ="Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre P.IDPARTICIPANT,P.pays "
+    public static final String lesEquipesCompatiblesEtNonInscrites
+            ="Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
             + "from viewEquipe V "
             + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
-            + "where (V.NbMembre=%d and V.categorie='%s ) "
+            + "where (V.NbMembre=%d and V.categorie=%s ) "
             +"minus "
-            +"Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre P.IDPARTICIPANT,P.pays "
+            +"Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
             + "from viewEquipe V "
             + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
             + "join lesParticipations P2 "
             + "on (P2.idParticipant=P.idParticipant) "
-            + "where (V.NbMembre=%d and V.categorie='%s and P2.idEpreuve=%s )";
+            + "where (V.NbMembre=%d and V.categorie=%s and P2.idEpreuve=%s )";
   
     /*--------------------------------------------------------------------------
     
@@ -166,6 +166,19 @@ public class GetParticipantsDAO {
          int nbPersonneFixe=rowSetNbPersonneFixe.getInt("NbPersonneFixe");      
          
         return getConsulterParticipants( lesEquipesCompatiblesEpreuve,categorie,nbPersonneFixe) ;
+    }
+     
+      /* fonction pour sortir les equipes compatible en categorie et en nbMembre à une epreuve donnée*/
+     public static CachedRowSet getlesEquipesCompatiblesEtNonInscrites(int idEpreuve)throws SQLException {
+         
+         // categorie de l epreuve dans uen variable java
+         CachedRowSet rowSetCategorie=getConsulterParticipants(laCategorie,idEpreuve);
+         String categorie=rowSetCategorie.getString("categorie");
+         // NbPersonneFixe de l epreuve dans une variable java
+         CachedRowSet rowSetNbPersonneFixe=getConsulterParticipants(leNbPersonneFixe,idEpreuve);
+         int nbPersonneFixe=rowSetNbPersonneFixe.getInt("NbPersonneFixe");      
+         
+        return getConsulterParticipants( lesEquipesCompatiblesEtNonInscrites,categorie,nbPersonneFixe) ;
     }
     
     

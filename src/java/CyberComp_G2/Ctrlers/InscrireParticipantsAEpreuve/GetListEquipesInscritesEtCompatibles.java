@@ -28,8 +28,8 @@ import javax.sql.rowset.CachedRowSet;
  *
  * @author agathe
  */
-@WebServlet(name = "GetListEquipesInscrites", urlPatterns = {"/GetListEquipesInscrites"})
-public class GetListEquipesInscrites extends HttpServlet {
+@WebServlet(name = "GetListEquipesInscritesEtCompatibles", urlPatterns = {"/GetListEquipesInscritesEtCompatibles"})
+public class GetListEquipesInscritesEtCompatibles extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -65,7 +65,7 @@ public class GetListEquipesInscrites extends HttpServlet {
             
             /* ----- Les equipes compatibles ----- */
          // recuperation des donnees BD chargees avec DAO dans un rowSet
-            CachedRowSet rowSetEquipesCompatibles = GetParticipantsDAO.getLesEquipesCompatiblesEpreuve(Integer.parseInt(idEpreuve));
+            CachedRowSet rowSetEquipesCompatibles = GetParticipantsDAO.getlesEquipesCompatiblesEtNonInscrites(Integer.parseInt(idEpreuve));
            
              /* cree un objet Equipe pour chaque ligne du rowset parcouru
              et le met dans l arrayList listEquipesCompatibles */
@@ -81,7 +81,8 @@ public class GetListEquipesInscrites extends HttpServlet {
         /* ajoute la liste en attribut de la reponse */
         request.setAttribute("listEquipesInscrites", listEquipesInscrites);
         request.setAttribute("listEquipesCompatibles", listEquipesCompatibles);
-        request.getRequestDispatcher("WEB-INF/equipesInscrites.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/inscrireParticipantsAEpreuve.jsp").forward(request, response);
+        //request.getRequestDispatcher("WEB-INF/equipesInscrites.jsp").forward(request, response);
     }
 
 
