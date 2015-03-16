@@ -33,13 +33,14 @@ public class GetParticipantsDAO {
      /*---- Requete a mettre dans la fonction getEquipesCompatibles------------ 
      /* Recuperation categorie a passer en param aux autres requetes*/
     public static final String laCategorie
-
             = "SELECT E.categorie FROM LesEpreuves E where E.idEpreuve= %d";
     
     /* Recuperation NbFixeSportif a passer en param aux autre requetes*/
     public static final String leNbPersonneFixe
             = "SELECT E.categorie FROM LesEpreuves where E.idEpreuve= %d";
-
+    /*--------------------------------------------------------------------------
+    
+    */
     /*Selection des Equipes compatibles en cat et nbInscritsavec une epreuve: idEpreuve*/
     public static final String lesEquipesCompatiblesEpreuve
             = "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre P.IDPARTICIPANT,P.pays"
@@ -47,10 +48,8 @@ public class GetParticipantsDAO {
             + "join LesParticipants P on (V.idEquipe=P.idParticipant)"
             + "where (V.NbMembre=%d and V.categorie=%s )";
 
-    
-     
 
-    /*Selection des Equipes inscrits à une épreuve: idEpreuve*/
+    /*Selection des Equipes inscrites à une épreuve: idEpreuve*/
     public static final String lesEquipesInscritesEpreuve
             = "SELECT * FROM viewEquipe E JOIN LesParticipants P on (E.idEquipe=P.idParticipant)"
             + " Join lesParticipations P2 on (E.idEquipe=P2.idParticipant) "
@@ -59,35 +58,20 @@ public class GetParticipantsDAO {
    
      /* Compatibles et non deja inscrits
             equipes compatibles minus compatibles et inscrits*/ 
-
-    /* Compatibles et non deja inscrits -------> METHODE a ecrire (requete avec 3 parametres */
-
     public static final String lesEquipesCompatiblesEtNonInscrites
             = "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
             + "from viewEquipe V "
             + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
-
             + "where (V.NbMembre<%d and V.categorie='%s' ) "
             +"minus "
-            +"Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
-
-            + "where (V.NbMembre=%d and V.categorie=%s ) "
-            + "minus "
             + "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
-
             + "from viewEquipe V "
             + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
             + "join lesParticipations P2 "
             + "on (P2.idParticipant=P.idParticipant) "
-
             + "where (V.NbMembre=%d and V.categorie=%s and P2.idEpreuve=%s )";
   
-    /*--------------------------------------------------------------------------
-        
-    /*-------------------------------------------------------------
-    Construction des RowSet: appel d'une focntion 
-    avec une requete et un parametre 
-    -------------------------------------------------------------*/
+   
     
     
     
@@ -122,8 +106,7 @@ public class GetParticipantsDAO {
     /*-----------------------------------------------------------------------------
      Construction des RowSet relié à equipe : appel d'une focntion 
      avec une requete et un parametre 
-     --------------------------------------------------------------------------*/
-    
+     --------------------------------------------------------------------------*/  
     
     /*  retourne la liste des delegations
      * @return
