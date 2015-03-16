@@ -120,7 +120,15 @@ public class GetConsulterEpreuveDAO {
             + "join LesEquipes E ON (M.idParticipant=E.idEquipe) "
             + "WHERE idEquipe = %d "
             + "ORDER BY valeur asc ";
-
+    
+    public static final String lesEpreuveSsResulats
+            = "select idepreuve, nomDiscipline, nomEpreuve, to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace,categorie " 
+            + "from lesEpreuves " 
+            +"minus " 
+            +"select idepreuve, nomDiscipline, nomEpreuve, to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace,categorie " 
+            +"from lesMedailles " 
+            +"join lesEpreuves " 
+            +"Using(idEpreuve)";
     /*
     
      */
