@@ -23,3 +23,8 @@ $("#selectionEpreuveIndividuelle").on('change', function () {
     
      document.location.href="GetListSportifInscritEtCompatibles?idEpreuve="+idEpreuve;
 });
+
+$("#ajouterEquipe").on('click', function () {
+   var idEquipe=document.getElementById("selectEquipeAjouter").value;
+   document.location.href="AjouterParticipations?idEquipe="+idEquipe;
+});

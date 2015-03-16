@@ -175,7 +175,7 @@ and open the template in the editor.
                                                     ArrayList<Equipe> lesEquipesCompatibles = (ArrayList<Equipe>) session.getAttribute("listEquipesCompatibles");
                                                     if (lesEquipesCompatibles != null) {
                                                         if (lesEquipesCompatibles.size() != 0) {
-                                                            %><select class="form-control" id='selectEqAjouter'>
+                                                            %><select class="form-control" id='selectEquipeAjouter'>
                                                             <option value="">Choix</option> <%
                                                             int i = 0;
                                                             for (i = 0; i < lesEquipesCompatibles.size(); i++) {
@@ -196,7 +196,7 @@ and open the template in the editor.
                                     </div>
                                     <div class="form-group">
                                         <div class="col-xs-6 col-xs-offset-3">
-                                            <button type="button" class="btn btn-default btn-block">Ajouter &nbsp;<span class="glyphicon glyphicon-plus"></span></button>
+                                            <button type="button" id="ajouterEquipe" class="btn btn-default btn-block">Ajouter &nbsp;<span class="glyphicon glyphicon-plus"></span></button>
                                         </div>
                                     </div>
                                 </div>
