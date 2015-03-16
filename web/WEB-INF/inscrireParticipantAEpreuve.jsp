@@ -173,13 +173,13 @@ and open the template in the editor.
                                                             int idEquipe = lesEquipesCompatibles.get(i).getIdEquipe();
                                                             String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
                                                             String categorie = lesEquipesCompatibles.get(i).getCategorie();
-                                                %> <option value='<%=idEquipe%>'><%= idEquipe%> : <%=nomEquipe%>  -  <%=categorie%>  </option>
-                                                <% };
-                                                    } else {
-                                                        // message "Aucune equipe ne peut etre inscrite"
+                                                %>          <option value='<%=idEquipe%>'><%= idEquipe%> : <%=nomEquipe%>  -  <%=categorie%>  </option>
+                                                    <% };
+                                                    } 
+                                                    else {%>
+                                                        <div> Aucune équipe ne peut être inscrite  </div>
 
-                                                    }
-                                                %>
+                                                    <%}%>
 
                                             </select>
                                         </div>

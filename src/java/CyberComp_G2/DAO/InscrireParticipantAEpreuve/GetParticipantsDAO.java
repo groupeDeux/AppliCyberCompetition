@@ -53,24 +53,7 @@ public class GetParticipantsDAO {
             + "where (V.NbMembre=%d and V.categorie=%s )";
     
     
-    
-    /* Compatibles et non deja inscrits -------> METHODE a ecrire (requete avec 3 parametres */ 
-    public static final String lesEquipesCompatiblesEtNonInscrites
-            ="Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
-            + "from viewEquipe V "
-            + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
-            + "where (V.NbMembre=%d and V.categorie=%s ) "
-            +"minus "
-            +"Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
-            + "from viewEquipe V "
-            + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
-            + "join lesParticipations P2 "
-            + "on (P2.idParticipant=P.idParticipant) "
-            + "where (V.NbMembre=%d and V.categorie=%s and P2.idEpreuve=%s )";
-  
-    /*--------------------------------------------------------------------------
-    
-    */    
+       
      /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve*/
     public static final String lesSportifsCompatiblesEpreuveCat
             = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)"
@@ -82,7 +65,22 @@ public class GetParticipantsDAO {
             + " Join lesParticipations P2 on (E.idEquipe=P2.idParticipant) "
             + "where P2.idEpreuve= %d";
 
-        
+   
+     /* Compatibles et non deja inscrits -------> METHODE a ecrire (requete avec 3 parametres */ 
+    public static final String lesEquipesCompatiblesEtNonInscrites
+            ="Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
+            + "from viewEquipe V "
+            + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
+            + "where (V.NbMembre<%d and V.categorie=%s ) "
+            +"minus "
+            +"Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
+            + "from viewEquipe V "
+            + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
+            + "join lesParticipations P2 "
+            + "on (P2.idParticipant=P.idParticipant) "
+            + "where (V.NbMembre<%d and V.categorie=%s and P2.idEpreuve=%s )";
+  
+    /*--------------------------------------------------------------------------
         
     /*-------------------------------------------------------------
     Construction des RowSet: appel d'une focntion 
@@ -169,8 +167,7 @@ public class GetParticipantsDAO {
     }
      
       /* fonction pour sortir les equipes compatible en categorie et en nbMembre à une epreuve donnée*/
-     public static CachedRowSet getlesEquipesCompatiblesEtNonInscrites(int idEpreuve)throws SQLException {
-         
+     public static CachedRowSet getLesEquipesCompatiblesEtNonInscrites(int idEpreuve)throws SQLException {
          // categorie de l epreuve dans uen variable java
          CachedRowSet rowSetCategorie=getConsulterParticipants(laCategorie,idEpreuve);
          String categorie=rowSetCategorie.getString("categorie");
@@ -178,7 +175,7 @@ public class GetParticipantsDAO {
          CachedRowSet rowSetNbPersonneFixe=getConsulterParticipants(leNbPersonneFixe,idEpreuve);
          int nbPersonneFixe=rowSetNbPersonneFixe.getInt("NbPersonneFixe");      
          
-        return getConsulterParticipants( lesEquipesCompatiblesEtNonInscrites,categorie,nbPersonneFixe) ;
+        return getConsulterParticipants( lesEquipesCompatiblesEtNonInscrites,categorie,nbPersonneFixe,idEpreuve) ;
     }
     
     
@@ -216,6 +213,19 @@ public class GetParticipantsDAO {
         CachedRowSet crs = new CachedRowSetImpl();
         crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
         crs.setCommand(String.format(query,categorie,nbFixe));
+        crs.execute();
+        return crs;
+    }
+    
+    /*-------------------------------------------------------------
+    Fonction appele pour construction des RowSet
+    execute la "query"=requete avec les "selecteur"=parametres
+    -------------------------------------------------------------*/
+    private static CachedRowSet getConsulterParticipants(String query, String categorie,int nbFixe, int idEpreuve) 
+            throws SQLException {
+        CachedRowSet crs = new CachedRowSetImpl();
+        crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
+        crs.setCommand(String.format(query,categorie,nbFixe, idEpreuve));
         crs.execute();
         return crs;
     }
