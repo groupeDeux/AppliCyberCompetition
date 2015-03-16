@@ -25,13 +25,13 @@ import javax.sql.rowset.CachedRowSet;
 public class ModifierEquipeDAO {
      
     public static final String insertSportif = 
-            "INSERT INTO LesConstitutionsEquipes (idEquipe, idSportif) values (%d, %d)";
+            "INSERT INTO LesConstitutionsEquipe (idEquipe, idSportif) values (%d, %d)";
     
     public static final String MaxIdEquipe = 
             "select max(idEquipe) from viewEquipe";
     
      public static final String insertParticipant = 
-            "INSERT INTO LesParticipants (idParticipant, pays) values (98, 'france')";
+            "INSERT INTO LesParticipants values (%d, '%s')";
      
     public static final String deleteSportif = 
             "DELETE FROM LesConstitutionsEquipes WHERE idSportif=%d AND idEquipe= %d";
@@ -45,36 +45,33 @@ public class ModifierEquipeDAO {
     
     
     public static void addEquipe(DataSource datasource ,Equipe equipe) throws SQLException {
-         Connection conn2 =null;
-        conn2 = datasource.getConnection();
-             //conn2.setAutoCommit(false);
-             Statement stmt2 = conn2.createStatement();
-             stmt2.executeUpdate(insertParticipant);  
+
         String nomEquipe = equipe.getNomEquipe();
-//           Connection conn = datasource.getConnection();
+        Connection conn = datasource.getConnection();
            String categorie =  equipe.getCategorie();
            int nbMembre = equipe.getNbMembre();
            String pays = equipe.getPays();
            int idEquipe=0;
           
-//           Statement stmt = conn.createStatement();
-//           ResultSet rs = stmt.executeQuery(MaxIdEquipe);
-//           while(rs.next()){
-//              idEquipe = rs.getInt(1) +1 ;
-//           }
-//           conn.close();
+           Statement stmt = conn.createStatement();
+           ResultSet rs = stmt.executeQuery(MaxIdEquipe);
+           while(rs.next()){
+              idEquipe = rs.getInt(1) +1 ;
+           }
+
 
            try{
-             
-             stmt2.executeUpdate(String.format(addEquipe,idEquipe,nomEquipe,categorie));
+             conn.setAutoCommit(false);
+             stmt.executeUpdate(String.format(insertParticipant,idEquipe,pays)); 
+             stmt.executeUpdate(String.format(addEquipe,idEquipe,nomEquipe,categorie));
              int i;
              for(i=0;i<nbMembre;i++){
-                 stmt2.executeUpdate(String.format(insertSportif,idEquipe,equipe.getLesMembres().get(i).getIdSportif()));
+                 stmt.executeUpdate(String.format(insertSportif,idEquipe,equipe.getLesMembres().get(i).getIdSportif()));
              }
-             conn2.commit();
-             conn2.setAutoCommit(true);
+             conn.commit();
+             conn.setAutoCommit(true);
            }catch(SQLException ex){
-              conn2.rollback();
+              conn.rollback();
               String erreur = ex.getMessage();
               int i=0;
            }
