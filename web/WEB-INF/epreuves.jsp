@@ -5,8 +5,7 @@
     Created on : 8 mars 2015, 07:55:52
     Author     : vivi
 --%>
-
-<%@page import="java.util.Random"%>
+<%@page import="CyberComp_G2.Model.Panier.Panier"%>
 <%@page import="CyberComp_G2.Model.ConsulterEpreuve.Epreuve"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import = "java.util.ArrayList" %>
@@ -39,7 +38,7 @@ and open the template in the editor.
                     <!-- 
                             BARRE DE NAVIGATION
                     -->
-                    <div class="masthead">
+                    <div class="masthead" id='barreDeNavigation'>
                         <h2 class="text-muted"><a href="index.jsp" data-toggle="tooltip" data-placement="right" title="Acceder à l'acceuil">CyberCompetition</a></h2>
                         <nav>
                             <ul class="nav nav-justified">
@@ -69,7 +68,7 @@ and open the template in the editor.
                             <div class='form-group'>
                                 <!--Choix de la liste des disciplines disponible au début-->
                                 <label>Discipline:</label>
-                                <select class="form-control" name='selectDisciplineEpreuve' id='selectionDelegation'>
+                                <select class="form-control" name='epreuvesSelectDiscipline' id='epreuvesSelectDiscipline'>
                                     <option value="Tout">Tout</option>
                                     <%
                                         int nDiscipline = 0;
@@ -103,7 +102,7 @@ and open the template in the editor.
                         NAVIGATION PAR TYPES
                 -->
                 <div class="row">
-                    <ul class="nav nav-pills" id="buttonsTags">
+                    <ul class="nav nav-pills" id="epreuvesButtonsTags">
                     </ul>
                     <br/>
                 </div>
@@ -138,13 +137,13 @@ and open the template in the editor.
                     <div class="media">
                         <div class="media-left">
                             <%-- Cliquer sur l'image permet d'afficher l'epreuve --%>
-                            <div data-toggle='collapse' href='#media<%=lesId%>'>
+                            <div data-toggle='collapse' href='#epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>'>
                                 <img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de <%=epreuveSelectionnee.getNomDiscipline()%>' data-toggle="tooltip" data-placement="top" title="Afficher informations supp.">
                             </div>
                         </div>
                         <div class='media-body'>
                             <%-- Cliquer sur cette partie media-heading permet d'afficher l'epreuve --%>
-                            <div data-toggle='collapse tooltip' data-placement="top" title="Afficher informations supp." data-info='close' href='#media<%=lesId%>'>
+                            <div data-toggle='collapse tooltip' data-placement="top" title="Afficher informations supp." data-info='close' href='#epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>'>
                                 <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%>&nbsp;</h4>
                                 <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
                                 <div class='pull-right'><h3><span class='glyphicon glyphicon-menu-down'></span>&nbsp;</h3></div>
@@ -152,7 +151,7 @@ and open the template in the editor.
                                 <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
                                 <br/>
                             </div>
-                            <div class="collapse" id="media<%=lesId%>">
+                            <div class="collapse" id="epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>">
                                 <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                                     Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
@@ -164,13 +163,13 @@ and open the template in the editor.
                                         panel-body: corps de la page a afficher
                                 --%>
                                 <div class="panel panel-default">
-                                    <div class="panel-heading" data-toggle='collapse' href='#collapseParticipants<%=lesId%>'>
+                                    <div class="panel-heading" data-toggle='collapse' href='#epreuvesParticipants<%=epreuveSelectionnee.getIdEpreuve()%>'>
                                         <h4>
                                             Liste des participants de l'épreuve
                                             <span class='pull-right glyphicon glyphicon-menu-down'></span>
                                         </h4>
                                     </div>
-                                    <div id="collapseParticipants<%=lesId%>" class="panel-collapse collapse">
+                                    <div id="epreuvesParticipants<%=epreuveSelectionnee.getIdEpreuve()%>" class="panel-collapse collapse">
                                         <div class='panel-body'>
                                             ===========
                                         </div>
@@ -183,15 +182,15 @@ and open the template in the editor.
                                         panel-body: corps de la page a afficher
                                 --%>
                                 <div class="panel panel-default">
-                                    <div class="panel-heading" data-toggle='collapse' href='#collapseBillets<%=lesId%>'>
+                                    <div class="panel-heading" data-toggle='collapse' href='#epreuvesBillets<%=epreuveSelectionnee.getIdEpreuve()%>'>
                                         <h4>
                                             Acheter un billet ou un ticket video.
                                             <span class='pull-right glyphicon glyphicon-menu-down'></span>
                                         </h4>
                                     </div>
-                                    <div id="collapseBillets<%=lesId%>" class="panel-collapse collapse">
+                                    <div id="epreuvesBillets<%=epreuveSelectionnee.getIdEpreuve()%>" class="panel-collapse collapse">
                                         <div class='panel-body'>
-                                            <form class="form-inline">
+                                            <form class="form-inline" action="GetPanier">
                                                 <div class='col-xs-2'>
                                                     <div class='form-group'>
                                                         <strong>Prix: 30€</strong>
@@ -200,7 +199,7 @@ and open the template in the editor.
                                                 <div class='col-xs-1'>
                                                     <div class='form-group'>
                                                         <div class="radio-inline">
-                                                            <input type="radio" name="radioEpreuve<%=lesId%>" value="Billet">
+                                                            <input type="radio" name="epreuvesRadio" value="Billet:<%=epreuveSelectionnee.getIdEpreuve()%>">
                                                             <label class='control-label'>Billet</label>
                                                         </div>
                                                     </div>
@@ -208,7 +207,7 @@ and open the template in the editor.
                                                 <div class='col-xs-2'>
                                                     <div class='form-group'>
                                                         <div class="radio-inline">
-                                                            <input type="radio" name="radioEpreuve<%=lesId%>" value="TicketVideo">
+                                                            <input type="radio" name="epreuvesRadio" value="TicketVideo:<%=epreuveSelectionnee.getIdEpreuve()%>">
                                                             <label class='control-label'>Ticket Video</label>
                                                         </div>
                                                     </div>
@@ -216,7 +215,7 @@ and open the template in the editor.
                                                 <div class='col-xs-3'>
                                                     <div class="form-group">
                                                         <label class='control-label'>Nombre de places:</label>
-                                                        <select class="form-control" name='nbPlacesEpreuve<%=lesId%>' id='nbPlacesEpreuve<%=lesId%>'>
+                                                        <select class="form-control" name='epreuvesNbPlaces'>
                                                             <option value="0">0</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
@@ -254,21 +253,21 @@ and open the template in the editor.
                     <div class="media">
                         <div class="media-left">
                             <%-- Cliquer sur l'image permet d'afficher l'epreuve --%>
-                            <div data-toggle='collapse' href='#media<%=lesId%>'>
+                            <div data-toggle='collapse tooltip' data-placement="top" title="Afficher informations supp." data-info='close' href='#epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>'>
                                 <img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de <%=epreuveSelectionnee.getNomDiscipline()%>' data-toggle="tooltip" data-placement="top" title="Afficher informations supp.">
                             </div>
                         </div>
                         <div class='media-body'>
                             <%-- Cliquer sur cette partie media-heading permet d'afficher l'epreuve --%>
-                            <div data-toggle='collapse' data-info='close' href='#media<%=lesId%>'>
+                            <div data-toggle='collapse tooltip' data-placement="top" title="Afficher informations supp." data-info='close' href='#epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>'>
                                 <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%>&nbsp;</h4>
                                 <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
-                                <div class='pull-right'><h3><span class='glyphicon glyphicon-menu-down' style='color:#337AB7;'></span>&nbsp;</h3></div>
+                                <div class='pull-right'><h3><span class='glyphicon glyphicon-menu-down'></span>&nbsp;</h3></div>
                                 <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
                                 <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
                                 <br/>
                             </div>
-                            <div class="collapse" id="media<%=lesId%>">
+                            <div class="collapse" id="epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>">
                                 <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                                     Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
@@ -280,13 +279,13 @@ and open the template in the editor.
                                         panel-body: corps de la page a afficher
                                 --%>
                                 <div class="panel panel-default">
-                                    <div class="panel-heading" data-toggle='collapse' href='#collapseParticipants<%=lesId%>'>
+                                    <div class="panel-heading" data-toggle='collapse' href='#epreuvesParticipants<%=epreuveSelectionnee.getIdEpreuve()%>'>
                                         <h4>
                                             Liste des participants de l'épreuve
                                             <span class='pull-right glyphicon glyphicon-menu-down'></span>
                                         </h4>
                                     </div>
-                                    <div id="collapseParticipants<%=lesId%>" class="panel-collapse collapse">
+                                    <div id="epreuvesParticipants<%=epreuveSelectionnee.getIdEpreuve()%>" class="panel-collapse collapse">
                                         <div class='panel-body'>
                                             ===========
                                         </div>
@@ -299,15 +298,15 @@ and open the template in the editor.
                                         panel-body: corps de la page a afficher
                                 --%>
                                 <div class="panel panel-default">
-                                    <div class="panel-heading" data-toggle='collapse' href='#collapseBillets<%=lesId%>'>
+                                    <div class="panel-heading" data-toggle='collapse' href='#epreuvesBillets<%=epreuveSelectionnee.getIdEpreuve()%>'>
                                         <h4>
                                             Acheter un billet ou un ticket video.
                                             <span class='pull-right glyphicon glyphicon-menu-down'></span>
                                         </h4>
                                     </div>
-                                    <div id="collapseBillets<%=lesId%>" class="panel-collapse collapse">
+                                    <div id="epreuvesBillets<%=epreuveSelectionnee.getIdEpreuve()%>" class="panel-collapse collapse">
                                         <div class='panel-body'>
-                                            <form class="form-inline">
+                                            <form class="form-inline" action="GetPanier">
                                                 <div class='col-xs-2'>
                                                     <div class='form-group'>
                                                         <strong>Prix: 30€</strong>
@@ -316,7 +315,7 @@ and open the template in the editor.
                                                 <div class='col-xs-1'>
                                                     <div class='form-group'>
                                                         <div class="radio-inline">
-                                                            <input type="radio" name="radioEpreuve<%=lesId%>" value="Billet">
+                                                            <input type="radio" name="epreuvesRadio" value="Billet:<%=epreuveSelectionnee.getIdEpreuve()%>">
                                                             <label class='control-label'>Billet</label>
                                                         </div>
                                                     </div>
@@ -324,7 +323,7 @@ and open the template in the editor.
                                                 <div class='col-xs-2'>
                                                     <div class='form-group'>
                                                         <div class="radio-inline">
-                                                            <input type="radio" name="radioEpreuve<%=lesId%>" value="TicketVideo">
+                                                            <input type="radio" name="epreuvesRadio" value="TicketVideo:<%=epreuveSelectionnee.getIdEpreuve()%>">
                                                             <label class='control-label'>Ticket Video</label>
                                                         </div>
                                                     </div>
@@ -332,7 +331,7 @@ and open the template in the editor.
                                                 <div class='col-xs-3'>
                                                     <div class="form-group">
                                                         <label class='control-label'>Nombre de places:</label>
-                                                        <select class="form-control" name='nbPlacesEpreuve<%=lesId%>' id='nbPlacesEpreuve<%=lesId%>'>
+                                                        <select class="form-control" name='epreuvesNbPlaces'>
                                                             <option value="0">0</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
@@ -363,6 +362,7 @@ and open the template in the editor.
                     <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
                 </footer>
             </div>
+                <div id='go-top' class='glyphicon glyphicon-circle-arrow-up'><a href='#barreDeNavigation'></a></div>
         </div>
         <script src="js/bootstrap.js" type="text/javascript"></script>
         <script src="js/jsEpreuve.js" type="text/javascript"></script>

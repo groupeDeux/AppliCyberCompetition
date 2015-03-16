@@ -14,6 +14,7 @@ import CyberComp_G2.Model.ConstituerEquipe.Delegation;
 import CyberComp_G2.Model.ConsulterEpreuve.Epreuve;
 import CyberComp_G2.Model.ConsulterEpreuve.EpreuveIndividuelle;
 import CyberComp_G2.Model.ConsulterEpreuve.EpreuveParEquipe;
+import CyberComp_G2.Model.Panier.Panier;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -24,6 +25,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.CachedRowSet;
 
 /**
@@ -46,12 +48,23 @@ public class GetListEpreuve extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String nomDiscipline = request.getParameter("selectDisciplineEpreuve");
+        
+        HttpSession session = request.getSession(true);
+        
+        Panier sessionPanier = (Panier)session.getAttribute("Panier");
+        if(sessionPanier == null){
+            sessionPanier = new Panier();
+            session.setAttribute("sessionPanier", sessionPanier);
+        }
+        
+        
+        String nomDiscipline = request.getParameter("epreuvesSelectDiscipline");
         
         CachedRowSet rowSetEpreuveEquipe;
         CachedRowSet rowSetEpreuveInv;
         CachedRowSet rowSetDiscipline;
+        CachedRowSet rowSetParticipantsEpreuveEquipe;
+        CachedRowSet rowSetParticipantsEpreuveIndiv;
 
         ArrayList<Epreuve> listEpreuvesEquipe = new ArrayList();
         ArrayList<Epreuve> listEpreuvesInv = new ArrayList();

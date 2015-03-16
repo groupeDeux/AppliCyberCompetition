@@ -22,29 +22,29 @@ public class Panier {
      dans le panier.
      */
 
-    private int nombreDeBillets;
+    private int nombreDElements;
     private ArrayList<String> listeAuPanier;
     private ArrayList<Epreuve> lesEpreuvesAuPanier;
 
     public Panier() {
-        this.nombreDeBillets = 0;
+        this.nombreDElements = 0;
         this.listeAuPanier = new ArrayList();
         this.lesEpreuvesAuPanier = new ArrayList();
     }
 
     public int getNombreDeBillet() {
-        return this.nombreDeBillets;
+        return this.nombreDElements;
     }
 
     public void setNombreDeBillet(int nombre) {
-        this.nombreDeBillets += nombre;
+        this.nombreDElements += nombre;
     }
 
     public void ajouterUnBillet(Epreuve epreuveAAjouter, String typeDeBillet, int nombre) {
         if (nombre != 0 && epreuveAAjouter != null) {
             this.lesEpreuvesAuPanier.add(epreuveAAjouter);
             this.listeAuPanier.add(typeDeBillet);
-            this.nombreDeBillets += nombre;
+            this.nombreDElements += nombre;
         }
     }
 
@@ -58,6 +58,10 @@ public class Panier {
     
     public ArrayList<Epreuve> getLesEpreuvesAuPanier(){
         return lesEpreuvesAuPanier;
+    }
+    
+    public ArrayList<String> getListeAuPanier(){
+        return listeAuPanier;
     }
     
 }

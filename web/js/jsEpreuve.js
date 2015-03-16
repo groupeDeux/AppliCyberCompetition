@@ -7,7 +7,7 @@
 /* Gestion du filtre en fonction des data-tags situé dans le premier div d'une epreuve */
 /* Création des variables pour la recherche de tags */
 var $epreuves = $('div.row.rowEpreuve');
-var $buttons = $('#buttonsTags');
+var $buttons = $('#epreuvesButtonsTags');
 var tagged = {};
 
 /* Recherche de tag dans les epreuves:
@@ -32,7 +32,7 @@ $epreuves.each(function () {
 
 
 /* Creation du bouton 'Tout' dans l'id 'buttonsTags' */
-$('<li role="presentation" id="toutTag" class="active"><a href="#">Tout<span class="badge"></span></a></li>').appendTo($buttons);
+$('<li role="presentation" id="epreuvesToutTag" class="active"><a href="#">Tout<span class="badge"></span></a></li>').appendTo($buttons);
 
 /* Creation des autres boutons en fonction des tags */
 $.each(tagged, function (tagName) {
@@ -40,7 +40,7 @@ $.each(tagged, function (tagName) {
             tagged[tagName].length + '</span></a></li>').appendTo($buttons);
 });
 
-$("#toutTag").click(function () {
+$("#epreuvesToutTag").click(function () {
     $epreuves.show();
 });
 
@@ -48,7 +48,7 @@ $("#toutTag").click(function () {
  * on clique sur un des boutons contenant un "tagName"
  * Attention, les boutons ont un ID : qui correspond à la catégorie*/
 $('li[role="presentation"]').click(function () {
-    if ($(this).attr("id") !== null && $(this).attr("id") !== "toutTag") {
+    if ($(this).attr("id") !== null && $(this).attr("id") !== "epreuvesToutTag") {
         $epreuves.hide().filter(tagged[$(this).attr("id")]).show();
     }
 });
@@ -109,6 +109,22 @@ $('div.panel-heading[data-toggle]').click(function(){
 $(function () {
     $('[data-toggle~="tooltip"]').tooltip();
 });
+
+
+/* Affichage du bouton pour remonter en haut */
+
+  $(window).scroll(function(){
+    var scrolled = $(window).scrollTop();
+    if (scrolled > 400) $('#go-top').fadeIn('slow');
+    if (scrolled < 200) $('#go-top').fadeOut('slow');
+  });
+  
+  //Click event
+  $('#go-top').click(function () {
+    $("html, body").animate({ scrollTop: "0" },200);
+  });
+
+
 
 //$('span[class]').hover(function(){$(this).css('color','#337AB7');});
 

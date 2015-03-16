@@ -82,7 +82,7 @@
         <script src="js/bootstrap.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/cyberCompetition.js" ></script>
         <script>
-            $('a[name]').click(function(){document.location.href="GetListEpreuve?selectDisciplineEpreuve="+$(this).attr("name");});
+            $('a[name]').click(function(){document.location.href="GetListEpreuve?epreuvesSelectDiscipline="+$(this).attr("name");});
         </script>
     </body>
 </html>

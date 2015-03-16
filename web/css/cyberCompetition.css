@@ -166,3 +166,15 @@ h2.text-muted > a{
 .erreurForm{
     color: #c12e2a;
 }
+
+#go-top{
+    position: fixed;
+    right: 30px;
+    font-size:40px;
+    padding:30px;
+    display:none;
+}
+
+#go-top:hover{
+    color:#777777;
+}
