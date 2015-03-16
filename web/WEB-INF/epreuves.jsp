@@ -192,7 +192,7 @@ and open the template in the editor.
                                             <form class="form-inline" action="AjoutPanier">
                                                 <div class='col-xs-2'>
                                                     <div class='form-group'>
-                                                        <strong>Prix: 30€</strong>
+                                                        <strong>Prix: <%=epreuveSelectionnee.getTarif()%>€</strong>
                                                     </div>
                                                 </div>
                                                 <div class='col-xs-1'>
@@ -308,7 +308,7 @@ and open the template in the editor.
                                             <form class="form-inline" action="AjoutPanier">
                                                 <div class='col-xs-2'>
                                                     <div class='form-group'>
-                                                        <strong>Prix: 30€</strong>
+                                                        <strong>Prix: <%=epreuveSelectionnee.getTarif()%>€</strong>
                                                     </div>
                                                 </div>
                                                 <div class='col-xs-1'>

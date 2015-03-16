@@ -123,22 +123,24 @@ footer.footer {
 
 
 .rowPanier{
-    background-color: #eee;
+    background-color: #F4F4F4;
     border: 1px solid #ccc;
     border-radius: 3px;
     text-align: center ;
     vertical-align: middle ;
 }
 
+.rowPanier > .row {
+        font-weight:bold;
+}
+
 .bordureDroite{
     border-right: 1px solid #ccc;
-
-    
 }
 
 
 .rowPanierBarre{
-    background-color:#ccc ;
+    background-color:#E5E5E5 ;
     border: 1px solid black ;
     border-radius: 3px;
     text-align: center ;
@@ -151,10 +153,7 @@ footer.footer {
     border: 1px solid #ccc;
     border-radius: 3px;
  } 
-.centered-text {
-    text-align:center ;
-
-}    
+ 
 
  
  

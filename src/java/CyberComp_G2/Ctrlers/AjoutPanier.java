@@ -44,7 +44,7 @@ public class AjoutPanier extends HttpServlet {
         
         
         /* Lors de l'ajout d'une place, on récupère dans un premier temps le panier */
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
         Panier sessionPanier = (Panier)session.getAttribute("sessionPanier");
         
         /* On cherche à savoir si la personne a selectionné un 'Billet' ou un 'TicketVideo' */
@@ -58,24 +58,32 @@ public class AjoutPanier extends HttpServlet {
         String places = request.getParameter("epreuvesNbPlaces");
         int nombreDePlaces = Integer.parseInt(places);
         
+        Epreuve epreuveSelectionnee=null;
         CachedRowSet rowSetEpreuve;
+        String nomEpreuve="rien"; 
         
         try{
             rowSetEpreuve = new GetConsulterEpreuveDAO().getEpreuvesParId(idEpreuve);
-            rowSetEpreuve.next();
-            Epreuve epreuveSelectionnee = new Epreuve(rowSetEpreuve.getInt("idEpreuve"),
-                    rowSetEpreuve.getString("nomEpreuve"),rowSetEpreuve.getString("nomDiscipline"),
-                    rowSetEpreuve.getString("dateDebut"),rowSetEpreuve.getString("dateFin"),
-                    rowSetEpreuve.getString("urlVideo"),rowSetEpreuve.getDouble("tarif"),
-                    rowSetEpreuve.getInt("nbDePlace"),rowSetEpreuve.getString("categorie"),
+            
+            while(rowSetEpreuve.next()){
+            
+            epreuveSelectionnee = new Epreuve(rowSetEpreuve.getInt(1),
+                    rowSetEpreuve.getString(3),rowSetEpreuve.getString(2),
+                    rowSetEpreuve.getString(4),rowSetEpreuve.getString(5),
+                    rowSetEpreuve.getString(6),rowSetEpreuve.getDouble(7),
+                    rowSetEpreuve.getInt(8),rowSetEpreuve.getString(9),
                     0);
+            nomEpreuve = epreuveSelectionnee.getNomEpreuve();
+            } 
             sessionPanier.ajouterUnBillet(epreuveSelectionnee, infoBillets[0], nombreDePlaces);
             
         }catch(SQLException | CategorieException | nbPlaceAcheterExeception ex){
             log(ex.getMessage());
             ex.printStackTrace();
+            
         }
-        
+        //request.setAttribute("nomEpreuve", nomEpreuve);
+        //session.setAttribute("sessionPanier", sessionPanier);
         request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request,response);
         
         }

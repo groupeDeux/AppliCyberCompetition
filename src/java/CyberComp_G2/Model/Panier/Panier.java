@@ -22,30 +22,28 @@ public class Panier {
      dans le panier.
      */
 
-    private int nombreDElements;
+    private ArrayList<Integer> nombreDElements;
     private ArrayList<String> listeAuPanier;
     private ArrayList<Epreuve> lesEpreuvesAuPanier;
 
     public Panier() {
-        this.nombreDElements = 0;
-        this.listeAuPanier = new ArrayList();
-        this.lesEpreuvesAuPanier = new ArrayList();
+        nombreDElements = new ArrayList();
+        listeAuPanier = new ArrayList();
+        lesEpreuvesAuPanier = new ArrayList();
     }
 
-    public int getNombreDeBillet() {
-        return this.nombreDElements;
+    public ArrayList<Integer> getNombreDeBillet() {
+        return nombreDElements;
     }
-
-    public void setNombreDeBillet(int nombre) {
-        this.nombreDElements += nombre;
-    }
+    
 
     public void ajouterUnBillet(Epreuve epreuveAAjouter, String typeDeBillet, int nombre) {
         if (nombre != 0 && epreuveAAjouter != null) {
-            this.lesEpreuvesAuPanier.add(epreuveAAjouter);
-            this.listeAuPanier.add(typeDeBillet);
-            this.nombreDElements += nombre;
+            lesEpreuvesAuPanier.add(epreuveAAjouter);
+            listeAuPanier.add(typeDeBillet);
+            nombreDElements.add(nombre);
         }
+        //Il faudrait lancer un exception ici disant qu'il n'y a pas le bon nombre de billet ou autre 
     }
 
     public int montantTotal() {

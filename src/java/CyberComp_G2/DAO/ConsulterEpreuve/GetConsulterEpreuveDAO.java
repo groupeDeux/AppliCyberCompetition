@@ -21,7 +21,7 @@ public class GetConsulterEpreuveDAO {
             = "Select idepreuve, nomDiscipline, nomEpreuve, "
             + "to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'), "
             + "urlVideo,tarif,nbDePlace,categorie FROM viewEpreuve JOIN "
-            + "lesEpreuvesIndividuelles USING (idEpreuve)"
+            + "lesEpreuvesIndividuelles USING (idEpreuve) "
             + "union "
             + "Select idepreuve, nomDiscipline, nomEpreuve, to_char(dateDebut, "
             + "'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo, "
@@ -36,12 +36,12 @@ public class GetConsulterEpreuveDAO {
             = "Select idepreuve, nomDiscipline, nomEpreuve, "
             + "to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'), "
             + "urlVideo,tarif,nbDePlace,categorie FROM viewEpreuve JOIN "
-            + "lesEpreuvesIndividuelles USING (idEpreuve) where ( idEpreuve= ? )"
+            + "lesEpreuvesIndividuelles USING (idEpreuve) where (idEpreuve= %d) "
             + "union "
             + "Select idepreuve, nomDiscipline, nomEpreuve, to_char(dateDebut, "
             + "'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo, "
             + "tarif,nbDePlace,categorie FROM viewEpreuve JOIN lesEpreuvesParEquipe "
-            + "USING (idEpreuve) where ( idEpreuve = ? )";
+            + "USING (idEpreuve) where ( idEpreuve = %d )";
 
    
     
@@ -177,17 +177,15 @@ public class GetConsulterEpreuveDAO {
     }
     
     
-    /* Attention, j'ai modifié la manière dont la requete est traité pour convenir 
-       aux besoins de la requete : getEpreuvesParId , cela sera source de changement
-       dans les jours a venir pour que getMedaille puisse fonctionner*/
+
     private static CachedRowSet getConsulterEpreuveAvecSelecteur(String query,
             int selecteur)
             throws SQLException {
         CachedRowSet crs = new CachedRowSetImpl();
         crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
-        crs.setCommand(query);
-        crs.setInt(1, selecteur);
-        crs.setInt(2, selecteur);
+        crs.setCommand(String.format(query, selecteur, selecteur));
+//        crs.setInt(1, selecteur);
+//        crs.setInt(2, selecteur);
         crs.execute();
         return crs;
     }
