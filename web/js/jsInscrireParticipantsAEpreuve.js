@@ -9,15 +9,16 @@
 $("#selectionEpreuveEquipe").on('change', function () {
     //recuperation de l'idEpreuve choisie
     var idEpreuve=document.getElementById("selectionEpreuveEquipe").value;
+    // passer selecteur equipe a inscrire en true
+    //
+    //$("#equipeInscrites").load("GetListEquipesInscritesEtCompatibles?idEpreuve="+idEpreuve);
     
-    $("#equipeInscrites").load("GetListEquipesInscritesEtCompatibles?idEpreuve="+idEpreuve);
-    
-   //document.location.href="GetListEquipesInscrites?idEpreuve="+idEpreuve;
+   document.location.href="GetListEquipesInscritesEtCompatibles?idEpreuve="+idEpreuve;
 });
 $("#selectionEpreuveIndividuelle").on('change', function () {
     alert();
     //recuperation de l'idEpreuve choisi
-    var idEquipe=document.getElementById("selectionEpreuveIndividuelle").value;
+    var idSportif=document.getElementById("selectionEpreuveIndividuelle").value;
     
-     document.location.href="GetListEquipesInscritesEtCompatibles?idEpreuve="+idEquipe;
+     //document.location.href="GetListSportifsInscritsEtCompatibles?idEpreuve="+idEquipe;
 });
