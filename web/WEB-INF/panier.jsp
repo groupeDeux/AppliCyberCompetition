@@ -1,3 +1,8 @@
+<%-- 
+    Document   : pannier
+    Created on : 12 mars 2015
+    Author     : M.Conte
+--%>
 
 
 
@@ -124,12 +129,12 @@ and open the template in the editor.
                             <div class="dropdown">
                                 <div class="form-group">
                                     <label class='control-label'>Nombre de places:
-                                                        <select class="form-control">
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                        </select> 
+                                        <select class="form-control">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select> 
                                     </label>
                                 </div>
                             </div>
@@ -158,12 +163,12 @@ and open the template in the editor.
                             <div class="dropdown">
                                 <div class="form-group">
                                     <label class='control-label'>Nombre de places:
-                                                        <select class="form-control">
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                        </select> 
+                                        <select class="form-control">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select> 
                                     </label>
                                 </div>
                             </div>
