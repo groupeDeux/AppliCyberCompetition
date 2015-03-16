@@ -127,6 +127,7 @@ and open the template in the editor.
 
                             <h4> <strong> Les équipes inscrites </strong></h4>
                             <div id="equipeInscrites">
+                               
                             </div>
 
                             <!--
@@ -143,6 +144,22 @@ and open the template in the editor.
                                         <div class='col-xs-6'>
                                             <select class="form-control" id='selectEqAjouter' disabled="true">
                                                 <option value="">Choix</option>
+                                                <%
+                                                    ArrayList<Equipe> lesEquipesCompatibles = (ArrayList<Equipe>) request.getAttribute("listEquipesCompatibles");
+                                                    if (lesEquipesCompatibles != null) {
+                                                        int i = 0;
+                                                        for (i = 0; i < lesEquipesCompatibles.size(); i++) {
+                                                            int idEquipe = lesEquipesCompatibles.get(i).getIdEquipe();
+                                                            String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
+                                                            String categorie = lesEquipesCompatibles.get(i).getCategorie();
+                                                %> <option value='<%=idEquipe%>'><%= idEquipe%> : <%=nomEquipe%>  -  <%=categorie%>  </option>
+                                                <% };
+                                                    } else {
+                                                        // message "Aucune equipe ne peut etre inscrite"
+
+                                                    }
+                                                %>
+
                                             </select>
                                         </div>
                                     </div>
@@ -195,7 +212,7 @@ and open the template in the editor.
 
                                         <label class='col-xs-3 control-label'>Epreuve:</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectionEpreuveEquipe' name='listEpreuvesEquipe'>
+                                            <select class="form-control" id='selectionEpreuveIndividuelle' name='listEpreuveIndividuelle'>
                                                 <option value=''>Choix</option>
                                                 <%
                                                     ArrayList<EpreuveIndividuelle> lesEpreuvesIndividuelles = (ArrayList<EpreuveIndividuelle>) request.getAttribute("listEpreuvesInv");
@@ -283,7 +300,7 @@ and open the template in the editor.
                     </div>
                 </div>
                 <script>
-                    $(document).ready(function () {
+                    $(document).ready(function() {
                         $("#tabs").tabs();
                     });
                 </script>

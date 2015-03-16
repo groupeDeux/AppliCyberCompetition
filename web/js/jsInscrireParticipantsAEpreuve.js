@@ -7,17 +7,17 @@
 /*Page javaScript pour l inscription des participants aux epreuves
  * Ctrler GetListEquipe/GetListSportifs/GetListEpreuve  <--> InscrireParticipantsAEpreuves.jsp*/
 $("#selectionEpreuveEquipe").on('change', function () {
-    alert();
-    //recuperation de l'idEpreuve choisi
+    //recuperation de l'idEpreuve choisie
     var idEpreuve=document.getElementById("selectionEpreuveEquipe").value;
-    $("#equipeInscrites").load("GetListEquipesInscrites?idEpreuve="+idEpreuve);
     
-   //  document.location.href="GetListEquipesInscrites?idEpreuve="+idEpreuve;
+    $("#equipeInscrites").load("GetListEquipesInscritesEtCompatibles?idEpreuve="+idEpreuve);
+    
+   //document.location.href="GetListEquipesInscrites?idEpreuve="+idEpreuve;
 });
-$("#selectionEpreuveIndividuelle").on('click', function () {
+$("#selectionEpreuveIndividuelle").on('change', function () {
     alert();
     //recuperation de l'idEpreuve choisi
     var idEquipe=document.getElementById("selectionEpreuveIndividuelle").value;
     
-     document.location.href="GetListEquipesInscrites?idEpreuve="+idEquipe;
+     document.location.href="GetListEquipesInscritesEtCompatibles?idEpreuve="+idEquipe;
 });
