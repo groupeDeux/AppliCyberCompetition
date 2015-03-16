@@ -137,14 +137,14 @@ and open the template in the editor.
                                                 //String nomEquipe = lesEquipesInscrites.get(j).getNomEquipe();
                                                 String pays = lesEquipesInscrites.get(j).getPays();  //methode de superClasse Participant
 
-                                                %> <div><%=idEquipe%> : <%=idEquipe%>  - <%=pays%>  </div>
-                                            <% }
-                                        } else { %> 
-                                            <div> Aucun participant pour le moment !  </div>
-                                    <% }
+                                %> <div> <%=idEquipe%>  - <%=pays%>  </div>
+                                <% }
+                                            } else { %> 
+                                <div> Aucun participant pour le moment !  </div>
+                                <% }
 
-                                    } else { %>
-                                        <div> Pas d'épreuve choisie  </div>
+                                } else { %>
+                                <div> Pas d'épreuve choisie  </div>
                                 <%
                                     }
                                 %>
@@ -163,23 +163,25 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'> Equipe:</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectEqAjouter'>
-                                                <option value="">Choix</option>
+                                            
                                                 <%
                                                     ArrayList<Equipe> lesEquipesCompatibles = (ArrayList<Equipe>) session.getAttribute("listEquipesCompatibles");
                                                     if (lesEquipesCompatibles != null) {
-                                                        int i = 0;
-                                                        for (i = 0; i < lesEquipesCompatibles.size(); i++) {
-                                                            int idEquipe = lesEquipesCompatibles.get(i).getIdEquipe();
-                                                            String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
-                                                            String categorie = lesEquipesCompatibles.get(i).getCategorie();
+                                                        if (lesEquipesCompatibles.size() != 0) {
+                                                            %><select class="form-control" id='selectEqAjouter'>
+                                                            <option value="">Choix</option> <%
+                                                            int i = 0;
+                                                            for (i = 0; i < lesEquipesCompatibles.size(); i++) {
+                                                                int idEquipe = lesEquipesCompatibles.get(i).getIdEquipe();
+                                                                String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
+                                                                String categorie = lesEquipesCompatibles.get(i).getCategorie();
                                                 %>          <option value='<%=idEquipe%>'><%= idEquipe%> : <%=nomEquipe%>  -  <%=categorie%>  </option>
-                                                    <% };
-                                                    } 
-                                                    else {%>
+                                                            <% };
+                                                        } else {%>
                                                         <div> Aucune équipe ne peut être inscrite  </div>
 
-                                                    <%}%>
+                                                        <%}
+                                                    }%>
 
                                             </select>
                                         </div>
@@ -246,7 +248,7 @@ and open the template in the editor.
 
                                                 %>      <option value='<%=idEpreuve%>'><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%>  </option>
                                                 <% };
-                                                    } else  {
+                                                    } else {
                                                         // bouton fixe sur epreuve choisi = 
                                                         //EpreuveParEquipe EpreuveChoisi = (Epreuve) request.getAttribute("EpreuveChoisi");
                                                     }

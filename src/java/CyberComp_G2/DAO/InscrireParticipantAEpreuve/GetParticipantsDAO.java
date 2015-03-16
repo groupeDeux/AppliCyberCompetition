@@ -39,11 +39,11 @@ public class GetParticipantsDAO {
     /*---- Requete a mettre dans la fonction getEquipesCompatibles------------ 
     /* Recuperation categorie a passer en param aux autres requetes*/
     public static final String laCategorie
-            = "SELECT E.categorie FROM LesEpreuves where E.idEpreuve= %d";
+            = "SELECT E.categorie FROM LesEpreuves E where E.idEpreuve= %d";
     
     /* Recuperation NbFixeSportif a passer en param aux autre requetes*/
     public static final String leNbPersonneFixe
-            ="SELECT E.NbPersonneFixe FROM LesEpreuvesParEquipe where E.idEpreuve= %d";
+            ="SELECT E.NbPersonneFixe FROM LesEpreuvesParEquipe E where E.idEpreuve= %d";
     
     /*Selection des Equipes compatibles en cat et nbInscritsavec une epreuve: idEpreuve*/
     public static final String lesEquipesCompatiblesEpreuve
@@ -66,19 +66,20 @@ public class GetParticipantsDAO {
             + "where P2.idEpreuve= %d";
 
    
-     /* Compatibles et non deja inscrits -------> METHODE a ecrire (requete avec 3 parametres */ 
+     /* Compatibles et non deja inscrits
+            equipes compatibles minus compatibles et inscrits*/ 
     public static final String lesEquipesCompatiblesEtNonInscrites
             ="Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
             + "from viewEquipe V "
             + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
-            + "where (V.NbMembre<%d and V.categorie=%s ) "
+            + "where (V.NbMembre<%d and V.categorie='%s' ) "
             +"minus "
             +"Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
             + "from viewEquipe V "
             + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
             + "join lesParticipations P2 "
             + "on (P2.idParticipant=P.idParticipant) "
-            + "where (V.NbMembre<%d and V.categorie=%s and P2.idEpreuve=%s )";
+            + "where (V.NbMembre<%d and V.categorie='%s' and P2.idEpreuve=%d)";
   
     /*--------------------------------------------------------------------------
         
@@ -171,11 +172,13 @@ public class GetParticipantsDAO {
          // categorie de l epreuve dans uen variable java
          CachedRowSet rowSetCategorie=getConsulterParticipants(laCategorie,idEpreuve);
          String categorie=rowSetCategorie.getString("categorie");
+         String categorieA=categorie;
          // NbPersonneFixe de l epreuve dans une variable java
          CachedRowSet rowSetNbPersonneFixe=getConsulterParticipants(leNbPersonneFixe,idEpreuve);
-         int nbPersonneFixe=rowSetNbPersonneFixe.getInt("NbPersonneFixe");      
+         int nbPersonneFixe=rowSetNbPersonneFixe.getInt("NbPersonneFixe");
+         int nbPersonneFixeA=nbPersonneFixe;
          
-        return getConsulterParticipants( lesEquipesCompatiblesEtNonInscrites,categorie,nbPersonneFixe,idEpreuve) ;
+        return getConsulterParticipants( lesEquipesCompatiblesEtNonInscrites,nbPersonneFixeA,categorieA,nbPersonneFixe,categorie,idEpreuve) ;
     }
     
     
@@ -221,11 +224,11 @@ public class GetParticipantsDAO {
     Fonction appele pour construction des RowSet
     execute la "query"=requete avec les "selecteur"=parametres
     -------------------------------------------------------------*/
-    private static CachedRowSet getConsulterParticipants(String query, String categorie,int nbFixe, int idEpreuve) 
+    private static CachedRowSet getConsulterParticipants(String query,int nbFixeA, String categorieA,int nbFixe,String categorie, int idEpreuve) 
             throws SQLException {
         CachedRowSet crs = new CachedRowSetImpl();
         crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
-        crs.setCommand(String.format(query,categorie,nbFixe, idEpreuve));
+        crs.setCommand(String.format(query,nbFixeA,categorieA,nbFixe,categorie, idEpreuve));
         crs.execute();
         return crs;
     }
