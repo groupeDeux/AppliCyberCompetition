@@ -79,7 +79,7 @@ public class GetListSportifInscritEtCompatibles extends HttpServlet {
         HttpSession session = request.getSession(true);
         /* ajoute la liste en attribut de la reponse */
         session.setAttribute("listSportifInscrits", listSportifsInscrits);
-      //  session.setAttribute("listEquipesCompatibles", listSportifCompatibles);
+      //  session.setAttribute("listsportifCompatibles", listsportifCompatibles);
         request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
         //request.getRequestDispatcher("WEB-INF/equipesInscrites.jsp").forward(request, response);
    }
