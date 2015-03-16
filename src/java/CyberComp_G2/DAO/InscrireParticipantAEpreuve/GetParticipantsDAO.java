@@ -74,7 +74,6 @@ public class GetParticipantsDAO {
    
     
     
-    
         /*------------------------------------------------------------------------*/
     /*--------- Variables String contenant les requetes sql relié à sportif  --------*/
     /*---------------------------------------------------------------------------*/
@@ -202,7 +201,11 @@ public class GetParticipantsDAO {
      * @throws SQLException
      */
     public static CachedRowSet getLesSportifsCompatiblesEpreuveCat(int idEpreuve) throws SQLException {
-        return getConsulterParticipants(lesSportifsCompatiblesEpreuveCat, idEpreuve);
+          // récupérer la catégorie  de l epreuve  choisi dans une variable java
+         CachedRowSet rowSetCategorie=getConsulterParticipants(laCategorie,idEpreuve);
+        rowSetCategorie.next();
+         String genre=rowSetCategorie.getString("genre");
+        return getConsulterParticipants(lesSportifsCompatiblesEpreuveCat,genre, idEpreuve);
     }
 
     /**
