@@ -16,6 +16,7 @@ $("#selectionEpreuveEquipe").on('change', function () {
     // appel du controler pour calculer equipes deja inscrites et compatibles a l'inscription 
    document.location.href="GetListEquipesInscritesEtCompatibles?idEpreuve="+idEpreuve;
 });
+
 $("#selectionEpreuveIndividuelle").on('change', function () {
     //recuperation de l'idEpreuve choisi
     var idEpreuve=document.getElementById("selectionEpreuveIndividuelle").value;

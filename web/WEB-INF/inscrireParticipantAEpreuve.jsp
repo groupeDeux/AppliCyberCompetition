@@ -180,9 +180,10 @@ and open the template in the editor.
                                                             int i = 0;
                                                             for (i = 0; i < lesEquipesCompatibles.size(); i++) {
                                                                 int idEquipe = lesEquipesCompatibles.get(i).getIdEquipe();
-                                                                String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
+                                                                //String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
                                                                 String categorie = lesEquipesCompatibles.get(i).getCategorie();
-                                                %>          <option value='<%=idEquipe%>'><%= idEquipe%> : <%=nomEquipe%>  -  <%=categorie%>  </option>
+                                                                String pays= lesEquipesCompatibles.get(i).getPays();
+                                                                %><option value='<%=idEquipe%>'><%= idEquipe%> : <%=pays%>  -  <%=categorie%>  </option>
                                                             <% };
                                                         } else {%>
                                                         <div> Aucune équipe ne peut être inscrite  </div>
