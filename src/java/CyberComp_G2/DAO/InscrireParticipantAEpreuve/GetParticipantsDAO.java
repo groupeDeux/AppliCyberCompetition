@@ -40,10 +40,6 @@ public class GetParticipantsDAO {
     public static final String leNbPersonneFixe
             = "SELECT E.categorie FROM LesEpreuves where E.idEpreuve= %d";
 
-    /* Recuperation NbFixeSportif a passer en param aux autre requetes*/
-    public static final String leNbPersonneFixe
-            = "SELECT E.NbPersonneFixe FROM LesEpreuvesParEquipe where E.idEpreuve= %d";
-
     /*Selection des Equipes compatibles en cat et nbInscritsavec une epreuve: idEpreuve*/
     public static final String lesEquipesCompatiblesEpreuve
             = "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre P.IDPARTICIPANT,P.pays"
@@ -52,11 +48,7 @@ public class GetParticipantsDAO {
             + "where (V.NbMembre=%d and V.categorie=%s )";
 
     
-       
-     /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve*/
-    public static final String lesSportifsCompatiblesEpreuveCat
-            = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)"
-            + "where S.genre= %s"; 
+     
 
     /*Selection des Equipes inscrits à une épreuve: idEpreuve*/
     public static final String lesEquipesInscritesEpreuve
@@ -96,13 +88,6 @@ public class GetParticipantsDAO {
     Construction des RowSet: appel d'une focntion 
     avec une requete et un parametre 
     -------------------------------------------------------------*/
-
- 
-     /*Selection des Equipes inscrits à une épreuve: idEpreuve*/
-    public static final String lesEquipesInscritesEpreuve
-            = "SELECT * FROM viewEquipe E JOIN LesParticipants P on (E.idEquipe=P.idParticipant)"
-            + " Join lesParticipations P2 on (E.idEquipe=P2.idParticipant) "
-            + "where P2.idEpreuve= %d";
     
     
     
@@ -123,6 +108,7 @@ public class GetParticipantsDAO {
     /* Selection des sportifs par genre: feminin/masculin*/
     public static final String lesSportifsParGenre
             = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) where S.genre='%s";
+    
     /*
      selection des sportif inscrits dans une epreuve donnée
      */
@@ -255,19 +241,6 @@ public class GetParticipantsDAO {
         
     }
     
-
-    /* fonction pour sortir les equipes compatible en categorie et en nbMembre à une epreuve donnée*/
-     public static CachedRowSet getLesEquipesCompatiblesEpreuve(int idEpreuve)throws SQLException {
-         
-         // categorie de l epreuve dans uen variable java
-         CachedRowSet rowSetCategorie=getConsulterParticipants(laCategorie,idEpreuve);
-         String categorie=rowSetCategorie.getString("categorie");
-         // NbPersonneFixe de l epreuve dans une variable java
-         CachedRowSet rowSetNbPersonneFixe=getConsulterParticipants(leNbPersonneFixe,idEpreuve);
-         int nbPersonneFixe=rowSetNbPersonneFixe.getInt("NbPersonneFixe");      
-         
-        return getConsulterParticipants( lesEquipesCompatiblesEpreuve,categorie,nbPersonneFixe) ;
-    }
      
       /* fonction pour sortir les equipes compatible en categorie et en nbMembre à une epreuve donnée*/
      public static CachedRowSet getLesEquipesCompatiblesEtNonInscrites(int idEpreuve)throws SQLException {

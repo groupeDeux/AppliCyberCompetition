@@ -96,6 +96,13 @@ and open the template in the editor.
                                             <select class="form-control" id='selectionEpreuveEquipe' name='listEpreuvesEquipe'>
                                                 <option value=''>Choix</option>
                                                 <%
+                                                    int idEpreuveSelec;
+                                                    if(session.getAttribute("idEpreuveSelec")!=null){  
+                                                    }
+                                                       // attribut recupere = objet--> on indique que c'est un integer pour recuperer sa valeur
+                                                       idEpreuveSelec= (Integer) session.getAttribute("idEpreuveSelec"); 
+                                                    }
+ 
                                                     ArrayList<EpreuveParEquipe> lesEpreuvesEquipe = (ArrayList<EpreuveParEquipe>) session.getAttribute("listEpreuveEquipe");
                                                     if (lesEpreuvesEquipe != null) {
                                                         int i = 0;
@@ -104,7 +111,7 @@ and open the template in the editor.
                                                             String nomEpreuve = lesEpreuvesEquipe.get(i).getNomEpreuve();
                                                             String categorie = lesEpreuvesEquipe.get(i).getCategorie();
 
-                                                %>      <option value='<%=idEpreuve%>'><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%>  </option>
+                                                %>      <option value='<%=idEpreuve%>' <% if(idEpreuve==idEpreuveSelec){%> checked <%}%> ><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%> </option>
                                                 <% };
                                                     } else {
                                                         // bouton fixe sur epreuve choisi = 
