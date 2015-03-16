@@ -129,7 +129,7 @@ and open the template in the editor.
                             <div id="equipeInscrites">
                                 <%
                                     int j = 0;
-                                    ArrayList<Equipe> lesEquipesInscrites = (ArrayList<Equipe>) request.getAttribute("listEquipesInscrites");
+                                    ArrayList<Equipe> lesEquipesInscrites = (ArrayList<Equipe>) session.getAttribute("listEquipesInscrites");
                                     if (lesEquipesInscrites != null) {
                                         if (lesEquipesInscrites.size() != 0) {
                                             for (j = 0; j < lesEquipesInscrites.size(); j++) {
@@ -137,14 +137,14 @@ and open the template in the editor.
                                                 //String nomEquipe = lesEquipesInscrites.get(j).getNomEquipe();
                                                 String pays = lesEquipesInscrites.get(j).getPays();  //methode de superClasse Participant
 
-                                %> <div><%=idEquipe%> : <%=idEquipe%>  - <%=pays%>  </div>
-                                <% }
-} else { %> 
-                                <div> Aucun participant pour le moment !  </div>
-                                <% }
+                                                %> <div><%=idEquipe%> : <%=idEquipe%>  - <%=pays%>  </div>
+                                            <% }
+                                        } else { %> 
+                                            <div> Aucun participant pour le moment !  </div>
+                                    <% }
 
-} else { %>
-                                <div> Pas d'épreuve choisie  </div>
+                                    } else { %>
+                                        <div> Pas d'épreuve choisie  </div>
                                 <%
                                     }
                                 %>
