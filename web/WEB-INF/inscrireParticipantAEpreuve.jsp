@@ -72,8 +72,8 @@ and open the template in the editor.
                     <div id="tabs">      
                         <ul class="nav nav-tabs">
                             <!-- Onglet: choix Epreuve par equipe ou Epreuve individuelle-->
-                            <li role="presentation" class="active" id ="InscrireEquipeEpreuve"><a href="#tab1">Epreuves par équipe</a></li>
-                            <li role="presentation" id ="inscrireSportifEpreuve"><a href="#tab2">Epreuves individuelles</a></li>
+                            <li role="presentation"  <%if (request.getAttribute("activeTab")==null){%>class="active" <%}%>id ="InscrireEquipeEpreuve"><a href="#tab1">Epreuves par équipe</a></li>
+                            <li role="presentation" <%if (request.getAttribute("activeTab")!=null){%>class="active" <%}%> id ="inscrireSportifEpreuve"><a href="#tab2">Epreuves individuelles</a></li>
                         </ul>
 
                         <div class="row">
@@ -276,7 +276,7 @@ and open the template in the editor.
                             <div id="sportifInscrit">
                                 <%
                                     int i = 0;
-                                    ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifInscrit");
+                                    ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifInscrits");
                                     if (lesSportifsInscrits != null) {
                                         if (lesSportifsInscrits.size() != 0) {
                                             for (i = 0; i < lesSportifsInscrits.size(); i++) {
@@ -284,7 +284,7 @@ and open the template in the editor.
                                                 String nomSportif = lesSportifsInscrits.get(i).getNom();
                                                 String prenomSportif = lesSportifsInscrits.get(i).getPrenom(); 
 
-                                                %> <div><%=idSportif%> : <%=idSportif%>  - <%=nomSportif%> <%=prenomSportif%> </div>
+                                                %> <div><%=idSportif%>: <%=nomSportif%> <%=prenomSportif%> </div>
                                             <% }
                                         } else { %> 
                                             <div> Aucun sportif pour le moment !  </div>

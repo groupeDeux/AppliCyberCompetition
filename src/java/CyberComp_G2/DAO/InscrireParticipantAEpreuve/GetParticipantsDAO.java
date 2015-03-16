@@ -37,7 +37,7 @@ public class GetParticipantsDAO {
     
     /* Recuperation NbFixeSportif a passer en param aux autre requetes*/
     public static final String leNbPersonneFixe
-            = "SELECT E.categorie FROM LesEpreuves where E.idEpreuve= %d";
+            = "SELECT E.nbPersonneFixe FROM LesEpreuvesParEquipe E where idEpreuve= %d";
     /*--------------------------------------------------------------------------
     
     */
@@ -69,7 +69,7 @@ public class GetParticipantsDAO {
             + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
             + "join lesParticipations P2 "
             + "on (P2.idParticipant=P.idParticipant) "
-            + "where (V.NbMembre=%d and V.categorie=%s and P2.idEpreuve=%s )";
+            + "where (V.NbMembre<%d and V.categorie='%s' and P2.idEpreuve=%d )";
   
    
     
@@ -152,18 +152,7 @@ public class GetParticipantsDAO {
         return getConsulterParticipants(lesEquipesCompatiblesEpreuve, categorie, nbPersonneFixe);
     }
 
-    /* fonction pour sortir les equipes compatible en categorie et en nbMembre à une epreuve donnée*/
-    public static CachedRowSet getlesEquipesCompatiblesEtNonInscrites(int idEpreuve) throws SQLException {
-
-        // categorie de l epreuve dans uen variable java
-        CachedRowSet rowSetCategorie = getConsulterParticipants(laCategorie, idEpreuve);
-        String categorie = rowSetCategorie.getString("categorie");
-        // NbPersonneFixe de l epreuve dans une variable java
-        CachedRowSet rowSetNbPersonneFixe = getConsulterParticipants(leNbPersonneFixe, idEpreuve);
-        int nbPersonneFixe = rowSetNbPersonneFixe.getInt("NbPersonneFixe");
-
-        return getConsulterParticipants(lesEquipesCompatiblesEtNonInscrites, categorie, nbPersonneFixe);
-    }
+   
     /**
      * retourne la liste des  equipes verifiant la catégorie passé en paramètre 
      *
@@ -220,23 +209,23 @@ public class GetParticipantsDAO {
      *
      */
     public static CachedRowSet getSportifInscritAEpreuve(int idEpreuve) throws SQLException {
-        return getConsulterParticipants(lesSportifsParEpreuve, idEpreuve);
-        
-    }
-    
+        return getConsulterParticipants(lesSportifsParEpreuve, idEpreuve);  
+    }  
      
       /* fonction pour sortir les equipes compatible en categorie et en nbMembre à une epreuve donnée*/
      public static CachedRowSet getLesEquipesCompatiblesEtNonInscrites(int idEpreuve)throws SQLException {
          // categorie de l epreuve dans uen variable java
          CachedRowSet rowSetCategorie=getConsulterParticipants(laCategorie,idEpreuve);
+         rowSetCategorie.next();
          String categorie=rowSetCategorie.getString("categorie");
-         String categorieA=categorie;
+         //String categorieA=categorie;
          // NbPersonneFixe de l epreuve dans une variable java
          CachedRowSet rowSetNbPersonneFixe=getConsulterParticipants(leNbPersonneFixe,idEpreuve);
+         rowSetNbPersonneFixe.next();
          int nbPersonneFixe=rowSetNbPersonneFixe.getInt("NbPersonneFixe");
-         int nbPersonneFixeA=nbPersonneFixe;
+         //int nbPersonneFixeA=nbPersonneFixe;
          
-        return getConsulterParticipants( lesEquipesCompatiblesEtNonInscrites,nbPersonneFixeA,categorieA,nbPersonneFixe,categorie,idEpreuve) ;
+        return getConsulterParticipants( lesEquipesCompatiblesEtNonInscrites,nbPersonneFixe,categorie,nbPersonneFixe,categorie,idEpreuve) ;
     }
     
     
@@ -258,7 +247,6 @@ public class GetParticipantsDAO {
      Fonction appele pour construction des RowSet
      execute la "query"=requete avec un "selecteur"=parametre (int)
      -------------------------------------------------------------*/
-
     private static CachedRowSet getConsulterParticipants(String query, int selecteur)
             throws SQLException {
         CachedRowSet crs = new CachedRowSetImpl();

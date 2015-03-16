@@ -66,6 +66,7 @@ public class GetListEquipesInscritesEtCompatibles extends HttpServlet {
             
             /* ----- Les equipes compatibles ----- */
          // recuperation des donnees BD chargees avec DAO dans un rowSet
+            
             CachedRowSet rowSetEquipesCompatibles = GetParticipantsDAO.getLesEquipesCompatiblesEtNonInscrites(Integer.parseInt(idEpreuve));
            
              /* cree un objet Equipe pour chaque ligne du rowset parcouru
