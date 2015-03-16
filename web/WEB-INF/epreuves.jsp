@@ -52,7 +52,7 @@ and open the template in the editor.
                         </nav>
                     </div>
                 </div>
-                </div> <jsp:forward page="panier.jsp"/> </div>
+                
                 <!--
                     RECHERCHE DANS LES EPREUVES
                 -->

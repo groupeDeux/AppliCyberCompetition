@@ -76,7 +76,7 @@ public class AjoutPanier extends HttpServlet {
             ex.printStackTrace();
         }
         
-        request.getRequestDispatcher("WEB-INF/panier.jsp");
+        request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request,response);
         
         }
     

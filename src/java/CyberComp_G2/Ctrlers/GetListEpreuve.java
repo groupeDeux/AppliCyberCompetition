@@ -53,6 +53,7 @@ public class GetListEpreuve extends HttpServlet {
         HttpSession session = request.getSession(true);
         
         Panier sessionPanier = (Panier)session.getAttribute("Panier");
+        
         if(sessionPanier == null){
             sessionPanier = new Panier();
             session.setAttribute("sessionPanier", sessionPanier);
