@@ -44,8 +44,7 @@ public class GetListSportifInscritEtCompatibles extends HttpServlet {
         String idEpreuve = request.getParameter("idEpreuve");
         ArrayList<Sportif> listSportifsInscrits = new ArrayList();
         ArrayList<Sportif> listSportifsCompatibles = new ArrayList();
-        
-
+       
         try {
 
              /* ----- Les sportifs inscrites ----- */
@@ -60,17 +59,17 @@ public class GetListSportifInscritEtCompatibles extends HttpServlet {
             }
             
             
-//            /* ----- Les equipes compatibles ----- */
-//         // recuperation des donnees BD chargees avec DAO dans un rowSet
-//            CachedRowSet rowSetEquipesCompatibles = GetParticipantsDAO.getlesEquipesCompatiblesEtNonInscrites(Integer.parseInt(idEpreuve));
-//           
-//             /* cree un objet Equipe pour chaque ligne du rowset parcouru
-//             et le met dans l arrayList listEquipesCompatibles */
-//            while (rowSetEquipesCompatibles.next()) {
-//                // recupereation les informations de  l'quipe
-//                listEquipesCompatibles.add(new Equipe(rowSetEquipesCompatibles.getInt("idEquipe"), rowSetEquipesCompatibles.getString("pays"), rowSetEquipesCompatibles.getString("nomEquipe"),rowSetEquipesCompatibles.getString("categorie"),rowSetEquipesCompatibles.getInt("nbMembre")));
-//            }
-        } catch (SQLException|CategorieException ex) {
+            /* ----- Les sportif  compatibles ----- 
+        recuperation des donnees BD chargees avec DAO dans un rowSet*/
+            CachedRowSet rowSetSportifsCompatibles = GetParticipantsDAO.getLesSportifsCompatiblesEpreuveCat(Integer.parseInt(idEpreuve));
+           
+             /* cree un objet Equipe pour chaque ligne du rowset parcouru
+             et le met dans l arrayList listEquipesCompatibles */
+            while (rowSetSportifsCompatibles.next()) {
+                // recupereation les informations de  l'quipe
+                listSportifsCompatibles.add(new Sportif(rowSetSportifsCompatibles.getInt("idSportif"),rowSetSportifsCompatibles.getString("prenom"), rowSetSportifsCompatibles.getString("nom"),rowSetSportifsCompatibles.getString("genre")));
+        }
+        }catch (SQLException|CategorieException ex) {
             log(ex.getMessage());
            }
         
