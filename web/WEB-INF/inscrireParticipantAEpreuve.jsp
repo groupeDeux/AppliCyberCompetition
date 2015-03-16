@@ -235,7 +235,7 @@ and open the template in the editor.
                         <div id='tab2'>
                             <form class="form-horizontal">
                                 <div class="well">
-                                    Cette page vous permet d'inscrire des sportifs à une épreuve individuelle
+                                    Cette page vous permet d'inscrire les sportifs à des épreuves individuelles
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
@@ -309,11 +309,29 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="form-group">
                                             <label class='col-xs-3 control-label'> Sportif:</label>
-                                            <div class='col-xs-6'>
-                                                <select class="form-control" id='selectNomAjouter' disabled="true">
-                                                    <option value="">Choix</option>
-                                                </select>
-                                            </div>
+                                             <div class='col-xs-6'>
+                                            
+                                                <%
+                                                    ArrayList<Sportif> lesSportifsCompatibles = (ArrayList<Sportif>) session.getAttribute("listSportifsCompatibles");
+                                                    if (lesSportifsCompatibles != null) {
+                                                        if (lesSportifsCompatibles.size() != 0) {
+                                                            %><select class="form-control" id='selectEqAjouter'>
+                                                            <option value="">Choix</option> <%
+                                                            int k = 0;
+                                                            for (k = 0; k < lesSportifsCompatibles.size(); k++) {
+                                                                int idSportif = lesSportifsCompatibles.get(k).getIdSportif();
+                                                                String nomSportif = lesSportifsCompatibles.get(k).getNom();
+                                                                String prenomSportif = lesSportifsCompatibles.get(k).getPrenom();
+                                                %>          <option value='<%=idSportif%>'>:<%=prenomSportif%> -<%=nomSportif%> </option>
+                                                             <%};
+                                                        } else {%>
+                                                        <div> Aucun sportif  ne peut être inscrit  </div>
+
+                                                        <%}
+                                                    }%>
+
+                                            </select>
+                                        </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-xs-6 col-xs-offset-3">
