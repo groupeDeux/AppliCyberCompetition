@@ -5,22 +5,50 @@
  */
 package CyberComp_G2.DAO.ConsulterEpreuve;
 
-import CyberComp_G2.utils.ConnexionBD;
-
-import javax.sql.DataSource;
-import javax.sql.rowset.CachedRowSet;
+import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
+import com.sun.rowset.CachedRowSetImpl;
 import java.sql.SQLException;
+import javax.sql.rowset.CachedRowSet;
 
 /**
- * Gère les requêtes relatives à la consultation des épreuves
+ *
  * @author vivi, oprisora
  */
 public class GetConsulterEpreuveDAO {
 
+    /* Requete de recherche de toutes les epreuves dans la base de donnée */
+    public static final String lesEpreuves
+            = "Select idepreuve, nomDiscipline, nomEpreuve, "
+            + "to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'), "
+            + "urlVideo,tarif,nbDePlace,categorie FROM viewEpreuve JOIN "
+            + "lesEpreuvesIndividuelles USING (idEpreuve)"
+            + "union "
+            + "Select idepreuve, nomDiscipline, nomEpreuve, to_char(dateDebut, "
+            + "'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo, "
+            + "tarif,nbDePlace,categorie FROM viewEpreuve JOIN lesEpreuvesParEquipe "
+            + "USING (idEpreuve)";
+    
+
+    /* Requete de recherche d'une épreuve en fonction d'un ID, utilisé notamment dans le
+    panier
+    */
+    public static final String lesEpreuvesParId
+            = "Select idepreuve, nomDiscipline, nomEpreuve, "
+            + "to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'), "
+            + "urlVideo,tarif,nbDePlace,categorie FROM viewEpreuve JOIN "
+            + "lesEpreuvesIndividuelles USING (idEpreuve) where ( idEpreuve= %d )"
+            + "union "
+            + "Select idepreuve, nomDiscipline, nomEpreuve, to_char(dateDebut, "
+            + "'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo, "
+            + "tarif,nbDePlace,categorie FROM viewEpreuve JOIN lesEpreuvesParEquipe "
+            + "USING (idEpreuve) where ( idEpreuve = %d )";
+
+   
+    
     /*
-         Requête qui retourne la liste des épreuves individuelles avec les informations
-         suivante : ...
-         */
+     Requête qui retourne la liste des épreuves individuelles avec les informations
+     suivante : ...
+     */
     public static final String lesEpreuvesInv
             = "SELECT  idEpreuve,nomDiscipline,nomEpreuve,"
             + "to_char(dateDebut,'DD-MM-YYYY HH24'),"
@@ -46,7 +74,7 @@ public class GetConsulterEpreuveDAO {
     /*
      Requête qui retourne la liste des épreuves par equipe avec les informations
      suivante :...
-
+    
      */
     public static final String lesEpreuvesEquipe
             = "SELECT idEpreuve,nomDiscipline,nomEpreuve,"
@@ -57,10 +85,10 @@ public class GetConsulterEpreuveDAO {
             + " order by nomDiscipline";
 
     /*
-    /!\ Dans cette requete on spécifie le nom de la discipline
-    Requête qui retourne la liste des épreuves par équipe correspondant à une
-    discipline spécifique.
-    */
+     /!\ Dans cette requete on spécifie le nom de la discipline
+     Requête qui retourne la liste des épreuves par équipe correspondant à une 
+     discipline spécifique.
+     */
     public static final String lesEpreuvesParDisciplineEquipe
             = "SELECT idEpreuve,nomDiscipline,nomEpreuve,"
             + "to_char(dateDebut,'DD-MM-YYYY HH24'),"
@@ -93,33 +121,69 @@ public class GetConsulterEpreuveDAO {
             + "WHERE idEquipe = %d "
             + "ORDER BY valeur asc ";
 
-    public CachedRowSet getEpreuvesParDisciplineInv(String nomDiscipline) throws SQLException {
-        return ConnexionBD.INSTANCE.executeRequete(lesEpreuvesParDisciplineInv, nomDiscipline);
+    /*
+    
+     */
+    public static CachedRowSet getEpreuvesParDisciplineInv(String nomDiscipline) throws SQLException {
+        return getConsulterEpreuveParDiscipline(lesEpreuvesParDisciplineInv, nomDiscipline);
     }
 
-    public  CachedRowSet getEpreuvesParDisciplineEquipe(String nomDiscipline) throws SQLException {
-        return ConnexionBD.INSTANCE.executeRequete(lesEpreuvesParDisciplineEquipe, nomDiscipline);
+    public static CachedRowSet getEpreuvesParDisciplineEquipe(String nomDiscipline) throws SQLException {
+        return getConsulterEpreuveParDiscipline(lesEpreuvesParDisciplineEquipe, nomDiscipline);
     }
 
-    public  CachedRowSet getEpreuvesInv() throws SQLException {
-        return ConnexionBD.INSTANCE.executeRequete(lesEpreuvesInv);
+    public static CachedRowSet getEpreuvesInv() throws SQLException {
+        return getConsulterEpreuve(lesEpreuvesInv);
     }
 
-    public  CachedRowSet getEpreuvesEquipe() throws SQLException {
-        return ConnexionBD.INSTANCE.executeRequete(lesEpreuvesEquipe);
+    public static CachedRowSet getEpreuvesEquipe() throws SQLException {
+        return getConsulterEpreuve(lesEpreuvesEquipe);
     }
 
-    public  CachedRowSet getDisciplines() throws SQLException {
-        return ConnexionBD.INSTANCE.executeRequete(lesDisciplines);
+    public static CachedRowSet getDisciplines() throws SQLException {
+        return getConsulterEpreuve(lesDisciplines);
     }
 
-    public  CachedRowSet getMedaillesDesSportifs(int idEpreuve)
+    public static CachedRowSet getMedaillesDesSportifs(int idEpreuve)
             throws SQLException {
-        return ConnexionBD.INSTANCE.executeRequete(lesMedaillesDesSportifs, idEpreuve);
+        return getConsulterEpreuveAvecSelecteur(lesMedaillesDesSportifs, idEpreuve);
     }
 
-    public  CachedRowSet getMedaillesDesEquipes(int idEquipe)
+    public static CachedRowSet getMedaillesDesEquipes(int idEquipe)
             throws SQLException {
-        return ConnexionBD.INSTANCE.executeRequete(lesMedaillesDesEquipes, idEquipe);
+        return getConsulterEpreuveAvecSelecteur(lesMedaillesDesEquipes, idEquipe);
+    }
+
+    public static CachedRowSet getEpreuvesParId(int idEquipe) 
+            throws SQLException{
+        return getConsulterEpreuveAvecSelecteur(lesEpreuvesParId, idEquipe);
+    }
+    
+    private static CachedRowSet getConsulterEpreuve(String query)
+            throws SQLException {
+        CachedRowSet crs = new CachedRowSetImpl();
+        crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
+        crs.setCommand(String.format(query));
+        crs.execute();
+        return crs;
+    }
+
+    private static CachedRowSet getConsulterEpreuveAvecSelecteur(String query,
+            int selecteur)
+            throws SQLException {
+        CachedRowSet crs = new CachedRowSetImpl();
+        crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
+        crs.setCommand(String.format(query, selecteur));
+        crs.execute();
+        return crs;
+    }
+
+    private static CachedRowSet getConsulterEpreuveParDiscipline(String query, String nomDiscipline)
+            throws SQLException {
+        CachedRowSet crs = new CachedRowSetImpl();
+        crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
+        crs.setCommand(String.format(query, nomDiscipline));
+        crs.execute();
+        return crs;
     }
 }

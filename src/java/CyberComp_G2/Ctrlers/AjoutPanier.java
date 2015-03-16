@@ -5,22 +5,28 @@
  */
 package CyberComp_G2.Ctrlers;
 
+import CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterEpreuveDAO;
+import CyberComp_G2.Exceptions.CategorieException;
+import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
+import CyberComp_G2.Model.ConsulterEpreuve.Epreuve;
 import CyberComp_G2.Model.Panier.Panier;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.rowset.CachedRowSet;
 
 /**
  *
  * @author Gato
  */
-@WebServlet(name = "GetPanier", urlPatterns = {"/GetPanier"})
-public class GetPanier extends HttpServlet {
+@WebServlet(name = "AjoutPanier", urlPatterns = {"/AjoutPanier"})
+public class AjoutPanier extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,6 +39,7 @@ public class GetPanier extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         
         
@@ -44,15 +51,32 @@ public class GetPanier extends HttpServlet {
         String typeDeBillets = request.getParameter("epreuvesRadio");
         /* String[0] contient le type : Billet ou TicketVideo et String[1] contient l'ID de l'epreuve  */
         String[] infoBillets = typeDeBillets.split(":");
+        /* Récupération du numero de idEpreuve dans une nouvelle variable int */
         int idEpreuve = Integer.parseInt(infoBillets[1]);
         
         /* Selectionne le nombre de places a ajouter au panier*/
         String places = request.getParameter("epreuvesNbPlaces");
         int nombreDePlaces = Integer.parseInt(places);
         
-        sessionPanier.
+        CachedRowSet rowSetEpreuve;
         
+        try{
+            rowSetEpreuve = new GetConsulterEpreuveDAO().getEpreuvesParId(idEpreuve);
+            rowSetEpreuve.next();
+            Epreuve epreuveSelectionnee = new Epreuve(rowSetEpreuve.getInt("idEpreuve"),
+                    rowSetEpreuve.getString("nomEpreuve"),rowSetEpreuve.getString("nomDiscipline"),
+                    rowSetEpreuve.getString("dateDebut"),rowSetEpreuve.getString("dateFin"),
+                    rowSetEpreuve.getString("urlVideo"),rowSetEpreuve.getDouble("tarif"),
+                    rowSetEpreuve.getInt("nbDePlace"),rowSetEpreuve.getString("categorie"),
+                    0);
+            sessionPanier.ajouterUnBillet(epreuveSelectionnee, infoBillets[0], nombreDePlaces);
+            
+        }catch(SQLException | CategorieException | nbPlaceAcheterExeception ex){
+            log(ex.getMessage());
+            ex.printStackTrace();
+        }
         
+        request.getRequestDispatcher("WEB-INF/panier.jsp");
         
         }
     
@@ -95,5 +119,9 @@ public class GetPanier extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private Object GetConsulterEpreuveDAO() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

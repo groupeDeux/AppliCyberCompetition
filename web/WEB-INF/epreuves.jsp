@@ -190,7 +190,7 @@ and open the template in the editor.
                                     </div>
                                     <div id="epreuvesBillets<%=epreuveSelectionnee.getIdEpreuve()%>" class="panel-collapse collapse">
                                         <div class='panel-body'>
-                                            <form class="form-inline" action="GetPanier">
+                                            <form class="form-inline" action="AjoutPanier">
                                                 <div class='col-xs-2'>
                                                     <div class='form-group'>
                                                         <strong>Prix: 30€</strong>
@@ -306,7 +306,7 @@ and open the template in the editor.
                                     </div>
                                     <div id="epreuvesBillets<%=epreuveSelectionnee.getIdEpreuve()%>" class="panel-collapse collapse">
                                         <div class='panel-body'>
-                                            <form class="form-inline" action="GetPanier">
+                                            <form class="form-inline" action="AjoutPanier">
                                                 <div class='col-xs-2'>
                                                     <div class='form-group'>
                                                         <strong>Prix: 30€</strong>
