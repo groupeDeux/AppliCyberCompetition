@@ -260,6 +260,36 @@ and open the template in the editor.
                                         <div class='col-xs-1 control-label'id="verifEpreuveChoisie"> </div>    
                                     </div>
                                 </div>
+                                                   <!--
+                                     AFFICHER LES SPORTIFS DEJA INSCRITS A L' EPREUVE CHOISIE
+                            -->
+
+
+                            <h4> <strong> Les sportifs qui sont déja inscrits </strong></h4>
+                            <div id="sportifInscrit">
+                                <%
+                                    int i = 0;
+                                    ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifInscrit");
+                                    if (lesSportifsInscrits != null) {
+                                        if (lesSportifsInscrits.size() != 0) {
+                                            for (i = 0; i < lesSportifsInscrits.size(); i++) {
+                                                int idSportif = lesSportifsInscrits.get(i).getIdSportif();
+                                                String nomSportif = lesSportifsInscrits.get(i).getNom();
+                                                String prenomSportif = lesSportifsInscrits.get(i).getPrenom(); 
+
+                                                %> <div><%=idSportif%> : <%=idSportif%>  - <%=nomSportif%> <%=prenomSportif%> </div>
+                                            <% }
+                                        } else { %> 
+                                            <div> Aucun sportif pour le moment !  </div>
+                                    <% }
+
+                                    } else { %>
+                                        <div> Pas d'épreuve choisie  </div>
+                                <%
+                                    }
+                                %>
+
+                            </div>
 
                                 <!--
                                          AJOUTER UN SPORTIF A L EPREUVE

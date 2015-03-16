@@ -18,7 +18,7 @@ $("#selectionEpreuveEquipe").on('change', function () {
 });
 $("#selectionEpreuveIndividuelle").on('change', function () {
     //recuperation de l'idEpreuve choisi
-    var idSportif=document.getElementById("selectionEpreuveIndividuelle").value;
+    var idEpreuve=document.getElementById("selectionEpreuveIndividuelle").value;
     
-     //document.location.href="GetListSportifsInscritsEtCompatibles?idEpreuve="+idEquipe;
+     document.location.href="GetListSportifInscritEtCompatibles?idEpreuve="+idEpreuve;
 });

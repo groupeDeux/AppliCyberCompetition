@@ -54,6 +54,9 @@ public class Sportif extends Participant{
         this(idSportif,pays,prenom,nom,dateNaissance,genre,null);
     }
     
+     public Sportif(int idSportif,String prenom, String nom, String genre) throws CategorieException {
+        this(idSportif,null,prenom,nom,null,genre,null);
+    }
 
     // ------------------------- Méthodes  --------------------------------
     public int getIdSportif(){
