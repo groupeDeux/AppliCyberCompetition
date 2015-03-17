@@ -25,7 +25,7 @@ public class ModifierParticipationsDAO {
             "INSERT INTO LesParticipations (idEpreuve,idParticipant) values (%d, %d)";
     /*surpprimer une participation*/
      public static final String deleteParticipant = 
-            "DELETE FROM LesParticipations WHERE (idParticipant= %d and idEpreuve=%d)";
+            "DELETE FROM LesParticipations WHERE (idEpreuve=%d and idParticipant=%d )";
     
  
     /**************************************************************************/
@@ -52,9 +52,9 @@ public class ModifierParticipationsDAO {
      * @return
      * @throws SQLException
      */
-    public static CachedRowSet supprimerParticipantUnique(int idParticipant, int idEpreuve)
+    public static CachedRowSet supprimerParticipantUnique(int idEpreuve, int idParticipant)
             throws SQLException {
-        return modifierParticipation(deleteParticipant, idParticipant, idEpreuve);
+        return modifierParticipation(deleteParticipant, idEpreuve, idParticipant);
     }
     
     

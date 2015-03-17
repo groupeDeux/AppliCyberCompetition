@@ -221,8 +221,27 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'> Equipe:</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" selectEquipe='selectEquipeASupprimer'id='selectEquipeASupprimer'disabled="true">
-                                                <option value="">Choix</option>
+                                             <%
+                                                
+                                                if (lesEquipesInscrites != null) {
+                                                    if (lesEquipesInscrites.size() != 0) {
+                                                        %><select class="form-control" id="selectionEquipeSupprimer">
+                                                        <option value="">Choix</option> <%
+                                                        int i = 0;
+                                                        for (i = 0; i < lesEquipesInscrites.size(); i++) {
+                                                            int idEquipe = lesEquipesInscrites.get(i).getIdEquipe();
+                                                            //String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
+                                                            String categorie = lesEquipesInscrites.get(i).getCategorie();
+                                                            String pays = lesEquipesInscrites.get(i).getPays();
+                                                            %><option value='<%=idEquipe%>'><%= idEquipe%> : <%=pays%>  -  <%=categorie%>  </option>
+                                                        <% };
+                                                    } 
+                                                    else {%>
+                                                    <div> Aucune équipe n'est inscrite à cette épreuve  </div>
+
+                                                    <% }
+                                                }%>
+
                                             </select>
                                         </div>
                                     </div>
@@ -230,13 +249,12 @@ and open the template in the editor.
                                 <div class='row'>
                                     <div class="form-group">
                                         <div class='col-xs-offset-3 col-xs-6'>
-                                            <button type="button" class="btn btn-danger btn-block">Supprimer&nbsp;<span class="glyphicon glyphicon-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-block" id="supprimerEquipe">Supprimer&nbsp;<span class="glyphicon glyphicon-trash"></span></button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
-
 
                         <!--
                                 ID TAB2 : Inscrire des sportifs à une épreuve individuelle

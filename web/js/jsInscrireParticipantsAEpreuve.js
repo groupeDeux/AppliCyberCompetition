@@ -25,7 +25,6 @@ $("#selectionEpreuveIndividuelle").on('change', function () {
 });
 
 $("#ajouterEquipe").on('click', function () {
-    alert();
    var idEpreuve=document.getElementById("selectionEpreuveEquipe").value;
    var idEquipe=document.getElementById("selectionEquipeAjouter").value;
    document.location.href="AjouterParticipation?idEpreuve="+idEpreuve+"&idEquipe="+idEquipe;
@@ -34,13 +33,13 @@ $("#ajouterEquipe").on('click', function () {
 $("#supprimerEquipe").on('click', function () {
     alert();
    var idEpreuve=document.getElementById("selectionEpreuveEquipe").value;
-   var idEquipe=document.getElementById("selectionEquipeAjouter").value;
-   document.location.href="ModifierParticipations?idEpreuve="+idEpreuve+"&idEquipe="+idEquipe;
+   var idEquipe=document.getElementById("selectionEquipeSupprimer").value;
+   document.location.href="SupprimerParticipation?idEpreuve="+idEpreuve+"&idEquipe="+idEquipe;
 });
 
 $("#ajouterSportif").on('click', function () {
     alert();
    var idEpreuve=document.getElementById("selectionEpreuveIndividuelle").value;
    var idSportif=document.getElementById("selectSportifAjouter").value;
-   document.location.href="AjouterParticipations?idEpreuve="+idEpreuve+"&idSportif="+idSportif;
+   document.location.href="AjouterParticipation?idEpreuve="+idEpreuve+"&idSportif="+idSportif;
 });

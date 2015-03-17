@@ -51,7 +51,7 @@ public class SupprimerParticipation extends HttpServlet {
              /* ----- Mise a jour participations des equipe ----- */ 
              
             /* --- Ajout d'un n-uplet avec les parametres (idEpreuve, idEquipe)*/
-            ModifierParticipationsDAO.supprimerParticipantUnique(Integer.parseInt(idParticipant),Integer.parseInt(idEpreuve));
+            ModifierParticipationsDAO.supprimerParticipantUnique(Integer.parseInt(idEpreuve),Integer.parseInt(idParticipant));
           
             /* --- Calcul nouvelle liste des equipes inscrites */
             CachedRowSet rowSetEquipesInscrites = GetParticipantsDAO.getEquipesInscrites(Integer.parseInt(idEpreuve));

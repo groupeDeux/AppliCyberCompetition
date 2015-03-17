@@ -47,11 +47,20 @@ public class AjouterParticipation extends HttpServlet {
         ArrayList<Equipe> listEquipesInscrites = new ArrayList();
         ArrayList<Equipe> listEquipesCompatibles = new ArrayList();
         
+        /* Pour test compatibilite hors requete sql?
+        String categorieEpreuve;
+        String nbPersonneFixe;
+        categorie*/
+        
+     
         
          try {
              /* ----- Mise a jour participations des equipe ----- */ 
              
             /* --- Ajout d'un n-uplet avec les parametres (idEpreuve, idEquipe)*/
+             
+             // ???? test idPartcipant=Ok avec genre et nbPersonneFixe de l' epreuve ?????
+             
             ModifierParticipationsDAO.ajouterParticipantUnique(Integer.parseInt(idEpreuve),Integer.parseInt(idParticipant));
           
             /* --- Calcul nouvelle liste des equipes inscrites */
