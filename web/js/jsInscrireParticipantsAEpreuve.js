@@ -40,6 +40,14 @@ $("#supprimerEquipe").on('click', function () {
 $("#ajouterSportif").on('click', function () {
     alert();
    var idEpreuve=document.getElementById("selectionEpreuveIndividuelle").value;
-   var idSportif=document.getElementById("selectSportifAjouter").value;
-   document.location.href="AjouterParticipation?idEpreuve="+idEpreuve+"&idSportif="+idSportif;
+   var idSportif=document.getElementById("selectionSportifAjouter").value;
+   document.location.href="AjouterSportifEpreuve?idEpreuve="+idEpreuve+"&idSportif="+idSportif;
+});
+
+$("#supprimerSportif").on ('click', function (){
+     alert();
+   var idEpreuve=document.getElementById("selectionEpreuveIndividuelle").value;
+   var idSportif=document.getElementById("selectionSportifSupprimer").value;
+   document.location.href="SupprimerSportifEpreuve?idEpreuve="+idEpreuve+"&idSportif="+idSportif;
+    
 });

@@ -118,7 +118,7 @@ and open the template in the editor.
                                                             String nomEpreuve = lesEpreuvesEquipe.get(i).getNomEpreuve();
                                                             String categorie = lesEpreuvesEquipe.get(i).getCategorie();
                                                         // on parcours la liste et si idEp=idEpSelectionné on affiche les infos dans le select= option selected
-                                                        %>      <option value='<%=idEpreuve%>' <% if (idEpreuve == idEpreuveSelec) {%> selected <%}%> ><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%> </option>
+%>      <option value='<%=idEpreuve%>' <% if (idEpreuve == idEpreuveSelec) {%> selected <%}%> ><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%> </option>
                                                 <% };
                                                     } else {
                                                         // bouton fixe sur epreuve choisi = 
@@ -192,11 +192,11 @@ and open the template in the editor.
                                                         String pays = lesEquipesCompatibles.get(i).getPays();
                                                 %><option value='<%=idEquipe%>'><%= idEquipe%> : <%=pays%>  -  <%=categorie%>  </option>
                                                 <% };
-                                                            } else {%>
+                                                } else {%>
                                                 <div> Aucune équipe ne peut être inscrite  </div>
 
                                                 <%}
-                                                            }%>
+                                                    }%>
 
                                             </select>
                                         </div>
@@ -221,26 +221,25 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'> Equipe:</label>
                                         <div class='col-xs-6'>
-                                             <%
-                                                
+                                            <%
+
                                                 if (lesEquipesInscrites != null) {
                                                     if (lesEquipesInscrites.size() != 0) {
-                                                        %><select class="form-control" id="selectionEquipeSupprimer">
-                                                        <option value="">Choix</option> <%
-                                                        int i = 0;
-                                                        for (i = 0; i < lesEquipesInscrites.size(); i++) {
-                                                            int idEquipe = lesEquipesInscrites.get(i).getIdEquipe();
-                                                            //String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
-                                                            String categorie = lesEquipesInscrites.get(i).getCategorie();
-                                                            String pays = lesEquipesInscrites.get(i).getPays();
-                                                            %><option value='<%=idEquipe%>'><%= idEquipe%> : <%=pays%>  -  <%=categorie%>  </option>
-                                                        <% };
-                                                    } 
-                                                    else {%>
-                                                    <div> Aucune équipe n'est inscrite à cette épreuve  </div>
+                                            %><select class="form-control" id="selectionEquipeSupprimer">
+                                                <option value="">Choix</option> <%
+                                                    int i = 0;
+                                                    for (i = 0; i < lesEquipesInscrites.size(); i++) {
+                                                        int idEquipe = lesEquipesInscrites.get(i).getIdEquipe();
+                                                        //String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
+                                                        String categorie = lesEquipesInscrites.get(i).getCategorie();
+                                                        String pays = lesEquipesInscrites.get(i).getPays();
+                                                %><option value='<%=idEquipe%>'><%= idEquipe%> : <%=pays%>  -  <%=categorie%>  </option>
+                                                <% };
+                                                        } else {%>
+                                                <div> Aucune équipe n'est inscrite à cette épreuve  </div>
 
-                                                    <% }
-                                                }%>
+                                                <% }
+                                                        }%>
 
                                             </select>
                                         </div>
@@ -301,6 +300,7 @@ and open the template in the editor.
                                         <div class='col-xs-1 control-label'id="verifEpreuveChoisie"> </div>    
                                     </div>
                                 </div>
+                            </form>
                                 <!--
                   AFFICHER LES SPORTIFS DEJA INSCRITS A L' EPREUVE CHOISIE
                                 -->
@@ -318,9 +318,9 @@ and open the template in the editor.
                                                     String nomSportif = lesSportifsInscrits.get(i).getNom();
                                                     String prenomSportif = lesSportifsInscrits.get(i).getPrenom();
 
-                                    %> <div><%=idSportif%>: <%=nomSportif%> <%=prenomSportif%> </div>
+                                    %> <div><%=idSportif%>:<%=prenomSportif%> <%=nomSportif%>  </div>
                                     <% }
-                                            } else { %> 
+                                    } else { %> 
                                     <div> Aucun sportif pour le moment !  </div>
                                     <% }
 
@@ -333,96 +333,115 @@ and open the template in the editor.
                                 </div>
 
                                 <!--
-                                         AJOUTER UN SPORTIF A L EPREUVE
-                                -->
+                                     AJOUTER UN SPORTIF  A L EPREUVE
+                            -->
 
-                                <form class="form-horizontal">
+                            <form class="form-horizontal">
 
-                                    <h4> <strong> Ajouter un sportif </strong></h4>
+                                <h4> <strong> Ajouter un sportif </strong></h4>
 
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <label class='col-xs-3 control-label'> Sportif:</label>
-                                            <div class='col-xs-6'>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class='col-xs-3 control-label'> </label>
+                                        <div class='col-xs-6'>
 
-                                                <%
-                                                    ArrayList <Sportif> lesSportifsCompatibles = (ArrayList<Sportif>) session.getAttribute("listSportifsCompatibles");
-                                                    if (lesSportifsCompatibles != null) {
-                                                        if (lesSportifsCompatibles.size() != 0) {
-                                                            %><select class="form-control" id='selectSportifAjouter'>
-                                                            <option value="">Choix</option> <%
-                                                            int k = 0;
-                                                            for (k = 0; k < lesSportifsCompatibles.size(); k++) {
-                                                                int idSportif = lesSportifsCompatibles.get(k).getIdSportif();
-                                                                String nomSportif = lesSportifsCompatibles.get(k).getNom();
-                                                                String prenomSportif = lesSportifsCompatibles.get(k).getPrenom();
-                                                    %>          <option value='<%=idSportif%>'><%=idSportif%>:<%=prenomSportif%> -<%=nomSportif%> </option>
-                                                    <%};
-                                                    }else {%>
-                                                        <div> Aucun sportif ne peut être inscrit  </div>
+                                            <%
+                                                ArrayList<Sportif> lesSportifsCompatibles = (ArrayList<Sportif>) session.getAttribute("listSportifsCompatibles");
+                                                if (lesSportifsCompatibles != null) {
+                                                    if (lesSportifsCompatibles.size() != 0) {
+                                            %><select class="form-control" id="selectionSportifAjouter">
+                                                <option value="">Choix</option> <%
+                                                    int l = 0;
+                                                    for (l = 0; l < lesSportifsCompatibles.size(); l++) {
+                                                        int idSportif = lesSportifsCompatibles.get(i).getIdSportif();
+                                                        //String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
+                                                        String prenom = lesSportifsCompatibles.get(l).getPrenom();
+                                                        String nom = lesSportifsCompatibles.get(l).getNom();
+                                                %><option value='<%=idSportif%>'><%= idSportif%> :  <%=prenom%> <%=nom%>  </option>
+                                                <% };
+                                                } else {%>
+                                                <div> Aucun sportif  ne peut être inscrit  </div>
 
-                                                    <%}
-                                                            }%>
+                                                <%}
+                                                    }%>
 
-                                                </select>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-xs-6 col-xs-offset-3">
-                                                <button type="button" id="ajouterSportif" class="btn btn-default btn-block">Ajouter &nbsp;<span class="glyphicon glyphicon-plus"></span></button>
-                                            </div>
-                                            </div>
-                                            </form>
-
-                                            <!-- 
-                                                SUPPRIMER UN SPORTIF DE L EPREUVE
-                                            -->
-
-
-                                            <form class="form-horizontal">
-                                                <h4>  <strong> Supprimer un sportif </strong></h4>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <label class='col-xs-3 control-label'> Sportif:</label>
-                                                        <div class='col-xs-6'>
-                                                            <select class="form-control" selectEquipe='selectEquipeASupprimer'id='selectEquipeASupprimer'disabled="true">
-                                                                <option value="">Choix</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class='row'>
-                                                    <div class="form-group">
-                                                        <div class='col-xs-offset-3 col-xs-6'>
-                                                            <button type="button" class="btn btn-danger btn-block">Supprimer&nbsp;<span class="glyphicon glyphicon-trash"></span></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div id="tabs"> 
 
-
-                                        <footer class="footer">
-                                            <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
-                                            <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
-                                        </footer>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-6 col-xs-offset-3">
+                                        <button type="button" id="ajouterSportif" class="btn btn-default btn-block">Ajouter &nbsp;<span class="glyphicon glyphicon-plus"></span></button>
                                     </div>
-                                    </div>
+                                </div>                  
+                            </form>
 
-                                    <script>
-                                        $(document).ready(function() {
-                                            $("#tabs").tabs();
-                                            $("#tabs").tabs({
-                                                active: <%=activeTab - 1%>
-                                            });
-                                        });
-                                    </script>
-                                    <script type="text/javascript" src="js/cyberCompetition.js"></script>
-                                    <script src="js/jsInscrireParticipantsAEpreuve.js" type="text/javascript"></script>
-                                    </body>
-                                    </html>
+                            <!-- 
+                                SUPPRIMER l'inscription d'un sportif à une epreuve  
+                            -->
+
+
+                            <form class="form-horizontal">
+                                <h4>  <strong> Supprimer une equipe </strong></h4>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class='col-xs-3 control-label'> Equipe:</label>
+                                        <div class='col-xs-6'>
+                                            <%
+
+                                                if (lesSportifsInscrits != null) {
+                                                    if (lesSportifsInscrits.size() != 0) {
+                                            %><select class="form-control" id="selectionEquipeSupprimer">
+                                                <option value="">Choix</option> <%
+                                                    int m = 0;
+                                                    for (m = 0; m < lesSportifsInscrits.size(); m++) {
+                                                        int idSportif = lesSportifsInscrits.get(m).getIdSportif();
+                                                   
+                                                        String prenom = lesSportifsInscrits.get(m).getPrenom();
+                                                        String nom = lesSportifsInscrits.get(i).getNom();
+                                                %><option value='<%=idSportif%>'><%= idSportif%> :  <%=prenom%> <%=nom%>  </option>
+                                                <% };
+                                                        } else {%>
+                                                <div> Aucune sportif n'est inscrit à cette épreuve  </div>
+
+                                                <% }
+                                                        }%>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class="form-group">
+                                        <div class='col-xs-offset-3 col-xs-6'>
+                                            <button type="button" class="btn btn-danger btn-block" id="supprimerSportif">Supprimer&nbsp;<span class="glyphicon glyphicon-trash"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="tabs"> 
+
+
+                        <footer class="footer">
+                            <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
+                            <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
+                        </footer>
+                    </div>
+                </div>
+
+                <script>
+                    $(document).ready(function() {
+                        $("#tabs").tabs();
+                        $("#tabs").tabs({
+                            active: <%=activeTab - 1%>
+                        });
+                    });
+                </script>
+                <script type="text/javascript" src="js/cyberCompetition.js"></script>
+                <script src="js/jsInscrireParticipantsAEpreuve.js" type="text/javascript"></script>
+                </body>
+                </html>
 
