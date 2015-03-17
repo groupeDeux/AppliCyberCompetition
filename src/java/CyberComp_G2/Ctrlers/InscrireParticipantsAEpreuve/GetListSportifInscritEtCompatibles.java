@@ -61,7 +61,7 @@ public class GetListSportifInscritEtCompatibles extends HttpServlet {
             
             /* ----- Les sportif  compatibles ----- 
         recuperation des donnees BD chargees avec DAO dans un rowSet*/
-            CachedRowSet rowSetSportifsCompatibles = GetParticipantsDAO.getLesSportifsCompatiblesEpreuveCat(Integer.parseInt(idEpreuve));
+            CachedRowSet rowSetSportifsCompatibles = GetParticipantsDAO.getlesSportifsCompatiblesEtNonInscritsEpreuveCat(Integer.parseInt(idEpreuve));
            
              /* cree un objet Equipe pour chaque ligne du rowset parcouru
              et le met dans l arrayList listEquipesCompatibles */
@@ -80,6 +80,7 @@ public class GetListSportifInscritEtCompatibles extends HttpServlet {
         session.setAttribute("listSportifsInscrits", listSportifsInscrits);
         session.setAttribute("listsportifsCompatibles", listSportifsCompatibles);
         request.setAttribute("activeTab", 2); //onglet actif passe en parametre
+         request.setAttribute("idEpreuveIndSelec",idEpreuve);
         request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
        
         //request.getRequestDispatcher("WEB-INF/equipesInscrites.jsp").forward(request, response);
