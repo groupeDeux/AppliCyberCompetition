@@ -23,9 +23,7 @@ public class ModifierParticipationsDAO {
     /*Inserer une participation*/
     public static final String insertParticipant = 
             "INSERT INTO LesParticipations (idEpreuve,idParticipant) values (%d, %d)";
-    
-    
-    
+ 
     /**************************************************************************/
     /*Les fonctions appelees dans les controler avec les bons parametres */
     /**************************************************************************/

@@ -40,13 +40,16 @@ public class AjouterParticipations extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          
-        HttpSession session = request.getSession(true);  // SESSION NECESSAIRE ??
+        //HttpSession session = request.getSession(true);  // SESSION NECESSAIRE ??
         String idEpreuve = request.getParameter("idEpreuve");
         String idParticipant = request.getParameter("idEquipe"); 
          try {
              /* ----- Mise a jour participations des equipe ----- */
             // Ajout d'un n-uplet avec les parametres (idEpreuve, idEquipe)
             ModifierParticipationsDAO.ajouterParticipantUnique(Integer.parseInt(idEpreuve),Integer.parseInt(idParticipant));
+          
+            // Calcul des nouvelles listes de participants inscrits et compatibles et non inscrits
+            GetConsulterEquipeDAO.ajouterParticipantUnique(Integer.parseInt(idEpreuve),Integer.parseInt(idParticipant));
            
   
             } catch (SQLException ex) {

@@ -73,8 +73,8 @@ and open the template in the editor.
                         <ul class="nav nav-tabs">
                             <!-- pour determiner l'onglet actif au hargement de la page -->
                              <% int activeTab = 1;
-                                if (session.getAttribute("activeTab") != null) {
-                                    activeTab = (Integer) session.getAttribute("activeTab");
+                                if (request.getAttribute("activeTab") != null) {
+                                    activeTab = (Integer) request.getAttribute("activeTab");
                                 }
                             %>
                             <!-- Onglet: choix Epreuve par equipe ou Epreuve individuelle-->
@@ -284,7 +284,7 @@ and open the template in the editor.
                             <div id="sportifInscrit">
                                 <%
                                     int i = 0;
-                                    ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifsInscrits");
+                                    ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifInscrits");
                                     if (lesSportifsInscrits != null) {
                                         if (lesSportifsInscrits.size() != 0) {
                                             for (i = 0; i < lesSportifsInscrits.size(); i++) {
