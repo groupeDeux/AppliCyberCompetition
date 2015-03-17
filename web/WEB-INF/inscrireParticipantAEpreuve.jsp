@@ -252,7 +252,12 @@ and open the template in the editor.
                                         <div class='col-xs-6'>
                                             <select class="form-control" id='selectionEpreuveIndividuelle' name='listEpreuveIndividuelle'>
                                                 <option value=''>Choix</option>
-                                                <%
+                                                <% /*lorsqu'on a selectionne une epreuve on recupere son id 
+                                                    et on affiche sa ligne dans le select = option selected*/
+                                                    int idEpreuveIndSelec=0;
+                                                    if(request.getAttribute("idEpreuveIndSelec")!=null){  
+                                                        idEpreuveIndSelec= Integer.parseInt((String) request.getAttribute("idEpreuveIndSelec")); 
+                                                    }
                                                     ArrayList<EpreuveIndividuelle> lesEpreuvesIndividuelles = (ArrayList<EpreuveIndividuelle>) session.getAttribute("listEpreuvesInv");
                                                     if (lesEpreuvesEquipe != null) {
                                                         int i = 0;
@@ -261,8 +266,9 @@ and open the template in the editor.
                                                             String nomEpreuve = lesEpreuvesIndividuelles.get(i).getNomEpreuve();
                                                             String categorie = lesEpreuvesIndividuelles.get(i).getCategorie();
 
-                                                %>      <option value='<%=idEpreuve%>'><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%>  </option>
+                                                            %>      <option value='<%=idEpreuve%>'><% if (idEpreuve==idEpreuveIndSelec){%> selected <%}%> ><%=idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%>  </option>
                                                 <% };
+                                                
                                                     } else {
                                                         // bouton fixe sur epreuve choisi = 
                                                         //EpreuveParEquipe EpreuveChoisi = (Epreuve) request.getAttribute("EpreuveChoisi");
@@ -284,7 +290,7 @@ and open the template in the editor.
                             <div id="sportifInscrit">
                                 <%
                                     int i = 0;
-                                    ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifInscrits");
+                                    ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifsInscrits");
                                     if (lesSportifsInscrits != null) {
                                         if (lesSportifsInscrits.size() != 0) {
                                             for (i = 0; i < lesSportifsInscrits.size(); i++) {
@@ -385,6 +391,7 @@ and open the template in the editor.
                         </footer>
                     </div>
                 </div>
+                
                 <script>
                     $(document).ready(function() {
                         $("#tabs").tabs();
