@@ -26,8 +26,8 @@ import javax.sql.rowset.CachedRowSet;
  *
  * @author fureta
  */
-@WebServlet(name = "SupprimerParticipation", urlPatterns = {"/SupprimerParticipation"})
-public class SupprimerParticipation extends HttpServlet {
+@WebServlet(name = "SupprimerParticipationEquipe", urlPatterns = {"/SupprimerParticipationEquipe"})
+public class SupprimerParticipationEquipe extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
