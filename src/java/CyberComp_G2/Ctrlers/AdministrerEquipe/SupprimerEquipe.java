@@ -63,7 +63,7 @@ public class SupprimerEquipe extends HttpServlet {
         try {
             CachedRowSet lesSportifDeLequipe = GetConsulterEquipeDAO.getSportifsDUneEquipe(idEquipe);
             while(lesSportifDeLequipe.next()){
-                equipe.addMembre(new Sportif(lesSportifDeLequipe.getInt("idSportif"), lesSportifDeLequipe.getString("prenom"), lesSportifDeLequipe.getString("nom"), lesSportifDeLequipe.getString("genre")));
+                equipe.addMembre(new Sportif(lesSportifDeLequipe.getInt("idSportif"),lesSportifDeLequipe.getString("pays"), lesSportifDeLequipe.getString("prenom"), lesSportifDeLequipe.getString("nom"), lesSportifDeLequipe.getString("dateNaissance"), lesSportifDeLequipe.getString("genre")));
             }
             
             ModifierEquipeDAO.SupprimerEquipe(dataSource, equipe);

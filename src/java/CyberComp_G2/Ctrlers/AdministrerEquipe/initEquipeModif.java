@@ -56,7 +56,7 @@ public class initEquipeModif extends HttpServlet {
                     premmier = false;
                     modifEquipe= new Equipe(idEquipe,rowSetlistSprotifs.getString("pays"), rowSetlistSprotifs.getString("nomEquipe"),rowSetlistSprotifs.getString("categorie"), rowSetlistSprotifs.getInt("nbMembre"));
                 }
-                modifEquipe.addMembre(new Sportif(rowSetlistSprotifs.getInt("idSportif"), rowSetlistSprotifs.getString("prenom"), rowSetlistSprotifs.getString("nom"), rowSetlistSprotifs.getString("genre")));
+                modifEquipe.addMembre(new Sportif(rowSetlistSprotifs.getInt("idSportif"),rowSetlistSprotifs.getString("pays"), rowSetlistSprotifs.getString("prenom"), rowSetlistSprotifs.getString("nom"), rowSetlistSprotifs.getString("dateNaissance"), rowSetlistSprotifs.getString("genre")));
             }
         }catch(SQLException|CategorieException|GenreMenbreEquipeException ex){  
            log(ex.getMessage());
