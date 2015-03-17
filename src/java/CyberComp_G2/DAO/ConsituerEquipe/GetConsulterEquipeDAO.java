@@ -38,6 +38,20 @@ public class GetConsulterEquipeDAO {
             "SELECT * FROM LesSportifs S JOIN LesParticipants P"
             + " on (S.idSportif=P.idParticipant) WHERE pays='%s' order by nom";
     
+    public static final String lesEquipesSupprimable
+            = "select idEquipe, nomEquipe,categorie,nbMembre "+
+            "from viewEquipe "+
+            "join lesParticipants "+
+            "on (idEquipe = idParticipant) "+
+            "where pays ='%s' "+
+            "minus "+
+            "select idEquipe, nomEquipe,categorie,nbMembre "+ 
+            "from viewEquipe "+
+            "join LESCONSTITUTIONSEQUIPE "+
+            "USING (idEquipe) "+
+            "join lesMedailles "+
+            "on(idEpreuve=idEpreuve and idParticipant = idEquipe) ";
+    
     /**
      *  retourne la liste des |Delegation|s
      * @return
@@ -94,5 +108,14 @@ public class GetConsulterEquipeDAO {
     public static CachedRowSet getSportifsDUneDelegation(String pays) throws SQLException{
         return ConnexionBD.INSTANCE.executeRequete(lesSportifsDUneDelegation, pays);
     }
-
+    
+    /**
+     * retroune la liste des |Sportif|s non inscrit a une epreuve terminer
+     * @param delegation
+     * @return
+     * @throws SQLException 
+     */
+    public CachedRowSet getEquipeSup(String delegation) throws SQLException{
+        return ConnexionBD.INSTANCE.executeRequete(lesEquipesSupprimable , delegation);
+    }
 }

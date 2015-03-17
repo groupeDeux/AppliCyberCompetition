@@ -75,7 +75,6 @@ and open the template in the editor.
                             <li role="presentation" <%if (tab == 0) {%>class="active"<%}%>  id ="presentation1"><a href="#tab1">Creer Equipe</a></li>
                             <li role="presentation" <%if (tab == 1) {%>class="active"<%}%>   id ="presentation2"><a href="#tab2">Modifier Equipe</a></li>
                             <li role="presentation"<%if (tab == 2) {%>class="active"<%}%> ><a href="#tab3">Supprimer Equipe</a></li>
-                            <li role="presentation"<%if (tab == 3) {%>class="active"<%}%> ><a href="#tab4">Creer Sportif</a></li>
 
                         </ul>
 
@@ -358,7 +357,7 @@ and open the template in the editor.
                                                 <%
                                                     for (i = 0; i < lesDelegations.size(); i++) {
                                                         String pays = lesDelegations.get(i).getPays();
-                                                %>      <option value='<%=pays%>'><%=pays%></option>
+                                                %>      <option value='<%=pays%>' <% if (pays.equals(request.getAttribute("delegationSup"))) {%> selected<%}%>><%=pays%></option>
                                                 <%
                                                     };
                                                 %>
@@ -370,8 +369,20 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Equipe :</label>
                                         <div class='col-xs-6'>
-                                            <select class="form-control" id='selectEquipeSupp'disabled="true">
+                                            <% ArrayList<Equipe> lesEquipesSup =(ArrayList<Equipe>) session.getAttribute("lesEquipesSup");%>
+                                            <select class="form-control" id='selectEquipeSupp'<%if(lesEquipesSup ==null){%>disabled="true"<%}%>>
                                                 <option value="">Choix</option>
+                                                <%
+                                                
+                                                if(lesEquipesSup !=null){
+                                                    for(i=0;i<lesEquipesSup.size();i++){
+                                                       String nomEquipetemp = lesEquipesSup.get(i).getNomEquipe();
+                                                       int idEquipetemp = lesEquipesSup.get(i).getIdEquipe();
+                                                %>          <option value='<%=idEquipetemp%>'><%=idEquipetemp%> : <%=nomEquipetemp%> </option> 
+                                                    <%}
+                                                }
+                                                 %>
+                                                
                                             </select>
                                         </div>
                                     </div>
@@ -384,9 +395,6 @@ and open the template in the editor.
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                        <div id="tab4">
-                            <h2> #Under Construction</h2>
                         </div>
                     </div>        
                 </div>

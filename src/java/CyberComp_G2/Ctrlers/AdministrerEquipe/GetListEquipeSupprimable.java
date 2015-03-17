@@ -3,39 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package CyberComp_G2.Ctrlers.AdministrerEquipe;
 
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
-import CyberComp_G2.DAO.ConsituerEquipe.ModifierEquipeDAO;
 import CyberComp_G2.Exceptions.CategorieException;
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
-import CyberComp_G2.Model.ConstituerEquipe.Sportif;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 import javax.sql.rowset.CachedRowSet;
 
 /**
  *
- * @author danjouv
+ * @author vivi
  */
-@WebServlet(name = "SupprimerEquipe", urlPatterns = {"/SupprimerEquipe"})
-public class SupprimerEquipe extends HttpServlet {
+@WebServlet(name = "GetListEquipeSupprimable", urlPatterns = {"/GetListEquipeSupprimable"})
+public class GetListEquipeSupprimable extends HttpServlet {
 
-    @Resource (name="jdbc/BDCyberCompetition")
-    private  DataSource dataSource;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,29 +38,24 @@ public class SupprimerEquipe extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession(true);
-        ArrayList<Equipe> lesEquipesSup =   (ArrayList<Equipe>)session.getAttribute("lesEquipesSup");
-        Equipe equipe = null;
-        int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
-        int i;
-        for(i=0;i<lesEquipesSup.size();i++){
-            if(lesEquipesSup.get(i).getIdEquipe() == idEquipe){
-                equipe = lesEquipesSup.get(i);
-            }
-        }
+        String delegation = request.getParameter("delegation");
          
-        try {
-            CachedRowSet lesSportifDeLequipe = GetConsulterEquipeDAO.getSportifsDUneEquipe(idEquipe);
-            while(lesSportifDeLequipe.next()){
-                equipe.addMembre(new Sportif(lesSportifDeLequipe.getInt("idSportif"), lesSportifDeLequipe.getString("prenom"), lesSportifDeLequipe.getString("nom"), lesSportifDeLequipe.getString("genre")));
-            }
-            
-            ModifierEquipeDAO.SupprimerEquipe(dataSource, equipe);
-        } catch (SQLException|CategorieException ex) {
-            Logger.getLogger(SupprimerEquipe.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+         ArrayList<Equipe> lesEquipesSup = new ArrayList();
+          try{
+          
+          CachedRowSet rowSetEquipeParDelegation = new GetConsulterEquipeDAO().getEquipeSup(delegation);
+          while(rowSetEquipeParDelegation.next()){
+                String nomEquipe = rowSetEquipeParDelegation.getString("nomEquipe");
+             lesEquipesSup.add(new Equipe(rowSetEquipeParDelegation.getInt("idEquipe"), delegation, rowSetEquipeParDelegation.getString("categorie"),rowSetEquipeParDelegation.getInt("nbMembre")));
+          }
+          }catch(SQLException| CategorieException ex){
+            log(ex.getMessage());       
+           }
+         HttpSession session = request.getSession(true);
+         session.setAttribute("lesEquipesSup", lesEquipesSup);
+        session.setAttribute("tabs", 3);
+        request.setAttribute("delegationSup", delegation);
+        request.getRequestDispatcher("/WEB-INF/AdministrerEquipe.jsp").forward(request, response);
         
     }
 

@@ -43,6 +43,12 @@ public class ModifierEquipeDAO {
     public static final String deleteEquipe = 
             "DELETE FROM LesEquipes WHERE idEquipe= %d";
     
+    public static final String deleteParticipant = 
+            "DELETE FROM LesParticipants WHERE idParticipant= %d";
+    
+    public static final String deleteParticipation = 
+            "DELETE FROM LesParticipations WHERE idParticipant= %d";
+    
     
     public static void addEquipe(DataSource datasource ,Equipe equipe) throws SQLException {
 
@@ -104,7 +110,31 @@ public class ModifierEquipeDAO {
            }
            
     }
+    
+    public static void SupprimerEquipe(DataSource datasource ,Equipe equipe) throws SQLException {
 
+        
+        Connection conn = datasource.getConnection();
+        
+           int idEquipe= equipe.getIdEquipe();
+          
+           Statement stmt = conn.createStatement();
+
+           try{
+             conn.setAutoCommit(false);
+             stmt.executeUpdate(String.format(deleteSportif,idEquipe)); 
+             stmt.executeUpdate(String.format(deleteEquipe,idEquipe));
+             stmt.executeUpdate(String.format(deleteParticipation,idEquipe));
+             stmt.executeUpdate(String.format(deleteParticipant,idEquipe));
+            conn.commit();
+             conn.setAutoCommit(true);
+           }catch(SQLException ex){
+              conn.rollback();
+              String erreur = ex.getMessage();
+              int i=0;
+           }
+           
+    }
     
 }
 

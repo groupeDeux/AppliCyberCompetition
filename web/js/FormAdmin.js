@@ -207,15 +207,17 @@ $("#selectEquipeModifier").on('change', function (){
 $("#selectDelegationSupp").on('change', function () {
    var delegation = document.getElementById("selectDelegationSupp").value;
    if (delegation !== "") {
-         document.getElementById('selectEquipeSupp').options.length=1;
-         $("#selectEquipeSupp").load("GetListEquipeDUneDelegation?delegation="+delegation);
-         document.getElementById("selectEquipeSupp").disabled = false;
+        document.location.href="GetListEquipeSupprimable?delegation="+delegation; 
+         
     }
 });
 
 $("#supprimerEquipe").on('click',function (){
     var idEquipeAsupprimer = $("#selectEquipeSupp").val();
-    document.location.href="SupprimerEquipe?idEquipe="+idEquipeAsupprimer;
+    if(idEquipeAsupprimer != ""){
+       document.location.href="SupprimerEquipe?idEquipe="+idEquipeAsupprimer; 
+    }
+    
 });
 //$("select[name='selectDelegationModifier']").on('change', function () {
 //    var delegation = document.getElementById("selectDelegationModifier").value;

@@ -74,7 +74,7 @@ and open the template in the editor.
                             <div class="caption">
                                 <h3 class="text-center">Administrer les équipes</h3>
                                 <p> Créer, modifier ou supprimer une équipe</p>
-                                <p><a href="GetListDelegation" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Accéder à l'administration des équipes">Accéder à la page </a></p>
+                                <p><a href="CloseSession" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Accéder à l'administration des équipes">Accéder à la page </a></p>
                             </div>
                         </div>
                    </div>
