@@ -46,25 +46,30 @@ public class GetParticipantsDAO {
 
     /*Selection des Equipes inscrites à une épreuve: idEpreuve*/
     public static final String lesEquipesInscritesEpreuve
-            = "SELECT * FROM viewEquipe E JOIN LesParticipants P on (E.idEquipe=P.idParticipant)"
-            + " Join lesParticipations P2 on (E.idEquipe=P2.idParticipant) "
-            + "where P2.idEpreuve= %d";
+            = "SELECT * FROM viewEquipe E JOIN LesParticipants P on (E.idEquipe=P.idParticipant) "
+            + "Join lesParticipations P2 on (E.idEquipe=P2.idParticipant) "
+            + "where P2.idEpreuve= %d "
+            +"order by pays, idEquipe";
 
    
      /* Compatibles et non deja inscrits
             equipes compatibles minus compatibles et inscrits*/ 
     public static final String lesEquipesCompatiblesEtNonInscrites
-            = "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
-            + "from viewEquipe V "
-            + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
-            + "where (V.NbMembre<%d and V.categorie='%s' ) "
-            +"minus "
-            + "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
-            + "from viewEquipe V "
-            + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
-            + "join lesParticipations P2 "
-            + "on (P2.idParticipant=P.idParticipant) "
-            + "where (V.NbMembre<%d and V.categorie='%s' and P2.idEpreuve=%d )";
+            = "Select R1.idEquipe, R1.nomEquipe, R1.categorie,R1.nbMembre,R1.IDPARTICIPANT,R1.pays "
+            + "from (Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
+                + "from viewEquipe V "
+                + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
+                + "where (V.NbMembre<=%d and V.categorie='%s' ) "
+                +"minus "
+                + "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
+                + "from viewEquipe V "
+                + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
+                + "join lesParticipations P2 "
+                + "on (P2.idParticipant=P.idParticipant) "
+                + "where (V.NbMembre=%d and V.categorie='%s' and P2.idEpreuve=%d))R1 "
+            +"order by R1.pays, R1.idEquipe";
+    
+ 
     
     /* Compatibles et non deja inscrits sans nbPersonneFixe par l epreuve*/ 
     public static final String lesEquipesCompatiblesSansNbPersonneFixe
@@ -84,9 +89,9 @@ public class GetParticipantsDAO {
       /*
     /*Selection des Equipes compatibles en cat et nbInscritsavec une epreuve: idEpreuve*/
     public static final String lesEquipesCompatiblesEpreuve
-            = "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre P.IDPARTICIPANT,P.pays"
-            + "from viewEquipe V"
-            + "join LesParticipants P on (V.idEquipe=P.idParticipant)"
+            = "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre P.IDPARTICIPANT,P.pays "
+            + "from viewEquipe V "
+            + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
             + "where (V.NbMembre=%d and V.categorie='%s' )";
     
     

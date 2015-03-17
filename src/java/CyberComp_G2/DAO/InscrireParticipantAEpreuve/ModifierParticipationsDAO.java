@@ -25,7 +25,7 @@ public class ModifierParticipationsDAO {
             "INSERT INTO LesParticipations (idEpreuve,idParticipant) values (%d, %d)";
     /*surpprimer une participation*/
      public static final String deleteParticipant = 
-            "DELETE FROM LesParticipations WHERE idParticipant= %d";
+            "DELETE FROM LesParticipations WHERE (idParticipant= %d and idEpreuve=%d)";
     
  
     /**************************************************************************/
@@ -52,9 +52,9 @@ public class ModifierParticipationsDAO {
      * @return
      * @throws SQLException
      */
-    public static CachedRowSet supprimerParticipantUnique(int idParticipant)
+    public static CachedRowSet supprimerParticipantUnique(int idParticipant, int idEpreuve)
             throws SQLException {
-        return modifierParticipation(deleteParticipant, idParticipant);
+        return modifierParticipation(deleteParticipant, idParticipant, idEpreuve);
     }
     
     
@@ -72,13 +72,4 @@ public class ModifierParticipationsDAO {
         return crs;
     }
       
-    // un parametre int
-      private static CachedRowSet modifierParticipation(String query, int idParticipant)
-            throws SQLException {
-        CachedRowSet crs = new CachedRowSetImpl();
-        crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
-        crs.setCommand(String.format(query, idParticipant));
-        crs.execute();
-        return crs;
-    }
 }
