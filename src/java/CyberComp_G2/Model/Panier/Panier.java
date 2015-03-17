@@ -45,6 +45,19 @@ public class Panier {
         }
         //Il faudrait lancer un exception ici disant qu'il n'y a pas le bon nombre de billet ou autre 
     }
+    
+    public void supprimerUnBillet(int nombre){
+        this.lesEpreuvesAuPanier.remove(nombre);
+        this.listeAuPanier.remove(nombre);
+        this.nombreDElements.remove(nombre);
+    }
+    
+    public void supprimerLePanierComplet(){
+        
+        this.listeAuPanier.clear();
+        this.lesEpreuvesAuPanier.clear();
+        this.nombreDElements.clear();
+    }
 
     public int montantTotal() {
         int montantTotal = 0;

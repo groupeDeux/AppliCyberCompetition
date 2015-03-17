@@ -67,7 +67,7 @@ and open the template in the editor.
 
                 <div class='row'>
                     <div class="page-header text-center">
-                        <h2><small>Votre</small> Panier </h2>
+                        <h2><small>Votre</small> Panier</h2>
                     </div>
                 </div>
 
@@ -76,13 +76,7 @@ and open the template in the editor.
 
                 <%
                     Panier sessionPanier = (Panier) session.getAttribute("sessionPanier");
-                    int nElementPanier;
-                    double montantTotal = 0;
-
                     ArrayList<Epreuve> lesEpreuvesDuPanier = (ArrayList<Epreuve>) sessionPanier.getLesEpreuvesAuPanier();
-                    ArrayList<String> lesTicketsDuPanier = (ArrayList<String>) sessionPanier.getListeAuPanier();
-                    ArrayList<Integer> leNombreDeTicketDuPanier = (ArrayList<Integer>) sessionPanier.getNombreDeBillet();
-
                 %>
                 <!-- REPRISE DU CODE PAR GAETAN -->
                 <div class='row'>
@@ -105,13 +99,22 @@ and open the template in the editor.
                             <div class="row">
                                 <br/>
                             </div>
+                            <%-- Dans le cas ou il n'y a aucun éléments dans le panier --%>
+                            
+                            <%
+                                
+                                  if(lesEpreuvesDuPanier.size()==0){
+                            %>
                             <div class='well text-center'>
-                                <h4>Votre panier  <% if (lesEpreuvesDuPanier.size() == 0) {
-                                        out.print("est vide !");
-                                    } else {
-                                        out.println("contient " + lesEpreuvesDuPanier.size() + " élément(s)");
-                                    } %>
-                                </h4>
+                                <h4>Votre panier est vide</h4>
+                            </div>
+                        </div>
+                            
+                            <%
+                                }else{
+                            %>
+                            <div class='well text-center'>
+                                <h4>Votre panier contient <% out.print(lesEpreuvesDuPanier.size() + " élément(s) "); %></h4>
                             </div>
                             <table class="table table-bordered text-center">
                                 <thead>
@@ -125,7 +128,12 @@ and open the template in the editor.
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <%      for (nElementPanier = 0; nElementPanier < lesEpreuvesDuPanier.size(); nElementPanier++) {
+                                    <%
+                                        int nElementPanier;
+                                        double montantTotal = 0;
+                                        ArrayList<String> lesTicketsDuPanier = (ArrayList<String>) sessionPanier.getListeAuPanier();
+                                        ArrayList<Integer> leNombreDeTicketDuPanier = (ArrayList<Integer>) sessionPanier.getNombreDeBillet();
+                                        for (nElementPanier = 0; nElementPanier < lesEpreuvesDuPanier.size(); nElementPanier++) {
                                             Epreuve epreuve = lesEpreuvesDuPanier.get(nElementPanier);
                                             String typeDeTicket = lesTicketsDuPanier.get(nElementPanier);
                                             int nbDeTicket = leNombreDeTicketDuPanier.get(nElementPanier);
@@ -138,7 +146,7 @@ and open the template in the editor.
                                         <td><%= typeDeTicket%></td>
                                         <td><%= epreuve.getTarif()%>&nbsp;€</td>
                                         <td>
-                                            <select>
+                                            <select id='panierQuantitee:<%=nElementPanier%>'>
                                                 <%
                                                     int optionV = 0;
                                                     int maxTicket;
@@ -157,7 +165,7 @@ and open the template in the editor.
                                         </td>
                                         <td> <%= montantEpreuve%>&nbsp;€</td>
                                         <td>                            
-                                            <button type="button" class="btn btn-danger" aria-label="Left Align">
+                                            <button type="button" class="btn btn-danger" aria-label="Left Align" id='panierBtnSup:<%=nElementPanier%>'>
                                                 <span class="glyphicon glyphicon-remove" aria-hidden="false"></span> 
                                             </button>
                                         </td>
@@ -171,17 +179,18 @@ and open the template in the editor.
                                     </tr>
                                 </tfoot>
                             </table>
-                            <button class='btn btn-danger'>Vider le contenu du panier&nbsp;<span  class='glyphicon glyphicon-trash'></span></button>
+                            <button class='btn btn-danger' id='suppPanier'>Vider le contenu du panier&nbsp;<span  class='glyphicon glyphicon-trash'></span></button>
                             <button class='btn btn-default pull-right'>Valider le panier&nbsp;<span  class='glyphicon glyphicon-ok'></span></button>
                         </div>
+                        <% }; %>
 
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
+
+
+
+
+
+
+
                         <!--
                             TABLEAU INFORMATIONS 
                         -->
@@ -334,170 +343,169 @@ and open the template in the editor.
                                 </div>
                             </div>  
                         </div>
-                    
-
-
-
-                    <!--
-
-                            TAB PAIEMENT
-
-                    -->
 
 
 
 
-
-
-                    <div class='tab-pane' role='tab-panel' id='panierTabPaiement'>
-                        <div class="row">
-                            <br/>
-                        </div>
-                        <div class='well text-center'>
-                            <h4>
-                                Confirmation du paiement
-                            </h4>
-                        </div>
-
-                        <div class ="rowPanierFormulaire">
-                            <div class="container">
-                                <br>
-                                <div>
-                                    <strong>Confirmez vous la commande de:  </strong>
-                                </div>
-                                <br>
-                            </div>   
-                        </div> 
-
-                        <!-- 
-                       Zone du tableau détaillant les achats
+                        <!--
+    
+                                TAB PAIEMENT
+    
                         -->
 
 
-                        <div class="rowPanier">
-                            <div class="row" style="font-weight:bold">  
-                                <div class="col-xs-3  bordureDroite">PRODUIT</div>
-                                <div class="col-xs-3  bordureDroite">PRIX</div>
-                                <div class="col-xs-3  bordureDroite">QUANTITE</div>
-                                <div class="col-xs-3 ">TOTAL</div>
+
+
+
+
+                        <div class='tab-pane' role='tab-panel' id='panierTabPaiement'>
+                            <div class="row">
+                                <br/>
                             </div>
-                        </div>
-
-                        <!-- 
-                         Contenu tableau détaillant les achats
-                        -->
-                        <div class="rowPanier">  
-                            <div class="row ">
-                                <div class="col-xs-3  bordureDroite"><br>........</div>
-                                <div class="col-xs-3  bordureDroite"><br>........</div>
-                                <div class="col-xs-3  bordureDroite">........</div>
-                                <div class="col-xs-3"><br>........</div>
+                            <div class='well text-center'>
+                                <h4>
+                                    Confirmation du paiement
+                                </h4>
                             </div>
-                        </div>  
 
-
-                        <div class ="rowPanierFormulaire">
-                            <div class="container">
-                                <br>
-                                <br>
-                                <div>
-                                    <strong>Pour un montant total de: ........ </strong>
-                                </div>   
-
-                                <div class="row">    
-                                    <div class="col-xs-3">
-                                        <br>
-                                        <br>
-                                        <button type="submit" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-euro" aria-hidden="true">
-                                            </span>
-                                            Confirmer le paiement    
-                                        </button>
-                                    </div>
-
-                                    <div class="col-xs-4">
-                                        <br>
-                                        <br>
-                                        <button type="submit" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
-                                            </span>
-                                            Revenir au formulaire de paiement 
-                                        </button>
-                                    </div>
-
-                                    <div class="col-xs-5">
-                                        <br>
-                                        <br>
-                                        <button type="submit" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
-                                            </span>
-                                            Revenir au panier  
-                                        </button>
-                                        <br>
-                                        <br>
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>   
-                    </div>
-
-                    <!--
-                    
-                    TAB TERMINER COMMANDE 
-                    
-                    -->
-                    <div class='tab-pane' role='tab-panel' id='panierTabTerminerCommande'>
-                        <div class="row">
-                            <br/>
-                        </div>
-                        <div class='well text-center'>
-                            <h4>
-                                Commande terminée
-                            </h4>
-                        </div>
-
-                        <div class ="rowPanierFormulaire">
-                            <div class="container">
-                                <br>
-                                <div>
-                                    <strong>Félicitation, votre commande n°....... a bien été prise en compte. </strong>
-                                </div>
-                                <div>
-                                    <strong>Votre commande vient de vous être envoyé sur votre boite mail. </strong>
-                                </div>
-                                <div class="row">    
-                                    <div class="col-xs-3">
-                                        <br>
-                                        <br>
-                                        <button type="submit" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
-                                            </span>
-                                            Revenir à la page d'acceuil    
-                                        </button>
-                                        <br>
-                                        <br>
+                            <div class ="rowPanierFormulaire">
+                                <div class="container">
+                                    <br>
+                                    <div>
+                                        <strong>Confirmez vous la commande de:  </strong>
                                     </div>
                                     <br>
                                 </div>   
                             </div> 
+
+                            <!-- 
+                           Zone du tableau détaillant les achats
+                            -->
+
+
+                            <div class="rowPanier">
+                                <div class="row" style="font-weight:bold">  
+                                    <div class="col-xs-3  bordureDroite">PRODUIT</div>
+                                    <div class="col-xs-3  bordureDroite">PRIX</div>
+                                    <div class="col-xs-3  bordureDroite">QUANTITE</div>
+                                    <div class="col-xs-3 ">TOTAL</div>
+                                </div>
+                            </div>
+
+                            <!-- 
+                             Contenu tableau détaillant les achats
+                            -->
+                            <div class="rowPanier">  
+                                <div class="row ">
+                                    <div class="col-xs-3  bordureDroite"><br>........</div>
+                                    <div class="col-xs-3  bordureDroite"><br>........</div>
+                                    <div class="col-xs-3  bordureDroite">........</div>
+                                    <div class="col-xs-3"><br>........</div>
+                                </div>
+                            </div>  
+
+
+                            <div class ="rowPanierFormulaire">
+                                <div class="container">
+                                    <br>
+                                    <br>
+                                    <div>
+                                        <strong>Pour un montant total de: ........ </strong>
+                                    </div>   
+
+                                    <div class="row">    
+                                        <div class="col-xs-3">
+                                            <br>
+                                            <br>
+                                            <button type="submit" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-euro" aria-hidden="true">
+                                                </span>
+                                                Confirmer le paiement    
+                                            </button>
+                                        </div>
+
+                                        <div class="col-xs-4">
+                                            <br>
+                                            <br>
+                                            <button type="submit" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
+                                                </span>
+                                                Revenir au formulaire de paiement 
+                                            </button>
+                                        </div>
+
+                                        <div class="col-xs-5">
+                                            <br>
+                                            <br>
+                                            <button type="submit" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
+                                                </span>
+                                                Revenir au panier  
+                                            </button>
+                                            <br>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>   
                         </div>
-                    </div>
+
+                        <!--
                         
-                    <!-- FIN DE TERMINER COMMANDE -->
-                    
-                </div>
+                        TAB TERMINER COMMANDE 
+                        
+                        -->
+                        <div class='tab-pane' role='tab-panel' id='panierTabTerminerCommande'>
+                            <div class="row">
+                                <br/>
+                            </div>
+                            <div class='well text-center'>
+                                <h4>
+                                    Commande terminée
+                                </h4>
+                            </div>
+
+                            <div class ="rowPanierFormulaire">
+                                <div class="container">
+                                    <br>
+                                    <div>
+                                        <strong>Félicitation, votre commande n°....... a bien été prise en compte. </strong>
+                                    </div>
+                                    <div>
+                                        <strong>Votre commande vient de vous être envoyé sur votre boite mail. </strong>
+                                    </div>
+                                    <div class="row">    
+                                        <div class="col-xs-3">
+                                            <br>
+                                            <br>
+                                            <button type="submit" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
+                                                </span>
+                                                Revenir à la page d'acceuil    
+                                            </button>
+                                            <br>
+                                            <br>
+                                        </div>
+                                        <br>
+                                    </div>   
+                                </div> 
+                            </div>
+                        </div>
+                        <!-- FIN DE TERMINER COMMANDE -->
+
+                    </div>
 
 
-                <!-- 
-                     4EME PARTIE ACHAT TERMINE/ AFFICHAGE NUMERO TRANSACTION
-                -->  
+                    <!-- 
+                         4EME PARTIE ACHAT TERMINE/ AFFICHAGE NUMERO TRANSACTION
+                    -->  
 
 
-            </div>             
-        </div>
-        <script src="js/bootstrap.js" type="text/javascript"></script>
-        <script  src="js/cyberCompetition.js" type="text/javascript" ></script>
-        <script src="js/jsPanier.js" type="text/javascript"></script>
+                </div>             
+            </div>
+            <script src="js/bootstrap.js" type="text/javascript"></script>
+            <script  src="js/cyberCompetition.js" type="text/javascript" ></script>
+            <script src="js/jsPanier.js" type="text/javascript"></script>
     </body>
 </html>
 

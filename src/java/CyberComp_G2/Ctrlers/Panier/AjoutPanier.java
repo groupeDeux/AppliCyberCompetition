@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CyberComp_G2.Ctrlers;
+package CyberComp_G2.Ctrlers.Panier;
 
 import CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterEpreuveDAO;
 import CyberComp_G2.Exceptions.CategorieException;
@@ -42,6 +42,7 @@ public class AjoutPanier extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         
+        /* Mettre un try catch */
         
         /* Lors de l'ajout d'une place, on récupère dans un premier temps le panier */
         HttpSession session = request.getSession();
@@ -80,11 +81,10 @@ public class AjoutPanier extends HttpServlet {
         }catch(SQLException | CategorieException | nbPlaceAcheterExeception ex){
             log(ex.getMessage());
             ex.printStackTrace();
-            
         }
         //request.setAttribute("nomEpreuve", nomEpreuve);
         //session.setAttribute("sessionPanier", sessionPanier);
-        request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request,response);
+        request.getRequestDispatcher("GetPanier").forward(request, response);
         
         }
     

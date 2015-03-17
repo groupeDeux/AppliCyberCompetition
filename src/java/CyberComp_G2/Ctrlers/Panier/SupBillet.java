@@ -3,46 +3,62 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CyberComp_G2.Ctrlers;
+package CyberComp_G2.Ctrlers.Panier;
 
-import CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterDisciplineDAO;
-import CyberComp_G2.Exceptions.CategorieException;
-import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
 import CyberComp_G2.Model.Panier.Panier;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.rowset.CachedRowSet;
 
 /**
  *
  * @author Gato
  */
-@WebServlet(name = "GetPanier", urlPatterns = {"/GetPanier"})
-public class GetPanier extends HttpServlet {
+@WebServlet(name = "SupBillet", urlPatterns = {"/SupBillet"})
+public class SupBillet extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession(true);
-        
-        Panier sessionPanier = (Panier)session.getAttribute("sessionPanier");
-        
-        if(sessionPanier == null){
-            sessionPanier = new Panier();
-            session.setAttribute("sessionPanier", sessionPanier);
-        }
-        request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
-    }
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+        response.setContentType("text/html;charset=UTF-8");
 
+        /*  Cette servlet est utile pour le Panier, dans le cas ou on click 
+         sur une croix, on va supprimer l'une des listes du panier.
+         Si on click sur Vider le panier alors on va supprimer tout le panier 
+         */        
+        HttpSession session = request.getSession();
+        Panier sessionPanier = (Panier) session.getAttribute("sessionPanier");
+        String aSupprimer = request.getParameter("numeroDuBillet");
+        
+        if (aSupprimer.equals("TOUT")) {
+            /* On vide le panier */            
+            sessionPanier.supprimerLePanierComplet();
+            sessionPanier = new Panier();
+            request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
+        } else {
+            /* On supprime l'element numeroDuBilletASup */
+            String[] infoBillets = aSupprimer.split(":");
+            int numeroDuBilletASupp = Integer.parseInt(infoBillets[1]);
+            sessionPanier.supprimerUnBillet(numeroDuBilletASupp);
+            request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
+        }
+        
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

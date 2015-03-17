@@ -5,6 +5,8 @@
  */
 
 
+
+/* Liens permettant de naviger dans les tabs du panier */
 $('a[href="#panierTabPanier"]').click(function (e) {
   e.preventDefault();
   $(this).tab('show');
@@ -24,3 +26,24 @@ $('a[href="#panierTabTerminerCommande"]').click(function (e) {
   e.preventDefault();
   $(this).tab('show');
 });
+
+
+
+/* Quand on clique sur un element supp du panier */
+
+$(':button[id^="panierBtnSup"]').click(function(){
+    document.location.href="SupBillet?numeroDuBillet="+$(this).attr('id');
+    }
+);
+
+/* Supprimer tout le contenu du panier !*/
+$('#suppPanier').click(function(){
+    document.location.href="SupBillet?numeroDuBillet=TOUT";
+    }
+);
+
+$('[id^="panierQuantitee"]').on('change',function(){
+    var quantitee = $(this).val();
+    alert(quantitee.toString());
+}
+        );
