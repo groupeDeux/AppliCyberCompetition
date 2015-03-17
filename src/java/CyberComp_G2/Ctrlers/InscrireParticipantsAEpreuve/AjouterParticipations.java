@@ -7,6 +7,7 @@
 package CyberComp_G2.Ctrlers.InscrireParticipantsAEpreuve;
 
 import CyberComp_G2.DAO.InscrireParticipantAEpreuve.GetParticipantsDAO;
+import CyberComp_G2.DAO.InscrireParticipantAEpreuve.ModifierParticipationsDAO;
 import CyberComp_G2.Exceptions.CategorieException;
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import java.io.IOException;
@@ -41,22 +42,14 @@ public class AjouterParticipations extends HttpServlet {
          
         HttpSession session = request.getSession(true);  // SESSION NECESSAIRE ??
         String idEpreuve = request.getParameter("idEpreuve");
-        
-        
-        
+        String idParticipant = request.getParameter("idEquipe"); 
          try {
-
              /* ----- Mise a jour participations des equipe ----- */
             // Ajout d'un n-uplet avec les parametres (idEpreuve, idEquipe)
-            GetParticipantsDAO.getEquipesInscrites(Integer.parseInt(idEpreuve));
+            ModifierParticipationsDAO.ajouterParticipantUnique(Integer.parseInt(idEpreuve),Integer.parseInt(idParticipant));
            
-             /* cree un objet Equipe pour chaque ligne du rowset parcouru
-             et le met dans l arrayList listEquipesInscrites */
-            //while (rowSetEquipesInscrites.next()) {
-                // recupereation les informations de  l'quipe
-                //listEquipesInscrites.add(new Equipe(rowSetEquipesInscrites.getInt("idEquipe"), rowSetEquipesInscrites.getString("pays"), rowSetEquipesInscrites.getString("nomEquipe"),rowSetEquipesInscrites.getString("categorie"),rowSetEquipesInscrites.getInt("nbMembre")));
-            
-            } catch (SQLException|CategorieException ex) {
+  
+            } catch (SQLException ex) {
             log(ex.getMessage());
            }
         
