@@ -178,3 +178,11 @@ h2.text-muted > a{
 #go-top:hover{
     color:#777777;
 }
+
+
+#panierTab > li{
+    width:25%;
+    margin-left: 0px;
+    margin-right: 0px;
+    text-align: center;
+}

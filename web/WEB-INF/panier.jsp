@@ -81,11 +81,11 @@ and open the template in the editor.
                 <!-- REPRISE DU CODE PAR GAETAN -->
                 <div class='row'>
                     <div>
-                        <ul class='nav nav-tabs'id='panierTab'>
-                            <li role='presentation' class='active'><a href='#panierTabPanier' data-toggle='tab'>Panier</a></li>
-                            <li role='presentation'><a href='#panierTabInformation' data-toggle='tab'>Informations</a></li>
-                            <li role='presentation'><a href='#panierTabPaiement' data-toggle='tab'>Paiement</a></li>
-                            <li role='presentation'><a href='#panierTabTerminerCommande' data-toggle='tab'>Terminer commande</a></li>
+                        <ul class='nav nav-pills ' id='panierTab'>
+                            <li role='presentation' class='active' ><a href='#panierTabPanier' data-toggle='tab'>Panier</a></li>
+                            <li role='presentation' class="disabled" ><a href='#panierTabInformation' data-toggle='tab'>Informations</a></li>
+                            <li role='presentation' class="disabled" ><a href='#panierTabPaiement' data-toggle='tab'>Paiement</a></li>
+                            <li role='presentation' class="disabled" ><a href='#panierTabTerminerCommande' data-toggle='tab'>Terminer commande</a></li>
                         </ul>
                     </div>
 
@@ -130,7 +130,7 @@ and open the template in the editor.
                                 <tbody>
                                     <%
                                         int nElementPanier;
-                                        double montantTotal = 0;
+                                        double mntTot  = sessionPanier.montantTotal();
                                         ArrayList<String> lesTicketsDuPanier = (ArrayList<String>) sessionPanier.getListeAuPanier();
                                         ArrayList<Integer> leNombreDeTicketDuPanier = (ArrayList<Integer>) sessionPanier.getNombreDeBillet();
                                         for (nElementPanier = 0; nElementPanier < lesEpreuvesDuPanier.size(); nElementPanier++) {
@@ -139,7 +139,7 @@ and open the template in the editor.
                                             int nbDeTicket = leNombreDeTicketDuPanier.get(nElementPanier);
                                             double montantEpreuve = epreuve.getTarif();
                                             montantEpreuve *= nbDeTicket;
-                                            montantTotal += montantEpreuve;
+                                            
                                     %>
                                     <tr>
                                         <td><%= epreuve.getNomEpreuve()%></td>
@@ -175,12 +175,12 @@ and open the template in the editor.
                                 <tfoot>
                                     <tr>
                                         <th colspan='4' style='text-align:right;'>Montant total du panier=</th>
-                                        <th colspan='2'><%= montantTotal%>&nbsp;€</th>
+                                        <th colspan='2'><%= mntTot %>&nbsp;€</th>
                                     </tr>
                                 </tfoot>
                             </table>
                             <button class='btn btn-danger' id='suppPanier'>Vider le contenu du panier&nbsp;<span  class='glyphicon glyphicon-trash'></span></button>
-                            <button class='btn btn-default pull-right'>Valider le panier&nbsp;<span  class='glyphicon glyphicon-ok'></span></button>
+                            <button class='btn btn-primary pull-right'>Valider le panier&nbsp;<span  class='glyphicon glyphicon-ok'></span></button>
                         </div>
                         <% }; %>
 
@@ -450,11 +450,26 @@ and open the template in the editor.
                             </div>   
                         </div>
 
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <!--
                         
                         TAB TERMINER COMMANDE 
                         
                         -->
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <div class='tab-pane' role='tab-panel' id='panierTabTerminerCommande'>
                             <div class="row">
                                 <br/>

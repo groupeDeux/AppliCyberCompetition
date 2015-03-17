@@ -36,14 +36,19 @@ $(':button[id^="panierBtnSup"]').click(function(){
     }
 );
 
-/* Supprimer tout le contenu du panier !*/
+/* Supprimer tout le contenu du panier ! */
+
 $('#suppPanier').click(function(){
     document.location.href="SupBillet?numeroDuBillet=TOUT";
     }
 );
 
 $('[id^="panierQuantitee"]').on('change',function(){
-    var quantitee = $(this).val();
-    alert(quantitee.toString());
-}
-        );
+     var numeroDuBillet = $(this).attr('id');
+     var quantitee = $(this).val();
+     alert("NumberoDuBillet = " + numeroDuBillet.toString() + " et Quantitee: " + quantitee);
+     document.location.href="changementQuantitee?numeroDuBillet="+numeroDuBillet+"&quantitee="+quantitee;
+    }
+);
+
+/* numeroDuBillet="+numeroDuBillet+"&quantitee="+quantitee */

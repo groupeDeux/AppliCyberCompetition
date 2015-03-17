@@ -19,8 +19,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Gato
  */
-@WebServlet(name = "SupBillet", urlPatterns = {"/SupBillet"})
-public class SupBillet extends HttpServlet {
+@WebServlet(name = "changementQuantitee", urlPatterns = {"/changementQuantitee"})
+public class changementQuantitee extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,28 +34,23 @@ public class SupBillet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        /*  Cette servlet est utile pour le Panier, dans le cas ou on click 
-         sur une croix, on va supprimer l'une des listes du panier.
-         Si on click sur Vider le panier alors on va supprimer tout le panier 
-         */        
+        /* On Recupère le panier de la session*/
         HttpSession session = request.getSession();
         Panier sessionPanier = (Panier) session.getAttribute("sessionPanier");
+        /* On Recupère les parametres de la session qui vont induire une modification
+         panier*/
         String paramNumBillet = request.getParameter("numeroDuBillet");
+        String paramQuantitee = request.getParameter("quantitee");
+
+        String[] infoBillets = paramNumBillet.split(":");
+        int numeroDuBilletAChanger = Integer.parseInt(infoBillets[1]);
+        int quantitee = Integer.parseInt(paramQuantitee);
         
-        if (paramNumBillet.equals("TOUT")) {
-            /* On vide le panier */            
-            sessionPanier.supprimerLePanierComplet();
-            sessionPanier = new Panier();
-            request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
-        } else {
-            /* On supprime l'element numeroDuBilletASup */
-            String[] infoBillets = paramNumBillet.split(":");
-            int numeroDuBilletASupp = Integer.parseInt(infoBillets[1]);
-            sessionPanier.supprimerUnBillet(numeroDuBilletASupp);
-            request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
+        /* Modification du nombre de billet dans le panier  */
+        if(quantitee!=0){
+            sessionPanier.modifierNombreDeBillet(numeroDuBilletAChanger, quantitee);
         }
-        
+        request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -75,15 +75,14 @@ public class AjoutPanier extends HttpServlet {
                     rowSetEpreuve.getInt(8),rowSetEpreuve.getString(9),
                     0);
             nomEpreuve = epreuveSelectionnee.getNomEpreuve();
-            } 
+            }
+            /* NullPointerException a verifier ici */
             sessionPanier.ajouterUnBillet(epreuveSelectionnee, infoBillets[0], nombreDePlaces);
             
         }catch(SQLException | CategorieException | nbPlaceAcheterExeception ex){
             log(ex.getMessage());
             ex.printStackTrace();
         }
-        //request.setAttribute("nomEpreuve", nomEpreuve);
-        //session.setAttribute("sessionPanier", sessionPanier);
         request.getRequestDispatcher("GetPanier").forward(request, response);
         
         }

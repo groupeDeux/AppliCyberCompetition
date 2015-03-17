@@ -32,11 +32,16 @@ public class Panier {
         lesEpreuvesAuPanier = new ArrayList();
     }
 
+    /* Retourne une ArrayList contenant la quantitee contenue de chaque billets dans le panier */
     public ArrayList<Integer> getNombreDeBillet() {
         return nombreDElements;
     }
+    /* Fonction la quantitee commandé pour un certain billet */
+    public void modifierNombreDeBillet(int numeroDuBillet, int nouvelleQuantitee){
+        this.nombreDElements.set(numeroDuBillet,nouvelleQuantitee);
+    }
     
-
+    /* Fonction permettant d'ajouter un billet au panier*/
     public void ajouterUnBillet(Epreuve epreuveAAjouter, String typeDeBillet, int nombre) {
         if (nombre != 0 && epreuveAAjouter != null) {
             lesEpreuvesAuPanier.add(epreuveAAjouter);
@@ -46,23 +51,30 @@ public class Panier {
         //Il faudrait lancer un exception ici disant qu'il n'y a pas le bon nombre de billet ou autre 
     }
     
+    /* 
+        Fonction permettant de supprimer un billet du panier 
+        Il faut pouvoir retourner une exception indiquant que le nombre de billets est < 0
+    */
     public void supprimerUnBillet(int nombre){
         this.lesEpreuvesAuPanier.remove(nombre);
         this.listeAuPanier.remove(nombre);
         this.nombreDElements.remove(nombre);
     }
     
+    /* Fonction permettant de supprimer tous les billets du panier */
     public void supprimerLePanierComplet(){
-        
         this.listeAuPanier.clear();
         this.lesEpreuvesAuPanier.clear();
         this.nombreDElements.clear();
     }
-
-    public int montantTotal() {
-        int montantTotal = 0;
-        for (Epreuve ep : lesEpreuvesAuPanier) {
-            montantTotal += ep.getTarif();
+    
+    /* Fonction affichant le montant total des billets dans le panier */
+    public double montantTotal() {
+        double montantTotal = 0;
+        for(int i = 0; i<lesEpreuvesAuPanier.size(); i++){
+            int nombreDeBillets = nombreDElements.get(i);
+            double tarifDuBillet = lesEpreuvesAuPanier.get(i).getTarif();
+            montantTotal += nombreDeBillets * tarifDuBillet;
         }
         return montantTotal;
     }
