@@ -64,10 +64,12 @@ public class ModifierEquipe extends HttpServlet {
             }catch(SQLException ex){
                 log(ex.getMessage());
             }  
+             
              request.setAttribute("etat", "creation");
              request.setAttribute("newEquipe", newEquipe);
              request.getRequestDispatcher("/WEB-INF/ValidationEquipes.jsp").forward(request, response);
                 break;
+                
             case "false":
                 Equipe equipe = (Equipe) session.getAttribute("modifEquipe");
                 lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifsModif");
