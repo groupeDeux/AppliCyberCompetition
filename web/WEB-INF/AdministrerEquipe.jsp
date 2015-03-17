@@ -317,7 +317,7 @@ and open the template in the editor.
                                     <%}%> 
                                     <div class="row">
                                         <div class="form-group">
-                                            <div class="col-xs-offset-5 col-xs-2 erreurForm" id="ControlValAjouterSportif">
+                                            <div class="col-xs-offset-5 col-xs-2 erreurForm" id="ControlValAjouterSportifModif">
 
                                             </div>
                                             <div class="col-xs-2">
@@ -328,10 +328,10 @@ and open the template in the editor.
                                     <div class="row" id="ValCreationEquipe">
                                         <div class="form-group">
                                             <div class="col-xs-2 col-xs-offset-3 ">
-                                                <button type="button" class="btn btn-danger btn-block "  id="annulerCreerSpoptifModif" >Annuler</button>
+                                                <button type="button" class="btn btn-danger btn-block "  id="annulerEquipeModif" >Annuler</button>
                                             </div>
                                             <div class="col-xs-4">
-                                                <button  type="button" class="btn btn-default btn-block " id="validerCreerEquipeModif">Modifier Equipe</button>
+                                                <button  type="button" class="btn btn-default btn-block " id="validerEquipeModif">Modifier Equipe</button>
                                             </div>
                                         </div>
                                     </div> 

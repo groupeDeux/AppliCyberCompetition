@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,11 +46,12 @@ public class ModifierEquipe extends HttpServlet {
         
         HttpSession session = request.getSession(true);
         String estUneCreation = request.getParameter("Creation");
-        ArrayList<Sportif> lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifs");
+        ArrayList<Sportif> lesSportifs = null ;
        
         if (null != estUneCreation)switch (estUneCreation) {
             case "true":
                 Equipe newEquipe = (Equipe) session.getAttribute("newEquipe");
+                lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifs");
                 int i,j;
                 for(i=1;i<=newEquipe.getNbDeSportif();i++){
                     for(j=0;j<lesSportifs.size();j++){
@@ -57,23 +60,27 @@ public class ModifierEquipe extends HttpServlet {
                         }
                     }
                 }   try{
-                ModifierEquipeDAO.addEquipe(dataSource,newEquipe);  
+                ModifierEquipeDAO.addEquipe(dataSource,newEquipe); 
             }catch(SQLException ex){
                 log(ex.getMessage());
             }   break;
             case "false":
                 Equipe equipe = (Equipe) session.getAttribute("modifEquipe");
+                lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifsModif");
                 for(i=1;i<=equipe.getNbDeSportif();i++){
                     for(j=0;j<lesSportifs.size();j++){
                         if(lesSportifs.get(j).getIdSportif()==Integer.parseInt(request.getParameter("sportifSelect"+i))){
                             equipe.addMembre(lesSportifs.get(j));
                         }
                     }
-                }   //try{
-//                ModifierEquipeDAO.modifEquipe(dataSource,equipe);  
-//            }catch(SQLException ex){
-//                log(ex.getMessage());
-//            }
+                }   
+            try {
+                ModifierEquipeDAO.modifEquipe(dataSource,equipe);
+            } catch (SQLException ex) {
+                Logger.getLogger(ModifierEquipe.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+           
             break;
         }
          

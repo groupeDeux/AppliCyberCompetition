@@ -34,7 +34,7 @@ public class ModifierEquipeDAO {
             "INSERT INTO LesParticipants values (%d, '%s')";
      
     public static final String deleteSportif = 
-            "DELETE FROM LesConstitutionsEquipes WHERE idSportif=%d AND idEquipe= %d";
+            "DELETE FROM LesConstitutionsEquipe WHERE  idEquipe= %d";
     
     public static final String addEquipe = 
             "INSERT INTO LesEquipes(idEquipe, nomEquipe, categorie) " +
@@ -64,6 +64,33 @@ public class ModifierEquipeDAO {
              conn.setAutoCommit(false);
              stmt.executeUpdate(String.format(insertParticipant,idEquipe,pays)); 
              stmt.executeUpdate(String.format(addEquipe,idEquipe,nomEquipe,categorie));
+             int i;
+             for(i=0;i<nbMembre;i++){
+                 stmt.executeUpdate(String.format(insertSportif,idEquipe,equipe.getLesMembres().get(i).getIdSportif()));
+             }
+             conn.commit();
+             conn.setAutoCommit(true);
+           }catch(SQLException ex){
+              conn.rollback();
+              String erreur = ex.getMessage();
+              int i=0;
+           }
+           
+    }
+    
+    public static void modifEquipe(DataSource datasource ,Equipe equipe) throws SQLException {
+
+        String nomEquipe = equipe.getNomEquipe();
+        Connection conn = datasource.getConnection();
+        
+           int nbMembre = equipe.getNbMembre();
+           int idEquipe= equipe.getIdEquipe();
+          
+           Statement stmt = conn.createStatement();
+
+           try{
+             conn.setAutoCommit(false);
+             stmt.executeUpdate(String.format(deleteSportif,idEquipe)); 
              int i;
              for(i=0;i<nbMembre;i++){
                  stmt.executeUpdate(String.format(insertSportif,idEquipe,equipe.getLesMembres().get(i).getIdSportif()));

@@ -53,7 +53,11 @@ public class GetListDelegation extends HttpServlet {
         String categorie = (String) request.getParameter("categorie");
         Equipe newEquipe = null;
         ArrayList<Sportif> lesSportifs = new ArrayList();
-    
+        if(request.getParameter("tabs")!=null){
+            int tabs = Integer.parseInt((String)request.getParameter("tabs"));
+            session.setAttribute("tabs", tabs);
+        }
+        
         try{
             // Recuperation rowSet avec appel DAO
              rowSetDelegation= new GetConsulterEquipeDAO().getDelegations();

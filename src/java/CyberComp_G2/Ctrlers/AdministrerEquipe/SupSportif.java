@@ -37,28 +37,40 @@ public class SupSportif extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
-        Equipe newEquipe = (Equipe) session.getAttribute("newEquipe");
+       Equipe equipe =null;
+       ArrayList<Sportif> lesSportifs =null;
+        if(request.getParameter("mode").equals("modifEquipe")){
+            equipe = (Equipe) session.getAttribute("modifEquipe");
+            lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifsModif");
+        }else{
+           equipe = (Equipe) session.getAttribute("newEquipe");
+           lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifs");
+        }
         int idSportifASuprimer=0;
         
         if (!"".equals(request.getParameter("idSportifASuprimer"))) {
             idSportifASuprimer = Integer.parseInt(request.getParameter("idSportifASuprimer"));
-
-            ArrayList<Sportif> lesSportifs = (ArrayList<Sportif>) session.getAttribute("lesSportifs");
             int i, j;
-            for (i = 1; i <= newEquipe.getNbDeSportif(); i++) {
+            for (i = 1; i <= equipe.getNbDeSportif(); i++) {
                 for (j = 0; j < lesSportifs.size(); j++) {
                     if (request.getParameter("sportifSelect" + i)!=null) {
                         if (lesSportifs.get(j).getIdSportif() == Integer.parseInt(request.getParameter("sportifSelect" + i))) {
-                            newEquipe.addMembre(lesSportifs.get(j));
+                            equipe.addMembre(lesSportifs.get(j));
                         }
                     }
                 }
             }
         }
 
-        newEquipe.delMembre(idSportifASuprimer);
-        newEquipe.setNbDeSportif(newEquipe.getNbDeSportif() - 1);
-        session.setAttribute("newEquipe", newEquipe);
+        equipe.delMembre(idSportifASuprimer);
+        equipe.setNbDeSportif(equipe.getNbDeSportif() - 1);
+        if(request.getParameter("mode").equals("modifEquipe")){
+            session.setAttribute("modifEquipe", equipe);
+            session.setAttribute("tabs", 2);
+        }else{
+           session.setAttribute("newEquipe", equipe);
+           session.setAttribute("tabs", 1);
+        }
         request.getRequestDispatcher("/WEB-INF/AdministrerEquipe.jsp").forward(request, response);
     }
 

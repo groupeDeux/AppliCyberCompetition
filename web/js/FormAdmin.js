@@ -12,7 +12,7 @@ $("#valCreer").on('click', function () {
          document.getElementById("verifDelegationCreer").innerHTML="<span class='glyphicon glyphicon-remove'></span>";
     }else{
        document.getElementById("verifDelegationCreer").innerHTML="";
-       document.location.href="GetListDelegation?delegation="+delegation+"&nomEquipe="+nomEquipe+"&categorie="+categorie;
+       document.location.href="GetListDelegation?tabs=1&delegation="+delegation+"&nomEquipe="+nomEquipe+"&categorie="+categorie;
     }
     
 });
@@ -37,6 +37,25 @@ $("#validerCreerEquipe").on('click', function () {
    }
 });
 
+$("#validerEquipeModif").on('click', function () {
+   var nbSportif=1;
+   var sportifsSontSelectionner= true;
+   var url ="ModifierEquipe?Creation=false";
+   $("select[name='selectModifier']").each(function (){
+       if($(this).val()===""){
+            sportifsSontSelectionner = false ; 
+       }else{
+           url = url + "&sportifSelect"+nbSportif+"="+$(this).val();   
+           nbSportif++;
+       }
+   });
+   
+   if (sportifsSontSelectionner === false){
+       document.getElementById("ControlValAjouterSportifModif").innerHTML="Selectionner tout les sportifs";
+   }else{
+        document.location.href=url;
+   }
+});
 
 $("select[name='selectNomAjouter']").on('change',function (){
     var nbDeSportifIdentique =0;
@@ -56,25 +75,43 @@ $("select[name='selectNomAjouter']").on('change',function (){
     }
 });
 
+$("select[name='selectModifier']").on('change',function (){
+    var nbDeSportifIdentique =0;
+    if($(this).val()!==""){
+       var idSprotifChange =$(this).val();
+      $("select[name='selectModifier']").each(function (){
+         if(idSprotifChange === $(this).val()){
+             nbDeSportifIdentique++;
+         }
+      }); 
+    }
+    if (nbDeSportifIdentique >1){
+        $(this).val("");
+        document.getElementById("ControlValAjouterSportifModif").innerHTML="Sportif deja present";
+    }else{
+        document.getElementById("ControlValAjouterSportifModif").innerHTML="";
+    }
+});
+
 
 $("#annulerCreerSpoptif").on('click', function () {
-    document.location.href="GetListDelegation";
+    document.location.href="CloseSession";
+});
+
+$("#annulerEquipeModif").on('click', function () {
+  document.location.href="CloseSession";
 });
 
 $("#valAjouterSportif").on('click', function () {
    var nbSportif=1;
    var sportifsSontSelectionner= true;
-   var url ="AddSportif?";
+   var url ="AddSportif?&mode=creerEquipe";
    $("select[name='selectNomAjouter']").each(function (){
        if($(this).val()===""){
             sportifsSontSelectionner = false ; 
        }else{
-           if (nbSportif ===1){
-                url = url + "sportifSelect"+nbSportif+"="+$(this).val();
-           }else{
-                url = url + "&sportifSelect"+nbSportif+"="+$(this).val();   
-           }
-           nbSportif++;
+            url = url + "&sportifSelect"+nbSportif+"="+$(this).val();   
+            nbSportif++;
        }
    });
    
@@ -85,11 +122,45 @@ $("#valAjouterSportif").on('click', function () {
    }
 });
 
+$("#valAjouterSportifModif").on('click', function () {
+   var nbSportif=1;
+   var sportifsSontSelectionner= true;
+   var url ="AddSportif?&mode=modifEquipe";
+   $("select[name='selectModifier']").each(function (){
+       if($(this).val()===""){
+            sportifsSontSelectionner = false ; 
+       }else{
+           url = url + "&sportifSelect"+nbSportif+"="+$(this).val();   
+           nbSportif++;
+       }
+   });
+   
+   if (sportifsSontSelectionner === false){
+       document.getElementById("ControlValAjouterSportifModif").innerHTML="Selectionner tout les sportifs";
+   }else{
+        document.location.href=url;
+   }
+});
+
 $("button[name='valSupprimerSportif']").on('click', function () {
     var nbSportif=1;
     var idSportifASuprimer = $("#selectNomAjouter"+$(this).val()).val();
-    var url = "SupSportif?idSportifASuprimer="+idSportifASuprimer;
+    var url = "SupSportif?mode=creerEquipe&idSportifASuprimer="+idSportifASuprimer;
     $("select[name='selectNomAjouter']").each(function (){
+       if($(this).val()===""){
+       }else{
+            url = url + "&sportifSelect"+nbSportif+"="+$(this).val();
+            nbSportif++;
+       }
+   });
+    document.location.href=url;
+});
+
+$("button[name='valSupprimerSportifModif']").on('click', function () {
+    var nbSportif=1;
+    var idSportifASuprimer = $("#selectNomModifier"+$(this).val()).val();
+    var url = "SupSportif?mode=modifEquipe&idSportifASuprimer="+idSportifASuprimer;
+    $("select[name='selectModifier']").each(function (){
        if($(this).val()===""){
        }else{
             url = url + "&sportifSelect"+nbSportif+"="+$(this).val();
