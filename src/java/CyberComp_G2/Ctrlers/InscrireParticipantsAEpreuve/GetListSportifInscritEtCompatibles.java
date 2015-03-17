@@ -55,10 +55,9 @@ public class GetListSportifInscritEtCompatibles extends HttpServlet {
              et le met dans l arrayList listSportifsInscrits */
             while (rowSetSportifsInscrits.next()) {
                 // recupereation les informations de chaque Sportif
-                listSportifsInscrits.add(new Sportif(rowSetSportifsInscrits.getInt("idSportif"),rowSetSportifsInscrits.getString("prenom"), rowSetSportifsInscrits.getString("nom"),rowSetSportifsInscrits.getString("genre")));
+                listSportifsInscrits.add(new Sportif(rowSetSportifsInscrits.getInt("idSportif"),rowSetSportifsInscrits.getString("pays"),rowSetSportifsInscrits.getString("prenom"), rowSetSportifsInscrits.getString("nom"),rowSetSportifsInscrits.getString("dateNaissance"),rowSetSportifsInscrits.getString("genre")));
             }
-            
-            
+         
             /* ----- Les sportif  compatibles ----- 
         recuperation des donnees BD chargees avec DAO dans un rowSet*/
             CachedRowSet rowSetSportifsCompatibles=GetParticipantsDAO.getlesSportifsCompatiblesEtNonInscritsEpreuveCat(Integer.parseInt(idEpreuve));
@@ -67,7 +66,7 @@ public class GetListSportifInscritEtCompatibles extends HttpServlet {
              et le met dans l arrayList listSportifsCompatibles*/
             while (rowSetSportifsCompatibles.next()) {
                 // recupereation les informations de sportif 
-                listSportifsCompatibles.add(new Sportif(rowSetSportifsCompatibles.getInt("idSportif"),rowSetSportifsCompatibles.getString("prenom"), rowSetSportifsCompatibles.getString("nom"),rowSetSportifsCompatibles.getString("genre")));
+                listSportifsCompatibles.add(new Sportif(rowSetSportifsCompatibles.getInt("idSportif"),rowSetSportifsCompatibles.getString("pays"),rowSetSportifsCompatibles.getString("prenom"), rowSetSportifsCompatibles.getString("nom"),rowSetSportifsCompatibles.getString("dateNaissance"),rowSetSportifsCompatibles.getString("genre")));
              }
         }catch (SQLException|CategorieException ex) {
             log(ex.getMessage());
@@ -78,7 +77,7 @@ public class GetListSportifInscritEtCompatibles extends HttpServlet {
         HttpSession session = request.getSession(true);
         /* ajoute la liste en attribut de la reponse */
         session.setAttribute("listSportifsInscrits", listSportifsInscrits);
-        session.setAttribute("listsportifsCompatibles", listSportifsCompatibles);
+        session.setAttribute("listSportifsCompatibles",listSportifsCompatibles);
         request.setAttribute("activeTab", 2); //onglet actif passe en parametre
          request.setAttribute("idEpreuveIndSelec",idEpreuve);
         request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);

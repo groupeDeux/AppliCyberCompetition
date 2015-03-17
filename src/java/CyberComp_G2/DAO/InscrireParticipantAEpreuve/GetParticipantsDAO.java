@@ -107,12 +107,22 @@ public class GetParticipantsDAO {
   
     /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve et qui ne sont pas inscrit a cet épreuve*/
     public static final String lesSportifsCompatiblesEtNonInscritsEpreuveCat
-            = "SELECT idsportif,nom,prenom ,genre FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) "
-          + " where( S.genre= '%s') "
+            = "SELECT S.idsportif,pays,prenom,nom,dateNaissance,genre "
+            +"FROM LesSportifs S "
+            +"JOIN LesParticipants P "
+            +"on (S.idSportif=P.idParticipant) "
+          + "where( S.genre= '%s') " 
           + "minus "
-          + "SELECT idsportif,nom,prenom, genre FROM LESSPORTIFS S JOIN LesParticipations P on (S.idsportif=P.idParticipant) "
-           + "Join lesepreuvesindividuelles E on (P.idepreuve=E.idepreuve) "
-         +  "where (E.idEpreuve= %d)";
+          + "SELECT S.idsportif,pays,prenom,nom,dateNaissance,genre "+
+            "FROM LESSPORTIFS S "
+            + "JOIN LesParticipations P "
+            + "on (S.idsportif=P.idParticipant) "
+            + "Join lesepreuvesindividuelles E "
+            + "on (P.idepreuve=E.idepreuve) "
+            +"join lesParticipants P2 "
+            +"on (P2.idParticipant=S.idSportif) "
+           + "where (E.idEpreuve= %d)"
+           +"order by nom " ;
     /* Selection des sportifs par genre: feminin/masculin*/
     public static final String lesSportifsParGenre
             = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) where S.genre='%s";
@@ -123,6 +133,8 @@ public class GetParticipantsDAO {
     public static final String lesSportifsParEpreuve
             = " SELECT * FROM LESSPORTIFS S JOIN LesParticipations P on (S.idsportif=P.idParticipant)"
             + " Join lesepreuvesindividuelles E on (P.iDEPREUVE=E.idepreuve) "
+            + "join lesParticipants P2 "
+            + "on (P2.idParticipant=S.idSportif) "
             + " where E.idEpreuve= %d";
 
    
