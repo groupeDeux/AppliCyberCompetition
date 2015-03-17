@@ -107,8 +107,7 @@ public class GetParticipantsDAO {
           + "minus"
           + "SELECT idsportif,nom,prenom  FROM LESSPORTIFS S JOIN LesParticipations P on (S.idsportif=P.idParticipant)"
            + "Join lesepreuvesindividuelles E on (P.idepreuve=E.idepreuve) "
-         +  "where (E.idEpreuve= %d)"
-           +"order by nom";
+         +  "where (E.idEpreuve= %d)";
     /* Selection des sportifs par genre: feminin/masculin*/
     public static final String lesSportifsParGenre
             = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) where S.genre='%s";

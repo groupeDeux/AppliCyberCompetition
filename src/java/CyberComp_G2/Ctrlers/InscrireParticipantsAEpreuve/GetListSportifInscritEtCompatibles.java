@@ -61,14 +61,14 @@ public class GetListSportifInscritEtCompatibles extends HttpServlet {
             
             /* ----- Les sportif  compatibles ----- 
         recuperation des donnees BD chargees avec DAO dans un rowSet*/
-            CachedRowSet rowSetSportifsCompatibles = GetParticipantsDAO.getlesSportifsCompatiblesEtNonInscritsEpreuveCat(Integer.parseInt(idEpreuve));
+            CachedRowSet rowSetSportifsCompatibles=GetParticipantsDAO.getlesSportifsCompatiblesEtNonInscritsEpreuveCat(Integer.parseInt(idEpreuve));
            
              /* cree un objet Equipe pour chaque ligne du rowset parcouru
-             et le met dans l arrayList listEquipesCompatibles */
+             et le met dans l arrayList listSportifsCompatibles*/
             while (rowSetSportifsCompatibles.next()) {
-                // recupereation les informations de  l'quipe
+                // recupereation les informations de sportif 
                 listSportifsCompatibles.add(new Sportif(rowSetSportifsCompatibles.getInt("idSportif"),rowSetSportifsCompatibles.getString("prenom"), rowSetSportifsCompatibles.getString("nom"),rowSetSportifsCompatibles.getString("genre")));
-        }
+             }
         }catch (SQLException|CategorieException ex) {
             log(ex.getMessage());
            }

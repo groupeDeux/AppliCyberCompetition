@@ -331,17 +331,17 @@ and open the template in the editor.
                                                     ArrayList<Sportif> lesSportifsCompatibles = (ArrayList<Sportif>) session.getAttribute("listSportifsCompatibles");
                                                     if (lesSportifsCompatibles != null) {
                                                         if (lesSportifsCompatibles.size() != 0) {
-                                                %><select class="form-control" id='selectSportifAjouter'>
-                                                    <option value="">Choix</option> <%
-                                                        int k = 0;
-                                                        for (k = 0; k < lesSportifsCompatibles.size(); k++) {
-                                                            int idSportif = lesSportifsCompatibles.get(k).getIdSportif();
-                                                            String nomSportif = lesSportifsCompatibles.get(k).getNom();
-                                                            String prenomSportif = lesSportifsCompatibles.get(k).getPrenom();
+                                                            %><select class="form-control" id='selectSportifAjouter'>
+                                                            <option value="">Choix</option> <%
+                                                            int k = 0;
+                                                            for (k = 0; k < lesSportifsCompatibles.size(); k++) {
+                                                                int idSportif = lesSportifsCompatibles.get(k).getIdSportif();
+                                                                String nomSportif = lesSportifsCompatibles.get(k).getNom();
+                                                                String prenomSportif = lesSportifsCompatibles.get(k).getPrenom();
                                                     %>          <option value='<%=idSportif%>'>:<%=prenomSportif%> -<%=nomSportif%> </option>
                                                     <%};
-                                                             } else {%>
-                                                    <div> Aucun sportif  ne peut être inscrit  </div>
+                                                    }else {%>
+                                                        <div> Aucun sportif ne peut être inscrit  </div>
 
                                                     <%}
                                                             }%>
