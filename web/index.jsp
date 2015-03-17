@@ -54,7 +54,6 @@ and open the template in the editor.
                     </div>
                 </div>
                 <div class="row">
-                    
                     <div class="jumbotron">
                         
                         <h1>CyberCompetition</h1>

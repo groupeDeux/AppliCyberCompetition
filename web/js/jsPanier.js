@@ -5,3 +5,22 @@
  */
 
 
+$('a[href="#panierTabPanier"]').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+});
+
+$('a[href="#panierTabInformation"]').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+});
+
+$('a[href="#panierTabPaiement"]').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+});
+
+$('a[href="#panierTabTerminerCommande"]').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+});
