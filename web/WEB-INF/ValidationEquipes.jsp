@@ -62,7 +62,7 @@ and open the template in the editor.
                         <h2 class="text-center"> Validation </h2>
                     </div>
                     <% String etat = (String) request.getAttribute("etat"); 
-                        Equipe newEquipe = (Equipe) request.getAttribute("newEquipe");
+                       Equipe newEquipe = (Equipe) request.getAttribute("newEquipe");
                     %>
                     <% if(etat.equals("creation")){
                     %>   
@@ -96,7 +96,7 @@ and open the template in the editor.
                                 <li> Muadvcs </li>
                             </ul>    
                     </div>
-
+                    
                     <div id='equipeSuppr'>
                         <form class="form-horizontal"> 
                             <div class="well"> L'équipe a été supprimée </div>
