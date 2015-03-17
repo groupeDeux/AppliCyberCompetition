@@ -28,5 +28,12 @@ $("#ajouterEquipe").on('click', function () {
     alert();
    var idEpreuve=document.getElementById("selectionEpreuveEquipe").value;
    var idEquipe=document.getElementById("selectionEquipeAjouter").value;
-   document.location.href="AjouterParticipations?idEpreuve="+idEpreuve+"&idEquipe="+idEquipe;
+   document.location.href="AjouterParticipation?idEpreuve="+idEpreuve+"&idEquipe="+idEquipe;
+});
+
+$("#supprimerEquipe").on('click', function () {
+    alert();
+   var idEpreuve=document.getElementById("selectionEpreuveEquipe").value;
+   var idEquipe=document.getElementById("selectionEquipeAjouter").value;
+   document.location.href="ModifierParticipations?idEpreuve="+idEpreuve+"&idEquipe="+idEquipe;
 });

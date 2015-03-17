@@ -26,8 +26,8 @@ import javax.sql.rowset.CachedRowSet;
  * Controler pour ajouter un participants à une épreuve  
  * @author fureta
  */
-@WebServlet(name = "AjouterParticipations", urlPatterns = {"/AjouterParticipations"})
-public class AjouterParticipations extends HttpServlet {
+@WebServlet(name = "AjouterParticipation", urlPatterns = {"/AjouterParticipation"})
+public class AjouterParticipation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
