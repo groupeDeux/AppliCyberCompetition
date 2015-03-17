@@ -100,10 +100,15 @@ public class GetParticipantsDAO {
     public static final String lesSportifs
             = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)";
   
-    /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve*/
-    public static final String lesSportifsCompatiblesEpreuveCat
-            = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)"
-            + "where S.genre= '%s'";
+    /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve et qui ne sont pas inscrit a cet épreuve*/
+    public static final String lesSportifsCompatiblesEtNonInscritsEpreuveCat
+            = "SELECT idsportif,nom,prenom FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)"
+          + " where( S.genre= '%s')"
+          + "minus"
+          + "SELECT idsportif,nom,prenom  FROM LESSPORTIFS S JOIN LesParticipations P on (S.idsportif=P.idParticipant)"
+           + "Join lesepreuvesindividuelles E on (P.idepreuve=E.idepreuve) "
+         +  "where (E.idEpreuve= %d)"
+           +"order by nom";
     /* Selection des sportifs par genre: feminin/masculin*/
     public static final String lesSportifsParGenre
             = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) where S.genre='%s";
@@ -240,12 +245,12 @@ public class GetParticipantsDAO {
      * @return
      * @throws SQLException
      */
-    public static CachedRowSet getLesSportifsCompatiblesEpreuveCat(int idEpreuve) throws SQLException {
+    public static CachedRowSet getlesSportifsCompatiblesEtNonInscritsEpreuveCat(int idEpreuve) throws SQLException {
           // récupérer la catégorie  de l epreuve  choisi dans une variable java
          CachedRowSet rowSetCategorie=getConsulterParticipants(laCategorie,idEpreuve);
         rowSetCategorie.next();
          String genre=rowSetCategorie.getString("categorie");
-        return getConsulterParticipants(lesSportifsCompatiblesEpreuveCat,genre);
+        return getConsulterParticipants(lesSportifsCompatiblesEtNonInscritsEpreuveCat,genre,idEpreuve);
     }
 
     /**
