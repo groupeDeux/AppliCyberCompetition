@@ -62,10 +62,14 @@ public class ModifierEquipe extends HttpServlet {
                         }
                     }
                 }
-                ModifierEquipeDAO.addEquipe(dataSource,newEquipe); 
+               newEquipe.setIdParticipant(ModifierEquipeDAO.addEquipe(dataSource,newEquipe)); 
             }catch(SQLException|GenreMenbreEquipeException ex){
                 log(ex.getMessage());
-            }   break;
+            }   
+               request.setAttribute("etat", "creation");
+               request.setAttribute("newEquipe", newEquipe);
+               request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);
+                break;
             case "false":
                 Equipe equipe = (Equipe) session.getAttribute("modifEquipe");
                 lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifsModif");
@@ -82,7 +86,9 @@ public class ModifierEquipe extends HttpServlet {
             } catch (SQLException |GenreMenbreEquipeException ex) {
                 Logger.getLogger(ModifierEquipe.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+               request.setAttribute("etat", "modification");
+               request.setAttribute("equipe", equipe);
+               request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);       
            
             break;
         }

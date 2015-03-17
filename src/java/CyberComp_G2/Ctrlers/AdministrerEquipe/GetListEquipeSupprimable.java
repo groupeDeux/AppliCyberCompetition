@@ -46,7 +46,7 @@ public class GetListEquipeSupprimable extends HttpServlet {
           CachedRowSet rowSetEquipeParDelegation = new GetConsulterEquipeDAO().getEquipeSup(delegation);
           while(rowSetEquipeParDelegation.next()){
                 String nomEquipe = rowSetEquipeParDelegation.getString("nomEquipe");
-             lesEquipesSup.add(new Equipe(rowSetEquipeParDelegation.getInt("idEquipe"), delegation, rowSetEquipeParDelegation.getString("categorie"),rowSetEquipeParDelegation.getInt("nbMembre")));
+             lesEquipesSup.add(new Equipe(rowSetEquipeParDelegation.getInt("idEquipe"), delegation, rowSetEquipeParDelegation.getString("nomEquipe"), rowSetEquipeParDelegation.getString("categorie"),rowSetEquipeParDelegation.getInt("nbMembre")));
           }
           }catch(SQLException| CategorieException ex){
             log(ex.getMessage());       

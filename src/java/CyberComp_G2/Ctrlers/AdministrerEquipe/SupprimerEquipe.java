@@ -71,7 +71,9 @@ public class SupprimerEquipe extends HttpServlet {
             Logger.getLogger(SupprimerEquipe.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        request.setAttribute("etat", "suppression");
+        request.setAttribute("equipeSup", equipe);
+        request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

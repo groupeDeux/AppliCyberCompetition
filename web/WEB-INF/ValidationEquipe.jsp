@@ -62,57 +62,78 @@ and open the template in the editor.
                         <h2 class="text-center"> Validation </h2>
                     </div>
                     <% String etat = (String) request.getAttribute("etat"); 
-                       Equipe newEquipe = (Equipe) request.getAttribute("newEquipe");
-                    %>
-                    <% if(etat.equals("creation")){
+                       if(etat.equals("creation")){
+                         Equipe newEquipe = (Equipe) request.getAttribute("newEquipe"); 
+                         int idEquipe = newEquipe.getIdEquipe();
+                         String nomEquipe = newEquipe.getNomEquipe();
+                         String pays = newEquipe.getPays();
                     %>   
                     
-                    <div id='equipeInscrite'>
-                        <form class="form-horizontal">
-                            <div class="well">
-                                L'équipe a été inscrite 
-                            </div>
-                            <div> Equipe: Hsdzyf </div><br> 
-                            <div> Les sportifs : </div>
-                            <ul style="list-style-type: square">
-                                <li> Curadhj </li>
-                                <li> Ghstdg </li>
-                                <li> BHjdadv </li>
-                                <li> Nhdagd </li>
-                                <li> Muadvcs </li>
-                            </ul>
+                    <div id='equipeInscrite' class="well row" >                   
+                        <h3 class="text-center">L'équipe a été inscrite </h3> 
+                        <div class='col-xs-6 text-center'>
+                            <div> <strong>Equipe:</strong>  <%=idEquipe%> <%=nomEquipe%> </div>
+                            <div> <strong>Pays:</strong>  <%=pays%></div>
+                         </div>
+                         <div class='col-xs-6 text-center'>
+                             <div> <strong>Les sportifs :</strong> </div>
+                                <% int i;
+                                for(i=0;i<newEquipe.getNbMembre();i++){
+                                  Sportif sportif =  newEquipe.getLesMembres().get(i);
+                                  String desSportif = sportif.getIdSportif() +" : " + sportif.getNom() + " " + sportif.getPrenom() +"</br>"; %> 
+                                  <%=desSportif%> 
+                                  
+                                <%}%>
+                         </div>
                     </div>
-                    <% }else{ %>
-                    <div id="equipeModif">
-                        <form class="form-horizontal"> 
-                            <div class="well"> L'équipe a été modifiée </div>
-                            <div> Equipe: Hsdzyf </div><br>
-                            <div> Les sportifs : </div>
-                            <ul style='list-style-type: square'>
-                                <li> Curadhj </li>
-                                <li> Ghstdg </li>
-                                <li> BHjdadv </li>
-                                <li> Lseafrg </li>
-                                <li> Muadvcs </li>
-                            </ul>    
-                    </div>
+                    <% }
+                    if(etat.equals("modification")){
+                         Equipe equipe = (Equipe) request.getAttribute("equipe"); 
+                         int idEquipe = equipe.getIdEquipe();
+                         String nomEquipe = equipe.getNomEquipe();
+                         String pays = equipe.getPays();
+                    %>   
                     
-                    <div id='equipeSuppr'>
-                        <form class="form-horizontal"> 
-                            <div class="well"> L'équipe a été supprimée </div>
+                    <div id='equipeInscrite' class="well row" >                   
+                        <h3 class="text-center">L'équipe a été modifier </h3> 
+                        <div class='col-xs-6 text-center'>
+                            <div> <strong>Equipe:</strong>  <%=idEquipe%> <%=nomEquipe%> </div>
+                            <div> <strong>Pays:</strong>  <%=pays%></div>
+                         </div>
+                         <div class='col-xs-6 text-center'>
+                             <div> <strong>Les sportifs :</strong> </div>
+                                <% int i;
+                                for(i=0;i<equipe.getNbMembre();i++){
+                                  Sportif sportif =  equipe.getLesMembres().get(i);
+                                  String desSportif = sportif.getIdSportif() +" : " + sportif.getNom() + " " + sportif.getPrenom() +"</br>"; %> 
+                                  <%=desSportif%> 
+                                  
+                                <%}%>
+                         </div>
                     </div>
-
+                    <% }
+                    if(etat.equals("suppression")){
+                         Equipe equipe = (Equipe) request.getAttribute("equipeSup");
+                          int idEquipe = equipe.getIdEquipe();
+                          String nomEquipe = equipe.getNomEquipe();
+                         String pays = equipe.getPays();
+                    %>
+                    <div id='equipeSuppr' class="well row">
+                         <h3 class="text-center">L'équipe a été modifier </h3>
+                         <div class='col-xs-offset-3 col-xs-6 text-center'>
+                            <div> <strong>Equipe:</strong>  <%=idEquipe%> <%=nomEquipe%> </div>
+                            <div> <strong>Pays:</strong>  <%=pays%></div>
+                         </div>
+                    </div>
+                    <%}%>
                     <div id='erreur'>
                         <form class="form-horizontal"> 
                             <div class="well"> Erreur : votre action n'a pas pu aboutir. <br> 
                                 Veuillez recommencer. </div>
                     </div>
-                    <%}%>
-                    <div class='col-xs-6'>
-                        <button type="button" class="btn btn-default btn-block" id="accueil"> Accueil </button>
-                    </div>
-                    <div class='col-xs-6'>
-                        <button type="button" class="btn btn-default btn-block" id="retour"> Administrer Equipe </button>
+                    
+                    <div class=' col-xs-offset-3 col-xs-6'>
+                        <a type="button" class="btn btn-default btn-block" id="retour" href="CloseSession"> Administrer Equipe </a>
                     </div>
                 </div>
                 <footer class="footer">

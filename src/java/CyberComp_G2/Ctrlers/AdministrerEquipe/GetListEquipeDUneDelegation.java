@@ -52,7 +52,7 @@ public class GetListEquipeDUneDelegation extends HttpServlet {
           CachedRowSet rowSetEquipeParDelegation = new GetConsulterEquipeDAO().getEquipesDUneDelegation(delegation);
           while(rowSetEquipeParDelegation.next()){
                 String nomEquipe = rowSetEquipeParDelegation.getString("nomEquipe");
-             lesEquipes.add(new Equipe(rowSetEquipeParDelegation.getInt("idEquipe"), delegation, rowSetEquipeParDelegation.getString("categorie"),rowSetEquipeParDelegation.getInt("nbMembre")));
+             lesEquipes.add(new Equipe(rowSetEquipeParDelegation.getInt("idEquipe"), delegation, rowSetEquipeParDelegation.getString("nomEquipe"),rowSetEquipeParDelegation.getString("categorie"),rowSetEquipeParDelegation.getInt("nbMembre")));
           }
           }catch(SQLException| CategorieException ex){
             log(ex.getMessage());       

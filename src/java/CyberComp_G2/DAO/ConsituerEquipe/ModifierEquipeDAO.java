@@ -50,7 +50,7 @@ public class ModifierEquipeDAO {
             "DELETE FROM LesParticipations WHERE idParticipant= %d";
     
     
-    public static void addEquipe(DataSource datasource ,Equipe equipe) throws SQLException {
+    public static int addEquipe(DataSource datasource ,Equipe equipe) throws SQLException {
 
         String nomEquipe = equipe.getNomEquipe();
         Connection conn = datasource.getConnection();
@@ -81,7 +81,7 @@ public class ModifierEquipeDAO {
               String erreur = ex.getMessage();
               int i=0;
            }
-           
+         return idEquipe;  
     }
     
     public static void modifEquipe(DataSource datasource ,Equipe equipe) throws SQLException {
