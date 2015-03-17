@@ -77,9 +77,9 @@ public class GetListSportifInscritEtCompatibles extends HttpServlet {
         // session pour passer les attributs
         HttpSession session = request.getSession(true);
         /* ajoute la liste en attribut de la reponse */
-        session.setAttribute("listSportifsInscrits", listSportifsInscrits);
-       session.setAttribute("listSportifsCompatibles", listSportifsCompatibles);
-         request.setAttribute("activeTab", "#tab2");
+        session.setAttribute("listSportifInscrits", listSportifsInscrits);
+      //  session.setAttribute("listsportifCompatibles", listsportifCompatibles);
+        request.setAttribute("activeTab", "2"); //onglet actif passe en parametre
         request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
        
         //request.getRequestDispatcher("WEB-INF/equipesInscrites.jsp").forward(request, response);

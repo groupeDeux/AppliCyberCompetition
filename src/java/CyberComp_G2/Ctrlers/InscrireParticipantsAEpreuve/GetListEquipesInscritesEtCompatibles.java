@@ -85,6 +85,7 @@ public class GetListEquipesInscritesEtCompatibles extends HttpServlet {
         session.setAttribute("listEquipesInscrites", listEquipesInscrites);
         session.setAttribute("listEquipesCompatibles", listEquipesCompatibles);
         request.setAttribute("idEpreuveSelec",idEpreuve);
+        request.setAttribute("activeTab", "1"); //onglet actif passe en parametre
         request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
         //request.getRequestDispatcher("WEB-INF/equipesInscrites.jsp").forward(request, response);
     }

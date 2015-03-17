@@ -71,9 +71,15 @@ and open the template in the editor.
                 <div class="row">
                     <div id="tabs">      
                         <ul class="nav nav-tabs">
+                            <!-- pour determiner l'onglet actif au hargement de la page -->
+                             <% int activeTab = 1;
+                                if (session.getAttribute("activeTab") != null) {
+                                    activeTab = (Integer) session.getAttribute("activeTab");
+                                }
+                            %>
                             <!-- Onglet: choix Epreuve par equipe ou Epreuve individuelle-->
-                            <li role="presentation"  <%if (request.getAttribute("activeTab")== null){%>class="active" <%}%>id ="InscrireEquipeEpreuve"><a href="#tab1">Epreuves par équipe</a></li>
-                            <li role="presentation" <%if (request.getAttribute("activeTab")!=null){%>class="active" <%}%> id ="inscrireSportifEpreuve"><a href="#tab2">Epreuves individuelles</a></li>
+                            <li role="presentation"  <%if (activeTab==1){%>class="active" <%}%>id ="InscrireEquipeEpreuve"><a href="#tab1">Epreuves par équipe</a></li>
+                            <li role="presentation" <%if (activeTab==2){%>class="active" <%}%> id ="inscrireSportifEpreuve"><a href="#tab2">Epreuves individuelles</a></li>
                         </ul>
 
                         <div class="row">
@@ -382,6 +388,9 @@ and open the template in the editor.
                 <script>
                     $(document).ready(function() {
                         $("#tabs").tabs();
+                        $("#tabs").tabs({
+                            active: <%=activeTab-1%>
+                });
                     });
                 </script>
                 <script type="text/javascript" src="js/cyberCompetition.js"></script>
