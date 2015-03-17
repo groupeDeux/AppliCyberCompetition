@@ -59,7 +59,7 @@ public class GetParticipantsDAO {
             + "from (Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
                 + "from viewEquipe V "
                 + "join LesParticipants P on (V.idEquipe=P.idParticipant) "
-                + "where (V.NbMembre<=%d and V.categorie='%s' ) "
+                + "where (V.NbMembre=%d and V.categorie='%s' ) "
                 +"minus "
                 + "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre,P.IDPARTICIPANT,P.pays "
                 + "from viewEquipe V "
@@ -107,10 +107,10 @@ public class GetParticipantsDAO {
   
     /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve et qui ne sont pas inscrit a cet épreuve*/
     public static final String lesSportifsCompatiblesEtNonInscritsEpreuveCat
-            = "SELECT idsportif,nom,prenom FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)"
-          + " where( S.genre= '%s')"
-          + "minus"
-          + "SELECT idsportif,nom,prenom  FROM LESSPORTIFS S JOIN LesParticipations P on (S.idsportif=P.idParticipant)"
+            = "SELECT idsportif,nom,prenom ,genre FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) "
+          + " where( S.genre= '%s') "
+          + "minus "
+          + "SELECT idsportif,nom,prenom, genre FROM LESSPORTIFS S JOIN LesParticipations P on (S.idsportif=P.idParticipant) "
            + "Join lesepreuvesindividuelles E on (P.idepreuve=E.idepreuve) "
          +  "where (E.idEpreuve= %d)";
     /* Selection des sportifs par genre: feminin/masculin*/
