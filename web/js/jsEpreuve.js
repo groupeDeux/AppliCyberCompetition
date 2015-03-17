@@ -123,6 +123,16 @@ $(function () {
   $('#go-top').click(function () {
     $("html, body").animate({ scrollTop: "0" },200);
   });
+  
+  //Chargement de la liste des participant de l epreuve lorsqu'on click dessus
+  $('[href^⁼"#epreuvesId"]').click(function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    var idEpreuve= $(this).attr("value");
+    //$('#epreuvesParticipants'+idEpreuve).load("nomServetACreer"? avecParametresSousFormeURL)
+    
+    
+  });
 
 
 
