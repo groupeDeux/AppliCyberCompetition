@@ -28,5 +28,5 @@ $("#ajouterEquipe").on('click', function () {
     alert();
    var idEpreuve=document.getElementById("selectionEpreuveEquipe").value;
    var idEquipe=document.getElementById("selectionEquipeAjouter").value;
-   document.location.href="AjouterParticipations?idEquipe="+idEpreuve+"&idEquipe="+idEquipe;
+   document.location.href="AjouterParticipations?idEpreuve="+idEpreuve+"&idEquipe="+idEquipe;
 });

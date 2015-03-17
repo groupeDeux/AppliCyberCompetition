@@ -13,6 +13,7 @@ import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,18 +44,47 @@ public class AjouterParticipations extends HttpServlet {
         //HttpSession session = request.getSession(true);  // SESSION NECESSAIRE ??
         String idEpreuve = request.getParameter("idEpreuve");
         String idParticipant = request.getParameter("idEquipe"); 
+        ArrayList<Equipe> listEquipesInscrites = new ArrayList();
+        ArrayList<Equipe> listEquipesCompatibles = new ArrayList();
+        
+        
          try {
-             /* ----- Mise a jour participations des equipe ----- */
-            // Ajout d'un n-uplet avec les parametres (idEpreuve, idEquipe)
+             /* ----- Mise a jour participations des equipe ----- */ 
+             
+            /* --- Ajout d'un n-uplet avec les parametres (idEpreuve, idEquipe)*/
             ModifierParticipationsDAO.ajouterParticipantUnique(Integer.parseInt(idEpreuve),Integer.parseInt(idParticipant));
           
-            // Calcul des nouvelles listes de participants inscrits et compatibles et non inscrits
-            GetConsulterEquipeDAO.ajouterParticipantUnique(Integer.parseInt(idEpreuve),Integer.parseInt(idParticipant));
+            /* --- Calcul nouvelle liste des equipes inscrites */
+            CachedRowSet rowSetEquipesInscrites = GetParticipantsDAO.getEquipesInscrites(Integer.parseInt(idEpreuve));
            
-  
-            } catch (SQLException ex) {
+             /* cree un objet Equipe pour chaque ligne du rowset parcouru
+             et le met dans l arrayList listEquipesInscrites */
+            while (rowSetEquipesInscrites.next()) {
+                // recupereation les informations de  l'quipe
+                listEquipesInscrites.add(new Equipe(rowSetEquipesInscrites.getInt("idEquipe"), rowSetEquipesInscrites.getString("pays"), rowSetEquipesInscrites.getString("nomEquipe"),rowSetEquipesInscrites.getString("categorie"),rowSetEquipesInscrites.getInt("nbMembre")));
+            }
+            /* ---  Calcul nouvelle liste équipes compatibles et non inscrites*/
+            CachedRowSet rowSetEquipesCompatibles = GetParticipantsDAO.getLesEquipesCompatiblesEtNonInscrites(Integer.parseInt(idEpreuve));
+           
+             /* cree un objet Equipe pour chaque ligne du rowset parcouru
+             et le met dans l arrayList listEquipesCompatibles */
+            while (rowSetEquipesCompatibles.next()) {
+                // recupereation les informations de  l'quipe
+                listEquipesCompatibles.add(new Equipe(rowSetEquipesCompatibles.getInt("idEquipe"), rowSetEquipesCompatibles.getString("pays"), rowSetEquipesCompatibles.getString("nomEquipe"),rowSetEquipesCompatibles.getString("categorie"),rowSetEquipesCompatibles.getInt("nbMembre")));
+            }
+                    
+            } catch (SQLException|CategorieException ex) {
             log(ex.getMessage());
            }
+         
+         // session pour passer les attributs
+        HttpSession session = request.getSession(true);
+        /* ajoute la liste en attribut de la reponse */
+        session.setAttribute("listEquipesInscrites", listEquipesInscrites);
+        session.setAttribute("listEquipesCompatibles", listEquipesCompatibles);
+        request.setAttribute("idEpreuveSelec",idEpreuve);
+        request.setAttribute("activeTab", 1); //onglet actif passe en parametre
+        request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
         
         
     }

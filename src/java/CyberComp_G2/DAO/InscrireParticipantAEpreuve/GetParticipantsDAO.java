@@ -87,7 +87,7 @@ public class GetParticipantsDAO {
             = "Select V.idEquipe, V.nomEquipe, V.categorie,V.nbMembre P.IDPARTICIPANT,P.pays"
             + "from viewEquipe V"
             + "join LesParticipants P on (V.idEquipe=P.idParticipant)"
-            + "where (V.NbMembre=%d and V.categorie=%s )";
+            + "where (V.NbMembre=%d and V.categorie='%s' )";
     
     
     /*------------------------------------------------------------------------*/
@@ -103,7 +103,7 @@ public class GetParticipantsDAO {
     /*Selection des Sportifs compatibles en categorie avec une epreuve: idEpreuve*/
     public static final String lesSportifsCompatiblesEpreuveCat
             = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant)"
-            + "where S.genre= %s";
+            + "where S.genre= '%s'";
     /* Selection des sportifs par genre: feminin/masculin*/
     public static final String lesSportifsParGenre
             = "SELECT * FROM LesSportifs S JOIN LesParticipants P on (S.idSportif=P.idParticipant) where S.genre='%s";
@@ -244,8 +244,8 @@ public class GetParticipantsDAO {
           // récupérer la catégorie  de l epreuve  choisi dans une variable java
          CachedRowSet rowSetCategorie=getConsulterParticipants(laCategorie,idEpreuve);
         rowSetCategorie.next();
-         String genre=rowSetCategorie.getString("genre");
-        return getConsulterParticipants(lesSportifsCompatiblesEpreuveCat,genre, idEpreuve);
+         String genre=rowSetCategorie.getString("categorie");
+        return getConsulterParticipants(lesSportifsCompatiblesEpreuveCat,genre);
     }
 
     /**
