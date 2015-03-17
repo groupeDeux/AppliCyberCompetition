@@ -37,3 +37,10 @@ $("#supprimerEquipe").on('click', function () {
    var idEquipe=document.getElementById("selectionEquipeAjouter").value;
    document.location.href="ModifierParticipations?idEpreuve="+idEpreuve+"&idEquipe="+idEquipe;
 });
+
+$("#ajouterSportif").on('click', function () {
+    alert();
+   var idEpreuve=document.getElementById("selectionEpreuveIndividuelle").value;
+   var idSportif=document.getElementById("selectSportifAjouter").value;
+   document.location.href="AjouterParticipations?idEpreuve="+idEpreuve+"&idSportif="+idSportif;
+});
