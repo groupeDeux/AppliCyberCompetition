@@ -25,6 +25,8 @@ $("#selectionEpreuveIndividuelle").on('change', function () {
 });
 
 $("#ajouterEquipe").on('click', function () {
-   var idEquipe=document.getElementById("selectEquipeAjouter").value;
-   document.location.href="AjouterParticipations?idEquipe="+idEquipe;
+    alert();
+   var idEpreuve=document.getElementById("selectionEpreuveEquipe").value;
+   var idEquipe=document.getElementById("selectionEquipeAjouter").value;
+   document.location.href="AjouterParticipations?idEquipe="+idEpreuve+"&idEquipe="+idEquipe;
 });

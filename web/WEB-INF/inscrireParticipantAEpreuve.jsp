@@ -72,7 +72,7 @@ and open the template in the editor.
                     <div id="tabs">      
                         <ul class="nav nav-tabs">
                             <!-- Onglet: choix Epreuve par equipe ou Epreuve individuelle-->
-                            <li role="presentation"  <%if (request.getAttribute("activeTab")==null){%>class="active" <%}%>id ="InscrireEquipeEpreuve"><a href="#tab1">Epreuves par équipe</a></li>
+                            <li role="presentation"  <%if (request.getAttribute("activeTab")== null){%>class="active" <%}%>id ="InscrireEquipeEpreuve"><a href="#tab1">Epreuves par équipe</a></li>
                             <li role="presentation" <%if (request.getAttribute("activeTab")!=null){%>class="active" <%}%> id ="inscrireSportifEpreuve"><a href="#tab2">Epreuves individuelles</a></li>
                         </ul>
 
@@ -97,12 +97,13 @@ and open the template in the editor.
                                             <select class="form-control" id='selectionEpreuveEquipe' name='listEpreuvesEquipe'>
                                                 <option value=''>Choix</option>
                                                 <%
-                                                    //si on a selectionne une epreuve on recupere son id
+                                                    /*lorsqu'on a selectionne une epreuve on recupere son id 
+                                                    et on affiche sa ligne dans le select = option selected*/
                                                     int idEpreuveSelec=0;
                                                     if(request.getAttribute("idEpreuveSelec")!=null){  
                                                         idEpreuveSelec= Integer.parseInt((String) request.getAttribute("idEpreuveSelec")); 
                                                     }
- 
+                                                    //liste d epreuve par equipe a afficher dans le select epreuves
                                                     ArrayList<EpreuveParEquipe> lesEpreuvesEquipe = (ArrayList<EpreuveParEquipe>) session.getAttribute("listEpreuveEquipe");
                                                     if (lesEpreuvesEquipe != null) {
                                                         int i = 0;
@@ -110,7 +111,7 @@ and open the template in the editor.
                                                             int idEpreuve = lesEpreuvesEquipe.get(i).getIdEpreuve();
                                                             String nomEpreuve = lesEpreuvesEquipe.get(i).getNomEpreuve();
                                                             String categorie = lesEpreuvesEquipe.get(i).getCategorie();
-                                                        // on parcours la liste et si idEp=idEpSelectionné on affiche les infos dans le select= option checked
+                                                        // on parcours la liste et si idEp=idEpSelectionné on affiche les infos dans le select= option selected
                                                 %>      <option value='<%=idEpreuve%>' <% if(idEpreuve==idEpreuveSelec){%> selected <%}%> ><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%> </option>
                                                 <% };
                                                     } else {
@@ -175,7 +176,7 @@ and open the template in the editor.
                                                     ArrayList<Equipe> lesEquipesCompatibles = (ArrayList<Equipe>) session.getAttribute("listEquipesCompatibles");
                                                     if (lesEquipesCompatibles != null) {
                                                         if (lesEquipesCompatibles.size() != 0) {
-                                                            %><select class="form-control" id='selectEquipeAjouter'>
+                                                            %><select class="form-control" id="selectionEquipeAjouter">
                                                             <option value="">Choix</option> <%
                                                             int i = 0;
                                                             for (i = 0; i < lesEquipesCompatibles.size(); i++) {
@@ -277,7 +278,7 @@ and open the template in the editor.
                             <div id="sportifInscrit">
                                 <%
                                     int i = 0;
-                                    ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifInscrits");
+                                    ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifsInscrits");
                                     if (lesSportifsInscrits != null) {
                                         if (lesSportifsInscrits.size() != 0) {
                                             for (i = 0; i < lesSportifsInscrits.size(); i++) {
