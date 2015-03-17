@@ -135,7 +135,8 @@ public class GetParticipantsDAO {
             + " Join lesepreuvesindividuelles E on (P.iDEPREUVE=E.idepreuve) "
             + "join lesParticipants P2 "
             + "on (P2.idParticipant=S.idSportif) "
-            + " where E.idEpreuve= %d";
+            + " where E.idEpreuve= %d"
+             +"order by nom " ;
 
    
 

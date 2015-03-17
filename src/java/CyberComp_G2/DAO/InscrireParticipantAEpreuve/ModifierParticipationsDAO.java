@@ -23,10 +23,15 @@ public class ModifierParticipationsDAO {
     /*Inserer une participation*/
     public static final String insertParticipant = 
             "INSERT INTO LesParticipations (idEpreuve,idParticipant) values (%d, %d)";
-    /*surpprimer une participation*/
+    /*surpprimer une participation d'une equipe à une epreuve */
      public static final String deleteParticipant = 
             "DELETE FROM LesParticipations WHERE (idEpreuve=%d and idParticipant=%d )";
-    
+     // inserer un sportif à une epreuve indidielle 
+   public static final String  insertSportif=
+           "INSERT INTO LesParticipations (idEpreuve,idParticipant) values (%d, %d)";
+   /*surpprimer un sportif d'une  epreuve */
+     public static final String deleteSportif = 
+            "DELETE FROM LesParticipations WHERE (idEpreuve=%d and idParticipant=%d )";
  
     /**************************************************************************/
     /*Les fonctions appelees dans les controler avec les bons parametres */
@@ -43,7 +48,17 @@ public class ModifierParticipationsDAO {
             throws SQLException {
         return modifierParticipation(insertParticipant, idEpreuve, idParticipant);
     }
-    
+    /**
+     * inserer un sportif à un epreuve individuelle 
+     * @param idEpreuve
+     * @param idParticipant
+     * @return
+     * @throws SQLException 
+     */
+     public static CachedRowSet ajouterSportifUnique(int idEpreuve, int idParticipant)
+            throws SQLException {
+        return modifierParticipation(insertSportif, idEpreuve, idParticipant);
+    }
     /**
      * delete un participant a une epreuve
      *
@@ -56,7 +71,17 @@ public class ModifierParticipationsDAO {
             throws SQLException {
         return modifierParticipation(deleteParticipant, idEpreuve, idParticipant);
     }
-    
+    /**
+     * suprimer l'inscription d'un sportif à une epreuve 
+     * @param idEpreuve
+     * @param idParticipant
+     * @return
+     * @throws SQLException 
+     */
+     public static CachedRowSet supprimerSportifUnique(int idEpreuve, int idParticipant)
+            throws SQLException {
+        return modifierParticipation(deleteSportif, idEpreuve, idParticipant);
+    }
     
     
      /**************************************************************************/
@@ -71,5 +96,6 @@ public class ModifierParticipationsDAO {
         crs.execute();
         return crs;
     }
+    
       
 }
