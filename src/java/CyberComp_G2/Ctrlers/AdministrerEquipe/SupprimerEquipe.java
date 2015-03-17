@@ -9,6 +9,7 @@ package CyberComp_G2.Ctrlers.AdministrerEquipe;
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
 import CyberComp_G2.DAO.ConsituerEquipe.ModifierEquipeDAO;
 import CyberComp_G2.Exceptions.CategorieException;
+import CyberComp_G2.Exceptions.GenreMenbreEquipeException;
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import CyberComp_G2.Model.ConstituerEquipe.Sportif;
 import java.io.IOException;
@@ -66,7 +67,7 @@ public class SupprimerEquipe extends HttpServlet {
             }
             
             ModifierEquipeDAO.SupprimerEquipe(dataSource, equipe);
-        } catch (SQLException|CategorieException ex) {
+        } catch (SQLException|CategorieException|GenreMenbreEquipeException ex) {
             Logger.getLogger(SupprimerEquipe.class.getName()).log(Level.SEVERE, null, ex);
         }
         

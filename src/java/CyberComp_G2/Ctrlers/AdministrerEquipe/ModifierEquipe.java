@@ -6,6 +6,7 @@
 package CyberComp_G2.Ctrlers.AdministrerEquipe;
 
 import CyberComp_G2.DAO.ConsituerEquipe.ModifierEquipeDAO;
+import CyberComp_G2.Exceptions.GenreMenbreEquipeException;
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import CyberComp_G2.Model.ConstituerEquipe.Sportif;
 import java.io.IOException;
@@ -53,20 +54,22 @@ public class ModifierEquipe extends HttpServlet {
                 Equipe newEquipe = (Equipe) session.getAttribute("newEquipe");
                 lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifs");
                 int i,j;
+                try{
                 for(i=1;i<=newEquipe.getNbDeSportif();i++){
                     for(j=0;j<lesSportifs.size();j++){
                         if(lesSportifs.get(j).getIdSportif()==Integer.parseInt(request.getParameter("sportifSelect"+i))){
                             newEquipe.addMembre(lesSportifs.get(j));
                         }
                     }
-                }   try{
+                }
                 ModifierEquipeDAO.addEquipe(dataSource,newEquipe); 
-            }catch(SQLException ex){
+            }catch(SQLException|GenreMenbreEquipeException ex){
                 log(ex.getMessage());
             }   break;
             case "false":
                 Equipe equipe = (Equipe) session.getAttribute("modifEquipe");
                 lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifsModif");
+                 try {
                 for(i=1;i<=equipe.getNbDeSportif();i++){
                     for(j=0;j<lesSportifs.size();j++){
                         if(lesSportifs.get(j).getIdSportif()==Integer.parseInt(request.getParameter("sportifSelect"+i))){
@@ -74,9 +77,9 @@ public class ModifierEquipe extends HttpServlet {
                         }
                     }
                 }   
-            try {
+           
                 ModifierEquipeDAO.modifEquipe(dataSource,equipe);
-            } catch (SQLException ex) {
+            } catch (SQLException |GenreMenbreEquipeException ex) {
                 Logger.getLogger(ModifierEquipe.class.getName()).log(Level.SEVERE, null, ex);
             }
 

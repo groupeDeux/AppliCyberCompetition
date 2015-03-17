@@ -5,11 +5,14 @@
  */
 package CyberComp_G2.Ctrlers.AdministrerEquipe;
 
+import CyberComp_G2.Exceptions.GenreMenbreEquipeException;
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import CyberComp_G2.Model.ConstituerEquipe.Sportif;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,12 +52,16 @@ public class AddSportif extends HttpServlet {
         }
               
         int i,j;
+        try{
         for(i=1;i<=equipe.getNbDeSportif();i++){
             for(j=0;j<lesSportifs.size();j++){
                 if(lesSportifs.get(j).getIdSportif()==Integer.parseInt(request.getParameter("sportifSelect"+i))){
                    equipe.addMembre(lesSportifs.get(j));
                 }
             }
+        }
+        }catch(GenreMenbreEquipeException ex){
+            Logger.getLogger(SupprimerEquipe.class.getName()).log(Level.SEVERE, null, ex);
         }
         equipe.setNbDeSportif(equipe.getNbDeSportif()+1);
         if(request.getParameter("mode").equals("modifEquipe")){

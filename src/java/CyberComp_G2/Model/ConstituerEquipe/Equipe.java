@@ -1,6 +1,7 @@
 package CyberComp_G2.Model.ConstituerEquipe;
 
 import CyberComp_G2.Exceptions.CategorieException;
+import CyberComp_G2.Exceptions.GenreMenbreEquipeException;
 import java.util.ArrayList;
 
 /*
@@ -90,15 +91,25 @@ public class Equipe extends Participant{
      /**
      * Ajoute a un sportif a l'equipe si non present et different de null
      * @param sportifAAjouter 
+     * @throws CyberComp_G2.Exceptions.GenreMenbreEquipeException 
      */
-    public void addMembre(Sportif sportifAAjouter){
+    public void addMembre(Sportif sportifAAjouter) throws GenreMenbreEquipeException{
         if(sportifAAjouter !=null){
             for (Sportif sportif : lesMembres) {
                if (sportif.getIdSportif()==sportifAAjouter.getIdSportif()){
                  return;  
                }
             }
-            lesMembres.add(sportifAAjouter);
+            if(!"mixte".equals(categorie)){
+                if(categorie.equals(sportifAAjouter.getGenre())){
+                    lesMembres.add(sportifAAjouter);
+                }else{
+                    throw new GenreMenbreEquipeException(categorie,sportifAAjouter.getGenre());
+                }        
+            }else{
+                lesMembres.add(sportifAAjouter);
+            }
+            
         }
     }
 

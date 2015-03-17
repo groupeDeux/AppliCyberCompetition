@@ -8,6 +8,7 @@ package CyberComp_G2.Ctrlers.AdministrerEquipe;
 
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
 import CyberComp_G2.Exceptions.CategorieException;
+import CyberComp_G2.Exceptions.GenreMenbreEquipeException;
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import CyberComp_G2.Model.ConstituerEquipe.Sportif;
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class initEquipeModif extends HttpServlet {
                 }
                 modifEquipe.addMembre(new Sportif(rowSetlistSprotifs.getInt("idSportif"), rowSetlistSprotifs.getString("prenom"), rowSetlistSprotifs.getString("nom"), rowSetlistSprotifs.getString("genre")));
             }
-        }catch(SQLException|CategorieException ex){  
+        }catch(SQLException|CategorieException|GenreMenbreEquipeException ex){  
            log(ex.getMessage());
         }
         HttpSession session = request.getSession(true);
