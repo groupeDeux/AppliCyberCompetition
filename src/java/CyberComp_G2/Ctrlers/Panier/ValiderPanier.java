@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CyberComp_G2.views.ConsulterEpreuve;
+package CyberComp_G2.Ctrlers.Panier;
 
+import CyberComp_G2.Model.Panier.Panier;
+import CyberComp_G2.Model.Utilisateur.Utilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,13 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author vivi
+ * @author Gato
  */
-@WebServlet(name = "temp", urlPatterns = {"/temp"})
-public class temp extends HttpServlet {
+@WebServlet(name = "ValiderPanier", urlPatterns = {"/ValiderPanier"})
+public class ValiderPanier extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,19 +34,18 @@ public class temp extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet temp</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet temp at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        //response.setContentType("text/html;charset=UTF-8");
+        /*  
+            On récupère la session et son attribut sessionUtilisateur pour modifier la valeur de l'attribut
+            validerPanier et de la passer en "True" pour acceder à la seconde page du formulaire
+        */
+        HttpSession session = request.getSession();
+        Utilisateur sessionUtilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
+        
+        sessionUtilisateur.setPanierValider(true);
+        
+        request.setAttribute("valeurTab", 0);
+        request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,6 +5,7 @@
  */
 package CyberComp_G2.Ctrlers.Panier;
 
+import CyberComp_G2.Exceptions.PanierException;
 import CyberComp_G2.Model.Panier.Panier;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,22 +35,27 @@ public class changementQuantitee extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         /* On Recupère le panier de la session*/
         HttpSession session = request.getSession();
         Panier sessionPanier = (Panier) session.getAttribute("sessionPanier");
         /* On Recupère les parametres de la session qui vont induire une modification
          panier*/
-        String paramNumBillet = request.getParameter("numeroDuBillet");
-        String paramQuantitee = request.getParameter("quantitee");
+        try {
+            String paramNumBillet = request.getParameter("numeroDuBillet");
+            String paramQuantitee = request.getParameter("quantitee");
 
-        String[] infoBillets = paramNumBillet.split(":");
-        int numeroDuBilletAChanger = Integer.parseInt(infoBillets[1]);
-        int quantitee = Integer.parseInt(paramQuantitee);
-        
-        /* Modification du nombre de billet dans le panier  */
-        if(quantitee!=0){
+            String[] infoBillets = paramNumBillet.split(":");
+            int numeroDuBilletAChanger = Integer.parseInt(infoBillets[1]);
+            int quantitee = Integer.parseInt(paramQuantitee);
+
+            /* Modification du nombre de billet dans le panier  */
             sessionPanier.modifierNombreDeBillet(numeroDuBilletAChanger, quantitee);
+
+        } catch (PanierException e) {
+            log(e.getMessage());
         }
+
         request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
     }
 

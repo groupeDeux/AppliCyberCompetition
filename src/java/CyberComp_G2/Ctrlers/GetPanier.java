@@ -9,6 +9,7 @@ import CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterDisciplineDAO;
 import CyberComp_G2.Exceptions.CategorieException;
 import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
 import CyberComp_G2.Model.Panier.Panier;
+import CyberComp_G2.Model.Utilisateur.Utilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -33,12 +34,21 @@ public class GetPanier extends HttpServlet {
         
         HttpSession session = request.getSession(true);
         
+        /* On verifie que l'attribut sessionPanier est bien initialisé */
         Panier sessionPanier = (Panier)session.getAttribute("sessionPanier");
-        
         if(sessionPanier == null){
             sessionPanier = new Panier();
             session.setAttribute("sessionPanier", sessionPanier);
         }
+        
+        /* On verifie que l'attribut utiliseur est bien initialisé */
+        Utilisateur sessionUtilisateur = (Utilisateur)session.getAttribute("utilisateurSession");
+        if(sessionUtilisateur==null){
+            sessionUtilisateur = new Utilisateur();
+            session.setAttribute("sessionUtilisateur", sessionUtilisateur);
+        }
+       
+        request.setAttribute("valeurTab", 0);
         request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

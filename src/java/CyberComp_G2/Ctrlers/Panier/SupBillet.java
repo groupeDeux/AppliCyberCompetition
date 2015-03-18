@@ -5,6 +5,7 @@
  */
 package CyberComp_G2.Ctrlers.Panier;
 
+import CyberComp_G2.Exceptions.PanierException;
 import CyberComp_G2.Model.Panier.Panier;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,24 +39,28 @@ public class SupBillet extends HttpServlet {
         /*  Cette servlet est utile pour le Panier, dans le cas ou on click 
          sur une croix, on va supprimer l'une des listes du panier.
          Si on click sur Vider le panier alors on va supprimer tout le panier 
-         */        
+         */
         HttpSession session = request.getSession();
         Panier sessionPanier = (Panier) session.getAttribute("sessionPanier");
-        String paramNumBillet = request.getParameter("numeroDuBillet");
-        
-        if (paramNumBillet.equals("TOUT")) {
-            /* On vide le panier */            
-            sessionPanier.supprimerLePanierComplet();
-            sessionPanier = new Panier();
-            request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
-        } else {
-            /* On supprime l'element numeroDuBilletASup */
-            String[] infoBillets = paramNumBillet.split(":");
-            int numeroDuBilletASupp = Integer.parseInt(infoBillets[1]);
-            sessionPanier.supprimerUnBillet(numeroDuBilletASupp);
-            request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
+
+        try {
+            String paramNumBillet = request.getParameter("numeroDuBillet");
+
+            if (paramNumBillet.equals("TOUT")) {
+                /* On vide le panier */
+                sessionPanier.supprimerLePanierComplet();
+                sessionPanier = new Panier();
+            } else {
+                /* On supprime l'element numeroDuBilletASup */
+                String[] infoBillets = paramNumBillet.split(":");
+                int numeroDuBilletASupp = Integer.parseInt(infoBillets[1]);
+                sessionPanier.supprimerUnBillet(numeroDuBilletASupp);
+            }
+        } catch (PanierException e) {
+            log(e.getMessage());
         }
-        
+
+        request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

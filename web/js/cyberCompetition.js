@@ -27,6 +27,7 @@ $('a').tooltip({
      'delay': { show: 1250, hide: 1000 }
 });
 
+
 $("li[role='presentation']").click(function () {
     $(this).addClass('active').siblings().removeClass('active');
 });
