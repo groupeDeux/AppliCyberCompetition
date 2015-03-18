@@ -85,7 +85,7 @@ public class SupprimerSportifEpreuve extends HttpServlet {
         /* ajoute la liste en attribut de la reponse */
         session.setAttribute("listSportifsInscrits", listSportifsInscrits);
         session.setAttribute("listSportifsCompatibles", listSportifsCompatibles);
-        request.setAttribute("idEpreuveSelec", idEpreuve);
+        request.setAttribute("idEpreuveIndSelec", idEpreuve);
         request.setAttribute("activeTab", 2); //onglet actif passe en parametre
         request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
     }
