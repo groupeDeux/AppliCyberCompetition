@@ -4,6 +4,8 @@
     Author     : Gato
 --%>
 
+
+<%@page import="java.util.Date"%>
 <%@page import="CyberComp_G2.Model.ConstituerEquipe.Sportif"%>
 <%@page import="CyberComp_G2.Model.ConsulterEpreuve.EpreuveIndividuelle"%>
 <%@page import="CyberComp_G2.Model.ConstituerEquipe.Equipe"%>
@@ -117,7 +119,7 @@ and open the template in the editor.
                                                             int idEpreuve = lesEpreuvesEquipe.get(i).getIdEpreuve();
                                                             String nomEpreuve = lesEpreuvesEquipe.get(i).getNomEpreuve();
                                                             String categorie = lesEpreuvesEquipe.get(i).getCategorie();
-                                                        // on parcours la liste et si idEp=idEpSelectionné on affiche les infos dans le select= option selected
+                                                            // on parcours la liste et si idEp=idEpSelectionné on affiche les infos dans le select= option selected
 %>      <option value='<%=idEpreuve%>' <% if (idEpreuve == idEpreuveSelec) {%> selected <%}%> ><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%> </option>
                                                 <% };
                                                     } else {
@@ -129,7 +131,7 @@ and open the template in the editor.
                                             </select>
 
                                         </div>
-                                        <div class='col-xs-1 control-label'id="verifEpreuveChoisie"> </div>    
+
                                     </div>
                                 </div>
                             </form>
@@ -235,11 +237,11 @@ and open the template in the editor.
                                                         String pays = lesEquipesInscrites.get(i).getPays();
                                                 %><option value='<%=idEquipe%>'><%= idEquipe%> : <%=pays%>  -  <%=categorie%>  </option>
                                                 <% };
-                                                        } else {%>
+                                                } else {%>
                                                 <div> Aucune équipe n'est inscrite à cette épreuve  </div>
 
                                                 <% }
-                                                        }%>
+                                                    }%>
 
                                             </select>
                                         </div>
@@ -272,8 +274,11 @@ and open the template in the editor.
                                                 <option value=''>Choix</option>
                                                 <% /*lorsqu'on a selectionne une epreuve on recupere son id 
                                                      et on affiche sa ligne dans le select = option selected*/
-
+                                                     // on remet à 0 idEpreuveIndSelec
                                                     int idEpreuveIndSelec = 0;
+                                                    // on test si idEpreuveIndSelec est different de null alors on a deja selectionné l'epreuve alors
+                                                    // on la récupere récupère du controleur qui se renvoie vers cette page jsp 
+                                                    // si c'est le cas on récupere cette valeur par get attribute 
                                                     if (request.getAttribute("idEpreuveIndSelec") != null) {
                                                         idEpreuveIndSelec = Integer.parseInt((String) request.getAttribute("idEpreuveIndSelec"));
                                                     }
@@ -295,45 +300,45 @@ and open the template in the editor.
                                                 %>
 
                                             </select>
-                                            </select>
+
                                         </div>
-                                        <div class='col-xs-1 control-label'id="verifEpreuveChoisie"> </div>    
+
                                     </div>
                                 </div>
                             </form>
-                                <!--
-                  AFFICHER LES SPORTIFS DEJA INSCRITS A L' EPREUVE CHOISIE
-                                -->
+                            <!--
+              AFFICHER LES SPORTIFS DEJA INSCRITS A L' EPREUVE CHOISIE
+                            -->
 
 
-                                <h4> <strong> Les sportifs qui sont déja inscrits </strong></h4>
-                                <div id="sportifInscrit">
-                                    <%
-                                        int i = 0;
-                                        ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifsInscrits");
-                                        if (lesSportifsInscrits != null) {
-                                            if (lesSportifsInscrits.size() != 0) {
-                                                for (i = 0; i < lesSportifsInscrits.size(); i++) {
-                                                    int idSportif = lesSportifsInscrits.get(i).getIdSportif();
-                                                    String nomSportif = lesSportifsInscrits.get(i).getNom();
-                                                    String prenomSportif = lesSportifsInscrits.get(i).getPrenom();
+                            <h4> <strong> Les sportifs qui sont déja inscrits </strong></h4>
+                            <div id="sportifInscrit">
+                                <%
+                                    int i = 0;
+                                    ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifsInscrits");
+                                    if (lesSportifsInscrits != null) {
+                                        if (lesSportifsInscrits.size() != 0) {
+                                            for (i = 0; i < lesSportifsInscrits.size(); i++) {
+                                                int idSportif = lesSportifsInscrits.get(i).getIdSportif();
+                                                String nomSportif = lesSportifsInscrits.get(i).getNom();
+                                                String prenomSportif = lesSportifsInscrits.get(i).getPrenom();
 
-                                    %> <div><%=idSportif%>:<%=prenomSportif%> <%=nomSportif%>  </div>
-                                    <% }
-                                    } else { %> 
-                                    <div> Aucun sportif pour le moment !  </div>
-                                    <% }
+                                %> <div><%=idSportif%>:<%=prenomSportif%> <%=nomSportif%>  </div>
+                                <% }
+                                } else { %> 
+                                <div> Aucun sportif pour le moment !  </div>
+                                <% }
 
-                                    } else { %>
-                                    <div> Pas d'épreuve choisie  </div>
-                                    <%
-                                        }
-                                    %>
+                                } else { %>
+                                <div> Pas d'épreuve choisie  </div>
+                                <%
+                                    }
+                                %>
 
-                                </div>
+                            </div>
 
-                                <!--
-                                     AJOUTER UN SPORTIF  A L EPREUVE
+                            <!--
+                                 AJOUTER UN SPORTIF  A L EPREUVE
                             -->
 
                             <form class="form-horizontal">
@@ -353,8 +358,7 @@ and open the template in the editor.
                                                 <option value="">Choix</option> <%
                                                     int l = 0;
                                                     for (l = 0; l < lesSportifsCompatibles.size(); l++) {
-                                                        int idSportif = lesSportifsCompatibles.get(i).getIdSportif();
-                                                        //String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
+                                                        int idSportif = lesSportifsCompatibles.get(l).getIdSportif();                                          
                                                         String prenom = lesSportifsCompatibles.get(l).getPrenom();
                                                         String nom = lesSportifsCompatibles.get(l).getNom();
                                                 %><option value='<%=idSportif%>'><%= idSportif%> :  <%=prenom%> <%=nom%>  </option>
@@ -383,30 +387,30 @@ and open the template in the editor.
 
 
                             <form class="form-horizontal">
-                                <h4>  <strong> Supprimer une equipe </strong></h4>
+                                <h4>  <strong> Supprimer un sportif </strong></h4>
                                 <div class="row">
                                     <div class="form-group">
-                                        <label class='col-xs-3 control-label'> Equipe:</label>
+                                        <label class='col-xs-3 control-label'> </label>
                                         <div class='col-xs-6'>
                                             <%
 
                                                 if (lesSportifsInscrits != null) {
                                                     if (lesSportifsInscrits.size() != 0) {
-                                            %><select class="form-control" id="selectionEquipeSupprimer">
+                                            %><select class="form-control" id="selectionSportifSupprimer">
                                                 <option value="">Choix</option> <%
                                                     int m = 0;
                                                     for (m = 0; m < lesSportifsInscrits.size(); m++) {
                                                         int idSportif = lesSportifsInscrits.get(m).getIdSportif();
-                                                   
+
                                                         String prenom = lesSportifsInscrits.get(m).getPrenom();
-                                                        String nom = lesSportifsInscrits.get(i).getNom();
+                                                        String nom = lesSportifsInscrits.get(m).getNom();
                                                 %><option value='<%=idSportif%>'><%= idSportif%> :  <%=prenom%> <%=nom%>  </option>
                                                 <% };
-                                                        } else {%>
-                                                <div> Aucune sportif n'est inscrit à cette épreuve  </div>
+                                                } else {%>
+                                                <div> Aucun sportif n'est inscrit à cette épreuve  </div>
 
                                                 <% }
-                                                        }%>
+                                                    }%>
 
                                             </select>
                                         </div>
@@ -424,11 +428,14 @@ and open the template in the editor.
                     </div>
                     <div id="tabs"> 
 
-
                         <footer class="footer">
-                            <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
+                            <%! Date dateDuJour;%>
+                            <% dateDuJour = new Date();%>
+                            <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
                             <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
                         </footer>
+
+
                     </div>
                 </div>
 
