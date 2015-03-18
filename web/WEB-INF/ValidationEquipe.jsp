@@ -58,10 +58,12 @@ and open the template in the editor.
                     <!-- 
                             TITRE DE LA PAGE 
                     --> 
+                    <% String etat = (String) request.getAttribute("etat"); %>
                     <div class="page-header">
-                        <h2 class="text-center"> Validation </h2>
+                        <h2 class="text-center">
+                            <% if(etat.equals("erreur")){%>Erreur<%}else{%>  Validation <%}%> </h2>
                     </div>
-                    <% String etat = (String) request.getAttribute("etat"); 
+                    <% 
                        if(etat.equals("creation")){
                          Equipe newEquipe = (Equipe) request.getAttribute("newEquipe"); 
                          int idEquipe = newEquipe.getIdEquipe();
@@ -119,7 +121,7 @@ and open the template in the editor.
                          String pays = equipe.getPays();
                     %>
                     <div id='equipeSuppr' class="well row">
-                         <h3 class="text-center">L'équipe a été supprimer </h3>
+                         <h3 class="text-center">L'équipe a été supprimée </h3>
                          <div class='col-xs-offset-3 col-xs-6 text-center'>
                             <div> <strong>Equipe:</strong>  <%=idEquipe%> <%=nomEquipe%> </div>
                             <div> <strong>Pays:</strong>  <%=pays%></div>
@@ -129,7 +131,7 @@ and open the template in the editor.
                     if(etat.equals("erreur")){
                     String mesErreur = (String) request.getAttribute("mesErreur");%>
                     <div id='erreur' class="well row">
-                             <h3 class="text-center">Erreur lors de l'execution</h3>
+                             <h3 class="text-center">Erreur lors de l'exécution</h3>
                          <div class='col-xs-offset-3 col-xs-6 text-center'>
                                <%=mesErreur%>
                          </div>
