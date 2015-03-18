@@ -249,7 +249,7 @@ and open the template in the editor.
                                         <div class="col-xs-3">
                                             <br/>
                                             <strong>(*) Numero de rue:</strong>      
-                                            <input type=text size=50 name="numRue" placeholder="Saisissez votre adresse" value="${param.numRue}">
+                                            <input type=number size=50 name="numRue" placeholder="Saisissez votre adresse" value="${param.numRue}">
                                         </div>
                                     </div>
 
@@ -277,7 +277,7 @@ and open the template in the editor.
                                         <div class="col-xs-3">
                                             <br/>
                                             <strong>(*) Numéro de téléphone:</strong>      
-                                            <input type=tel size=50 name="telephone" placeholder="Saisissez votre numéro de téléphone">
+                                            <input type=tel size=50 name="numTelephone" placeholder="Saisissez votre numéro de téléphone" value="${param.numTelephone}">
                                         </div>
                                     </div>
 
@@ -313,7 +313,7 @@ and open the template in the editor.
                                         <div class="col-xs-3">
                                             <br/>
                                             <strong>(*) Numero de la carte:</strong>      
-                                            <input type=num size=50 name="idCarte" placeholder="Saisissez l'identifiant de votre carte banquaire">
+                                            <input type=num size=50 name="idCarte" placeholder="Saisissez l'identifiant de votre carte banquaire" value="${param.idCarte}">
                                         </div>
                                     </div>
 
@@ -322,7 +322,7 @@ and open the template in the editor.
                                         <div class="col-xs-3">
                                             <br/>
                                             <strong>(*) Date d'expiration de la carte: </strong>      
-                                            <input type=num size=50 name="dateValidite" placeholder="Saisissez la date d'expiration de la carte (JJ/MM/AAAA)">
+                                            <input type=num size=50 name="dateValidite" placeholder="Saisissez la date d'expiration de la carte (JJ/MM/AAAA)" value="${param.dateValidite}">
                                         </div>
                                     </div>
 
@@ -330,7 +330,7 @@ and open the template in the editor.
                                         <div class="col-xs-3">
                                             <br/>
                                             <strong>(*) Code secret: </strong>      
-                                            <input type=password size=50 name="codeSecret" placeholder="Saisissez le code secret de la carte banquaire">
+                                            <input type=password size=50 name="codeSecret" placeholder="Saisissez le code secret de la carte banquaire" value="${param.codeSecret}">
                                         </div>
                                     </div>                     
                                     <br/>

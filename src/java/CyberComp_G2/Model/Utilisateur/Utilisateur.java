@@ -16,7 +16,7 @@ public class Utilisateur {
     private int numRue;
     private String rue;
     private String ville;
-    private String numeroTelephone;
+    private String numTelephone;
     private String mail;
     private String typeCarte;
     private boolean panierValider;
@@ -24,13 +24,13 @@ public class Utilisateur {
     private boolean paiementValider;
     private boolean commandeTerminer;
 
-    public Utilisateur(String nom, String prenom, int numRue, String rue, String ville, String numeroTelephone, String mail, String typeCarte, boolean panierValider, boolean infoValider, boolean paiementValider, boolean commandeTerminer) {
+    public Utilisateur(String nom, String prenom, int numRue, String rue, String ville, String numTelephone, String mail, String typeCarte, boolean panierValider, boolean infoValider, boolean paiementValider, boolean commandeTerminer) {
         this.nom = nom;
         this.prenom = prenom;
         this.numRue = numRue;
         this.rue = rue;
         this.ville = ville;
-        this.numeroTelephone = numeroTelephone;
+        this.numTelephone = numTelephone;
         this.mail = mail;
         this.typeCarte = typeCarte;
         this.panierValider = panierValider;
@@ -85,12 +85,12 @@ public class Utilisateur {
         this.ville = ville;
     }
 
-    public String getNumeroTelephone() {
-        return numeroTelephone;
+    public String getNumTelephone() {
+        return numTelephone;
     }
 
-    public void setNumeroTelephone(String numeroTelephone) {
-        this.numeroTelephone = numeroTelephone;
+    public void setNumTelephone(String numeroTelephone) {
+        this.numTelephone = numeroTelephone;
     }
 
     public String getMail() {
