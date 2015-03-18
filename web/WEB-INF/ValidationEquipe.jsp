@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 ﻿<%--
     Document   : admin
     Created on : 17 mars 2015
@@ -141,10 +142,12 @@ and open the template in the editor.
                         <a type="button" class="btn btn-default btn-block" id="retour" href="CloseSession"> Administrer Equipe </a>
                     </div>
                 </div>
-                <footer class="footer">
-                    <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
-                    <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
-                </footer>
+                  <footer class="footer">
+                            <%! Date dateDuJour;%>
+                            <% dateDuJour = new Date();%>
+                            <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
+                            <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
+                        </footer>
 
             </div>
         </div>

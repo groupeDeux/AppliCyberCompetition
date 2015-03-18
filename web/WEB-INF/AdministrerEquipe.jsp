@@ -3,6 +3,7 @@
     Created on : 6 mars 2015, 14:22:31
     Author     : Gato
 --%>
+<%@page import="java.util.Date"%>
 <%@page import="CyberComp_G2.Model.ConstituerEquipe.Sportif"%>
 <%@page import="CyberComp_G2.Model.ConstituerEquipe.Equipe"%>
 <%@page import="CyberComp_G2.Model.ConstituerEquipe.Delegation"%>
@@ -397,10 +398,12 @@ and open the template in the editor.
                                                  
                                                  
                                                  
-                <footer class="footer">
-                    <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
-                    <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
-                </footer>
+                 <footer class="footer">
+                            <%! Date dateDuJour;%>
+                            <% dateDuJour = new Date();%>
+                            <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
+                            <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
+                        </footer>
             </div>
         </div>
         <script>

@@ -4,6 +4,7 @@
     Author     : Gato
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
@@ -73,10 +74,12 @@
                     </div>
                     <% };%>
                 </div>
-                <footer class="footer">
-                    <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
-                    <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
-                </footer>
+                  <footer class="footer">
+                            <%! Date dateDuJour;%>
+                            <% dateDuJour = new Date();%>
+                            <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
+                            <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
+                        </footer>
             </div>
         </div>
         <script src="js/bootstrap.js" type="text/javascript"></script>
