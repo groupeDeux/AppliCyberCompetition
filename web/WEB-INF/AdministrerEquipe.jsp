@@ -434,6 +434,6 @@ and open the template in the editor.
             });
         </script>
         <script type="text/javascript" src="js/cyberCompetition.js"></script>
-        <script src="js/FormAdmin.js" type="text/javascript"></script>
+        <script src="js/jsAdministreEquipe.js" type="text/javascript"></script>
     </body>
 </html>
