@@ -56,8 +56,7 @@ public class ParticipantsDUneEpreuveHTML extends HttpServlet {
                 resParticipants.append("</tr>");
             }
         }
-        else{
-            
+        else{           
             //en tete tr +4 colonnes th idSportif,prenom, nom et et Pays
             resParticipants.append("<thead><tr>");
             resParticipants.append("<th>").append("idSportif").append("</th>");
@@ -66,15 +65,16 @@ public class ParticipantsDUneEpreuveHTML extends HttpServlet {
             resParticipants.append("<th>").append("pays").append("</th>");
 
             //parcours du rowSet poru remplir le tableau
-            while (crs.next()) {
+            int i=0;
+            for(i=0; i<listP.size(); i++) {
+                Sportif sportif = (Sportif) listP.get(i);
                 //ouverture row
                 resParticipants.append("<tr>");
                 //colonne idEquipe et colonne Pays
-                resParticipants.append("<th>").append(crs.getString("idSportif")).append("</th>");
-                resParticipants.append("<th>").append(crs.getString("prenom")).append("</th>");
-                resParticipants.append("<th>").append(crs.getString("nom")).append("</th>");
-                resParticipants.append("<th>").append(crs.getString("pays")).append("</th>");
-                //fermeture row
+                resParticipants.append("<td>").append(sportif.getIdSportif()).append("</td>");
+                resParticipants.append("<td>").append(sportif.getPrenom()).append("</td>");
+                resParticipants.append("<td>").append(sportif.getNom()).append("</td>");
+                resParticipants.append("<td>").append(sportif.getPays()).append("</td>");
                 resParticipants.append("</tr>");
             }    
         }

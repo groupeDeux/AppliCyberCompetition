@@ -51,7 +51,6 @@ public class GetListEquipesInscritesEtCompatibles extends HttpServlet {
         
 
         try {
-
              /* ----- Les equipes inscrites ----- */
             // recuperation des donnees BD chargees avec DAO dans un rowSet
             CachedRowSet rowSetEquipesInscrites = GetParticipantsDAO.getEquipesInscrites(Integer.parseInt(idEpreuve));
@@ -62,8 +61,7 @@ public class GetListEquipesInscritesEtCompatibles extends HttpServlet {
                 // recupereation les informations de  l'quipe
                 listEquipesInscrites.add(new Equipe(rowSetEquipesInscrites.getInt("idEquipe"), rowSetEquipesInscrites.getString("pays"), rowSetEquipesInscrites.getString("nomEquipe"),rowSetEquipesInscrites.getString("categorie"),rowSetEquipesInscrites.getInt("nbMembre")));
             }
-            
-            
+                     
             /* ----- Les equipes compatibles ----- */
          // recuperation des donnees BD chargees avec DAO dans un rowSet
             CachedRowSet rowSetEquipesCompatibles = GetParticipantsDAO.getLesEquipesCompatiblesEtNonInscrites(Integer.parseInt(idEpreuve));

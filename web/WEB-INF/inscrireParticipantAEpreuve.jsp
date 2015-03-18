@@ -98,6 +98,13 @@ and open the template in the editor.
                                 <div class="well">
                                     Cette page vous permet d'inscrire des équipes à une épreuve
                                 </div>
+                                
+                                <!--
+                            
+                                     AFFICHER LES EPREUVES PAR EQUIPE QUI NE SONT PAS ENCORE PASSEES (PAS DE MEDAILLE) 
+                                        PAQL REGLE 3 DES REGLES D EVOLUTION ET CR009 ligne 15 et 16
+                            
+                                -->
                                 <div class="row">
                                     <div class="form-group">
 
@@ -123,10 +130,7 @@ and open the template in the editor.
                                                             // on parcours la liste et si idEp=idEpSelectionné on affiche les infos dans le select= option selected
                                                             %> <option value='<%=idEpreuve%>' <% if (idEpreuve == idEpreuveSelec) {%> selected <%}%> ><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%> </option>
                                                         <% };
-                                                    } else {
-                                                // bouton fixe sur epreuve choisi = 
-                                                        //EpreuveParEquipe EpreuveChoisi = (Epreuve) request.getAttribute("EpreuveChoisi");
-                                                    }
+                                                    } 
                                                 %>
 
                                             </select>
@@ -174,16 +178,15 @@ and open the template in the editor.
                                      AJOUTER UNE EQUIPE A L EPREUVE CHOISIE 
                             PARMI UNE LISTE D'EQUIPE  NON INSCRITES ET VERIFIANT  LES 
                             MEMES CARACTÉRISQTIQUES DE L'EPREUVE CHOISIE
-                            ( NOMBRE DE SPORTIF + CATÉGORIE)
-                            SELON LA CONTRAINTE CI_12 ET CI_19
+                            ( NOMBRE DE SPORTIF DANS L'EQUIPE=NBPARSONNEFIXE DE L'EPREUVE  ET MEME CATÉGORIE)
+                            SELON LES CONTRAINTES CI_12 ET CI_19
                            
-                            
                             -->
 
                             <form class="form-horizontal">
 
                                 <h4> <strong> Ajouter une équipe </strong></h4>
-
+                               
                                 <div class="row">
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'> Equipe:</label>
@@ -220,9 +223,7 @@ and open the template in the editor.
                             </form>
 
                             <!-- 
-                            
                                 SUPPRIMER UNE EQUIPE DEJA INSCRITE A L EPREUVE CHOISIE
-                            
                             -->
 
 
@@ -273,6 +274,12 @@ and open the template in the editor.
                                 <div class="well">
                                     Cette page vous permet d'inscrire les sportifs à des épreuves individuelles
                                 </div>
+                                 <!--
+                            
+                                     AFFICHER LES EPREUVES INDICIDUELLES QUI NE SONT PAS ENCORE PASSEES (PAS DE MEDAILLE) 
+                                        PAQL règle 3 des regles d' evolution du Paql et CR009 ligne 15 et 16
+                            
+                                -->
                                 <div class="row">
                                     <div class="form-group">
 
