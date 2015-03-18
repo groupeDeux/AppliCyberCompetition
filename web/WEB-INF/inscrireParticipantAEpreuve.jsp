@@ -121,8 +121,8 @@ and open the template in the editor.
                                                             String nomEpreuve = lesEpreuvesEquipe.get(i).getNomEpreuve();
                                                             String categorie = lesEpreuvesEquipe.get(i).getCategorie();
                                                             // on parcours la liste et si idEp=idEpSelectionné on affiche les infos dans le select= option selected
-%> <option value='<%=idEpreuve%>' <% if (idEpreuve == idEpreuveSelec) {%> selected <%}%> ><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%> </option>
-                                                <% };
+                                                            %> <option value='<%=idEpreuve%>' <% if (idEpreuve == idEpreuveSelec) {%> selected <%}%> ><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%> </option>
+                                                        <% };
                                                     } else {
                                                 // bouton fixe sur epreuve choisi = 
                                                         //EpreuveParEquipe EpreuveChoisi = (Epreuve) request.getAttribute("EpreuveChoisi");
@@ -171,10 +171,11 @@ and open the template in the editor.
 
                             <!--
                             
-                                     AJOUTER UNE EQUIPE A L EPREUVE SELECTIONNÉ 
+                                     AJOUTER UNE EQUIPE A L EPREUVE CHOISIE 
                             PARMI UNE LISTE D'EQUIPE  NON INSCRITES ET VERIFIANT  LES 
-                            MEME CARACTÉRISQTIQUES DE L'EPREUVE SELECTIONNÉ 
+                            MEMES CARACTÉRISQTIQUES DE L'EPREUVE CHOISIE
                             ( NOMBRE DE SPORTIF + CATÉGORIE)
+                            SELON LA CONTRAINTE CI_12 ET CI_19
                            
                             
                             -->
@@ -220,7 +221,7 @@ and open the template in the editor.
 
                             <!-- 
                             
-                                SUPPRIMER UNE EQUIPE A L EPREUVE
+                                SUPPRIMER UNE EQUIPE DEJA INSCRITE A L EPREUVE CHOISIE
                             
                             -->
 
@@ -315,7 +316,7 @@ and open the template in the editor.
                                 </div>
                             </form>
                             <!--
-              AFFICHER LES SPORTIFS DEJA INSCRITS A L' EPREUVE CHOISIE
+                             AFFICHER LES SPORTIFS DEJA INSCRITS A L' EPREUVE CHOISIE
                             -->
 
 
@@ -346,7 +347,10 @@ and open the template in the editor.
                             </div>
 
                             <!--
-                                 Ajouter un sportif à l'epreuve selectionné parmi une liste de sportif 
+                                AJOUTER UN SPORTIF A L EPREUVE CHOISIE 
+                            PARMI UNE LISTE DE SPORTIF  NON INSCRITS ET VERIFIANT  LES 
+                            MEMES CARACTÉRISQTIQUES DE L'EPREUVE CHOISIE
+                            ( LE SPORTIF ) SELON LA CONTRAINTE CI_12 ET CI_19
                             -->
 
                             <form class="form-horizontal">
@@ -391,7 +395,7 @@ and open the template in the editor.
                             </form>
 
                             <!-- 
-                                SUPPRIMER l'inscription d'un sportif déja inscrit à l'epreuve  selectionnée 
+                                SUPPRIMER L'INSCRIPTION D'UN SPORTIF À L'EPREUVE CHOISI
                             -->
 
 
@@ -443,8 +447,7 @@ and open the template in the editor.
                             <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
                             <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
                         </footer>
-
-
+                            
                     </div>
                 </div>
 
