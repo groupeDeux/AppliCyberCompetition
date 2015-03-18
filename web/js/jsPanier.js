@@ -52,3 +52,4 @@ $('[id^="panierQuantitee"]').on('change',function(){
 );
 
 /* numeroDuBillet="+numeroDuBillet+"&quantitee="+quantitee */
+
