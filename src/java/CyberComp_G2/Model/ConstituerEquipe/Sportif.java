@@ -49,7 +49,16 @@ public class Sportif extends Participant{
         setGenre(genre);
         this.descriptionHandicap = descriptionHandicap;
     }
-
+/**
+ * constructeur de sportif selon la contrainte SQL CI_1 et CI_2
+ * @param idSportif
+ * @param pays
+ * @param prenom
+ * @param nom
+ * @param dateNaissance
+ * @param genre
+ * @throws CategorieException 
+ */
     public Sportif(int idSportif, String pays,String prenom, String nom, String dateNaissance, String genre) throws CategorieException {
         this(idSportif,pays,prenom,nom,dateNaissance,genre,null);
     }
