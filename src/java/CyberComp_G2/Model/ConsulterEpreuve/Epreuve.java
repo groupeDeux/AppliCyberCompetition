@@ -29,7 +29,21 @@ public class Epreuve {
     private int nbDePlace;
     private String categorie;
     private int nbPlaceAcheter;     
-
+/**
+ * contsurteur d'epreuve selon la contrainte CI_3
+ * @param idEpreuve
+ * @param nomEpreuve
+ * @param nomDiscipline
+ * @param dateDebut
+ * @param dateFin
+ * @param urlVideo
+ * @param tarif
+ * @param nbDePlace
+ * @param categorie
+ * @param nbPlaceAcheter
+ * @throws CategorieException
+ * @throws nbPlaceAcheterExeception 
+ */
     public Epreuve(int idEpreuve ,String nomEpreuve,String nomDiscipline, String dateDebut, String dateFin, String urlVideo, double tarif, int nbDePlace, String categorie, int nbPlaceAcheter) throws CategorieException, nbPlaceAcheterExeception {
         this.idEpreuve = idEpreuve;
         this.nomDiscipline =nomDiscipline;
