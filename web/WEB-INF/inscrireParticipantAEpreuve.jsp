@@ -103,7 +103,7 @@ and open the template in the editor.
                             
                                      AFFICHER LES EPREUVES PAR EQUIPE QUI NE SONT PAS ENCORE PASSEES (PAS DE MEDAILLE) 
                                 SELON LES CONTRAINTES 
-                                        PAQL REGLE 3 DES REGLES D EVOLUTION DU PAQL
+                                        PAQL REGLE 3 DES REGLES D EVOLUTION DU PAQL  ET DU CR009#15,16
                             
                                 -->
                                 <div class="row">
@@ -277,8 +277,9 @@ and open the template in the editor.
                                 </div>
                                  <!--
                             
-                                     AFFICHER LES EPREUVES INDICIDUELLES QUI NE SONT PAS ENCORE PASSEES (PAS DE MEDAILLE) 
-                                        PAQL règle 3 des regles d' evolution du Paql et CR009 ligne 15 et 16
+                                     AFFICHER LES EPREUVES INDIVIDUELLES QUI NE SONT PAS ENCORE PASSEES (PAS DE MEDAILLE) 
+                                        SELON
+                                       LA REGLE 3 DES REGLES D EVOLUTION DU PAQL ET DU CR009#15,16
                             
                                 -->
                                 <div class="row">
