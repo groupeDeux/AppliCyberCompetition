@@ -212,8 +212,6 @@ and open the template in the editor.
                                 Paiement de la commande
                             </h4>
                         </div>
-
-
                         <div class ="rowPanierFormulaire">  
                             <br><br>
                             <div class="container">
@@ -227,7 +225,7 @@ and open the template in the editor.
 
                                             <br/>
                                             <strong>(*) Nom du destinataire:</strong>
-                                            <input type=text size=50 name="nom" placeholder="Saisissez l'identité du destinataire de la commande">
+                                            <input type=text size=50 name="nom" placeholder="Saisissez l'identité du destinataire de la commande" value="${param.nom}">
                                         </div>
                                     </div>
 
@@ -235,7 +233,7 @@ and open the template in the editor.
                                         <div class="col-xs-3">
                                             <br/>
                                             <strong>(*) Prénom du destinataire:</strong>      
-                                            <input type=text size=50 name="prenom" placeholder="Saisissez l'identité du destinataire de la commande">
+                                            <input type=text size=50 name="prenom" placeholder="Saisissez l'identité du destinataire de la commande" value="${param.prenom}">
                                         </div>
                                     </div>
 
@@ -243,8 +241,23 @@ and open the template in the editor.
                                     <div class="row ">
                                         <div class="col-xs-3">
                                             <br/>
-                                            <strong>(*) Adresse:</strong>      
-                                            <input type=text size=50 name="adresse" placeholder="Saisissez votre adresse">
+                                            <strong>(*) Rue:</strong>      
+                                            <input type=text size=50 name="rue" placeholder="Saisissez la rue" value="${param.rue}">
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-xs-3">
+                                            <br/>
+                                            <strong>(*) Numero de rue:</strong>      
+                                            <input type=text size=50 name="numRue" placeholder="Saisissez votre adresse" value="${param.numRue}">
+                                        </div>
+                                    </div>
+
+                                    <div class="row ">
+                                        <div class="col-xs-3">
+                                            <br/>
+                                            <strong>(*) Ville:</strong>      
+                                            <input type=text size=50 name="ville" placeholder="Saisissez votre adresse" value="${param.ville}">
                                         </div>
                                     </div>
 
@@ -252,7 +265,7 @@ and open the template in the editor.
                                         <div class="col-xs-3">
                                             <br/>
                                             <strong>(*) Adresse email:</strong>      
-                                            <input type=email size=50 name="email" placeholder="Saisissez l'adresse mail de réception de votre commande">
+                                            <input type=email size=50 name="mail" placeholder="Saisissez l'adresse mail de réception de votre commande" value="${param.mail}">
                                         </div>
                                     </div>
 
@@ -274,13 +287,13 @@ and open the template in the editor.
 
                                     </div>  
                                     <br>
-                                    
+
                                     <div class="row"> 
                                         <div class="col-xs-2">
                                             <div class="input-group">
                                                 MasterCard
                                                 <span class="input-group-addon">
-                                                    <input type="radio" name='carte'>
+                                                    <input type="radio" name='carte' value="MasterCard">
                                                 </span>
                                             </div>
                                         </div>
@@ -289,25 +302,17 @@ and open the template in the editor.
                                             <div class="input-group">
                                                 Visa
                                                 <span class="input-group-addon">
-                                                    <input type="radio" name='carte'>
+                                                    <input type="radio" name='carte' value="Visa">
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row ">
-                                        <div class="col-xs-3">
-                                            <br/>
-                                            <strong>(*) Nom et prénom du titulaire de la carte:</strong>      
-                                            <input type=text size=50 name="titulaire" placeholder="Saisissez l'identité du titulaire de votre carte banquaire">
-                                        </div>
-                                    </div>
-
 
                                     <div class="row ">
                                         <div class="col-xs-3">
                                             <br/>
-                                            <strong>(*) Identifiant de la carte:</strong>      
+                                            <strong>(*) Numero de la carte:</strong>      
                                             <input type=num size=50 name="idCarte" placeholder="Saisissez l'identifiant de votre carte banquaire">
                                         </div>
                                     </div>

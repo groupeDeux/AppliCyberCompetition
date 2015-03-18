@@ -13,25 +13,25 @@ public class Utilisateur {
 
     private String nom;
     private String prenom;
-    private String adresseMail;
-    private String numeroTelephone;
     private int numRue;
     private String rue;
     private String ville;
+    private String numeroTelephone;
+    private String mail;
     private String typeCarte;
     private boolean panierValider;
     private boolean infoValider;
     private boolean paiementValider;
     private boolean commandeTerminer;
 
-    public Utilisateur(String nom, String prenom, String adresseMail, String numeroTelephone, int numRue, String rue, String ville, String typeCarte, boolean panierValider, boolean infoValider, boolean paiementValider, boolean commandeTerminer) {
+    public Utilisateur(String nom, String prenom, int numRue, String rue, String ville, String numeroTelephone, String mail, String typeCarte, boolean panierValider, boolean infoValider, boolean paiementValider, boolean commandeTerminer) {
         this.nom = nom;
         this.prenom = prenom;
-        this.adresseMail = adresseMail;
-        this.numeroTelephone = numeroTelephone;
         this.numRue = numRue;
         this.rue = rue;
         this.ville = ville;
+        this.numeroTelephone = numeroTelephone;
+        this.mail = mail;
         this.typeCarte = typeCarte;
         this.panierValider = panierValider;
         this.infoValider = infoValider;
@@ -39,10 +39,10 @@ public class Utilisateur {
         this.commandeTerminer = commandeTerminer;
     }
 
-
+    
 
     public Utilisateur() {
-        this("","","", "", 0, "", "", "", false, false, false, false);
+        this("","", 0,"", "",  "", "", "", false, false, false, false);
     }
 
     public String getNom() {
@@ -59,22 +59,6 @@ public class Utilisateur {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
-    }
-
-    public String getAdresseMail() {
-        return adresseMail;
-    }
-
-    public void setAdresseMail(String adresseMail) {
-        this.adresseMail = adresseMail;
-    }
-
-    public String getNumeroTelephone() {
-        return numeroTelephone;
-    }
-
-    public void setNumeroTelephone(String numeroTelephone) {
-        this.numeroTelephone = numeroTelephone;
     }
 
     public int getNumRue() {
@@ -99,6 +83,22 @@ public class Utilisateur {
 
     public void setVille(String ville) {
         this.ville = ville;
+    }
+
+    public String getNumeroTelephone() {
+        return numeroTelephone;
+    }
+
+    public void setNumeroTelephone(String numeroTelephone) {
+        this.numeroTelephone = numeroTelephone;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getTypeCarte() {
