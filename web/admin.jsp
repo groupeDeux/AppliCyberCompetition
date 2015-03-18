@@ -84,7 +84,7 @@ and open the template in the editor.
                             <div class="caption">
                                 <h3 class="text-center">Inscription des participants à des épreuves </h3>
                                 <p> Inscrire, modifier ou supprimer un participant à une épreuve </p>
-                                <p><a href="GetListEpreuveInscription" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Accéder à l'insciption des participants à des épreuves ">Accéder à la page  </a></p>
+                                <p><a href="GetListEpreuveInscription" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Accéder à l'inscription des participants aux épreuves ">Accéder à la page  </a></p>
                             </div>
                         </div>
                     </div>
