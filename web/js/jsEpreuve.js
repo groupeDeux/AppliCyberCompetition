@@ -124,14 +124,19 @@ $(function () {
     $("html, body").animate({ scrollTop: "0" },200);
   });
   
-  //Chargement de la liste des participant de l epreuve lorsqu'on click dessus
-  $('[href^⁼"#epreuvesId"]').click(function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    var idEpreuve= $(this).attr("value");
-    $('#epreuvesParticipants'+idEpreuve).load("GetListParticipantDUneEpreuve?idEpreuve="+idEpreuve);
-    
-    
+  
+//  $('.media-body').click(function(){
+//      var idEpreuve= $(this).attr("value");
+//    $('#epreuvesParticipants'+idEpreuve).load("GetListParticipantDUneEpreuve?idEpreuve="+idEpreuve);
+//    
+//  });
+  
+  /*Chargement de la liste des participant de l epreuve lorsqu'on click dessus*/
+  $("div[name='selectEpreuve']").click(function (e) {
+      alert("lol");
+    var idEpreuve= $(this).attr("value"); 
+    //$('#epreuvesParticipants'+idEpreuve +'> div').load("GetListParticipantDUneEpreuve?idEpreuve="+idEpreuve);
+    $('#test').load("GetListParticipantDUneEpreuve?idEpreuve="+idEpreuve);
   });
 
 

@@ -5,10 +5,14 @@
  */
 package CyberComp_G2.Ctrlers;
 
+import CyberComp_G2.Model.ConstituerEquipe.Equipe;
+import CyberComp_G2.Model.ConstituerEquipe.Participant;
+import CyberComp_G2.Model.ConstituerEquipe.Sportif;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -25,25 +29,29 @@ import javax.sql.rowset.CachedRowSet;
 @WebServlet(name = "ParticipantsDUneEpreuveHTML", urlPatterns = {"/ParticipantsDUneEpreuveHTML"})
 public class ParticipantsDUneEpreuveHTML extends HttpServlet {
 
-    String createTabParticipants(CachedRowSet crs, String forme) throws SQLException {
+    String createTabParticipants(ArrayList<Participant> listP, String forme) throws SQLException {
         // metaDonnee du rowSet participants renvoye par la request
-        ResultSetMetaData participantMetadata = crs.getMetaData();
         StringBuilder resParticipants = new StringBuilder();
 
         // tableau si les participants sont des equipe
         if (forme.equals("equipe")) {
             //en tete tr +2 colonnes th idEquipe et Pays
             resParticipants.append("<thead><tr>");
-            resParticipants.append("<th>").append(participantMetadata.getColumnName(1)).append("</th>");
-            resParticipants.append("<th>").append(participantMetadata.getColumnName(2)).append("</th>");
+            resParticipants.append("<th>").append("idEquipe").append("</th>");
+            resParticipants.append("<th>").append("pays").append("</th>");
+            
+            resParticipants.append("</tr></thead>");
+            resParticipants.append("<tbody>");
 
             //parcours du rowSet poru remplir le tableau
-            while (crs.next()) {
+            int i=0;
+            for(i=0; i<listP.size(); i++) {
+                Equipe equipe = (Equipe) listP.get(i);
                 //ouverture row
                 resParticipants.append("<tr>");
                 //colonne idEquipe et colonne Pays
-                resParticipants.append("<th>").append(crs.getString("idEquipe")).append("</th>");
-                resParticipants.append("<th>").append(crs.getString("pays")).append("</th>");
+                resParticipants.append("<td>").append(equipe.getIdEquipe()).append("</td>");
+                resParticipants.append("<td>").append(equipe.getPays()).append("</td>");
                 //fermeture row
                 resParticipants.append("</tr>");
             }
@@ -52,10 +60,10 @@ public class ParticipantsDUneEpreuveHTML extends HttpServlet {
             
             //en tete tr +4 colonnes th idSportif,prenom, nom et et Pays
             resParticipants.append("<thead><tr>");
-            resParticipants.append("<th>").append(participantMetadata.getColumnName(1)).append("</th>");
-            resParticipants.append("<th>").append(participantMetadata.getColumnName(3)).append("</th>");
-            resParticipants.append("<th>").append(participantMetadata.getColumnName(4)).append("</th>");
-            resParticipants.append("<th>").append(participantMetadata.getColumnName(2)).append("</th>");
+            resParticipants.append("<th>").append("idSportif").append("</th>");
+            resParticipants.append("<th>").append("prenom").append("</th>");
+            resParticipants.append("<th>").append("nom").append("</th>");
+            resParticipants.append("<th>").append("pays").append("</th>");
 
             //parcours du rowSet poru remplir le tableau
             while (crs.next()) {
@@ -68,8 +76,7 @@ public class ParticipantsDUneEpreuveHTML extends HttpServlet {
                 resParticipants.append("<th>").append(crs.getString("pays")).append("</th>");
                 //fermeture row
                 resParticipants.append("</tr>");
-            }
-            
+            }    
         }
 
         resParticipants.append("</tbody>");
@@ -90,14 +97,39 @@ public class ParticipantsDUneEpreuveHTML extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        String tableauParticipants ="";
         try (PrintWriter out = response.getWriter()) {
 
             //rowset participants renvoyees par la request
-            CachedRowSet rowSetParticipants = (CachedRowSet) request.getAttribute("listParticipants");
             String forme = (String) request.getAttribute("formeParticipant");
-            String tableauParticipants = createTabParticipants(rowSetParticipants, forme);
+            if(forme.equals("equipe")){
+                ArrayList<Participant> listEquipesInscrites = new ArrayList();
+                listEquipesInscrites= (ArrayList<Participant>) request.getAttribute("listParticipants");
+                tableauParticipants = createTabParticipants(listEquipesInscrites, forme);
+                
+            }
+            else{
+                ArrayList<Participant> listSportifsInscrits = new ArrayList();
+                listSportifsInscrits= (ArrayList<Participant>) request.getAttribute("listParticipants");
+                tableauParticipants = createTabParticipants(listSportifsInscrits, forme);
+            }
+                        
+           
 
-            /*String forme = (String) request.getAttribute("formeParticipant");
+        } catch (SQLException ex) {
+            Logger.getLogger(ParticipantsDUneEpreuveHTML.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException(ex.getMessage(), ex);
+        }
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("coucou");
+//            out.println("<table class=\"tabParticipant\">");
+//            out.println(tableauParticipants);
+//            out.println("</table>");   
+        }
+    }
+    
+     /*String forme = (String) request.getAttribute("formeParticipant");
              if (forme.equals("equipe")) {
              ArrayList<Equipe> lesParticipants = (ArrayList<Equipe>) request.getAttribute("listParticipants");
              if (lesParticipants != null) {
@@ -132,20 +164,6 @@ public class ParticipantsDUneEpreuveHTML extends HttpServlet {
              }
              */
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ParticipantsDUneEpreuveHTML</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ParticipantsDUneEpreuveHTML at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } catch (SQLException ex) {
-            Logger.getLogger(ParticipantsDUneEpreuveHTML.class.getName()).log(Level.SEVERE, null, ex);
-            throw new ServletException(ex.getMessage(), ex);
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
