@@ -15,11 +15,19 @@ public class DataSourceInitializer implements ServletContextListener {
     @Resource (name="jdbc/BDCyberCompetition")
     private DataSource dataSource;
 
+    /**
+     *
+     * @param servletContextEvent
+     */
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ConnexionBD.INSTANCE.setDataSource(dataSource);
     }
 
+    /**
+     *
+     * @param servletContextEvent
+     */
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
 
