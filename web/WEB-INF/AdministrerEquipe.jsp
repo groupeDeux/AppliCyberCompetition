@@ -68,6 +68,7 @@ and open the template in the editor.
                 <div class="row">
                     <div id="tabs">
                         <ul class="nav nav-tabs">
+                            <%-- recupere le tab si diferent de nul pour afficher le bon tab --%>
                             <% int tab = 0;
                                 if (session.getAttribute("tabs") != null) {
                                     tab = (Integer) session.getAttribute("tabs") - 1;
@@ -83,7 +84,7 @@ and open the template in the editor.
                             <br/>
                         </div>
                         <!--
- -------------------------------------------------------------ID TAB1 : CREER UNE EQUIPE
+ -------------------------------------------------------------ID TAB1 : CREER UNE EQUIPE---------------------------------------------------------------------------
                         -->
                         <div id='tab1'>
                             <form class="form-horizontal">
@@ -104,13 +105,14 @@ and open the template in the editor.
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
                                             <select  <%if (newEquipe != null) {%> disabled="true" <%}%> class="form-control" id='selectionDelegationCreer' name='listDeleg'>
-
+                                                <%-- affiche la liste des delegation si pas de delegation selectionner ou la delegation voulue--%>
                                                 <%
                                                     int i = 0;
                                                     ArrayList<Delegation> lesDelegations = (ArrayList<Delegation>) session.getAttribute("listDelegations");
                                                     ArrayList<Sportif> lesSportifs = (ArrayList<Sportif>) session.getAttribute("lesSportifs");
                                                     if (newEquipe == null) {
                                                 %> <option value=''>Choix</option>
+                                                
                                                 <%
                                                     for (i = 0; i < lesDelegations.size(); i++) {
                                                         String pays = lesDelegations.get(i).getPays();
@@ -139,6 +141,7 @@ and open the template in the editor.
                                     <div class='form-group'>
                                         <label class='col-xs-3 control-label'>Categorie :</label>
                                         <div class="col-xs-6 " id="radioboutons" >
+                                            <%-- check et disabled les radio bouton en fonction de la categorie precedament selectionner--%>
                                             <div class='radio-inline'>
                                                 <label>
                                                     <input <%if (newEquipe != null) {%> disabled="true" <% }%> type="radio" name="radioType" value="masculin" <%if (categorie.equals("masculin") || categorie.equals("")) {%>checked<% }%> >
@@ -180,6 +183,7 @@ and open the template in the editor.
                                         <div class='col-xs-5'>
                                             <select  class="form-control"  name ="selectNomAjouter" id='selectNomAjouter<%=i%>'>
                                                 <option value="">Choix</option>
+                                                <%-- affiche la liste des sportif de la deleagtion et selctionne celle precedanement choisie--%>
                                                 <%int j;
                                                     int idASelectinner;
                                                     if (newEquipe.getLesMembres().size() >= i) {
@@ -196,20 +200,24 @@ and open the template in the editor.
                                                 <%}%>
                                             </select>
                                         </div>
+                                            <%-- bouton permetant la supression activer que si le nombre de menbre et sypérieure a 2--%>
                                         <div class='col-xs-1'> <button   <% if (newEquipe.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportif<%=i%>" name='valSupprimerSportif' value='<%=i%>'=><span class="glyphicon glyphicon-minus"></span></button></div>    
                                     </div>
                                     <%}%>
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
+                                        <%-- div permetant le control d'eereur --%>
                                         <div class="col-xs-offset-5 col-xs-2 erreurForm" id="ControlValAjouterSportif">
 
                                         </div>
                                         <div class="col-xs-2">
+                                             <%-- bouton permetant l'ajout d'un sportif--%>
                                             <button  type="button" class="btn btn-primary btn-block " id="valAjouterSportif"><span class="glyphicon glyphicon-plus"></span></button>
                                         </div>
                                     </div>
                                 </div>
+                                <%-- boutons permetants la creation de l'equipe ou annule les action precedente--%>
                                 <div class="row" id="ValCreationEquipe">
                                     <div class="form-group">
                                         <div class="col-xs-2 col-xs-offset-3 ">
@@ -226,7 +234,7 @@ and open the template in the editor.
                         </div>
 
                         <!--
-----------------------------------------------ID TAB2 : MODIFIER UNE EQUIPE
+----------------------------------------------ID TAB2 : MODIFIER UNE EQUIPE---------------------------------------------------------------------
                         -->
                         <% Equipe equipeModif = (Equipe) session.getAttribute("modifEquipe");
                             ArrayList<Sportif> lesSportifsModif = (ArrayList<Sportif>) session.getAttribute("lesSportifsModif");
@@ -248,6 +256,7 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
+                                             <%-- affiche la liste des delegation et selectionne  la delegation voulue--%>
                                             <select class="form-control" name='selectDelegationModifier' id='selectDelegationModifier'>
                                                 <option value="1">Choix</option>
                                                 <%
@@ -265,6 +274,7 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Equipe :</label>
                                         <div class='col-xs-6'>
+                                            <%-- affiche la liste des equipe de la deleagtion et selctionne celle precedanement choisie--%>
                                             <select class="form-control" id='selectEquipeModifier' name="selectEquipeModifier"  <% if (lesEquipes == null) {%>disabled="true"<%}%>>
                                                 <option value="">Choix</option>
                                                 <%
@@ -288,12 +298,13 @@ and open the template in the editor.
                                 <div id="ajoutModif">                         
                                     <%if (equipeModif != null) {
                                         for (i = 1; i <= equipeModif.getNbDeSportif(); i++) {%> 
-                                    <div id='divAjoutSportif2' class="form-group">
-                                        <label class='col-xs-3 control-label'>Sportif <%=i%> :</label>
-                                        <div class='col-xs-5'>
-                                            <select  class="form-control"  name ="selectModifier" id='selectNomModifier<%=i%>'>
-                                                <option value="">Choix</option>
-                                                <%int idASelectinner;
+                                            <div id='divAjoutSportif2' class="form-group">
+                                            <label class='col-xs-3 control-label'>Sportif <%=i%> :</label>
+                                            <div class='col-xs-5'>
+                                             <%-- affiche la liste des sportif de l'equipe selectionner--%>
+                                                <select  class="form-control"  name ="selectModifier" id='selectNomModifier<%=i%>'>
+                                                    <option value="">Choix</option>
+                                                    <%int idASelectinner;
                                                     int j;
                                                     if (equipeModif.getLesMembres().size() >= i) {
                                                         idASelectinner = equipeModif.getLesMembres().get(i - 1).getIdSportif();
@@ -303,19 +314,22 @@ and open the template in the editor.
                                                     for (j = 0; j < lesSportifsModif.size(); j++) {
                                                         int idSportif = lesSportifsModif.get(j).getIdParticipant();
                                                         String affichage = idSportif + " : " + lesSportifsModif.get(j).getNom() + " " + lesSportifsModif.get(j).getPrenom();
-                                                %>
-                                                <option value="<%=idSportif%>"<%if (idSportif == idASelectinner) {%>selected="selected"<%}%> ><%=affichage%></option>
-                                                <%}%>
-                                            </select>    
-                                        </div>
+                                                    %>
+                                                    <option value="<%=idSportif%>"<%if (idSportif == idASelectinner) {%>selected="selected"<%}%> ><%=affichage%></option>
+                                                    <%}%>
+                                                </select>    
+                                            </div>
+                                       <%-- bouton permetant la supression activer que si le nombre de menbre et sypérieure a 2--%>
                                         <div class='col-xs-1'> <button   <% if (equipeModif.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportifModif<%=i%>" name='valSupprimerSportifModif' value='<%=i%>'><span class="glyphicon glyphicon-minus"></span></button></div>    
                                     </div>
                                     <%}%> 
                                     <div class="row">
                                         <div class="form-group">
+                                              <%-- div permetant le control d'eereur --%>
                                             <div class="col-xs-offset-5 col-xs-2 erreurForm" id="ControlValAjouterSportifModif">
 
                                             </div>
+                                              <%-- bouton permetant l'ajout d'un sportif --%>
                                             <div class="col-xs-2">
                                                 <button  type="button" class="btn btn-primary btn-block " id="valAjouterSportifModif"><span class="glyphicon glyphicon-plus"></span></button>
                                             </div>
@@ -338,7 +352,7 @@ and open the template in the editor.
                         </div>
 
                         <!--
-------------------------------------------------------------ID TAB3 : SUPPRIMER UNE EQUIPE
+------------------------------------------------------------ID TAB3 : SUPPRIMER UNE EQUIPE------------------------------------------------------------------------
                         -->
                         <div id='tab3'>
                             <form class="form-horizontal">
@@ -349,6 +363,7 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
+                                             <%-- affiche la liste des delegation et selectionne  la delegation voulue--%>
                                             <select class="form-control" id='selectDelegationSupp'>
                                                 <option value="">Choix</option>
                                                 <%
@@ -366,6 +381,7 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Equipe :</label>
                                         <div class='col-xs-6'>
+                                             <%-- affiche la liste des equies de la delagtion suprimable (qui ne sont pas inscrite a une epruve terminer)--%>
                                             <% ArrayList<Equipe> lesEquipesSup =(ArrayList<Equipe>) session.getAttribute("lesEquipesSup");%>
                                             <select class="form-control" id='selectEquipeSupp'<%if(lesEquipesSup ==null){%>disabled="true"<%}%>>
                                                 <option value="">Choix</option>
@@ -398,6 +414,7 @@ and open the template in the editor.
                                                  
                                                  
                                                  
+
                  <footer class="footer">
                             <%! Date dateDuJour;%>
                             <% dateDuJour = new Date();%>
@@ -410,6 +427,7 @@ and open the template in the editor.
 
             $(document).ready(function () {
                 $("#tabs").tabs();
+                <%--permet d'afficher la bonne tab --%>
                 $("#tabs").tabs({
                     active: <%=tab%>
                 });
