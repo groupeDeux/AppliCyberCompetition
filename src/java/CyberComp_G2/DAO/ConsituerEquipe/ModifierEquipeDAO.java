@@ -49,7 +49,13 @@ public class ModifierEquipeDAO {
     public static final String deleteParticipation = 
             "DELETE FROM LesParticipations WHERE idParticipant= %d";
     
-    
+    /**
+     * 
+     * @param datasource
+     * @param equipe
+     * @return
+     * @throws SQLException 
+     */
     public static int addEquipe(DataSource datasource ,Equipe equipe) throws SQLException {
 
         String nomEquipe = equipe.getNomEquipe();
@@ -83,7 +89,12 @@ public class ModifierEquipeDAO {
            }
          return idEquipe;  
     }
-    
+    /**
+     * 
+     * @param datasource
+     * @param equipe
+     * @throws SQLException 
+     */
     public static void modifEquipe(DataSource datasource ,Equipe equipe) throws SQLException {
 
         String nomEquipe = equipe.getNomEquipe();
@@ -110,7 +121,13 @@ public class ModifierEquipeDAO {
            }
            
     }
-    
+    /**
+     * 
+     * 
+     * @param datasource
+     * @param equipe
+     * @throws SQLException 
+     */
     public static void SupprimerEquipe(DataSource datasource ,Equipe equipe) throws SQLException {
 
         
