@@ -25,6 +25,6 @@ public class EquipeInexistanteException extends Exception {
      * @param idEquipe
      */
     public EquipeInexistanteException(int idEquipe) {
-        super("l'equipe : " + idEquipe +" est pas axcecible");
+        super("l'equipe : " + idEquipe +" n'est pas accessible");
     }
 }

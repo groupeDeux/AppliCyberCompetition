@@ -1,6 +1,7 @@
 
 
-<%@page import="java.util.Date"%>
+<%@page import="CyberComp_G2.Model.ConstituerEquipe.Sportif"%>
+<%@page import="CyberComp_G2.Model.ConstituerEquipe.Equipe"%>
 <%-- 
     Document   : epreuve
     Created on : 8 mars 2015, 07:55:52
@@ -287,7 +288,8 @@ and open the template in the editor.
                                     </div>
                                     <div id="epreuvesParticipants<%=epreuveSelectionnee.getIdEpreuve()%>" class="panel-collapse collapse">
                                         <div class='panel-body'>
-                                            ===========
+                                             ===================================
+                                               
                                         </div>
                                     </div>
                                 </div>

@@ -25,6 +25,6 @@ public class nbMenbreEquipeException extends Exception {
      * @param msg the detail message.
      */
     public nbMenbreEquipeException(int nbMenbre) {
-        super("nombre de membre de l'equipe  non correcte (<2) : nbMembre ="+nbMenbre);
+        super("Nombre de membre de l'equipe  non correcte (<2) : nbMembre ="+nbMenbre);
     }
 }

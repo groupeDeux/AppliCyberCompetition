@@ -25,6 +25,6 @@ public class nbPersonneFixeExcepetion extends Exception {
      * @param nbPersonneFixe
      */
     public nbPersonneFixeExcepetion(int nbPersonneFixe) {
-        super("Nombre de Personne Fixée incoherent, nbPersonneFixe : " +nbPersonneFixe);
+        super("Nombre de Personne fixé incoherent, nbPersonneFixe : " +nbPersonneFixe);
     }
 }

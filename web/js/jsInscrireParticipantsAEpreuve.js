@@ -11,7 +11,6 @@ $("#selectionEpreuveEquipe").on('change', function () {
     var idEpreuve=document.getElementById("selectionEpreuveEquipe").value;
     // passer selecteur equipe a inscrire en true
 
-    //$("#equipeInscrites").load("GetListEquipesInscritesEtCompatibles?idEpreuve="+idEpreuve);
     //
     // appel du controler pour calculer equipes deja inscrites et compatibles a l'inscription 
    document.location.href="GetListEquipesInscritesEtCompatibles?idEpreuve="+idEpreuve;
