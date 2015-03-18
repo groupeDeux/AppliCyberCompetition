@@ -93,10 +93,12 @@ public class ModifierEquipe extends HttpServlet {
                             equipe.addMembre(lesSportifs.get(j));
                         }
                     }
-                }   
+                }
+                
                 if(equipe.getNbMembre()<2 || equipe.getNbDeSportif()!=equipe.getNbMembre()){
                    throw new nbMenbreEquipeException(equipe.getNbMembre());
                 }
+                
                 ModifierEquipeDAO.modifEquipe(dataSource,equipe);
                 
             } catch (SQLException |GenreMenbreEquipeException|nbMenbreEquipeException ex) {
