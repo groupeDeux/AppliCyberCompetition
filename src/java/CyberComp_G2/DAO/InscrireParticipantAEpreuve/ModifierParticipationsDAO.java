@@ -26,10 +26,10 @@ public class ModifierParticipationsDAO {
     /*surpprimer une participation d'une equipe à une epreuve */
      public static final String deleteParticipant = 
             "DELETE FROM LesParticipations WHERE (idEpreuve=%d and idParticipant=%d )";
-     // inserer un sportif à une epreuve indidielle 
+     // inserer un sportif à une epreuve individuelle 
    public static final String  insertSportif=
            "INSERT INTO LesParticipations (idEpreuve,idParticipant) values (%d, %d)";
-   /*surpprimer un sportif d'une  epreuve */
+   /*surpprimer la participation d'un sportif d'une  epreuve */
      public static final String deleteSportif = 
             "DELETE FROM LesParticipations WHERE (idEpreuve=%d and idParticipant=%d )";
  
