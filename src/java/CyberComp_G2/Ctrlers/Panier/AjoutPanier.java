@@ -84,6 +84,7 @@ public class AjoutPanier extends HttpServlet {
             log(ex.getMessage());
             ex.printStackTrace();
         }
+        request.setAttribute("valeurTab", 0);
         request.getRequestDispatcher("GetPanier").forward(request, response);
         
         }

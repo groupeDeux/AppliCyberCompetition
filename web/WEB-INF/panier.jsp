@@ -218,7 +218,7 @@ and open the template in the editor.
 
                             </div>
 
-                            <form name="formulaire" action="#panierTabPaiement" method=get onSubmit="return verifform()">
+                            <form name="formulaire" action="ValiderInformations" method=get onSubmit="return verifform()">
                                 <div class="container">
                                     <div class="row ">
                                         <div class="col-xs-3">
@@ -249,7 +249,7 @@ and open the template in the editor.
                                         <div class="col-xs-3">
                                             <br/>
                                             <strong>(*) Numero de rue:</strong>      
-                                            <input type=number size=50 name="numRue" placeholder="Saisissez votre adresse" value="${param.numRue}">
+                                            <input type=text size=50 name="numRue" placeholder="Saisissez votre adresse" value="${param.numRue}">
                                         </div>
                                     </div>
 

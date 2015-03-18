@@ -55,7 +55,8 @@ public class changementQuantitee extends HttpServlet {
         } catch (PanierException e) {
             log(e.getMessage());
         }
-
+        
+        request.setAttribute("valeurTab", 0);
         request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
     }
 

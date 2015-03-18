@@ -39,16 +39,25 @@ public class ValiderInformations extends HttpServlet {
         Utilisateur sessionUtilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
         
         /* On récupère maintenant tous les parametres OBLIGATOIRES envoyé par la page informations */
+        String num = (String) request.getParameter("numRue");
+        int numRue = Integer.parseInt(num);
+                
+        sessionUtilisateur.setNom((String) request.getParameter("nom"));
+        sessionUtilisateur.setPrenom((String) request.getParameter("prenom"));
+        sessionUtilisateur.setRue((String) request.getParameter("rue"));
+        sessionUtilisateur.setNumRue(Integer.parseInt((String) request.getParameter("numRue")));
+        sessionUtilisateur.setVille((String) request.getParameter("ville"));
+        sessionUtilisateur.setMail((String) request.getParameter("mail"));
+        sessionUtilisateur.setNumTelephone((String) request.getParameter("numTelephone"));
+        sessionUtilisateur.setTypeCarte((String) request.getParameter("carte"));
         
-        String nom = (String) request.getAttribute("nom");
-        String prenom = (String) request.getAttribute("prenom");
-        String rue = (String) request.getAttribute("rue");
-        int numRue = (int) request.getAttribute("numRue");
-        String ville = (String) request.getAttribute("ville");
-        String mail = (String) request.getAttribute("mail");
-        String numeroTelephone = (String) request.getAttribute("numTelephone");
         
+        /* On valide l'acces à la page suivante */
         
+        sessionUtilisateur.setInfoValider(true);
+        
+        request.setAttribute("valeurTab", 0);
+        request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
         
     }
 

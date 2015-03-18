@@ -59,14 +59,14 @@ and open the template in the editor.
                         <p class="lead">Bienvenue sur administration de <strong>CyberCompetition</strong></p>
                     </div>    
                 </div>
-                <div>
-                    <div class ='row'>
-                        <!--la classe col-xs-4  permet de diviser la zone de travail en 3 champs 
-                        une zone de travail est défini sur 12 colomn 
-                       -->
-                   <div class='col-xs-4'>
-                       <!--la classe thumbnail permet de créer les carée
-                       -->
+
+                <div class ='row'>
+                    <!--la classe col-xs-4  permet de diviser la zone de travail en 3 champs 
+                    une zone de travail est défini sur 12 colomn 
+                    -->
+                    <div class='col-xs-5 col-xs-offset-1'>
+                        <!--la classe thumbnail permet de créer les carée
+                        -->
                         <div class='thumbnail'>
                             <!-- le premier carré contient un bouton pour accéder à la page de 
                             -->
@@ -77,10 +77,10 @@ and open the template in the editor.
                                 <p><a href="CloseSession" class="btn btn-default btn-block" role='button' name="" data-toggle="tooltip" data-placement="bottom" title="Accéder à l'administration des équipes">Accéder à la page </a></p>
                             </div>
                         </div>
-                   </div>
-                    <div class='col-xs-4'>
-                       <div class='thumbnail'>
-                            <img src="img/lesEpreuves.jpg"alt=".." style="margin-top: 8px;width: 10; height: 40" class="img-rounded">
+                    </div>
+                    <div class='col-xs-5'>
+                        <div class='thumbnail'>
+                            <img src="img/lesEpreuves.jpg"alt=".." style="margin-top: 8px;" class="img-rounded">
                             <div class="caption">
                                 <h3 class="text-center">Inscription des participants à des épreuves </h3>
                                 <p> Inscrire, modifier ou supprimer un participant à une épreuve </p>
@@ -88,10 +88,10 @@ and open the template in the editor.
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
+
                 <footer class="footer">
-                    
+
                     <%! Date dateDuJour;%>
                     <% dateDuJour = new Date();%>
                     <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
@@ -100,7 +100,7 @@ and open the template in the editor.
                 </footer>
             </div>  
         </div>
-        
+
         <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/cyberCompetition.js" ></script>
