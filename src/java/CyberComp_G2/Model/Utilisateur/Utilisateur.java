@@ -10,34 +10,39 @@ package CyberComp_G2.Model.Utilisateur;
  * @author Gato
  */
 public class Utilisateur {
+
     private String nom;
     private String prenom;
-    private String adresse;
     private String adresseMail;
     private String numeroTelephone;
-    private String nomTitulaire;
+    private int numRue;
+    private String rue;
+    private String ville;
     private String typeCarte;
     private boolean panierValider;
     private boolean infoValider;
     private boolean paiementValider;
     private boolean commandeTerminer;
-    
-    public Utilisateur(String nom, String prenom, String adresse, String adresseMail, String numeroTelephone, String nomTitulaire, String typeCarte, boolean panierValider, boolean infoValider, boolean paiementValider, boolean commandeTerminer) {
+
+    public Utilisateur(String nom, String prenom, String adresseMail, String numeroTelephone, int numRue, String rue, String ville, String typeCarte, boolean panierValider, boolean infoValider, boolean paiementValider, boolean commandeTerminer) {
         this.nom = nom;
         this.prenom = prenom;
-        this.adresse = adresse;
         this.adresseMail = adresseMail;
         this.numeroTelephone = numeroTelephone;
-        this.nomTitulaire = nomTitulaire;
+        this.numRue = numRue;
+        this.rue = rue;
+        this.ville = ville;
         this.typeCarte = typeCarte;
         this.panierValider = panierValider;
         this.infoValider = infoValider;
         this.paiementValider = paiementValider;
         this.commandeTerminer = commandeTerminer;
     }
-    
-        public Utilisateur(){
-        this("","","","","","","",false,false,false,false);
+
+
+
+    public Utilisateur() {
+        this("","","", "", 0, "", "", "", false, false, false, false);
     }
 
     public String getNom() {
@@ -56,14 +61,6 @@ public class Utilisateur {
         this.prenom = prenom;
     }
 
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
     public String getAdresseMail() {
         return adresseMail;
     }
@@ -80,12 +77,28 @@ public class Utilisateur {
         this.numeroTelephone = numeroTelephone;
     }
 
-    public String getNomTitulaire() {
-        return nomTitulaire;
+    public int getNumRue() {
+        return numRue;
     }
 
-    public void setNomTitulaire(String nomTitulaire) {
-        this.nomTitulaire = nomTitulaire;
+    public void setNumRue(int numRue) {
+        this.numRue = numRue;
+    }
+
+    public String getRue() {
+        return rue;
+    }
+
+    public void setRue(String rue) {
+        this.rue = rue;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
     }
 
     public String getTypeCarte() {
@@ -127,7 +140,6 @@ public class Utilisateur {
     public void setCommandeTerminer(boolean commandeTerminer) {
         this.commandeTerminer = commandeTerminer;
     }
-    
+
     
 }
-

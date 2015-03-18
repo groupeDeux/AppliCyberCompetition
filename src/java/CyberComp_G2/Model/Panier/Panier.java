@@ -23,9 +23,9 @@ public class Panier {
      dans le panier.
      */
 
-    private ArrayList<Integer> nombreDElements;
-    private ArrayList<String> listeAuPanier;
-    private ArrayList<Epreuve> lesEpreuvesAuPanier;
+    private ArrayList<Integer> nombreDElements;         // Nombre des tickets / billets
+    private ArrayList<String> listeAuPanier;            // Liste des tickets / billets
+    private ArrayList<Epreuve> lesEpreuvesAuPanier;     // Liste des epreuves dans le panier
 
     /* Constructeur par défaut */
     public Panier() {

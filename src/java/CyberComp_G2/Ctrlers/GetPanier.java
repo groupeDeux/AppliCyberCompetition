@@ -42,7 +42,7 @@ public class GetPanier extends HttpServlet {
         }
         
         /* On verifie que l'attribut utiliseur est bien initialisé */
-        Utilisateur sessionUtilisateur = (Utilisateur)session.getAttribute("utilisateurSession");
+        Utilisateur sessionUtilisateur = (Utilisateur)session.getAttribute("sessionUtilisateur");
         if(sessionUtilisateur==null){
             sessionUtilisateur = new Utilisateur();
             session.setAttribute("sessionUtilisateur", sessionUtilisateur);
