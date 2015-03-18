@@ -64,6 +64,8 @@ and open the template in the editor.
                         <h2 class="text-center">
                             <% if(etat.equals("erreur")){%>Erreur<%}else{%>  Validation <%}%> </h2>
                     </div>
+                    
+                    <%-- vérification liée à la création d'une |Equipe| --%> 
                     <% 
                        if(etat.equals("creation")){
                          Equipe newEquipe = (Equipe) request.getAttribute("newEquipe"); 
@@ -72,6 +74,7 @@ and open the template in the editor.
                          String pays = newEquipe.getPays();
                     %>   
                     
+                    <%-- si l'|Equipe| a été bien créée, affichage d'un message suivi des informations liées à cette |Equipe| telles que l'|id|, le |nom|, le |pays| ainsi que la liste des |Sportif|s la constituant--%>
                     <div id='equipeInscrite' class="well row" >                   
                         <h3 class="text-center">L'équipe a été inscrite </h3> 
                         <div class='col-xs-6 text-center'>
@@ -89,6 +92,8 @@ and open the template in the editor.
                                 <%}%>
                          </div>
                     </div>
+                    
+                    <%--récupération des données liées à la modification d'une |Equipe| choisie--%>
                     <% }
                     if(etat.equals("modification")){
                          Equipe equipe = (Equipe) request.getAttribute("equipe"); 
@@ -97,6 +102,7 @@ and open the template in the editor.
                          String pays = equipe.getPays();
                     %>   
                     
+                    <%-- message lié à la modification de l'équipe --%>
                     <div id='equipeInscrite' class="well row" >                   
                         <h3 class="text-center">L'équipe a été modifiée </h3> 
                         <div class='col-xs-6 text-center'>
@@ -114,6 +120,8 @@ and open the template in the editor.
                                 <%}%>
                          </div>
                     </div>
+                    
+                    <%-- suppression d'une |Equipe| faisant partie d'une |Delegation| choisie --%>
                     <% }
                     if(etat.equals("suppression")){
                          Equipe equipe = (Equipe) request.getAttribute("equipeSup");
@@ -128,6 +136,8 @@ and open the template in the editor.
                             <div> <strong>Pays:</strong>  <%=pays%></div>
                          </div>
                     </div>
+                    
+                    <%-- affichage des erreurs éventuelles --%>     
                     <%}
                     if(etat.equals("erreur")){
                     String mesErreur = (String) request.getAttribute("mesErreur");%>
