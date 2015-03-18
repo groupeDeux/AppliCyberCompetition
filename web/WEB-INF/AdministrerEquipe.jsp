@@ -68,7 +68,7 @@ and open the template in the editor.
                 <div class="row">
                     <div id="tabs">
                         <ul class="nav nav-tabs">
-                            <%-- recupere le tab si diferent de nul pour afficher le bon tab --%>
+                            <%-- recupère le tab: si différent de null ça affiche le bon tab --%>
                             <% int tab = 0;
                                 if (session.getAttribute("tabs") != null) {
                                     tab = (Integer) session.getAttribute("tabs") - 1;
@@ -105,7 +105,7 @@ and open the template in the editor.
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
                                             <select  <%if (newEquipe != null) {%> disabled="true" <%}%> class="form-control" id='selectionDelegationCreer' name='listDeleg'>
-                                                <%-- affiche la liste des delegation si pas de delegation selectionner ou la delegation voulue--%>
+                                                <%-- affiche la liste des délégations: si pas d'équipes dans une délégation, affichage de Choix dans le menu déroulant --%>
                                                 <%
                                                     int i = 0;
                                                     ArrayList<Delegation> lesDelegations = (ArrayList<Delegation>) session.getAttribute("listDelegations");
@@ -139,9 +139,9 @@ and open the template in the editor.
                                 </div>
                                 <div class='row'>
                                     <div class='form-group'>
-                                        <label class='col-xs-3 control-label'>Categorie :</label>
+                                        <label class='col-xs-3 control-label'>Catégorie :</label>
                                         <div class="col-xs-6 " id="radioboutons" >
-                                            <%-- check et disabled les radio bouton en fonction de la categorie precedament selectionner--%>
+                                            <%-- bouttons radio "check" et "disabled" en fonction de la catégorie précédemment sélectionnée --%>
                                             <div class='radio-inline'>
                                                 <label>
                                                     <input <%if (newEquipe != null) {%> disabled="true" <% }%> type="radio" name="radioType" value="masculin" <%if (categorie.equals("masculin") || categorie.equals("")) {%>checked<% }%> >
@@ -183,7 +183,7 @@ and open the template in the editor.
                                         <div class='col-xs-5'>
                                             <select  class="form-control"  name ="selectNomAjouter" id='selectNomAjouter<%=i%>'>
                                                 <option value="">Choix</option>
-                                                <%-- affiche la liste des sportif de la deleagtion et selctionne celle precedanement choisie--%>
+                                                <%-- affiche la liste des sportifs de la délégation et sélectionne un sportif de la liste présentée par le menu déroulant --%>
                                                 <%int j;
                                                     int idASelectinner;
                                                     if (newEquipe.getLesMembres().size() >= i) {
@@ -200,24 +200,24 @@ and open the template in the editor.
                                                 <%}%>
                                             </select>
                                         </div>
-                                            <%-- bouton permetant la supression activer que si le nombre de menbre et sypérieure a 2--%>
+                                            <%-- boutton permettant la suppression d'un sportif : active ssi le nombre de membres et supérieure à 2--%>
                                         <div class='col-xs-1'> <button   <% if (newEquipe.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportif<%=i%>" name='valSupprimerSportif' value='<%=i%>'=><span class="glyphicon glyphicon-minus"></span></button></div>    
                                     </div>
                                     <%}%>
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
-                                        <%-- div permetant le control d'eereur --%>
+                                        <%-- div permettant le contrôle d'erreur --%>
                                         <div class="col-xs-offset-5 col-xs-2 erreurForm" id="ControlValAjouterSportif">
 
                                         </div>
                                         <div class="col-xs-2">
-                                             <%-- bouton permetant l'ajout d'un sportif--%>
+                                             <%-- boutton permettant l'ajout d'un sportif--%>
                                             <button  type="button" class="btn btn-primary btn-block " id="valAjouterSportif"><span class="glyphicon glyphicon-plus"></span></button>
                                         </div>
                                     </div>
                                 </div>
-                                <%-- boutons permetants la creation de l'equipe ou annule les action precedente--%>
+                                <%-- bouttons permettant la création de l'équipe ou l'annulation des actions précédentes --%>
                                 <div class="row" id="ValCreationEquipe">
                                     <div class="form-group">
                                         <div class="col-xs-2 col-xs-offset-3 ">
@@ -249,14 +249,14 @@ and open the template in the editor.
                         <div id='tab2'>
                             <form class="form-horizontal" id="formModifierEquipe">
                                 <div class="well">
-                                    Cette page vous permet de modifier les élements d'une équipe : 
+                                    Cette page vous permet de modifier les éléments d'une équipe : 
                                     ajouter un joueur, ou encore supprimer un joueur.
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
-                                             <%-- affiche la liste des delegation et selectionne  la delegation voulue--%>
+                                             <%-- affiche la liste des délégations et sélectionne la délégation voulue--%>
                                             <select class="form-control" name='selectDelegationModifier' id='selectDelegationModifier'>
                                                 <option value="1">Choix</option>
                                                 <%
@@ -274,7 +274,7 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Equipe :</label>
                                         <div class='col-xs-6'>
-                                            <%-- affiche la liste des equipe de la deleagtion et selctionne celle precedanement choisie--%>
+                                            <%-- affiche la liste des equipes de la délégation et sélectionne celle précédemment choisie--%>
                                             <select class="form-control" id='selectEquipeModifier' name="selectEquipeModifier"  <% if (lesEquipes == null) {%>disabled="true"<%}%>>
                                                 <option value="">Choix</option>
                                                 <%
@@ -301,7 +301,7 @@ and open the template in the editor.
                                             <div id='divAjoutSportif2' class="form-group">
                                             <label class='col-xs-3 control-label'>Sportif <%=i%> :</label>
                                             <div class='col-xs-5'>
-                                             <%-- affiche la liste des sportif de l'equipe selectionner--%>
+                                             <%-- affiche la liste des sportifs de l'équipe sélectionnée--%>
                                                 <select  class="form-control"  name ="selectModifier" id='selectNomModifier<%=i%>'>
                                                     <option value="">Choix</option>
                                                     <%int idASelectinner;
@@ -319,17 +319,17 @@ and open the template in the editor.
                                                     <%}%>
                                                 </select>    
                                             </div>
-                                       <%-- bouton permetant la supression activer que si le nombre de menbre et sypérieure a 2--%>
+                                       <%-- boutton permettant la suppression: active que si le nombre de membres et supérieure à 2--%>
                                         <div class='col-xs-1'> <button   <% if (equipeModif.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportifModif<%=i%>" name='valSupprimerSportifModif' value='<%=i%>'><span class="glyphicon glyphicon-minus"></span></button></div>    
                                     </div>
                                     <%}%> 
                                     <div class="row">
                                         <div class="form-group">
-                                              <%-- div permetant le control d'eereur --%>
+                                              <%-- div permettant le contrôle d'erreur --%>
                                             <div class="col-xs-offset-5 col-xs-2 erreurForm" id="ControlValAjouterSportifModif">
 
                                             </div>
-                                              <%-- bouton permetant l'ajout d'un sportif --%>
+                                              <%-- boutton permettant l'ajout d'un sportif --%>
                                             <div class="col-xs-2">
                                                 <button  type="button" class="btn btn-primary btn-block " id="valAjouterSportifModif"><span class="glyphicon glyphicon-plus"></span></button>
                                             </div>
@@ -363,7 +363,7 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
-                                             <%-- affiche la liste des delegation et selectionne  la delegation voulue--%>
+                                             <%-- affiche la liste des délégations et sélectionne la délégation voulue--%>
                                             <select class="form-control" id='selectDelegationSupp'>
                                                 <option value="">Choix</option>
                                                 <%
@@ -381,7 +381,7 @@ and open the template in the editor.
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Equipe :</label>
                                         <div class='col-xs-6'>
-                                             <%-- affiche la liste des equies de la delagtion suprimable (qui ne sont pas inscrite a une epruve terminer)--%>
+                                             <%-- affiche la liste des équipes de la délégation supprimable (qui ne sont pas inscrites à une épreuve terminée)--%>
                                             <% ArrayList<Equipe> lesEquipesSup =(ArrayList<Equipe>) session.getAttribute("lesEquipesSup");%>
                                             <select class="form-control" id='selectEquipeSupp'<%if(lesEquipesSup ==null){%>disabled="true"<%}%>>
                                                 <option value="">Choix</option>
@@ -427,7 +427,7 @@ and open the template in the editor.
 
             $(document).ready(function () {
                 $("#tabs").tabs();
-                <%--permet d'afficher la bonne tab --%>
+                <%--permet d'afficher le bon tab --%>
                 $("#tabs").tabs({
                     active: <%=tab%>
                 });
