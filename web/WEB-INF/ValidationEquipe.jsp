@@ -95,7 +95,7 @@ and open the template in the editor.
                     %>   
                     
                     <div id='equipeInscrite' class="well row" >                   
-                        <h3 class="text-center">L'équipe a été modifier </h3> 
+                        <h3 class="text-center">L'équipe a été modifiée </h3> 
                         <div class='col-xs-6 text-center'>
                             <div> <strong>Equipe:</strong>  <%=idEquipe%> <%=nomEquipe%> </div>
                             <div> <strong>Pays:</strong>  <%=pays%></div>
@@ -105,7 +105,7 @@ and open the template in the editor.
                                 <% int i;
                                 for(i=0;i<equipe.getNbMembre();i++){
                                   Sportif sportif =  equipe.getLesMembres().get(i);
-                                  String desSportif = sportif.getIdSportif() +" : " + sportif.getNom() + " " + sportif.getPrenom() +"</br>"; %> 
+                                  String desSportif = sportif.getIdSportif() +" : " + sportif.getNom() + " " + sportif.getPrenom() +"<br/>"; %> 
                                   <%=desSportif%> 
                                   
                                 <%}%>
