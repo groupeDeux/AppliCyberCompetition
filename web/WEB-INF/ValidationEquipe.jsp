@@ -119,19 +119,22 @@ and open the template in the editor.
                          String pays = equipe.getPays();
                     %>
                     <div id='equipeSuppr' class="well row">
-                         <h3 class="text-center">L'équipe a été modifier </h3>
+                         <h3 class="text-center">L'équipe a été supprimer </h3>
                          <div class='col-xs-offset-3 col-xs-6 text-center'>
                             <div> <strong>Equipe:</strong>  <%=idEquipe%> <%=nomEquipe%> </div>
                             <div> <strong>Pays:</strong>  <%=pays%></div>
                          </div>
                     </div>
-                    <%}%>
-                    <div id='erreur'>
-                        <form class="form-horizontal"> 
-                            <div class="well"> Erreur : votre action n'a pas pu aboutir. <br> 
-                                Veuillez recommencer. </div>
+                    <%}
+                    if(etat.equals("erreur")){
+                    String mesErreur = (String) request.getAttribute("mesErreur");%>
+                    <div id='erreur' class="well row">
+                             <h3 class="text-center">Erreur lors de l'execution</h3>
+                         <div class='col-xs-offset-3 col-xs-6 text-center'>
+                               <%=mesErreur%>
+                         </div>
                     </div>
-                    
+                    <% }%>
                     <div class=' col-xs-offset-3 col-xs-6'>
                         <a type="button" class="btn btn-default btn-block" id="retour" href="CloseSession"> Administrer Equipe </a>
                     </div>

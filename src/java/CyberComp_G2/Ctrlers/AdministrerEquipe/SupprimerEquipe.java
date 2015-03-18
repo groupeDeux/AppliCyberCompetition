@@ -9,6 +9,7 @@ package CyberComp_G2.Ctrlers.AdministrerEquipe;
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
 import CyberComp_G2.DAO.ConsituerEquipe.ModifierEquipeDAO;
 import CyberComp_G2.Exceptions.CategorieException;
+import CyberComp_G2.Exceptions.EquipeInexistanteException;
 import CyberComp_G2.Exceptions.GenreMenbreEquipeException;
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import CyberComp_G2.Model.ConstituerEquipe.Sportif;
@@ -61,14 +62,19 @@ public class SupprimerEquipe extends HttpServlet {
         }
          
         try {
+            if(equipe==null){
+                throw new EquipeInexistanteException(idEquipe);
+            }
             CachedRowSet lesSportifDeLequipe = GetConsulterEquipeDAO.getSportifsDUneEquipe(idEquipe);
             while(lesSportifDeLequipe.next()){
                 equipe.addMembre(new Sportif(lesSportifDeLequipe.getInt("idSportif"),lesSportifDeLequipe.getString("pays"), lesSportifDeLequipe.getString("prenom"), lesSportifDeLequipe.getString("nom"), lesSportifDeLequipe.getString("dateNaissance"), lesSportifDeLequipe.getString("genre")));
             }
             
             ModifierEquipeDAO.SupprimerEquipe(dataSource, equipe);
-        } catch (SQLException|CategorieException|GenreMenbreEquipeException ex) {
-            Logger.getLogger(SupprimerEquipe.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException|CategorieException|GenreMenbreEquipeException| EquipeInexistanteException ex) {
+              request.setAttribute("etat", "erreur");
+              request.setAttribute("mesErreur", ex.getMessage());
+              request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);
         }
         
         request.setAttribute("etat", "suppression");
