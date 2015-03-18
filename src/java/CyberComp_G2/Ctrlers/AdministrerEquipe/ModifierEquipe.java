@@ -126,7 +126,7 @@ public class ModifierEquipe extends HttpServlet {
                 }
                 if(!listEqupreuvesTerminer.isEmpty()){
                     StringBuilder msgErreur = new StringBuilder();
-                    msgErreur.append("Equipe non modifiable : inscrite a des epreuve terminées <br/> Liste des epreuves terminées : <br/>");
+                    msgErreur.append("Equipe non modifiable : inscrite a des epreuves terminées <br/> Liste des epreuves terminées : <br/>");
                     for(i=0;i<listEqupreuvesTerminer.size();i++){
                         msgErreur.append(listEqupreuvesTerminer.get(i)).append("<br/>");
                     }

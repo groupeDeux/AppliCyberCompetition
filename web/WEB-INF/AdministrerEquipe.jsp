@@ -82,7 +82,7 @@ and open the template in the editor.
                             <br/>
                         </div>
                         <!--
-                                ID TAB1 : CREER UNE EQUIPE
+ -------------------------------------------------------------ID TAB1 : CREER UNE EQUIPE
                         -->
                         <div id='tab1'>
                             <form class="form-horizontal">
@@ -225,7 +225,7 @@ and open the template in the editor.
                         </div>
 
                         <!--
-                                ID TAB2 : MODIFIER UNE EQUIPE
+----------------------------------------------ID TAB2 : MODIFIER UNE EQUIPE
                         -->
                         <% Equipe equipeModif = (Equipe) session.getAttribute("modifEquipe");
                             ArrayList<Sportif> lesSportifsModif = (ArrayList<Sportif>) session.getAttribute("lesSportifsModif");
@@ -283,11 +283,7 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                 </div>
-
-
-                                <!--
-                                        AJOUTER UN SPORTIF DANS UNE EQUIPE
-                                -->
+                               <!--AJOUTER UN SPORTIF DANS UNE EQUIPE-->
                                 <div id="ajoutModif">                         
                                     <%if (equipeModif != null) {
                                         for (i = 1; i <= equipeModif.getNbDeSportif(); i++) {%> 
@@ -341,7 +337,7 @@ and open the template in the editor.
                         </div>
 
                         <!--
-                                ID TAB3 : SUPPRIMER UNE EQUIPE
+------------------------------------------------------------ID TAB3 : SUPPRIMER UNE EQUIPE
                         -->
                         <div id='tab3'>
                             <form class="form-horizontal">
@@ -398,6 +394,9 @@ and open the template in the editor.
                         </div>
                     </div>        
                 </div>
+                                                 
+                                                 
+                                                 
                 <footer class="footer">
                     <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
                     <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
