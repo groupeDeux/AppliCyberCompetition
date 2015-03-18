@@ -139,7 +139,7 @@ and open the template in the editor.
                     <div class="media">
                         <div class="media-left">
                             <%-- Cliquer sur l'image permet d'afficher l'epreuve --%>
-                            <div data-toggle='collapse' href='#epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>'>
+                            <div data-toggle='collapse' name ='selectEpreuve' href='#epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>' value="<%=epreuveSelectionnee.getIdEpreuve()%>">
                                 <img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de <%=epreuveSelectionnee.getNomDiscipline()%>' data-toggle="tooltip" data-placement="top" title="Afficher informations supp.">
                             </div>
                         </div>
@@ -255,13 +255,13 @@ and open the template in the editor.
                     <div class="media">
                         <div class="media-left">
                             <%-- Cliquer sur l'image permet d'afficher l'epreuve --%>
-                            <div data-toggle='collapse tooltip' data-placement="top" title="Afficher informations supp." data-info='close' href='#epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>'>
+                            <div data-toggle='collapse tooltip' data-placement="top" title="Afficher informations supp." data-info='close' name ='selectEpreuve' href='#epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>' value="<%=epreuveSelectionnee.getIdEpreuve()%>">
                                 <img class="media-object img-rounded" src='./img/image-media-<%=epreuveSelectionnee.getNomDiscipline()%>.jpg' alt='image de <%=epreuveSelectionnee.getNomDiscipline()%>' data-toggle="tooltip" data-placement="top" title="Afficher informations supp.">
                             </div>
                         </div>
                         <div class='media-body'>
                             <%-- Cliquer sur cette partie media-heading permet d'afficher l'epreuve --%>
-                            <div data-toggle='collapse tooltip' data-placement="top" title="Afficher informations supp." data-info='close' href='#epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>'>
+                            <div data-toggle='collapse tooltip' data-placement="top" title="Afficher informations supp." data-info='close' name ='selectEpreuve' href='#epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>' value="<%=epreuveSelectionnee.getIdEpreuve()%>">
                                 <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%>&nbsp;</h4>
                                 <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
                                 <div class='pull-right'><h3><span class='glyphicon glyphicon-menu-down'></span>&nbsp;</h3></div>

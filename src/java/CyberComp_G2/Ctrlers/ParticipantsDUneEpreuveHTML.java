@@ -113,20 +113,23 @@ public class ParticipantsDUneEpreuveHTML extends HttpServlet {
                 listSportifsInscrits= (ArrayList<Participant>) request.getAttribute("listParticipants");
                 tableauParticipants = createTabParticipants(listSportifsInscrits, forme);
             }
-                        
+                     
+            out.println("<table class=\"table tabParticipant\">");
+            out.println(tableauParticipants);
+            out.println("</table>");  
            
 
         } catch (SQLException ex) {
             Logger.getLogger(ParticipantsDUneEpreuveHTML.class.getName()).log(Level.SEVERE, null, ex);
             throw new ServletException(ex.getMessage(), ex);
         }
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("coucou");
-//            out.println("<table class=\"tabParticipant\">");
-//            out.println(tableauParticipants);
-//            out.println("</table>");   
-        }
+//        response.setContentType("text/html;charset=UTF-8");
+//        try (PrintWriter out = response.getWriter()) {
+//            out.println("coucou");
+////            out.println("<table class=\"tabParticipant\">");
+////            out.println(tableauParticipants);
+////            out.println("</table>");   
+//        }
     }
     
      /*String forme = (String) request.getAttribute("formeParticipant");
