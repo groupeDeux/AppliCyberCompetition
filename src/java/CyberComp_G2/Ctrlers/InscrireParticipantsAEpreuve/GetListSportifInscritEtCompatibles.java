@@ -70,7 +70,8 @@ public class GetListSportifInscritEtCompatibles extends HttpServlet {
                 listSportifsCompatibles.add(new Sportif(rowSetSportifsCompatibles.getInt("idSportif"),rowSetSportifsCompatibles.getString("pays"),rowSetSportifsCompatibles.getString("prenom"), rowSetSportifsCompatibles.getString("nom"),rowSetSportifsCompatibles.getString("dateNaissance"),rowSetSportifsCompatibles.getString("genre")));
              }
         }catch (SQLException|CategorieException ex) {
-            log(ex.getMessage());
+            request.setAttribute("messErreur", ex.getMessage());
+            request.getRequestDispatcher("/WEB-INF/ErreurInscriptionepreuve.jsp").forward(request, response);
            }
         
         

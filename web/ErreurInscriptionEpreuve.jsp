@@ -61,20 +61,20 @@ and open the template in the editor.
                             TITRE DE LA PAGE 
                     --> 
                     <div class="page-header">
-                        <h2 class="text-center">Erreur</h2>
-                    </div>
+                         <!-- <h2 class="text-center">Erreur</h2> -->
+                    </div> 
                     
                    
-                    <% String mesErreur = (String) request.getAttribute("mesErreur");%>
+                    <% String messageErreur = (String) request.getAttribute("messErreur");%>
                     <div id='erreur' class="well row">
                              <h3 class="text-center">Erreur lors de l'exécution</h3>
                          <div class='col-xs-offset-3 col-xs-6 text-center'>
-                               <%=mesErreur%>
+                               Une erreur est survenue: <%=messageErreur%>
                          </div>
                     </div>
 
                     <div class=' col-xs-offset-3 col-xs-6'>
-                        <a type="button" class="btn btn-default btn-block" id="retour" href="CloseSession"> Administrer Equipe </a>
+                        <a type="button" class="btn btn-default btn-block" id="retour" href="GetListEpreuveInscription"> Inscrire participants à des épreuves </a>
                     </div>
                 </div>
                   <footer class="footer">

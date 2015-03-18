@@ -73,7 +73,8 @@ public class GetListEquipesInscritesEtCompatibles extends HttpServlet {
                 listEquipesCompatibles.add(new Equipe(rowSetEquipesCompatibles.getInt("idEquipe"), rowSetEquipesCompatibles.getString("pays"), rowSetEquipesCompatibles.getString("nomEquipe"),rowSetEquipesCompatibles.getString("categorie"),rowSetEquipesCompatibles.getInt("nbMembre")));
             }
         } catch (SQLException|CategorieException ex) {
-            log(ex.getMessage());
+                request.setAttribute("messErreur", ex.getMessage());
+                request.getRequestDispatcher("/WEB-INF/ErreurInscriptionepreuve.jsp").forward(request, response);  
            }
         
         
