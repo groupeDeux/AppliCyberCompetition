@@ -8,6 +8,7 @@ package CyberComp_G2.Ctrlers.AdministrerEquipe;
 
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
 import CyberComp_G2.Exceptions.CategorieException;
+import CyberComp_G2.Exceptions.EquipeInexistanteException;
 import CyberComp_G2.Exceptions.GenreMenbreEquipeException;
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import CyberComp_G2.Model.ConstituerEquipe.Sportif;
@@ -63,9 +64,13 @@ public class initEquipeModif extends HttpServlet {
         }
         HttpSession session = request.getSession(true);
         ArrayList<Sportif> lesSportifs = new ArrayList();
-        String delegation =  modifEquipe.getPays();
-        String categorie = modifEquipe.getCategorie();
         try{
+            if (modifEquipe==null){
+                throw new EquipeInexistanteException(idEquipe);
+            }
+            String delegation =  modifEquipe.getPays();
+            String categorie = modifEquipe.getCategorie();
+        
                  CachedRowSet rowSetSportifParDelegation;
                  
                 if ("mixte".equals(categorie)){
@@ -84,8 +89,10 @@ public class initEquipeModif extends HttpServlet {
             }
 
            
-            }catch (SQLException|CategorieException ex){
-            log(ex.getMessage());
+            }catch (SQLException|CategorieException|EquipeInexistanteException ex){
+                request.setAttribute("etat", "erreur");
+                request.setAttribute("mesErreur", ex.getMessage());
+                request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);
             }
         
         session.setAttribute("lesSportifsModif", lesSportifs); 

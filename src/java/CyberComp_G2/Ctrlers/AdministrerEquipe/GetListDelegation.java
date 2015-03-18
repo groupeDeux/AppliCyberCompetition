@@ -70,7 +70,9 @@ public class GetListDelegation extends HttpServlet {
              }
                        
         }catch (SQLException ex){
-         log(ex.getMessage());   
+                request.setAttribute("etat", "erreur");
+                request.setAttribute("mesErreur", ex.getMessage());
+                request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);  
         }
         
         
@@ -83,7 +85,9 @@ public class GetListDelegation extends HttpServlet {
                     newEquipe = new Equipe(0,delegation,nomEquipe, categorie,2); 
                 }
             }catch(CategorieException ex){
-               log(ex.getMessage());
+               request.setAttribute("etat", "erreur");
+                request.setAttribute("mesErreur", ex.getMessage());
+                request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);
             }
             try{
                  CachedRowSet rowSetSportifParDelegation;
@@ -104,7 +108,9 @@ public class GetListDelegation extends HttpServlet {
             }
 
             }catch (SQLException|CategorieException ex){
-                log(ex.getMessage());
+                request.setAttribute("etat", "erreur");
+                request.setAttribute("mesErreur", ex.getMessage());
+                request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);
             }
             session.setAttribute("lesSportifs", lesSportifs); 
         }

@@ -129,7 +129,7 @@ $(function () {
       e.preventDefault();
       e.stopPropagation();
     var idEpreuve= $(this).attr("value");
-    //$('#epreuvesParticipants'+idEpreuve).load("nomServetACreer"? avecParametresSousFormeURL)
+    $('#epreuvesParticipants'+idEpreuve).load("GetListParticipantDUneEpreuve?idEpreuve="+idEpreuve);
     
     
   });

@@ -25,6 +25,6 @@ public class CategorieException extends Exception {
      * @param msg the detail message.
      */
     public CategorieException(String msg) {
-        super("nom de categorie Eronnée : "+msg);
+        super("Nom de categorie eronnée : "+msg);
     }
 }

@@ -53,7 +53,7 @@ public class AjouterSportifEpreuve extends HttpServlet {
         try {
             /* ----- Mise a jour la liste des sportif inscrits ----- */
 
-            /* --- Ajout d'un n-uplet avec les parametres (idEpreuve, idSportif)*/
+            /* --- Ajout d'un n-uplet avec les parametres (idEpreuve,idParticipant)*/
             ModifierParticipationsDAO.ajouterSportifUnique(Integer.parseInt(idEpreuve), Integer.parseInt(idParticipant));
 
             /* --- Calcul nouvelle liste des sportifs inscrits */
@@ -86,7 +86,7 @@ public class AjouterSportifEpreuve extends HttpServlet {
         /* ajoute la liste en attribut de la reponse */
         session.setAttribute("listSportifsInscrits", listSportifsInscrits);
         session.setAttribute("listSportifsCompatibles", listSportifsCompatibles);
-        request.setAttribute("idEpreuveSelec", idEpreuve);
+        request.setAttribute("idEpreuveIndSelec", idEpreuve);
         request.setAttribute("activeTab", 2); //onglet actif passe en parametre
         request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
     }

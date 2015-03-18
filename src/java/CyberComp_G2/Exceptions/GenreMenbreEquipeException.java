@@ -26,6 +26,6 @@ public class GenreMenbreEquipeException extends Exception {
      * @param genre
      */
     public GenreMenbreEquipeException(String categorie,String genre) {
-        super("genre du membre ("+genre +") Correspont pas a la categorie de l'equipe (" + categorie +")");
+        super("Genre du membre ("+genre +") correspond pas à la categorie de l'équipe (" + categorie +")");
     }
 }

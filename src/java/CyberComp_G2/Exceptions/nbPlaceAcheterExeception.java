@@ -26,6 +26,6 @@ public class nbPlaceAcheterExeception extends Exception {
      * @param nbPlaceAcheter
      */
     public nbPlaceAcheterExeception(int nbPlace,int nbPlaceAcheter) {
-        super("probleme de place, place de l'epreuve :" +nbPlace + nbPlaceAcheter);
+        super("Probleme de place, place de l'épreuve :" +nbPlace + nbPlaceAcheter);
     }
 }

@@ -6,6 +6,7 @@
 package CyberComp_G2.Ctrlers.AdministrerEquipe;
 
 import CyberComp_G2.Exceptions.GenreMenbreEquipeException;
+import CyberComp_G2.Exceptions.nbMenbreEquipeException;
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import CyberComp_G2.Model.ConstituerEquipe.Sportif;
 import java.io.IOException;
@@ -58,13 +59,18 @@ public class SupSportif extends HttpServlet {
                 try{
                 for (j = 0; j < lesSportifs.size(); j++) {
                     if (request.getParameter("sportifSelect" + i)!=null) {
+                        if(request.getParameter("sportifSelect"+i)==null){
+                           throw new nbMenbreEquipeException(i-1); 
+                        }
                         if (lesSportifs.get(j).getIdSportif() == Integer.parseInt(request.getParameter("sportifSelect" + i))) {
                             equipe.addMembre(lesSportifs.get(j));
                         }
                     }
                 }
-                }catch(GenreMenbreEquipeException ex){
-                    Logger.getLogger(SupprimerEquipe.class.getName()).log(Level.SEVERE, null, ex);
+                }catch(GenreMenbreEquipeException|nbMenbreEquipeException ex){
+                    request.setAttribute("etat", "erreur");
+                    request.setAttribute("mesErreur", ex.getMessage());
+                    request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);
                 }
                     
             }

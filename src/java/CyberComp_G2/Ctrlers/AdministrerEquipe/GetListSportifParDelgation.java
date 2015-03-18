@@ -50,7 +50,9 @@ public class GetListSportifParDelgation extends HttpServlet {
             }
             out.println(rep);
         }catch (SQLException ex){
-            log(ex.getMessage());
+            request.setAttribute("etat", "erreur");
+            request.setAttribute("mesErreur", ex.getMessage());
+            request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);
         }
     }
 

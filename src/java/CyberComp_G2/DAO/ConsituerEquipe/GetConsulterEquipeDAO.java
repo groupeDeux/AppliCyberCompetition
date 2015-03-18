@@ -52,16 +52,52 @@ public class GetConsulterEquipeDAO {
             "join lesMedailles "+
             "on(idEpreuve=idEpreuve and idParticipant = idEquipe) ";
     
+    
+    public static  final String lesEpreuveANbFixeInCoherent 
+            = "select idEpreuve,NBPERSONNEFIXE "
+            + "from LesEquipes "
+            + "join LesParticipations ON (IdParticipant = IdEquipe) "
+            + "join LesEpreuvesParEquipe USING (idEpreuve) "
+            + "where (IDEQUIPE = %d and NBPERSONNEFIXE is not null and NBPERSONNEFIXE <> %d)";
+    
+    public static  final String lesEpreuveAvecResultatEtEquipeInscrite
+            ="Select distinct IDEPREUVE "
+            + "from LESPARTICIPATIONS LPa "
+            + "join LESMEDAILLES lMe "
+            + "using(IdEpreuve) "
+            + "join LESEQUIPES "
+            + "on(LPa.IDPARTICIPANT=IDEQUIPE) "
+            + "where IDEQUIPE= %d";
+    
     /**
      *  retourne la liste des |Delegation|s
      * @return
      * @throws SQLException 
      */
-    
     public CachedRowSet getDelegations() throws SQLException{
         return ConnexionBD.INSTANCE.executeRequete(lesDelegations);
     }
 
+    /**
+     * retourne les Epreuves ou est inscrite l'equipe et dont les resultat sont connue (terminer)
+     * @param idEquipe
+     * @return
+     * @throws SQLException 
+     */
+    public CachedRowSet getEpreuveAvecResultatDeLEquipe( int idEquipe) throws SQLException{
+        return ConnexionBD.INSTANCE.executeRequete(lesEpreuveAvecResultatEtEquipeInscrite,idEquipe);
+    }
+     
+    /**
+     * retouere id epreuve et le nombre de personne fixé de l'epreuve si celui ci est incohérent avec le nombre de mendre dans l'équipe
+     * @param idEquipe
+     * @param nbMembre
+     * @return
+     * @throws SQLException 
+     */
+    public CachedRowSet getEpreuveANbInCoherent(int idEquipe, int nbMembre) throws SQLException{
+        return ConnexionBD.INSTANCE.executeRequete(lesEpreuveANbFixeInCoherent,idEquipe,nbMembre);
+    }
     /**
      * retroune la liste des |Equipe|s d'une |Delegation| donnée
      * @param pays

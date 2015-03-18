@@ -1,8 +1,8 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// ------------------------------------- Creer Equipe -----------------------------------------------------------------
+
+/*
+*losrque clic sur valider equipe  apelle du controler GetlistDelegation si delegation selectionner sinon message erreur
+*/
 $("#valCreer").on('click', function () {
     
     var delegation = document.getElementById("selectionDelegationCreer").value;
@@ -17,6 +17,9 @@ $("#valCreer").on('click', function () {
     
 });
 
+/*
+ * lorsque clic sur creer equipe :Si tout les sportifs sont selectioner appelle de la servelt de qui  mets en BD sinon message d'erreur
+ */
 $("#validerCreerEquipe").on('click', function () {
    var nbSportif=1;
    var sportifsSontSelectionner= true;
@@ -37,26 +40,9 @@ $("#validerCreerEquipe").on('click', function () {
    }
 });
 
-$("#validerEquipeModif").on('click', function () {
-   var nbSportif=1;
-   var sportifsSontSelectionner= true;
-   var url ="ModifierEquipe?Creation=false";
-   $("select[name='selectModifier']").each(function (){
-       if($(this).val()===""){
-            sportifsSontSelectionner = false ; 
-       }else{
-           url = url + "&sportifSelect"+nbSportif+"="+$(this).val();   
-           nbSportif++;
-       }
-   });
-   
-   if (sportifsSontSelectionner === false){
-       document.getElementById("ControlValAjouterSportifModif").innerHTML="Selectionner tout les sportifs";
-   }else{
-        document.location.href=url;
-   }
-});
-
+/*
+ * lorque selection sportif : si sportif deja present message d'erreur
+ */
 $("select[name='selectNomAjouter']").on('change',function (){
     var nbDeSportifIdentique =0;
     if($(this).val()!==""){
@@ -75,33 +61,17 @@ $("select[name='selectNomAjouter']").on('change',function (){
     }
 });
 
-$("select[name='selectModifier']").on('change',function (){
-    var nbDeSportifIdentique =0;
-    if($(this).val()!==""){
-       var idSprotifChange =$(this).val();
-      $("select[name='selectModifier']").each(function (){
-         if(idSprotifChange === $(this).val()){
-             nbDeSportifIdentique++;
-         }
-      }); 
-    }
-    if (nbDeSportifIdentique >1){
-        $(this).val("");
-        document.getElementById("ControlValAjouterSportifModif").innerHTML="Sportif deja present";
-    }else{
-        document.getElementById("ControlValAjouterSportifModif").innerHTML="";
-    }
-});
-
-
+/*
+ * lorque annuler clic remisa zero session
+ */
 $("#annulerCreerSpoptif").on('click', function () {
     document.location.href="CloseSession";
 });
 
-$("#annulerEquipeModif").on('click', function () {
-  document.location.href="CloseSession";
-});
 
+/*
+ * lorsque ajouter sportif clic : si tout les sportif selectionner envoie servelts modif equipe sinon message d'erreur
+ */
 $("#valAjouterSportif").on('click', function () {
    var nbSportif=1;
    var sportifsSontSelectionner= true;
@@ -122,6 +92,94 @@ $("#valAjouterSportif").on('click', function () {
    }
 });
 
+/*
+ * lorsque supprimer sportif clic : modifie l'equipe
+ */
+$("button[name='valSupprimerSportif']").on('click', function () {
+    var nbSportif=1;
+    var idSportifASuprimer = $("#selectNomAjouter"+$(this).val()).val();
+    var url = "SupSportif?mode=creerEquipe&idSportifASuprimer="+idSportifASuprimer;
+    $("select[name='selectNomAjouter']").each(function (){
+       if($(this).val()===""){
+       }else{
+            url = url + "&sportifSelect"+nbSportif+"="+$(this).val();
+            nbSportif++;
+       }
+   });
+    document.location.href=url;
+});
+
+
+/*
+ * lorque delegation changer : message d'erreur si pas de selection
+ */
+$("#selectionDelegationCreer").on('change', function () {
+    var delegation = document.getElementById("selectionDelegationCreer").value;
+    if(delegation === "") {
+        document.getElementById("verifDelegationCreer").innerHTML="<span class='glyphicon glyphicon-remove'></span>";
+    }else{
+        document.getElementById("verifDelegationCreer").innerHTML="";
+    }
+});
+
+
+//---------------------------------------------------Modif Equipe ------------------------------------------------
+
+
+/*
+ * lorsque clic sur creer equipe :Si tout les sportifs sont selectioner appelle de la servelt de qui  mets en BD sinon message d'erreur
+ */
+$("#validerEquipeModif").on('click', function () {
+   var nbSportif=1;
+   var sportifsSontSelectionner= true;
+   var url ="ModifierEquipe?Creation=false";
+   $("select[name='selectModifier']").each(function (){
+       if($(this).val()===""){
+            sportifsSontSelectionner = false ; 
+       }else{
+           url = url + "&sportifSelect"+nbSportif+"="+$(this).val();   
+           nbSportif++;
+       }
+   });
+   
+   if (sportifsSontSelectionner === false){
+       document.getElementById("ControlValAjouterSportifModif").innerHTML="Selectionner tout les sportifs";
+   }else{
+        document.location.href=url;
+   }
+});
+
+/*
+ * lorque selection sportif : si sportif deja present message d'erreur
+ */
+$("select[name='selectModifier']").on('change',function (){
+    var nbDeSportifIdentique =0;
+    if($(this).val()!==""){
+       var idSprotifChange =$(this).val();
+      $("select[name='selectModifier']").each(function (){
+         if(idSprotifChange === $(this).val()){
+             nbDeSportifIdentique++;
+         }
+      }); 
+    }
+    if (nbDeSportifIdentique >1){
+        $(this).val("");
+        document.getElementById("ControlValAjouterSportifModif").innerHTML="Sportif deja present";
+    }else{
+        document.getElementById("ControlValAjouterSportifModif").innerHTML="";
+    }
+});
+
+/*
+ * lorque annuler clic remisa zero session
+ */
+$("#annulerEquipeModif").on('click', function () {
+  document.location.href="CloseSession";
+});
+
+/*
+ * lorsque ajouter sportif clic : si tout les sportif selectionner envoie servelts modif equipe sinon message d'erreur
+ */
 $("#valAjouterSportifModif").on('click', function () {
    var nbSportif=1;
    var sportifsSontSelectionner= true;
@@ -142,20 +200,9 @@ $("#valAjouterSportifModif").on('click', function () {
    }
 });
 
-$("button[name='valSupprimerSportif']").on('click', function () {
-    var nbSportif=1;
-    var idSportifASuprimer = $("#selectNomAjouter"+$(this).val()).val();
-    var url = "SupSportif?mode=creerEquipe&idSportifASuprimer="+idSportifASuprimer;
-    $("select[name='selectNomAjouter']").each(function (){
-       if($(this).val()===""){
-       }else{
-            url = url + "&sportifSelect"+nbSportif+"="+$(this).val();
-            nbSportif++;
-       }
-   });
-    document.location.href=url;
-});
-
+/*
+ * lorsque supprimer sportif clic : modifie l'equipe
+ */
 $("button[name='valSupprimerSportifModif']").on('click', function () {
     var nbSportif=1;
     var idSportifASuprimer = $("#selectNomModifier"+$(this).val()).val();
@@ -168,15 +215,6 @@ $("button[name='valSupprimerSportifModif']").on('click', function () {
        }
    });
     document.location.href=url;
-});
-
-$("#selectionDelegationCreer").on('change', function () {
-    var delegation = document.getElementById("selectionDelegationCreer").value;
-    if(delegation === "") {
-        document.getElementById("verifDelegationCreer").innerHTML="<span class='glyphicon glyphicon-remove'></span>";
-    }else{
-        document.getElementById("verifDelegationCreer").innerHTML="";
-    }
 });
 
 
@@ -201,9 +239,9 @@ $("#selectEquipeModifier").on('change', function (){
     }
 });
 
-
+//---------------------------------------------Suprimer Equipe----------------------------------------------
     
-/* Chargement des informations dans listequipe    */      
+/* Chargement des informations dans listequipe*/      
 $("#selectDelegationSupp").on('change', function () {
    var delegation = document.getElementById("selectDelegationSupp").value;
    if (delegation !== "") {
@@ -212,6 +250,9 @@ $("#selectDelegationSupp").on('change', function () {
     }
 });
 
+/*
+ * si equipe selectionner appel servlet de supresion equipe 
+ */
 $("#supprimerEquipe").on('click',function (){
     var idEquipeAsupprimer = $("#selectEquipeSupp").val();
     if(idEquipeAsupprimer != ""){
@@ -219,13 +260,3 @@ $("#supprimerEquipe").on('click',function (){
     }
     
 });
-//$("select[name='selectDelegationModifier']").on('change', function () {
-//    var delegation = document.getElementById("selectDelegationModifier").value;
-//    if (delegation !== "") {
-//        $("#selectEquipeModifier").load("GetListEquipeDUneDelegation?delegation="+delegation);
-//        document.getElementById("selectEquipeModifier").disabled = false;
-//    }
-//    if (delegation !== "") {
-//        $("#selectNomAjouter").load("GetListSportifParDelgation?delegation="+delegation);
-//    }
-//});

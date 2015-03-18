@@ -55,7 +55,9 @@ public class GetListEquipeDUneDelegation extends HttpServlet {
              lesEquipes.add(new Equipe(rowSetEquipeParDelegation.getInt("idEquipe"), delegation, rowSetEquipeParDelegation.getString("nomEquipe"),rowSetEquipeParDelegation.getString("categorie"),rowSetEquipeParDelegation.getInt("nbMembre")));
           }
           }catch(SQLException| CategorieException ex){
-            log(ex.getMessage());       
+                request.setAttribute("etat", "erreur");
+              request.setAttribute("mesErreur", ex.getMessage());
+              request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);      
            }
           HttpSession session = request.getSession(true);
           session.setAttribute("lesEquipes", lesEquipes);

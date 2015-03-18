@@ -24,9 +24,12 @@ and open the template in the editor.
         <link href="css/cyberCompetition.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
-
         <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+        <script type="text/javascript" src="js/jsPanier.js"> </script>
+        
+        
+        
     </head>
     <body>
         <div class="container">
@@ -200,155 +203,173 @@ and open the template in the editor.
                         TABLEAU INFORMATIONS 
                     -->
 
-                    <div  role="tabpanel" class='tab-pane' id='panierTabInformation'>
-                        <div class="row">
-                            <br/>
-                        </div>
-                        <div class='well text-center'>
-                            <h4>
-                                Paiement de la commande
-                            </h4>
-                        </div>
-                        <div class ="rowPanierFormulaire">
-
-                            <br> 
-                            <div class="container">
-
-                                <div class="row">  
-                                    <div class="col-xs-7">
-                                        <div class="form-group">
-                                            <label for="email">Nom du destinataire </label>
-                                            <input type="email" class="form-control" id="email" placeholder="Saisissez l'identité du destinataire de la commande">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">  
-                                    <div class="col-xs-7">
-                                        <div class="form-group">
-                                            <label for="email">Prénom du destinataire </label>
-                                            <input type="email" class="form-control" id="email" placeholder="Saisissez l'identité du destinataire de la commande">
-                                        </div>
-                                    </div>
-                                </div>  
-
-                                <div class="row">  
-                                    <div class="col-xs-7">
-                                        <div class="form-group">
-                                            <label for="email">Adresse de livraison </label>
-                                            <input type="email" class="form-control" id="email" placeholder="Saisissez l'adresse de livraison">
-                                        </div>
-                                    </div>
-                                </div>  
-
-                                <div class="row">  
-                                    <div class="col-xs-7">
-                                        <div class="form-group">
-                                            <label for="email">Numéro de téléphone du destinataire </label>
-                                            <input type="email" class="form-control" id="email" placeholder="Saisissez le numéro de téléphone du destinataire">
-                                        </div>
-                                    </div>
-                                </div>  
-
-                                <div>
-                                    <strong>Choisissez votre mode de paiement:  </strong>
-                                </div>
-
-
-                                <br>
-
-                                <div class="row">
-
-                                    <div class="col-xs-2">
-                                        <div class="input-group">
-                                            MasterCard
-                                            <span class="input-group-addon">
-                                                <input type="radio" name='carte'>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-xs-2">
-                                        <div class="input-group">
-                                            Visa
-                                            <span class="input-group-addon">
-                                                <input type="radio" name='carte'>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <br> 
-
-                                <!-- 
-                               formulaires de saisie
-                                -->  
-
-                                <div class="row">
-
-
-
-                                    <div class="col-xs-7">
-                                        <div class="form-group">
-                                            <label for="email">Nom et prénom du titulaire de la carte: </label>
-                                            <input type="email" class="form-control" id="email" placeholder="Saisissez l'identité du titulaire de votre carte banquaire">
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="col-xs-7">
-                                        <div class="form-group">
-                                            <label>Date d'expiration de la carte: </label>
-                                            <input class="form-control"  placeholder="Saisissez la date d'expiration de la carte (JJ/MM/AAAA)">
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="col-xs-7">
-                                        <div class="form-group">
-                                            <label>Code secret: </label>
-                                            <input type="password" class="form-control" placeholder="Saisissez le code secret de la carte">
-                                        </div>
-                                    </div>
-
-
-
-                                    <!-- 
-                                       formulaire suite: boutons validation et retour en arrière au panier  
-                                    -->  
-
-
-                                    <div class="col-xs-7">
-                                        <br>
-                                        <br>
-                                        <button type="submit" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">
-                                            </span>
-                                            Valider le paiement    
-                                        </button>
-                                    </div>
-                                    <div class="col-xs-5">
-                                        <br>
-                                        <br>
-                                        <button type="submit" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
-                                            </span>
-                                            Revenir au panier  
-                                        </button>
-                                        <br>
-                                        <br>
-                                    </div>
-
-                                </div>  
+                        <div  role="tabpanel" class='tab-pane' id='panierTabInformation'>
+                            <div class="row">
+                                <br/>
                             </div>
-                        </div>  
-                    </div>
+                            <div class='well text-center'>
+                                <h4>
+                                    Paiement de la commande
+                                </h4>
+                            </div>
+                            
+                            
+                                <div class ="rowPanierFormulaire">  
+                                             <br><br>
+                                             <div class="container">
+                                    <div>
+                                        <strong>(*) Choisissez votre mode de paiement:<br></strong>
+                                        
+                                    </div>  
+                                                 <br>
+                                    <div class="row"> 
+                                        <div class="col-xs-2">
+                                            <div class="input-group">
+                                                MasterCard
+                                                <span class="input-group-addon">
+                                                    <input type="radio" name='carte'>
+                                                </span>
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-xs-2">
+                                            <div class="input-group">
+                                                Visa
+                                                <span class="input-group-addon">
+                                                    <input type="radio" name='carte'>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    </div>
+                                   
+                                    <form name="formulaire" action="#panierTabPaiement"
+                                    method=post onSubmit="return verifform()">
+                                        <div class="container">
+                                            <div class="row ">
+                                                <div class="col-xs-3">
+                                                   
+                                                    <br/>
+                                                     <strong>(*) Nom du destinataire:</strong>
+                                                          <input type=text size=50 name="nom" placeholder="Saisissez l'identité du destinataire de la commande">
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="row ">
+                                                <div class="col-xs-3">
+                                                    <br/>
+                                                    <strong>(*) Prénom du destinataire:</strong>      
+                                                      <input type=text size=50 name="prenom" placeholder="Saisissez l'identité du destinataire de la commande">
+                                                </div>
+                                            </div>
+                                            
+                                        
+                                            <div class="row ">
+                                                <div class="col-xs-3">
+                                                    <br/>
+                                                    <strong>(*) Adresse:</strong>      
+                                                      <input type=text size=50 name="adresse" placeholder="Saisissez votre adresse">
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="row ">
+                                                <div class="col-xs-3">
+                                                    <br/>
+                                                    <strong>(*) Adresse email:</strong>      
+                                                      <input type=email size=50 name="email" placeholder="Saisissez l'adresse mail de réception de votre commande">
+                                                </div>
+                                            </div>
+                                       
+                                            
+                                        
+                                        
+                                        
+                                            <div class="row ">
+                                                <div class="col-xs-3">
+                                                    <br/>
+                                                    <strong>(*) Numéro de téléphone:</strong>      
+                                                      <input type=tel size=50 name="telephone" placeholder="Saisissez votre numéro de téléphone">
+                                                </div>
+                                            </div>
+                                            
+                                        
+                                            <div class="row ">
+                                                <div class="col-xs-3">
+                                                    <br/>
+                                            <strong>(*) Nom et prénom du titulaire de la carte:</strong>      
+                                              <input type=text size=50 name="titulaire" placeholder="Saisissez l'identité du titulaire de votre carte banquaire">
+                                                </div>
+                                            </div>
+                                        
+                                        
+                                            <div class="row ">
+                                                <div class="col-xs-3">
+                                                    <br/>
+                                            <strong>(*) Identifiant de la carte:</strong>      
+                                              <input type=num size=50 name="idCarte" placeholder="Saisissez l'identifiant de votre carte banquaire">
+                                                </div>
+                                            </div>
+                                        
+                                        
+                                            <div class="row ">
+                                                <div class="col-xs-3">
+                                                    <br/>
+                                            <strong>(*) Date d'expiration de la carte: </strong>      
+                                              <input type=num size=50 name="dateValidite" placeholder="Saisissez la date d'expiration de la carte (JJ/MM/AAAA)">
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="row ">
+                                                <div class="col-xs-3">
+                                                    <br/>
+                                            <strong>(*) Code secret: </strong>      
+                                              <input type=password size=50 name="codeSecret" placeholder="Saisissez le code secret de la carte banquaire">
+                                            </div>
+                                            </div>                     
+                                                    <br/>
+                                                    <br/>
+                                            (*) = champ obligatoire
+
+                                            <div class="row ">
+                                                <br/>
+                                                <br/>
+                                                <div class="col-xs-3">    
+                                                <input type=submit value="Valider le paiement">     <input type=reset value="Effacer les champs">
+                                            </div>
+                                            </div>        
+
+
+                                            <div class="row ">    
+                                            <div class="col-xs-6">
+                                                <br/>
+                                                <br/>
+                                               <button type="submit" class="btn btn-default">
+                                                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Retourner au panier
+                                                   
+                                                </button>
+                                            </div>
+
+
+                                            <div class="col-xs-6">
+                                                <br/>
+                                                <br/>
+                                                <button type="submit" class="btn btn-default">
+                                                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>Valider le paiement
+                                                 
+                                                </button>
+                                            </div>                   
+                                            </div>    
+                                        </div>
+                                        
+                                     </form>
+                                 
+                               </div> 
+                            </div>
+                                
 
 
 
@@ -383,6 +404,7 @@ and open the template in the editor.
                             </div>   
                         </div> 
 
+
                         <!-- 
                        Zone du tableau détaillant les achats
                         -->
@@ -395,6 +417,49 @@ and open the template in the editor.
                                 <div class="col-xs-3  bordureDroite">QUANTITE</div>
                                 <div class="col-xs-3 ">TOTAL</div>
                             </div>
+
+                            <div class ="rowPanierFormulaire">
+                                <div class="container">
+                                    <br>
+                                    <br>
+                                    <div>
+                                        <strong>Pour un montant total de: ........ </strong>
+                                    </div>   
+
+                                    <div class="row">    
+                                        <div class="col-xs-4">
+                                            <br>
+                                            <br>
+                                            <button type="submit" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
+                                                </span>
+                                                Revenir au formulaire de paiement
+                                            </button>
+                                        </div>
+
+                                        <div class="col-xs-3">
+                                            <br>
+                                            <br>
+                                            <button type="submit" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
+                                                </span>
+                                               Revenir au panier  
+                                            </button>
+                                            <br>
+                                            <br>
+                                        </div>
+                                        
+                                        <div class="col-xs-5">
+                                            <br>
+                                            <br>
+                                            <button type="submit" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-euro" aria-hidden="true">
+                                                </span>Confirmer le paiement
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>   
                         </div>
 
                         <!-- 
@@ -439,7 +504,21 @@ and open the template in the editor.
                                         </button>
                                     </div>
 
-                                    <div class="col-xs-5">
+                            
+                                    <div class="row">    
+                                        <div class="col-xs-3">
+                                            <br>
+                                            <br>
+                                            <button type="submit" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                                                    
+                                                        Revenir à la page d'acceuil  
+                                                   
+                                                  
+                                            </button>
+                                            <br>
+                                            <br>
+                                        </div>
                                         <br>
                                         <br>
                                         <button type="submit" class="btn btn-default">

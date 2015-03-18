@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 ﻿<%--
     Document   : admin
     Created on : 17 mars 2015
@@ -58,10 +59,12 @@ and open the template in the editor.
                     <!-- 
                             TITRE DE LA PAGE 
                     --> 
+                    <% String etat = (String) request.getAttribute("etat"); %>
                     <div class="page-header">
-                        <h2 class="text-center"> Validation </h2>
+                        <h2 class="text-center">
+                            <% if(etat.equals("erreur")){%>Erreur<%}else{%>  Validation <%}%> </h2>
                     </div>
-                    <% String etat = (String) request.getAttribute("etat"); 
+                    <% 
                        if(etat.equals("creation")){
                          Equipe newEquipe = (Equipe) request.getAttribute("newEquipe"); 
                          int idEquipe = newEquipe.getIdEquipe();
@@ -95,7 +98,7 @@ and open the template in the editor.
                     %>   
                     
                     <div id='equipeInscrite' class="well row" >                   
-                        <h3 class="text-center">L'équipe a été modifier </h3> 
+                        <h3 class="text-center">L'équipe a été modifiée </h3> 
                         <div class='col-xs-6 text-center'>
                             <div> <strong>Equipe:</strong>  <%=idEquipe%> <%=nomEquipe%> </div>
                             <div> <strong>Pays:</strong>  <%=pays%></div>
@@ -105,7 +108,7 @@ and open the template in the editor.
                                 <% int i;
                                 for(i=0;i<equipe.getNbMembre();i++){
                                   Sportif sportif =  equipe.getLesMembres().get(i);
-                                  String desSportif = sportif.getIdSportif() +" : " + sportif.getNom() + " " + sportif.getPrenom() +"</br>"; %> 
+                                  String desSportif = sportif.getIdSportif() +" : " + sportif.getNom() + " " + sportif.getPrenom() +"<br/>"; %> 
                                   <%=desSportif%> 
                                   
                                 <%}%>
@@ -119,27 +122,32 @@ and open the template in the editor.
                          String pays = equipe.getPays();
                     %>
                     <div id='equipeSuppr' class="well row">
-                         <h3 class="text-center">L'équipe a été modifier </h3>
+                         <h3 class="text-center">L'équipe a été supprimée </h3>
                          <div class='col-xs-offset-3 col-xs-6 text-center'>
                             <div> <strong>Equipe:</strong>  <%=idEquipe%> <%=nomEquipe%> </div>
                             <div> <strong>Pays:</strong>  <%=pays%></div>
                          </div>
                     </div>
-                    <%}%>
-                    <div id='erreur'>
-                        <form class="form-horizontal"> 
-                            <div class="well"> Erreur : votre action n'a pas pu aboutir. <br> 
-                                Veuillez recommencer. </div>
+                    <%}
+                    if(etat.equals("erreur")){
+                    String mesErreur = (String) request.getAttribute("mesErreur");%>
+                    <div id='erreur' class="well row">
+                             <h3 class="text-center">Erreur lors de l'exécution</h3>
+                         <div class='col-xs-offset-3 col-xs-6 text-center'>
+                               <%=mesErreur%>
+                         </div>
                     </div>
-                    
+                    <% }%>
                     <div class=' col-xs-offset-3 col-xs-6'>
                         <a type="button" class="btn btn-default btn-block" id="retour" href="CloseSession"> Administrer Equipe </a>
                     </div>
                 </div>
-                <footer class="footer">
-                    <p class='text-muted pull-right'><i>m.a.j: 10/03/2015</i></p>
-                    <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
-                </footer>
+                  <footer class="footer">
+                            <%! Date dateDuJour;%>
+                            <% dateDuJour = new Date();%>
+                            <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
+                            <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
+                        </footer>
 
             </div>
         </div>
