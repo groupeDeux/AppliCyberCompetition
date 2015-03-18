@@ -84,12 +84,13 @@ public class GetConsulterEquipeDAO {
      * @return
      * @throws SQLException 
      */
-    public CachedRowSet getEpreuveAvecResultatDeLEquipe( int idEquipe) throws SQLException{
+    public CachedRowSet getEpreuveAvecResultatDeLEquipe( int idEquipe) 
+            throws SQLException{
         return ConnexionBD.INSTANCE.executeRequete(lesEpreuveAvecResultatEtEquipeInscrite,idEquipe);
     }
      
     /**
-     * retouere id epreuve et le nombre de personne fixé de l'epreuve si celui ci est incohérent avec le nombre de mendre dans l'équipe
+     * retourne idEpreuve et le nbPersonnesfixe de l'|Epreuve| si celui ci est incohérent avec le nombre de membre dans l'|Equipe|
      * @param idEquipe
      * @param nbMembre
      * @return
@@ -111,8 +112,7 @@ public class GetConsulterEquipeDAO {
     }
     
     /**
-     * retourne la liste des |Sportif|s du même |Genre| faisant partie de la même 
-     * |Delegation| (pour un |Pays| donné)
+     * retourne la liste des |Sportif|s du même |Genre| faisant partie de la même |Delegation| 
      * @param pays
      * @param genre
      * @return
@@ -141,12 +141,13 @@ public class GetConsulterEquipeDAO {
      * @throws SQLException
      */
 
-    public static CachedRowSet getSportifsDUneDelegation(String pays) throws SQLException{
+    public static CachedRowSet getSportifsDUneDelegation(String pays) 
+            throws SQLException{
         return ConnexionBD.INSTANCE.executeRequete(lesSportifsDUneDelegation, pays);
     }
     
     /**
-     * retroune la liste des |Sportif|s non inscrit a une epreuve terminer
+     * retroune la liste des |Sportif|s qui ne sont pas inscrits à une |Epreuve| terminée
      * @param delegation
      * @return
      * @throws SQLException 
