@@ -6,9 +6,10 @@
 package CyberComp_G2.Ctrlers.InscrireParticipantsAEpreuve;
 
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
-import CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterEpreuveDAO;
 import CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterDisciplineDAO;
+import CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterEpreuveDAO;
 import CyberComp_G2.Exceptions.CategorieException;
+import CyberComp_G2.Exceptions.nbPersonneFixeExcepetion;
 import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
 import CyberComp_G2.Model.ConstituerEquipe.Delegation;
 import CyberComp_G2.Model.ConsulterEpreuve.Epreuve;
@@ -56,7 +57,7 @@ public class GetListEpreuveInscription extends HttpServlet {
 
         try {
             /* Epreuve par equipe - Recuperation rowSet avec appel DAO*/ 
-                rowSetEpreuveEquipe = new GetConsulterEpreuveDAO().getEpreuvesEquipe();
+                rowSetEpreuveEquipe = new GetConsulterEpreuveDAO().getEpreuvesEquipeSansResulat();
 
             /* cree un objet Epreuve pour chaque ligne du rowset parcouru
              et le met dans l arrayList listEpreuvePArEquipe */
@@ -66,7 +67,7 @@ public class GetListEpreuveInscription extends HttpServlet {
             }
             
             /* Epreuve individuelle */
-                rowSetEpreuveInv = new GetConsulterEpreuveDAO().getEpreuvesInv();
+                rowSetEpreuveInv = new GetConsulterEpreuveDAO().getEpreuvesIndSansResulat();
 
             /* cree un objet Epreuve pour chaque ligne du rowset parcouru 
                 et le met dans l arrayList listEpreuveInv */

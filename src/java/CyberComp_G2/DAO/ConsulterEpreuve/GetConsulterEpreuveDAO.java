@@ -129,6 +129,45 @@ public class GetConsulterEpreuveDAO {
             +"from lesMedailles " 
             +"join lesEpreuves " 
             +"Using(idEpreuve)";
+   public static final String  EpreuvesIndSansResulat
+           = "SELECT idEpreuve,nomDiscipline,nomEpreuve, "
+           + " to_char(dateDebut,'DD-MM-YYYY HH24'), "
+           + "to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
+          + " categorie, nbdeplaceachetées "
+          + "from lesEpreuvesIndividuelles "
+           + "join viewEpreuve "
+          + " USING (idEpreuve) "
+         + " minus "
+          +  " SELECT idEpreuve,nomDiscipline,nomEpreuve, "
+           +  "to_char(dateDebut,'DD-MM-YYYY HH24'), "
+          +  " to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
+         + " categorie,nbdeplaceachetées "
+        + " FROM lesEpreuvesIndividuelles "
+        +  " JOIN LESMEDAILLES "
+         + "USING (idEpreuve) "
+         + " join viewEpreuve "
+         + "USING (idEpreuve) "
+    + "order by idEpreuve";
+   public static final String  EpreuvesEquipeSansResulat
+            ="SELECT idEpreuve,nomDiscipline,nomEpreuve, "
+          + " to_char(dateDebut,'DD-MM-YYYY HH24'), "
+          + " to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
+           + "categorie, nbdeplaceachetées "
+         +  "from lesEpreuvesParEquipe "
+          +"  join viewEpreuve "
+          + " USING (idEpreuve) "
+         + " minus "
+          +  " SELECT idEpreuve,nomDiscipline,nomEpreuve, "
+           + " to_char(dateDebut,'DD-MM-YYYY HH24'), "
+          +  " to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
+         + " categorie,nbdeplaceachetées "
+        + " FROM lesEpreuvesParEquipe "
+        +  " JOIN LESMEDAILLES "
+        + " USING (idEpreuve) "
+         + " join viewEpreuve "
+          +"USING (idEpreuve) " 
+  +  " order by idEpreuve ";
+   
     /*
     
      */
@@ -147,7 +186,23 @@ public class GetConsulterEpreuveDAO {
     public static CachedRowSet getEpreuvesEquipe() throws SQLException {
         return getConsulterEpreuve(lesEpreuvesEquipe);
     }
+    /**
+     * retourne un Cachedrowset des epreuves individuelles qui n'ont pas encore de resulat
+     * @return
+     * @throws SQLException 
+     */
+public static CachedRowSet getEpreuvesIndSansResulat() throws SQLException {
+        return getConsulterEpreuve(EpreuvesIndSansResulat);
+    }
 
+/**
+ * retourne un Cachedrowset des epreuves par equipe  qui n'ont pas encore de resulat
+ * @return
+ * @throws SQLException 
+ */
+    public static CachedRowSet getEpreuvesEquipeSansResulat() throws SQLException {
+        return getConsulterEpreuve(EpreuvesEquipeSansResulat);
+    }
     public static CachedRowSet getDisciplines() throws SQLException {
         return getConsulterEpreuve(lesDisciplines);
     }
@@ -175,8 +230,7 @@ public class GetConsulterEpreuveDAO {
         crs.execute();
         return crs;
     }
-    
-    
+   
 
     private static CachedRowSet getConsulterEpreuveAvecSelecteur(String query,
             int selecteur)

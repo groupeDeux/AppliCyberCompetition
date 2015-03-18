@@ -357,7 +357,8 @@ and open the template in the editor.
                                 AJOUTER UN SPORTIF A L EPREUVE CHOISIE 
                             PARMI UNE LISTE DE SPORTIF  NON INSCRITS ET VERIFIANT  LES 
                             MEMES CARACTÉRISQTIQUES DE L'EPREUVE CHOISIE
-                            ( LE SPORTIF ) SELON LA CONTRAINTE CI_12 ET CI_19
+                            (UN SPORTIF DOIT AVOIR LE MEME GENRE QUE LA CATÉGORIE DE
+                            L'EPREUVE ) SELON LA CONTRAINTE CI_12 ET CI_19
                             -->
 
                             <form class="form-horizontal">
