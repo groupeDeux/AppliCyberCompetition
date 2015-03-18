@@ -5,11 +5,15 @@
  */
 package CyberComp_G2.Ctrlers.AdministrerEquipe;
 
+import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
 import CyberComp_G2.DAO.ConsituerEquipe.ModifierEquipeDAO;
+import CyberComp_G2.Exceptions.EquipeNonModifiable;
 import CyberComp_G2.Exceptions.GenreMenbreEquipeException;
 import CyberComp_G2.Exceptions.nbMenbreEquipeException;
+import CyberComp_G2.Exceptions.nbMenbreIncoherentInscription;
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import CyberComp_G2.Model.ConstituerEquipe.Sportif;
+import CyberComp_G2.Model.ConsulterEpreuve.Epreuve;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -24,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+import javax.sql.rowset.CachedRowSet;
 
 /**
  *
@@ -66,7 +71,8 @@ public class ModifierEquipe extends HttpServlet {
                         }
                     }
                 }
-                 if(newEquipe.getNbMembre()<2 || newEquipe.getNbDeSportif()!=newEquipe.getNbMembre()){
+              
+                if(newEquipe.getNbMembre()<2 || newEquipe.getNbDeSportif()!=newEquipe.getNbMembre()){
                    throw new nbMenbreEquipeException(newEquipe.getNbMembre());
                 }
                newEquipe.setIdParticipant(ModifierEquipeDAO.addEquipe(dataSource,newEquipe)); 
@@ -80,6 +86,9 @@ public class ModifierEquipe extends HttpServlet {
                request.setAttribute("newEquipe", newEquipe);
                request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);
                 break;
+                
+                
+                
             case "false":
                 Equipe equipe = (Equipe) session.getAttribute("modifEquipe");
                 lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifsModif");
@@ -94,6 +103,35 @@ public class ModifierEquipe extends HttpServlet {
                         }
                     }
                 }
+                CachedRowSet lesEpreuvesIncohrentes = new GetConsulterEquipeDAO().getEpreuveANbInCoherent(equipe.getIdEquipe(), equipe.getNbMembre());
+                ArrayList<String> listEqupreuvesIncohrentes = new ArrayList<>();
+                while(lesEpreuvesIncohrentes.next()){
+                    int idEquipe = lesEpreuvesIncohrentes.getInt("idEpreuve");
+                    int nbPersonneFixe = lesEpreuvesIncohrentes.getInt("NbPersonneFixe");
+                    listEqupreuvesIncohrentes.add("idEpreuve : " + idEquipe+ ", nbDePesonne Fixé : " +nbPersonneFixe);
+                }
+                if(!listEqupreuvesIncohrentes.isEmpty()){
+                    StringBuilder msgErreur = new StringBuilder();
+                    msgErreur.append("nb personne dans l'equipe (").append(equipe.getNbMembre()).append(") incoherent : <br/> Liste des epreuves incompatibles : <br/>");
+                    for(i=0;i<listEqupreuvesIncohrentes.size();i++){
+                        msgErreur.append(listEqupreuvesIncohrentes.get(i)).append("<br/>");
+                    }
+                    throw new nbMenbreIncoherentInscription(msgErreur.toString());
+                }
+                CachedRowSet lesEpreuvesTerminer = new GetConsulterEquipeDAO().getEpreuveAvecResultatDeLEquipe(equipe.getIdEquipe());
+                ArrayList<String> listEqupreuvesTerminer = new ArrayList<>();
+                while(lesEpreuvesTerminer.next()){
+                    int idEquipe = lesEpreuvesTerminer.getInt("idEpreuve");
+                    listEqupreuvesTerminer.add("idEpreuve : " + idEquipe);
+                }
+                if(!listEqupreuvesTerminer.isEmpty()){
+                    StringBuilder msgErreur = new StringBuilder();
+                    msgErreur.append("Equipe non modifiable : inscrite a des epreuve terminées <br/> Liste des epreuves terminées : <br/>");
+                    for(i=0;i<listEqupreuvesTerminer.size();i++){
+                        msgErreur.append(listEqupreuvesTerminer.get(i)).append("<br/>");
+                    }
+                    throw new EquipeNonModifiable(msgErreur.toString());
+                }
                 
                 if(equipe.getNbMembre()<2 || equipe.getNbDeSportif()!=equipe.getNbMembre()){
                    throw new nbMenbreEquipeException(equipe.getNbMembre());
@@ -101,7 +139,7 @@ public class ModifierEquipe extends HttpServlet {
                 
                 ModifierEquipeDAO.modifEquipe(dataSource,equipe);
                 
-            } catch (SQLException |GenreMenbreEquipeException|nbMenbreEquipeException ex) {
+            } catch (SQLException |GenreMenbreEquipeException|nbMenbreEquipeException|nbMenbreIncoherentInscription|EquipeNonModifiable ex) {
                 request.setAttribute("etat", "erreur");
                 request.setAttribute("mesErreur", ex.getMessage());
                 request.getRequestDispatcher("/WEB-INF/ValidationEquipe.jsp").forward(request, response);
