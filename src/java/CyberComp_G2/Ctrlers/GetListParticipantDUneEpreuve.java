@@ -100,7 +100,7 @@ public class GetListParticipantDUneEpreuve extends HttpServlet {
 
 
         if (testFormeParEquipe == true) { 
-            request.setAttribute("listParticipant", listEquipesInscrites);  
+            request.setAttribute("listParticipants", listEquipesInscrites);  
             request.setAttribute("formeParticipant","equipe");
         }
         else{

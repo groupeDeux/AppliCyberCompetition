@@ -1,5 +1,6 @@
 
 
+<%@page import="java.util.Date"%>
 <%@page import="CyberComp_G2.Model.ConstituerEquipe.Sportif"%>
 <%@page import="CyberComp_G2.Model.ConstituerEquipe.Equipe"%>
 <%-- 
@@ -62,7 +63,7 @@ and open the template in the editor.
                         <h2><small>Recherche d'</small> Epreuves</h2>
                     </div>
                 </div>
-
+                <div id ='test'> a changer</div>
                 <div class='row'>
                     <form class='form' action='GetListEpreuve'>
                         <div class='col-xs-3'>
@@ -144,7 +145,7 @@ and open the template in the editor.
                         </div>
                         <div class='media-body'>
                             <%-- Cliquer sur cette partie media-heading permet d'afficher l'epreuve --%>
-                            <div data-toggle='collapse tooltip' data-placement="top" title="Afficher informations supp." data-info='close' href='#epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>' value="<%=epreuveSelectionnee.getIdEpreuve()%>" >
+                            <div data-toggle='collapse tooltip' data-placement="top" title="Afficher informations supp." data-info='close' name ='selectEpreuve' href='#epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>' value="<%=epreuveSelectionnee.getIdEpreuve()%>" >
                                 <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%>&nbsp;</h4>
                                 <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
                                 <div class='pull-right'><h3><span class='glyphicon glyphicon-menu-down'></span>&nbsp;</h3></div>
