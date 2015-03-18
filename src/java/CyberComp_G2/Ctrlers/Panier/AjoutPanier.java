@@ -7,6 +7,7 @@ package CyberComp_G2.Ctrlers.Panier;
 
 import CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterEpreuveDAO;
 import CyberComp_G2.Exceptions.CategorieException;
+import CyberComp_G2.Exceptions.PanierException;
 import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
 import CyberComp_G2.Model.ConsulterEpreuve.Epreuve;
 import CyberComp_G2.Model.Panier.Panier;
@@ -79,7 +80,7 @@ public class AjoutPanier extends HttpServlet {
             /* NullPointerException a verifier ici */
             sessionPanier.ajouterUnBillet(epreuveSelectionnee, infoBillets[0], nombreDePlaces);
             
-        }catch(SQLException | CategorieException | nbPlaceAcheterExeception ex){
+        }catch(SQLException | CategorieException | nbPlaceAcheterExeception | PanierException ex){
             log(ex.getMessage());
             ex.printStackTrace();
         }

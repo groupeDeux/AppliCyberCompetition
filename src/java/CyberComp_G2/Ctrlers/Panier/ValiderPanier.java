@@ -3,56 +3,52 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CyberComp_G2.Ctrlers;
+package CyberComp_G2.Ctrlers.Panier;
 
-import CyberComp_G2.DAO.ConsulterEpreuve.GetConsulterDisciplineDAO;
-import CyberComp_G2.Exceptions.CategorieException;
-import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
 import CyberComp_G2.Model.Panier.Panier;
 import CyberComp_G2.Model.Utilisateur.Utilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.rowset.CachedRowSet;
 
 /**
  *
  * @author Gato
  */
-@WebServlet(name = "GetPanier", urlPatterns = {"/GetPanier"})
-public class GetPanier extends HttpServlet {
+@WebServlet(name = "ValiderPanier", urlPatterns = {"/ValiderPanier"})
+public class ValiderPanier extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //response.setContentType("text/html;charset=UTF-8");
+        /*  
+            On récupère la session et son attribut sessionUtilisateur pour modifier la valeur de l'attribut
+            validerPanier et de la passer en "True" pour acceder à la seconde page du formulaire
+        */
+        HttpSession session = request.getSession();
+        Utilisateur sessionUtilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
         
-        HttpSession session = request.getSession(true);
+        sessionUtilisateur.setPanierValider(true);
         
-        /* On verifie que l'attribut sessionPanier est bien initialisé */
-        Panier sessionPanier = (Panier)session.getAttribute("sessionPanier");
-        if(sessionPanier == null){
-            sessionPanier = new Panier();
-            session.setAttribute("sessionPanier", sessionPanier);
-        }
-        
-        /* On verifie que l'attribut utiliseur est bien initialisé */
-        Utilisateur sessionUtilisateur = (Utilisateur)session.getAttribute("utilisateurSession");
-        if(sessionUtilisateur==null){
-            sessionUtilisateur = new Utilisateur();
-            session.setAttribute("sessionUtilisateur", sessionUtilisateur);
-        }
-       
         request.setAttribute("valeurTab", 0);
         request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
     }
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

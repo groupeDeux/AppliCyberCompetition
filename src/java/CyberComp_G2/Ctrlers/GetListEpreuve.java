@@ -51,7 +51,7 @@ public class GetListEpreuve extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
          
         HttpSession session = request.getSession(true);
-        
+        /* On verifie que l'attribut sessionPanier est bien initialisé */
         Panier sessionPanier = (Panier)session.getAttribute("sessionPanier");
         
         if(sessionPanier == null){
