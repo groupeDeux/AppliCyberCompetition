@@ -316,10 +316,13 @@ and open the template in the editor.
                                     <label class="col-xs-3 col-xs-offset-2 control-label" style="color:#D9534F;">(*) = champ obligatoire</label>
                                 </div>
                                 <div class='row'>
+                                    <!--
                                     <div class="col-xs-2 col-xs-offset-1">
                                         <div class="btn btn-default"><a style="text-decoration:none;" href="#panierTabPanier">Page précédente&nbsp;<span class="glyphicon glyphicon-arrow-left"></span></a></div>
                                     </div>
-                                    <div class='col-xs-3'>
+                                    Ajout dans le bouton qui suis de col-xs-offset-3 , a enleve si on remet l'ancien bouton Page précédente
+                                    -->
+                                    <div class='col-xs-3 col-xs-offset-3'>
                                         <button type="reset" class="btn btn-danger btn-block">Effacer le contenu&nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
                                     </div>
                                     <div class='col-xs-3'>
@@ -420,10 +423,13 @@ and open the template in the editor.
                             </div>
 
                             <div class='row'>
+                                <!--
                                 <div class="col-xs-3 col-xs-offset-3">
                                     <div class="btn btn-default"><a  style="text-decoration:none;"  href="#panierTabInformation">Page précédente&nbsp;<span class="glyphicon glyphicon-arrow-left"></span></a></div>
                                 </div>
-                                <div class='col-xs-3'>
+                                Ajout de la classe col-xs-6 col-xs-offset-3 dans le bouton valider, a supprimer et remplacer par col-xs-3 si on met le boutton page précédente
+                                -->
+                                <div class='col-xs-6 col-xs-offset-3'>
                                     <button  class="btn btn-primary btn-block" data-toggle="tooltip" data-placement="right" title="La validation est définitive" id="validationPaiement">Valider le paiement&nbsp;<span class="glyphicon glyphicon-euro" aria-hidden="true"></span></button>
                                 </div>
                             </div>

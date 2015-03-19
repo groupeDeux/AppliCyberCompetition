@@ -11,6 +11,7 @@ import CyberComp_G2.Exceptions.PanierException;
 import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
 import CyberComp_G2.Model.ConsulterEpreuve.Epreuve;
 import CyberComp_G2.Model.Panier.Panier;
+import CyberComp_G2.Model.Utilisateur.Utilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -40,55 +41,55 @@ public class AjoutPanier extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
-        
-        /* Mettre un try catch */
-        
+
         /* Lors de l'ajout d'une place, on récupère dans un premier temps le panier */
         HttpSession session = request.getSession();
-        Panier sessionPanier = (Panier)session.getAttribute("sessionPanier");
-        
+        Panier sessionPanier = (Panier) session.getAttribute("sessionPanier");
+        Utilisateur sessionUtilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
+
         /* On cherche à savoir si la personne a selectionné un 'Billet' ou un 'TicketVideo' */
         String typeDeBillets = request.getParameter("epreuvesRadio");
         /* String[0] contient le type : Billet ou TicketVideo et String[1] contient l'ID de l'epreuve  */
         String[] infoBillets = typeDeBillets.split(":");
         /* Récupération du numero de idEpreuve dans une nouvelle variable int */
         int idEpreuve = Integer.parseInt(infoBillets[1]);
-        
+
         /* Selectionne le nombre de places a ajouter au panier*/
         String places = request.getParameter("epreuvesNbPlaces");
         int nombreDePlaces = Integer.parseInt(places);
-        
-        Epreuve epreuveSelectionnee=null;
+
+        Epreuve epreuveSelectionnee = null;
         CachedRowSet rowSetEpreuve;
-        String nomEpreuve="rien"; 
-        
-        try{
+        String nomEpreuve = "rien";
+
+        try {
             rowSetEpreuve = new GetConsulterEpreuveDAO().getEpreuvesParId(idEpreuve);
-            
-            while(rowSetEpreuve.next()){
-            
-            epreuveSelectionnee = new Epreuve(rowSetEpreuve.getInt(1),
-                    rowSetEpreuve.getString(3),rowSetEpreuve.getString(2),
-                    rowSetEpreuve.getString(4),rowSetEpreuve.getString(5),
-                    rowSetEpreuve.getString(6),rowSetEpreuve.getDouble(7),
-                    rowSetEpreuve.getInt(8),rowSetEpreuve.getString(9),
-                    0);
-            nomEpreuve = epreuveSelectionnee.getNomEpreuve();
+
+            while (rowSetEpreuve.next()) {
+
+                epreuveSelectionnee = new Epreuve(rowSetEpreuve.getInt(1),
+                        rowSetEpreuve.getString(3), rowSetEpreuve.getString(2),
+                        rowSetEpreuve.getString(4), rowSetEpreuve.getString(5),
+                        rowSetEpreuve.getString(6), rowSetEpreuve.getDouble(7),
+                        rowSetEpreuve.getInt(8), rowSetEpreuve.getString(9),
+                        0);
+                nomEpreuve = epreuveSelectionnee.getNomEpreuve();
             }
-            /* NullPointerException a verifier ici */
+
             sessionPanier.ajouterUnBillet(epreuveSelectionnee, infoBillets[0], nombreDePlaces);
-            
-        }catch(SQLException | CategorieException | nbPlaceAcheterExeception | PanierException ex){
-            request.setAttribute("messageErreur",ex.getMessage());
+            sessionUtilisateur.setPanierValider(false);
+            sessionUtilisateur.setInfoValider(false);
+
+        } catch (SQLException | CategorieException | nbPlaceAcheterExeception | PanierException ex) {
+            request.setAttribute("messageErreur", ex.getMessage());
             request.getRequestDispatcher("/WEB-INF/ErreurPanier.jsp").forward(request, response);
         }
         request.setAttribute("valeurTab", 0);
         request.getRequestDispatcher("GetPanier").forward(request, response);
-        
-        }
-    
+
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

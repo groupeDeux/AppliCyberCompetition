@@ -66,7 +66,7 @@
                             <img src="./img/image-media-<%=discipline%>T.jpg" alt=".." style="margin-top: 10px;" class="img-rounded">
                             <div class="caption">
                                 <h3 class="text-center"><%=discipline%></h3>
-                                <p>Une belle description d'une discipline se trouvera ici !</p>
+                                
                                 <p><a href="#" class="btn btn-default btn-block" role='button' name="<%=discipline%>" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves de cette discipline">Liste des épreuves de <strong><%=discipline%></strong></a></p>
                             </div>
                         </div>

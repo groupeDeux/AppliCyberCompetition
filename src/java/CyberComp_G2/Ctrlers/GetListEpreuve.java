@@ -15,6 +15,7 @@ import CyberComp_G2.Model.ConsulterEpreuve.Epreuve;
 import CyberComp_G2.Model.ConsulterEpreuve.EpreuveIndividuelle;
 import CyberComp_G2.Model.ConsulterEpreuve.EpreuveParEquipe;
 import CyberComp_G2.Model.Panier.Panier;
+import CyberComp_G2.Model.Utilisateur.Utilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -53,12 +54,17 @@ public class GetListEpreuve extends HttpServlet {
         HttpSession session = request.getSession(true);
         /* On verifie que l'attribut sessionPanier est bien initialisé */
         Panier sessionPanier = (Panier)session.getAttribute("sessionPanier");
+        Utilisateur sessionUtilisateur = (Utilisateur)session.getAttribute("sessionUtilisateur");
         
         if(sessionPanier == null){
             sessionPanier = new Panier();
             session.setAttribute("sessionPanier", sessionPanier);
         }
         
+        if(sessionUtilisateur == null){
+            sessionUtilisateur = new Utilisateur();
+            session.setAttribute("sessionUtilisateur", sessionUtilisateur);
+        }
         
         String nomDiscipline = request.getParameter("epreuvesSelectDiscipline");
         
