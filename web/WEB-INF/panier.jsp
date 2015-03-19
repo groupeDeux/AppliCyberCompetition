@@ -142,7 +142,7 @@ and open the template in the editor.
                                         <th>Produit</th>
                                         <th>Type</th>
                                         <th>Prix a l'unité</th>
-                                        <th>Quantitée</th>
+                                        <th>Quantité</th>
                                         <th>Total</th>
                                         <th>Supprimer</th>
                                     </tr>
@@ -243,7 +243,7 @@ and open the template in the editor.
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-xs-3 control-label">(*) Prenom du destinataire :</label>
+                                    <label class="col-xs-3 control-label">(*) Prénom du destinataire :</label>
                                     <div class="col-xs-6">
                                         <input class="form-control" type="text" name="prenom" placeholder="Saisissez le prénom du destinataire de la commande" value="${param.prenom}">
                                     </div>
@@ -255,7 +255,7 @@ and open the template in the editor.
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-xs-3 control-label">(*) Numero de rue :</label>
+                                    <label class="col-xs-3 control-label">(*) Numéro de rue :</label>
                                     <div class="col-xs-6">
                                         <input class="form-control" type="number" name="numRue" placeholder="Saisissez le numéro de rue du destinataire" value="${param.numRue}">
                                     </div>
@@ -365,7 +365,7 @@ and open the template in the editor.
                                     <tr>
                                         <th>Produit</th>
                                         <th>Type</th>
-                                        <th>Quantitée</th>
+                                        <th>Quantité</th>
                                         <th>Prix total</th>
                                     </tr>
                                 </thead>
@@ -406,7 +406,7 @@ and open the template in the editor.
                                     <div class="col-xs-6"><%= sessionUtilisateur.getNom()%></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-4 text-right"><strong>Prenom du destinataire :</strong></div>
+                                    <div class="col-xs-4 text-right"><strong>Prénom du destinataire :</strong></div>
                                     <div class="col-xs-6"><%= sessionUtilisateur.getPrenom()%></div>
                                 </div>
                                 <div class="row">

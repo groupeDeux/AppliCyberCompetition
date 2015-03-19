@@ -149,8 +149,8 @@ and open the template in the editor.
                                 <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%>&nbsp;</h4>
                                 <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
                                 <div class='pull-right'><h3><span class='glyphicon glyphicon-menu-down'></span>&nbsp;</h3></div>
-                                <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
-                                <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
+                                <h5 class='media-heading'>Début : <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
+                                <h5 class='media-heading'>Fin : <%=epreuveSelectionnee.getDateFin()%>h00</h5>
                                 <br/>
                             </div>
                             <div class="collapse" id="epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>">
@@ -294,8 +294,8 @@ and open the template in the editor.
                                 <h4 class='media-heading pull-right'><%=epreuveSelectionnee.getNomDiscipline()%>&nbsp;</h4>
                                 <h3 class='media-heading'><%=epreuveSelectionnee.getNomEpreuve()%><small>&nbsp;<%=epreuveSelectionnee.getCategorie()%></small></h3>
                                 <div class='pull-right'><h3><span class='glyphicon glyphicon-menu-down'></span>&nbsp;</h3></div>
-                                <h5 class='media-heading'>Debut: <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
-                                <h5 class='media-heading'>Fin: <%=epreuveSelectionnee.getDateFin()%>h00</h5>
+                                <h5 class='media-heading'>Début : <%=epreuveSelectionnee.getDateDebut()%>h00</h5>
+                                <h5 class='media-heading'>Fin : <%=epreuveSelectionnee.getDateFin()%>h00</h5>
                                 <br/>
                             </div>
                             <div class="collapse" id="epreuvesId<%=epreuveSelectionnee.getIdEpreuve()%>">

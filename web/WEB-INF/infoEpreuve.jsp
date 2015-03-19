@@ -104,10 +104,10 @@
     </div>
     <div id="epreuveMedailles${epreuveSelectionnee.idEpreuve}" class="panel-collapse collapse">
         <div class='panel-body'>
-            <<ul>
-                <li>OR: <%=resultatEpreuve.getOr().asHTML()%></li>
-                <li>ARGENT: <%=resultatEpreuve.getArgent().asHTML()%></li>
-                <li>BRONZE: <%=resultatEpreuve.getBronze().asHTML()%></li>
+            <ul>
+                <li style='color:#E5C238'><strong>OR :</strong> <%=resultatEpreuve.getOr().asHTML()%></li>
+                <li style='color:#A7BDB4'><strong>ARGENT :</strong> <%=resultatEpreuve.getArgent().asHTML()%></li>
+                <li style='color:#BD6E39'><strong>BRONZE :</strong> <%=resultatEpreuve.getBronze().asHTML()%></li>
             </ul>
         </div>
     </div>

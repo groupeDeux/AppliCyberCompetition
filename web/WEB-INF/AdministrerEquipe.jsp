@@ -74,9 +74,9 @@ and open the template in the editor.
                                     tab = (Integer) session.getAttribute("tabs") - 1;
                                 }
                             %>
-                            <li role="presentation" <%if (tab == 0) {%>class="active"<%}%>  id ="presentation1"><a href="#tab1">Creer Equipe</a></li>
-                            <li role="presentation" <%if (tab == 1) {%>class="active"<%}%>   id ="presentation2"><a href="#tab2">Modifier Equipe</a></li>
-                            <li role="presentation"<%if (tab == 2) {%>class="active"<%}%> ><a href="#tab3">Supprimer Equipe</a></li>
+                            <li role="presentation" <%if (tab == 0) {%>class="active"<%}%>  id ="presentation1"><a href="#tab1">Créer</a></li>
+                            <li role="presentation" <%if (tab == 1) {%>class="active"<%}%>   id ="presentation2"><a href="#tab2">Modifier</a></li>
+                            <li role="presentation"<%if (tab == 2) {%>class="active"<%}%> ><a href="#tab3">Supprimer</a></li>
 
                         </ul>
 
@@ -91,7 +91,7 @@ and open the template in the editor.
                                 <div class="well">
                                     Cette page vous permet de créer une équipe.
                                 </div>
-                                <h4><strong>L'equipe : </strong></h4>
+                                <h4><strong>Entrer une équipe : </strong></h4>
                                 <div class="row">
                                     <div class="form-group">
                                         <%  Equipe newEquipe = (Equipe) session.getAttribute("newEquipe");
@@ -131,7 +131,7 @@ and open the template in the editor.
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
-                                        <label class='col-xs-3 control-label'>Nom:</label>
+                                        <label class='col-xs-3 control-label'>Nom :</label>
                                         <div class='col-xs-6'>
                                             <input type='text'   <%if (newEquipe != null) {%> disabled="true" <%}%>class='form-control' placeholder="Nom de l'équipe" id="nomEquipeCreer" <%if (nomEquipe != null) {%> value="<%= nomEquipe%>" <%}%>></input>
                                         </div>
@@ -174,7 +174,7 @@ and open the template in the editor.
                                 <%
                                 } else {
                                 %>
-                                <h4><strong>Les sportifs : </strong></h4>
+                                <h4><strong>Sélectionner les sportifs : </strong></h4>
 
                                 <div id="ajout">
                                     <% for (i = 1; i <= newEquipe.getNbDeSportif(); i++) {
@@ -201,7 +201,7 @@ and open the template in the editor.
                                             </select>
                                         </div>
                                             <%-- boutton permettant la suppression d'un sportif : active ssi le nombre de membres et supérieure à 2--%>
-                                        <div class='col-xs-1'> <button   <% if (newEquipe.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportif<%=i%>" name='valSupprimerSportif' value='<%=i%>'=><span class="glyphicon glyphicon-minus"></span></button></div>    
+                                        <div class='col-xs-1'> <button   <% if (newEquipe.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportif<%=i%>" name='valSupprimerSportif' value='<%=i%>'data-toggle='tooltip' data-placement='right' title='Supprimer ce sportif'><span class="glyphicon glyphicon-minus"></span></button></div>    
                                     </div>
                                     <%}%>
                                 </div>
@@ -211,9 +211,9 @@ and open the template in the editor.
                                         <div class="col-xs-offset-5 col-xs-2 erreurForm" id="ControlValAjouterSportif">
 
                                         </div>
-                                        <div class="col-xs-2">
+                                        <div class="col-xs-1 col-xs-offset-1">
                                              <%-- boutton permettant l'ajout d'un sportif--%>
-                                            <button  type="button" class="btn btn-primary btn-block " id="valAjouterSportif"><span class="glyphicon glyphicon-plus"></span></button>
+                                            <button  type="button" class="btn btn-primary btn-block " id="valAjouterSportif" data-toggle='tooltip' data-placement='right' title='Ajouter un sportif'><span class="glyphicon glyphicon-plus"></span></button>
                                         </div>
                                     </div>
                                 </div>
@@ -224,7 +224,7 @@ and open the template in the editor.
                                             <button type="button" class="btn btn-danger btn-block "  id="annulerCreerSpoptif" >Annuler</button>
                                         </div>
                                         <div class="col-xs-4">
-                                            <button  type="button" class="btn btn-default btn-block " id="validerCreerEquipe">Creer Equipe</button>
+                                            <button  type="button" class="btn btn-primary btn-block " id="validerCreerEquipe">Valider l'équipe&nbsp;<span class='glyphicon glyphicon-ok'></span></button>
                                         </div>
                                     </div>
                                 </div> 

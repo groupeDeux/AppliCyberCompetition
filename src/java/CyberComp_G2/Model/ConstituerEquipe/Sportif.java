@@ -132,6 +132,6 @@ public class Sportif extends Participant{
 
     @Override
     public String asHTML() {
-        return this.prenom + " " + this.nom.toUpperCase() + " " + this.getPays();
+        return this.prenom + " " + this.nom.toUpperCase() + " - " + this.getPays();
     }
 }
