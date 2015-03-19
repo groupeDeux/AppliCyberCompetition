@@ -4,17 +4,6 @@
  * and open the template in the editor.
  */
 
-/* Change le nom du titre dans la page admin entre sportif et equipe */
-$("a[href='#tab4']").click(function () {
-    $('#titreAdmin').text(" Sportifs");
-});
-
-/* Change le nom du titre dans la page admin entre sportif et equipe */
-$("a[href!='#tab4']").click(function () {
-    $('#titreAdmin').text(" Equipes");
-});
-
-
 
 /* Javascrip qui permet d'afficher un tooltip via bootstrap */
 $(function () {

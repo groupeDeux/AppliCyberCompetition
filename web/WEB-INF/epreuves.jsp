@@ -61,7 +61,7 @@ and open the template in the editor.
                 -->
                 <div class='row'>
                     <div class="page-header text-center">
-                        <h2><small>Recherche d'</small> Epreuves</h2>
+                        <h3><small>Recherche d'</small> Epreuves <small>par discipline</small></h3>
                     </div>
                 </div>
                 <div class='row'>
@@ -97,7 +97,7 @@ and open the template in the editor.
                 -->
                 <div class='row'>
                     <div class="page-header text-center">
-                        <h2><small>Liste des</small> Epreuves</h2>
+                        <h3><small>Liste des</small> Epreuves</h3>
                     </div>
                 </div>
                 <!--

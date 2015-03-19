@@ -30,7 +30,7 @@ and open the template in the editor.
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.js" ></script>
-        
+
     </head>
     <body>
         <div class="container">
@@ -95,9 +95,9 @@ and open the template in the editor.
                         <div id='tab1'>
                             <form class="form-horizontal">
                                 <div class="well">
-                                    Cette page vous permet d'inscrire des équipes à une épreuve
+                                    Cette page vous permet d'inscrire des équipes à une épreuve.
                                 </div>
-                                
+
                                 <!--
                             
                                      AFFICHER LES EPREUVES PAR EQUIPE QUI NE SONT PAS ENCORE PASSEES (PAS DE MEDAILLE) 
@@ -108,7 +108,7 @@ and open the template in the editor.
                                 <div class="row">
                                     <div class="form-group">
 
-                                        <label class='col-xs-3 control-label'>Epreuve:</label>
+                                        <label class='col-xs-3 control-label'>Epreuve :</label>
                                         <div class='col-xs-6'>
                                             <select class="form-control" id='selectionEpreuveEquipe' name='listEpreuvesEquipe'>
                                                 <option value=''>Choix</option>
@@ -128,9 +128,9 @@ and open the template in the editor.
                                                             String nomEpreuve = lesEpreuvesEquipe.get(i).getNomEpreuve();
                                                             String categorie = lesEpreuvesEquipe.get(i).getCategorie();
                                                             // on parcours la liste et si idEp=idEpSelectionné on affiche les infos dans le select= option selected
-                                                            %> <option value='<%=idEpreuve%>' <% if (idEpreuve == idEpreuveSelec) {%> selected <%}%> ><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%> </option>
-                                                        <% };
-                                                    } 
+%> <option value='<%=idEpreuve%>' <% if (idEpreuve == idEpreuveSelec) {%> selected <%}%> ><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%> </option>
+                                                <% };
+                                                    }
                                                 %>
 
                                             </select>
@@ -148,29 +148,33 @@ and open the template in the editor.
                             -->
 
 
-                            <h4> <strong> Les équipes inscrites </strong></h4>
-                            <div id="equipeInscrites">
-                                <%
-                                    int j = 0;
-                                    ArrayList<Equipe> lesEquipesInscrites = (ArrayList<Equipe>) session.getAttribute("listEquipesInscrites");
-                                    if (lesEquipesInscrites != null) {
-                                        if (lesEquipesInscrites.size() != 0) {
-                                            for (j = 0; j < lesEquipesInscrites.size(); j++) {
-                                                int idEquipe = lesEquipesInscrites.get(j).getIdEquipe();
-                                                //String nomEquipe = lesEquipesInscrites.get(j).getNomEquipe();
-                                                String pays = lesEquipesInscrites.get(j).getPays();  //methode de superClasse Participant                                                    
-                                                 %> <div> <%=idEquipe%>  - <%=pays%>  </div>
-                                             <% }
-                                        } else { %> 
-                                            <div> Aucun participant pour le moment !  </div>
-                                        <% 
-                                        }
-                                    } else { %>
-                                    <div> Pas d'épreuve choisie  </div>
-                                    <%
-                                    }
-                                    %>
-
+                            <h4> <strong> Les équipes inscrites : </strong></h4>
+                            <div class='row'>
+                                <div class='col-xs-5 col-xs-offset-3'>
+                                    <div id="equipeInscrites">
+                                        <%
+                                            int j = 0;
+                                            ArrayList<Equipe> lesEquipesInscrites = (ArrayList<Equipe>) session.getAttribute("listEquipesInscrites");
+                                            if (lesEquipesInscrites != null) {
+                                                if (lesEquipesInscrites.size() != 0) {
+                                                    for (j = 0; j < lesEquipesInscrites.size(); j++) {
+                                                        int idEquipe = lesEquipesInscrites.get(j).getIdEquipe();
+                                                        //String nomEquipe = lesEquipesInscrites.get(j).getNomEquipe();
+                                                        String pays = lesEquipesInscrites.get(j).getPays();  //methode de superClasse Participant                                                    
+%> 
+                                        <div> <%=idEquipe%>  - <%=pays%>  </div>
+                                        <% }
+                                } else { %> 
+                                        <div> Aucun participant pour le moment !  </div>
+                                        <%
+                                            }
+                                        } else { %>
+                                        <div> Pas d'épreuve choisie  </div>
+                                        <%
+                                            }
+                                        %>
+                                    </div>
+                                </div>
                             </div>
 
                             <!--
@@ -186,40 +190,42 @@ and open the template in the editor.
                             <form class="form-horizontal">
 
                                 <h4> <strong> Ajouter une équipe </strong></h4>
-                               
+
                                 <div class="row">
                                     <div class="form-group">
-                                        <label class='col-xs-3 control-label'> Equipe:</label>
+                                        <label class='col-xs-3 control-label'> Equipe :</label>
                                         <div class='col-xs-6'>
 
                                             <%
                                                 ArrayList<Equipe> lesEquipesCompatibles = (ArrayList<Equipe>) session.getAttribute("listEquipesCompatibles");
                                                 if (lesEquipesCompatibles != null) {
                                                     if (lesEquipesCompatibles.size() != 0) {
-                                                        %><select class="form-control" id="selectionEquipeAjouter">
-                                                         <option value="">Choix</option> <%
-                                                          int i = 0;
-                                                             for (i = 0; i < lesEquipesCompatibles.size(); i++) {
-                                                                    int idEquipe = lesEquipesCompatibles.get(i).getIdEquipe();
-                                                                    //String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
-                                                                    String categorie = lesEquipesCompatibles.get(i).getCategorie();
-                                                                    String pays = lesEquipesCompatibles.get(i).getPays();
-                                                                    %><option value='<%=idEquipe%>'><%= idEquipe%> : <%=pays%>  -  <%=categorie%>  </option>
-                                                             <% };
-                                                    } else { %>
-                                                    <div> Aucune équipe ne peut être inscrite  </div>                                                      
-                                                      <%}
+                                            %><select class="form-control" id="selectionEquipeAjouter">
+                                                <option value="">Choix</option> <%
+                                                    int i = 0;
+                                                    for (i = 0; i < lesEquipesCompatibles.size(); i++) {
+                                                        int idEquipe = lesEquipesCompatibles.get(i).getIdEquipe();
+                                                        //String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
+                                                        String categorie = lesEquipesCompatibles.get(i).getCategorie();
+                                                        String pays = lesEquipesCompatibles.get(i).getPays();
+                                                %><option value='<%=idEquipe%>'><%= idEquipe%> : <%=pays%>  -  <%=categorie%>  </option>
+                                                <% };
+                                                } else { %>
+                                                <div> Aucune équipe ne peut être inscrite  </div>                                                      
+                                                <%}
                                                     }%>
                                             </select>
                                         </div>
                                     </div>
 
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-xs-6 col-xs-offset-3">
-                                        <button type="button" id="ajouterEquipe" class="btn btn-default btn-block">Ajouter &nbsp;<span class="glyphicon glyphicon-plus"></span></button>
+                                <div class='row'>
+                                    <div class="form-group">
+                                        <div class="col-xs-6 col-xs-offset-3">
+                                            <button type="button" id="ajouterEquipe" class="btn btn-default btn-block">Ajouter &nbsp;<span class="glyphicon glyphicon-plus"></span></button>
+                                        </div>
                                     </div>
-                                </div>                  
+                                </div>
                             </form>
 
                             <!-- 
@@ -228,29 +234,29 @@ and open the template in the editor.
 
 
                             <form class="form-horizontal">
-                                <h4>  <strong> Supprimer une equipe </strong></h4>
+                                <h4>  <strong> Supprimer une équipe </strong></h4>
                                 <div class="row">
                                     <div class="form-group">
-                                        <label class='col-xs-3 control-label'> Equipe:</label>
+                                        <label class='col-xs-3 control-label'> Equipe :</label>
                                         <div class='col-xs-6'>
                                             <%
 
                                                 if (lesEquipesInscrites != null) {
                                                     if (lesEquipesInscrites.size() != 0) {
-                                                           %><select class="form-control" id="selectionEquipeSupprimer">
-                                                          <option value="">Choix</option> <%
-                                                           int i = 0;
-                                                           for (i = 0; i < lesEquipesInscrites.size(); i++) {
-                                                                int idEquipe = lesEquipesInscrites.get(i).getIdEquipe();
-                                                                //String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
-                                                                String categorie = lesEquipesInscrites.get(i).getCategorie();
-                                                                String pays = lesEquipesInscrites.get(i).getPays();
-                                                                 %><option value='<%=idEquipe%>'><%= idEquipe%> : <%=pays%>  -  <%=categorie%>  </option> 
-                                                           <% };
-                                                     } else {%>
-                                                       <div> Aucune équipe n'est inscrite à cette épreuve  </div>
-                                                     <% }
-                                                }%>
+                                            %><select class="form-control" id="selectionEquipeSupprimer">
+                                                <option value="">Choix</option> <%
+                                                    int i = 0;
+                                                    for (i = 0; i < lesEquipesInscrites.size(); i++) {
+                                                        int idEquipe = lesEquipesInscrites.get(i).getIdEquipe();
+                                                        //String nomEquipe = lesEquipesCompatibles.get(i).getNomEquipe();
+                                                        String categorie = lesEquipesInscrites.get(i).getCategorie();
+                                                        String pays = lesEquipesInscrites.get(i).getPays();
+                                                %><option value='<%=idEquipe%>'><%= idEquipe%> : <%=pays%>  -  <%=categorie%>  </option> 
+                                                <% };
+                                                } else {%>
+                                                <div> Aucune équipe n'est inscrite à cette épreuve  </div>
+                                                <% }
+                                                    }%>
 
                                             </select>
                                         </div>
@@ -272,19 +278,19 @@ and open the template in the editor.
                         <div id='tab2'>
                             <form class="form-horizontal">
                                 <div class="well">
-                                    Cette page vous permet d'inscrire les sportifs à des épreuves individuelles
+                                    Cette page vous permet d'inscrire les sportifs à des épreuves individuelles.
                                 </div>
-                                 <!--
-                            
-                                     AFFICHER LES EPREUVES INDIVIDUELLES QUI NE SONT PAS ENCORE PASSEES (PAS DE MEDAILLE) 
-                                        SELON
-                                       LA REGLE 3 DES REGLES D EVOLUTION DU PAQL ET DU CR009#15,16
-                            
+                                <!--
+                           
+                                    AFFICHER LES EPREUVES INDIVIDUELLES QUI NE SONT PAS ENCORE PASSEES (PAS DE MEDAILLE) 
+                                       SELON
+                                      LA REGLE 3 DES REGLES D EVOLUTION DU PAQL ET DU CR009#15,16
+                           
                                 -->
                                 <div class="row">
                                     <div class="form-group">
 
-                                        <label class='col-xs-3 control-label'>Epreuve:</label>
+                                        <label class='col-xs-3 control-label'>Epreuve :</label>
                                         <div class='col-xs-6'>
                                             <select class="form-control" id='selectionEpreuveIndividuelle' name='listEpreuveIndividuelle'>
                                                 <option value=''>Choix</option>
@@ -328,32 +334,34 @@ and open the template in the editor.
                             -->
 
 
-                            <h4> <strong> Les sportifs qui sont déja inscrits </strong></h4>
-                            <div id="sportifInscrit">
-                                <%
-                                    int i = 0;
-                                    ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifsInscrits");
-                                    if (lesSportifsInscrits != null) {
-                                        if (lesSportifsInscrits.size() != 0) {
-                                            for (i = 0; i < lesSportifsInscrits.size(); i++) {
-                                                int idSportif = lesSportifsInscrits.get(i).getIdSportif();
-                                                String nomSportif = lesSportifsInscrits.get(i).getNom();
-                                                String prenomSportif = lesSportifsInscrits.get(i).getPrenom();
+                            <h4> <strong> Les sportifs qui sont déja inscrits :</strong></h4>
+                            <div class='row'>
+                                <div class='col-xs-5 col-xs-offset-3'>
+                                    <div id="sportifInscrit">
+                                        <%
+                                            int i = 0;
+                                            ArrayList<Sportif> lesSportifsInscrits = (ArrayList<Sportif>) session.getAttribute("listSportifsInscrits");
+                                            if (lesSportifsInscrits != null) {
+                                                if (lesSportifsInscrits.size() != 0) {
+                                                    for (i = 0; i < lesSportifsInscrits.size(); i++) {
+                                                        int idSportif = lesSportifsInscrits.get(i).getIdSportif();
+                                                        String nomSportif = lesSportifsInscrits.get(i).getNom();
+                                                        String prenomSportif = lesSportifsInscrits.get(i).getPrenom();
 
-                                %> <div><%=idSportif%>:<%=prenomSportif%> <%=nomSportif%>  </div>
-                                <% }
-                                } else { %> 
-                                <div> Aucun sportif pour le moment !  </div>
-                                <% }
+                                        %> <div><%=idSportif%> : <%=prenomSportif%> <%=nomSportif%>  </div>
+                                        <% }
+                                        } else { %> 
+                                        <div> Aucun sportif pour le moment !  </div>
+                                        <% }
 
-                                } else { %>
-                                <div> Pas d'épreuve choisie  </div>
-                                <%
-                                    }
-                                %>
-
+                                        } else { %>
+                                        <div> Pas d'épreuve choisie  </div>
+                                        <%
+                                            }
+                                        %>
+                                    </div>
+                                </div>
                             </div>
-
                             <!--
                                 AJOUTER UN SPORTIF A L EPREUVE CHOISIE 
                             PARMI UNE LISTE DE SPORTIF  NON INSCRITS ET VERIFIANT  LES 
@@ -368,8 +376,8 @@ and open the template in the editor.
 
                                 <div class="row">
                                     <div class="form-group">
-                                        <label class='col-xs-3 control-label'> Sportif: </label>
-                              
+                                        <label class='col-xs-3 control-label'> Sportif : </label>
+
                                         <div class='col-xs-6'>
 
                                             <%
@@ -396,11 +404,13 @@ and open the template in the editor.
                                     </div>
 
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-xs-6 col-xs-offset-3">
-                                        <button type="button" id="ajouterSportif" class="btn btn-default btn-block">Ajouter &nbsp;<span class="glyphicon glyphicon-plus"></span></button>
-                                    </div>
-                                </div>                  
+                                <div class='row'>
+                                    <div class="form-group">
+                                        <div class="col-xs-6 col-xs-offset-3">
+                                            <button type="button" id="ajouterSportif" class="btn btn-default btn-block">Ajouter &nbsp;<span class="glyphicon glyphicon-plus"></span></button>
+                                        </div>
+                                    </div> 
+                                </div>
                             </form>
 
                             <!-- 
@@ -412,8 +422,8 @@ and open the template in the editor.
                                 <h4>  <strong> Supprimer un sportif </strong></h4>
                                 <div class="row">
                                     <div class="form-group">
-                                        <label class='col-xs-3 control-label'> Sportif: </label>
-                                        <div class='col-xs-6'>
+                                        <label class='col-xs-3 control-label'> Sportif : </label>
+                                        <div class='col-xs-6'> 
                                             <%
 
                                                 if (lesSportifsInscrits != null) {
@@ -453,15 +463,15 @@ and open the template in the editor.
                         <footer class="footer">
                             <%! Date dateDuJour;%>
                             <% dateDuJour = new Date();%>
-                            <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
+                            <p class='text-muted pull-right'><i> Date de dernière mise à jour :<%= dateDuJour%></i></p>
                             <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
                         </footer>
-                            
+
                     </div>
                 </div>
 
                 <script>
-                    $(document).ready(function() {
+                    $(document).ready(function () {
                         $("#tabs").tabs();
                         $("#tabs").tabs({
                             active: <%=activeTab - 1%>

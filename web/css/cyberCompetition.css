@@ -71,6 +71,7 @@ footer.footer {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
     background-repeat: repeat-x; /* Repeat the gradient */
     border-bottom: 1px solid #d5d5d5;
+    font-size:16px;
 }
 .nav-justified > .active > a,
 .nav-justified > .active > a:hover,
@@ -90,7 +91,7 @@ footer.footer {
 
 @media (min-width: 500px) {
     .nav-justified {
-        max-height: 52px;
+        max-height: 54px;
     }
     .nav-justified > li > a {
         border-right: 1px solid #d5d5d5;
