@@ -98,8 +98,9 @@ public class EnregistrementBdPanier extends HttpServlet {
          }
          
          utilisateur.setPaiementValider(true);
+         
          request.setAttribute("idTransaction", idTransaction);
-         request.setAttribute("valeurTab",0);
+         request.setAttribute("valeurTab",3);
          request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
          
          

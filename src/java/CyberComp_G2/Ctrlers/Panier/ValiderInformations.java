@@ -56,7 +56,7 @@ public class ValiderInformations extends HttpServlet {
         
         sessionUtilisateur.setInfoValider(true);
         
-        request.setAttribute("valeurTab", 0);
+        request.setAttribute("valeurTab", 2);
         request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
         
     }

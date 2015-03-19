@@ -103,28 +103,44 @@
   }
  
 
+
+//$('a[href="#panierTabPanier"]').click(function (e) {
+//    e.preventDefault();
+//    $(this).tab('show');
+//});
+//
+//$('a[href="#panierTabInformation"]').click(function (e) {
+//    e.preventDefault();
+//    $(this).tab('show');
+//});
+//
+//$('a[href="#panierTabPaiement"]').click(function (e) {
+//    e.preventDefault();
+//    $(this).tab('show');
+//});
+//
+//$('a[href="#panierTabTerminerCommande"]').click(function (e) {
+//    e.preventDefault();
+//    $(this).tab('show');
+//});
+
+
 /* Liens permettant de naviger dans les tabs du panier */
-$('a[href="#panierTabPanier"]').click(function (e) {
-    e.preventDefault();
-    $(this).tab('show');
-});
+$("li[role='presentation']").on('click', function () {
+            //$(this).preventDefault();
+           if($(this).hasClass("disabled")){
+               $("#courant").tab('show');
+               var tab =$("#courant").val();
+                $("#tabs").tabs({
+                            active: tab
+                 });
+            }else{
+                var tab =$("#courant").val();
+                $("#courant").prop("id","presentation"+tab);
+                $(this).prop("id","courant");
+            }
 
-$('a[href="#panierTabInformation"]').click(function (e) {
-    e.preventDefault();
-    $(this).tab('show');
-});
-
-$('a[href="#panierTabPaiement"]').click(function (e) {
-    e.preventDefault();
-    $(this).tab('show');
-});
-
-$('a[href="#panierTabTerminerCommande"]').click(function (e) {
-    e.preventDefault();
-    $(this).tab('show');
-});
-
-
+ });
 
 /* Quand on clique sur un element supp du panier */
 

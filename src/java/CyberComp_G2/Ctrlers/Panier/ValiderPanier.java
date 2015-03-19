@@ -44,7 +44,7 @@ public class ValiderPanier extends HttpServlet {
         
         sessionUtilisateur.setPanierValider(true);
         
-        request.setAttribute("valeurTab", 0);
+        request.setAttribute("valeurTab", 1);
         request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
     }
 

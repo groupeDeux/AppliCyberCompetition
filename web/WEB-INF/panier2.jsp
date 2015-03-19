@@ -4,6 +4,7 @@
     Author     : M.Conte
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="CyberComp_G2.Model.Utilisateur.Utilisateur" %>
 <%@page import="CyberComp_G2.Model.ConsulterEpreuve.Epreuve"%>
 <%@page import="CyberComp_G2.Model.Panier.Panier" %>
@@ -26,7 +27,7 @@ and open the template in the editor.
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
         <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
-        <!--<script type="text/javascript" src="js/jsPanier.js"></script>-->
+
 
 
 
@@ -54,7 +55,7 @@ and open the template in the editor.
                                 <li><a href="GetListEpreuve" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves">Epreuves</a></li>
                                 <li><a href='#' data-toggle="tooltip" data-placement="bottom" title="Acceder aux résultats des épreuves">Resultats</a></li>
                                 <li class='active'><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder au panier">Panier</a></li>
-                                <li><a href='GetListDelegation' data-toggle="tooltip" data-placement="bottom" title="Acceder aux fonctions d'administration">Admin</a></li>
+                                <li><a href='admin.jsp' data-toggle="tooltip" data-placement="bottom" title="Acceder aux fonctions d'administration">Admin</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -73,7 +74,7 @@ and open the template in the editor.
                         <h2><small>Votre</small> Panier</h2>
                     </div>
                 </div>
-                
+
                 <%-- Chargement des informations sur le contenu de du panier de la session ainsi que de l'utilisateur --%>
 
 
@@ -83,22 +84,25 @@ and open the template in the editor.
                     ArrayList<Epreuve> lesEpreuvesDuPanier = (ArrayList<Epreuve>) sessionPanier.getLesEpreuvesAuPanier();
                     ArrayList<String> lesTicketsDuPanier = (ArrayList<String>) sessionPanier.getListeAuPanier();
                     ArrayList<Integer> leNombreDeTicketDuPanier = (ArrayList<Integer>) sessionPanier.getNombreDeBillet();
-               %>
-                
-                 <div id="tabs">
-                        <ul class="nav nav-pills" id='panierTab' style="font-size:16px;">
-                            
-                             <%
-                               int valeurTab = (Integer) request.getAttribute("valeurTab");
+                %>
+                <!-- REPRISE DU CODE PAR GAETAN -->
+                <div class='row'>
+                    <div>
+                        <ul class='nav nav-pills ' id='panierTab' style="font-size:16px;">
+                            <%
+                                int valeurTab = (Integer) request.getAttribute("valeurTab");
                             %>
 
-                            <li <%if (!sessionUtilisateur.isPaiementValider()) { %>id='courant'<% } %> role='presentation' class='<% if (valeurTab == 0) {%>active<%}if (sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' ><a href='#panierTabPanier'  value='0'>Panier</a></li>
-                            <li role='presentation' class='<% if (valeurTab == 1) {%>active <%}if (!sessionUtilisateur.isPanierValider()||sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='1'><a  href='#panierTabInformation' >Informations</a></li>
-                            <li role='presentation' class='<% if (valeurTab == 2) {%>active <%}if (!sessionUtilisateur.isInfoValider()||sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='2'><a href='#panierTabPaiement'>Paiement</a></li>
-                            <li <%if (sessionUtilisateur.isPaiementValider()) { %>id='courant'<% } %> role='presentation' class='<% if (valeurTab == 3) {%>active <%}if (!sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='3'><a  href='#panierTabTerminerCommande'  >Terminer commande</a></li>
+                            <li role='presentation' class='<% if (valeurTab == 0) {%> active <%}%>' ><a href='#panierTabPanier' data-toggle='tab'>Panier</a></li>
+                            <li role='presentation' class='<% if (valeurTab == 1) {%> active <%}%> <% if (!sessionUtilisateur.isPanierValider()) { %> disabled <% } %>'><a <% if (!sessionUtilisateur.isPanierValider()) { %> href='#' <% } else { %> href='#panierTabInformation' <% } %>data-toggle='tab'>Informations</a></li>
+                            <li role='presentation' class='<% if (valeurTab == 2) {%> active <%}%> <% if (!sessionUtilisateur.isInfoValider()) { %> disabled <% } %>'><a <% if (!sessionUtilisateur.isInfoValider()) { %> href='#' <%} else { %>href='#panierTabPaiement'<% } %> data-toggle='tab'>Paiement</a></li>
+                            <li role='presentation' class='<% if (valeurTab == 3) {%> active <%}%> <% if (!sessionUtilisateur.isPaiementValider()) { %> disabled <% } %>'><a <% if (!sessionUtilisateur.isPaiementValider()) { %> href='#' <%} else { %> href='#panierTabTerminerCommande' <% } %> data-toggle='tab'>Terminer commande</a></li>
                         </ul>
+                    </div>
 
-                       <%-- 
+
+
+                        <%-- 
                             Panneau PANIER
                         --%>
 
@@ -117,7 +121,7 @@ and open the template in the editor.
                             <div class='well text-center'>
                                 <h4>Votre panier est vide</h4>
                             </div>
-                        
+                        </div>
 
                         <%
                         } else {
@@ -465,8 +469,7 @@ and open the template in the editor.
                                     <div class="col-xs-3">
                                         <br>
                                         <br>
-                                        <button
-                                            type="button" class="btn btn-default">
+                                        <button type="submit" class="btn btn-default">
                                             <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
                                             </span>
                                             Revenir à la page d'acceuil    
@@ -481,25 +484,33 @@ and open the template in the editor.
                     </div>
                     <!-- FIN DE TERMINER COMMANDE -->
 
+                </div>
 
 
-                </div> 
-            </div>            
+                <!-- 
+                     4EME PARTIE ACHAT TERMINE/ AFFICHAGE NUMERO TRANSACTION
+                -->  
+
+                <footer class="footer">
+
+                    <%! Date dateDuJour;%>
+                    <% dateDuJour = new Date();%>
+                    <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
+                    <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
+
+                </footer>
+            </div>             
         </div>
         <script src="js/bootstrap.js" type="text/javascript"></script>
         <script  src="js/cyberCompetition.js" type="text/javascript" ></script>
         <script src="js/jsPanier.js" type="text/javascript"></script>
         <script>
-            
-        $(document).ready(function () {
-            $("#tabs").tabs();
-              $("#tabs").tabs({
-                   active: <%= valeurTab %>
-              });
-        });
-    
+                            $(document).ready(function () {
 
-        
+                                $("#tabs").tabs({
+                                    active: <%= valeurTab %>
+                                });
+                            });
         </script>
     </body>
 </html>
