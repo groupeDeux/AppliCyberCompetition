@@ -35,9 +35,9 @@ public class GetMedaillesDAO {
     private static final String lesSportifsMedaillesParEpreuve
             = "select * from LESMEDAILLES M "
             + "join lesSportifs S "
+            + "on M.idParticipant=S.idSportif "
             +"join lesParticipants P "
             + "on P.idParticipant=S.idSportif "
-            + "on M.idParticipant=S.idSportif "
             + " where idEpreuve=%d order by VALEUR";
 
     //methodes
@@ -66,7 +66,7 @@ public class GetMedaillesDAO {
      * @throws CategorieException 
      */
     public static Resultat getResultat(int idEpreuve, boolean individuelle) throws SQLException, CategorieException {
-        Participant or,argent,bronze;
+        //Participant or,argent,bronze;
         Resultat res = null;
         
         if (individuelle) {
@@ -80,7 +80,7 @@ public class GetMedaillesDAO {
             }
             
         } else {
-            CachedRowSet crs = getMedaillesParEpreuve(lesSportifsMedaillesParEpreuve, idEpreuve);
+            CachedRowSet crs = getMedaillesParEpreuve(lesEquipesMedailleesParEpreuve, idEpreuve);
             List<Equipe> medailles = new ArrayList<>();
             while (crs.next()) {
                 medailles.add(new Equipe(crs.getInt("idEquipe"), crs.getString("pays"), crs.getString("categorie"), crs.getInt("nbDeSportif")));
