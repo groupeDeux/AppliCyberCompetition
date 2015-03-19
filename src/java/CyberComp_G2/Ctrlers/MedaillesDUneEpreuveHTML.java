@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package CyberComp_G2.Ctrlers;
 
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
@@ -38,13 +37,13 @@ public class MedaillesDUneEpreuveHTML extends HttpServlet {
             resMedailles.append("<thead><tr>");
             resMedailles.append("<th>").append("idEquipe").append("</th>");
             resMedailles.append("<th>").append("pays").append("</th>");
-            
+
             resMedailles.append("</tr></thead>");
             resMedailles.append("<tbody>");
 
             //parcours du rowSet poru remplir le tableau
-            int i=0;
-            for(i=0; i<listP.size(); i++) {
+            int i = 0;
+            for (i = 0; i < listP.size(); i++) {
                 Equipe equipe = (Equipe) listP.get(i);
                 //ouverture row
                 resMedailles.append("<tr>");
@@ -54,8 +53,7 @@ public class MedaillesDUneEpreuveHTML extends HttpServlet {
                 //fermeture row
                 resMedailles.append("</tr>");
             }
-        }
-        else{           
+        } else {
             //en tete tr +4 colonnes th idSportif,prenom, nom et et Pays
             resMedailles.append("<thead><tr>");
             resMedailles.append("<th>").append("idSportif").append("</th>");
@@ -64,8 +62,8 @@ public class MedaillesDUneEpreuveHTML extends HttpServlet {
             resMedailles.append("<th>").append("pays").append("</th>");
 
             //parcours du rowSet poru remplir le tableau
-            int i=0;
-            for(i=0; i<listP.size(); i++) {
+            int i = 0;
+            for (i = 0; i < listP.size(); i++) {
                 Sportif sportif = (Sportif) listP.get(i);
                 //ouverture row
                 resMedailles.append("<tr>");
@@ -75,7 +73,7 @@ public class MedaillesDUneEpreuveHTML extends HttpServlet {
                 resMedailles.append("<td>").append(sportif.getNom()).append("</td>");
                 resMedailles.append("<td>").append(sportif.getPays()).append("</td>");
                 resMedailles.append("</tr>");
-            }    
+            }
         }
 
         resMedailles.append("</tbody>");
@@ -96,27 +94,26 @@ public class MedaillesDUneEpreuveHTML extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String tableauMedailles ="";
+        String tableauMedailles = "";
         try (PrintWriter out = response.getWriter()) {
 
             //rowset participants renvoyees par la request
             String forme = (String) request.getAttribute("formeParticipant");
-            if(forme.equals("equipe")){
+            if (forme.equals("equipe")) {
                 ArrayList<Participant> listMedaillesEquipe = new ArrayList();
-                listMedaillesEquipe= (ArrayList<Participant>) request.getAttribute("listMedailles");
+                listMedaillesEquipe = (ArrayList<Participant>) request.getAttribute("listMedailles");
                 tableauMedailles = createTabMedailles(listMedaillesEquipe, forme);
-                
-            }
-            else{
+
+            } else {
                 ArrayList<Participant> listMedaillesSportifs = new ArrayList();
-                listMedaillesSportifs= (ArrayList<Participant>) request.getAttribute("listMedailles");
+                listMedaillesSportifs = (ArrayList<Participant>) request.getAttribute("listMedailles");
                 tableauMedailles = createTabMedailles(listMedaillesSportifs, forme);
             }
-                     
+
+            //en tete et div deroulant
             out.println("<table class=\"table tabParticipant\">");
             out.println(tableauMedailles);
-            out.println("</table>");  
-           
+            out.println("</table>");
 
         } catch (SQLException ex) {
             Logger.getLogger(ParticipantsDUneEpreuveHTML.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,6 +122,18 @@ public class MedaillesDUneEpreuveHTML extends HttpServlet {
 
     }
 
+    /*
+     <div class="panel-heading" data-toggle='collapse' href='#epreuvesParticipants<%=epreuveSelectionnee.getIdEpreuve()%>'>
+     <h4>
+     Liste des participants de l'épreuve
+     <span class='pull-right glyphicon glyphicon-menu-down'></span>
+     </h4>
+     </div>
+     <div id="epreuvesParticipants<%=epreuveSelectionnee.getIdEpreuve()%>" class="panel-collapse collapse">
+     <div class='panel-body'>
+     ===========
+     </div>
+     </div>*/
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

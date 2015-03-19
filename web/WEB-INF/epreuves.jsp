@@ -165,6 +165,9 @@ and open the template in the editor.
                                         panel-heading: Titre de cette page
                                         panel-body: corps de la page a afficher
                                 --%>
+                                <div id="infoEpreuve<%=epreuveSelectionnee.getIdEpreuve()%>">
+                                </div>
+                                <%--
                                 <div class="panel panel-default">
                                     <div class="panel-heading" data-toggle='collapse' href='#epreuvesParticipants<%=epreuveSelectionnee.getIdEpreuve()%>'>
                                         <h4>
@@ -178,12 +181,25 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                 </div>
+                                --%>    
+                                <%--
+                                LISTE DES MEDAILLES
+                                Chargee lorsqu'on clique sur une epreuve
+                                si il y a des mdailles sinon affichage des achats billets
+                                --%>
+                                <%--
+<div id="epreuvesMedailles<%=epreuveSelectionnee.getIdEpreuve()%>" class="panel panel-default">
+                                    
+                                </div>
+                                
+                                %-->
                                 <%--
                                         ACHETER UN BILLET
                                         Panel d'affichage pouracheter un billet
                                         panel-heading: Titre de cette page
                                         panel-body: corps de la page a afficher
                                 --%>
+                                <%--
                                 <div class="panel panel-default">
                                     <div class="panel-heading" data-toggle='collapse' href='#epreuvesBillets<%=epreuveSelectionnee.getIdEpreuve()%>'>
                                         <h4>
@@ -244,6 +260,8 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                 </div>
+                                --%>
+
                             </div>
                         </div>
                     </div>
@@ -260,6 +278,9 @@ and open the template in the editor.
                         Epreuve epreuveSelectionnee = lesEpreuves.get(i);
                         lesId = lesId + i;
                 %>
+
+
+
                 <div class="row rowEpreuve" data-tags="<%= epreuveSelectionnee.getCategorie()%>,Individuel">
                     <div class="media">
                         <div class="media-left">
@@ -282,13 +303,15 @@ and open the template in the editor.
                                 <p>Epreuve entre la team A et la team B <br/>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
                                     Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-
+                                <div id="infoEpreuve<%=epreuveSelectionnee.getIdEpreuve()%>">
+                                </div>
                                 <%--
                                         LISTE DES PARTICIPANTS
                                         Panel d'affichage de la liste des participants à l'epreuve 
                                         panel-heading: Titre de cette page
                                         panel-body: corps de la page a afficher
                                 --%>
+                                <%--
                                 <div class="panel panel-default">
                                     <div class="panel-heading" data-toggle='collapse' href='#epreuvesParticipants<%=epreuveSelectionnee.getIdEpreuve()%>'>
                                         <h4>
@@ -303,12 +326,14 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                 </div>
+                                --%>
                                 <%--
                                         ACHETER UN BILLET
                                         Panel d'affichage pouracheter un billet
                                         panel-heading: Titre de cette page
                                         panel-body: corps de la page a afficher
                                 --%>
+                                <%--
                                 <div class="panel panel-default">
                                     <div class="panel-heading" data-toggle='collapse' href='#epreuvesBillets<%=epreuveSelectionnee.getIdEpreuve()%>'>
                                         <h4>
@@ -369,6 +394,7 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                 </div>
+                                --%>
                             </div>
                         </div>
                     </div>

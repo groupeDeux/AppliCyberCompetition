@@ -29,6 +29,8 @@ public class Epreuve {
     private int nbDePlace;
     private String categorie;
     private int nbPlaceAcheter;     
+    private boolean estIndividuelle = false;
+    
 /**
  * contsurteur d'epreuve selon la contrainte CI_3
  * @param idEpreuve
@@ -56,6 +58,18 @@ public class Epreuve {
         setCategorie(categorie);
         setNbPlaceAcheter(nbPlaceAcheter);
     }
+
+    public Epreuve(int idEpreuve ,String nomEpreuve,String nomDiscipline, String dateDebut, 
+            String dateFin, String urlVideo, double tarif, int nbDePlace, String categorie, int nbPlaceAcheter,
+            boolean estIndividuelle) throws CategorieException, nbPlaceAcheterExeception {
+        this(idEpreuve, nomEpreuve, nomDiscipline, dateDebut, dateFin, urlVideo, tarif, nbDePlace, categorie, nbPlaceAcheter); 
+        this.estIndividuelle = estIndividuelle;
+    }
+
+    public boolean isIndividuelle() {
+        return estIndividuelle;
+    }
+    
 
     public String getNomEpreuve() {
         return nomEpreuve;

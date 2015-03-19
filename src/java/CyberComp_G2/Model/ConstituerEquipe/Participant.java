@@ -10,7 +10,7 @@ package CyberComp_G2.Model.ConstituerEquipe;
  *|Sportif| ou |Equipe| participant à une |Competition|
  * @author magourar
  */
-public class Participant {
+public abstract class Participant {
 //--------- Attributs -----------------------------------------------------
       
     //nom du pays de la délégation 
@@ -37,5 +37,7 @@ public class Participant {
     public void setIdParticipant(int idParticipant) {
         this.idParticipant = idParticipant;
     }
+    
+    public abstract String asHTML();
     
 }

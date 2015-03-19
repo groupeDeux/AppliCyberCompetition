@@ -6,7 +6,11 @@
 package CyberComp_G2.DAO.ConsulterEpreuve;
 
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
+import CyberComp_G2.Exceptions.CategorieException;
+import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
+import CyberComp_G2.Model.ConsulterEpreuve.Epreuve;
 import com.sun.rowset.CachedRowSetImpl;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.rowset.CachedRowSet;
 
@@ -15,6 +19,8 @@ import javax.sql.rowset.CachedRowSet;
  * @author vivi, oprisora
  */
 public class GetConsulterEpreuveDAO {
+
+    private static final String estEpreuveIndividuelle = "SELECT idepreuve from lesEpreuvesIndividuelles WHERE idepreuve=%d";
 
     /* Requete de recherche de toutes les epreuves dans la base de donnée */
     public static final String lesEpreuves
@@ -27,11 +33,11 @@ public class GetConsulterEpreuveDAO {
             + "'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo, "
             + "tarif,nbDePlace,categorie FROM viewEpreuve JOIN lesEpreuvesParEquipe "
             + "USING (idEpreuve)";
-    
+
 
     /* Requete de recherche d'une épreuve en fonction d'un ID, utilisé notamment dans le
-    panier
-    */
+     panier
+     */
     public static final String lesEpreuvesParId
             = "Select idepreuve, nomDiscipline, nomEpreuve, "
             + "to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'), "
@@ -43,8 +49,6 @@ public class GetConsulterEpreuveDAO {
             + "tarif,nbDePlace,categorie FROM viewEpreuve JOIN lesEpreuvesParEquipe "
             + "USING (idEpreuve) where ( idEpreuve = %d )";
 
-   
-    
     /*
      Requête qui retourne la liste des épreuves individuelles avec les informations
      suivante : ...
@@ -120,54 +124,54 @@ public class GetConsulterEpreuveDAO {
             + "join LesEquipes E ON (M.idParticipant=E.idEquipe) "
             + "WHERE idEquipe = %d "
             + "ORDER BY valeur asc ";
-    
+
     public static final String lesEpreuveSsResulats
-            = "select idepreuve, nomDiscipline, nomEpreuve, to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace,categorie " 
-            + "from lesEpreuves " 
-            +"minus " 
-            +"select idepreuve, nomDiscipline, nomEpreuve, to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace,categorie " 
-            +"from lesMedailles " 
-            +"join lesEpreuves " 
-            +"Using(idEpreuve)";
-   public static final String  EpreuvesIndSansResulat
-           = "SELECT idEpreuve,nomDiscipline,nomEpreuve, "
-           + " to_char(dateDebut,'DD-MM-YYYY HH24'), "
-           + "to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
-          + " categorie, nbdeplaceachetées "
-          + "from lesEpreuvesIndividuelles "
-           + "join viewEpreuve "
-          + " USING (idEpreuve) "
-         + " minus "
-          +  " SELECT idEpreuve,nomDiscipline,nomEpreuve, "
-           +  "to_char(dateDebut,'DD-MM-YYYY HH24'), "
-          +  " to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
-         + " categorie,nbdeplaceachetées "
-        + " FROM lesEpreuvesIndividuelles "
-        +  " JOIN LESMEDAILLES "
-         + "USING (idEpreuve) "
-         + " join viewEpreuve "
-         + "USING (idEpreuve) "
-    + "order by idEpreuve";
-   public static final String  EpreuvesEquipeSansResulat
-            ="SELECT idEpreuve,nomDiscipline,nomEpreuve, "
-          + " to_char(dateDebut,'DD-MM-YYYY HH24'), "
-          + " to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
-           + "categorie, nbdeplaceachetées "
-         +  "from lesEpreuvesParEquipe "
-          +"  join viewEpreuve "
-          + " USING (idEpreuve) "
-         + " minus "
-          +  " SELECT idEpreuve,nomDiscipline,nomEpreuve, "
-           + " to_char(dateDebut,'DD-MM-YYYY HH24'), "
-          +  " to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
-         + " categorie,nbdeplaceachetées "
-        + " FROM lesEpreuvesParEquipe "
-        +  " JOIN LESMEDAILLES "
-        + " USING (idEpreuve) "
-         + " join viewEpreuve "
-          +"USING (idEpreuve) " 
-  +  " order by idEpreuve ";
-   
+            = "select idepreuve, nomDiscipline, nomEpreuve, to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace,categorie "
+            + "from lesEpreuves "
+            + "minus "
+            + "select idepreuve, nomDiscipline, nomEpreuve, to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace,categorie "
+            + "from lesMedailles "
+            + "join lesEpreuves "
+            + "Using(idEpreuve)";
+    public static final String EpreuvesIndSansResulat
+            = "SELECT idEpreuve,nomDiscipline,nomEpreuve, "
+            + " to_char(dateDebut,'DD-MM-YYYY HH24'), "
+            + "to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
+            + " categorie, nbdeplaceachetées "
+            + "from lesEpreuvesIndividuelles "
+            + "join viewEpreuve "
+            + " USING (idEpreuve) "
+            + " minus "
+            + " SELECT idEpreuve,nomDiscipline,nomEpreuve, "
+            + "to_char(dateDebut,'DD-MM-YYYY HH24'), "
+            + " to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
+            + " categorie,nbdeplaceachetées "
+            + " FROM lesEpreuvesIndividuelles "
+            + " JOIN LESMEDAILLES "
+            + "USING (idEpreuve) "
+            + " join viewEpreuve "
+            + "USING (idEpreuve) "
+            + "order by idEpreuve";
+    public static final String EpreuvesEquipeSansResulat
+            = "SELECT idEpreuve,nomDiscipline,nomEpreuve, "
+            + " to_char(dateDebut,'DD-MM-YYYY HH24'), "
+            + " to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
+            + "categorie, nbdeplaceachetées "
+            + "from lesEpreuvesParEquipe "
+            + "  join viewEpreuve "
+            + " USING (idEpreuve) "
+            + " minus "
+            + " SELECT idEpreuve,nomDiscipline,nomEpreuve, "
+            + " to_char(dateDebut,'DD-MM-YYYY HH24'), "
+            + " to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo,tarif,nbDePlace, "
+            + " categorie,nbdeplaceachetées "
+            + " FROM lesEpreuvesParEquipe "
+            + " JOIN LESMEDAILLES "
+            + " USING (idEpreuve) "
+            + " join viewEpreuve "
+            + "USING (idEpreuve) "
+            + " order by idEpreuve ";
+
     /*
     
      */
@@ -186,23 +190,29 @@ public class GetConsulterEpreuveDAO {
     public static CachedRowSet getEpreuvesEquipe() throws SQLException {
         return getConsulterEpreuve(lesEpreuvesEquipe);
     }
+
     /**
-     * retourne un Cachedrowset des epreuves individuelles qui n'ont pas encore de resulat
+     * retourne un Cachedrowset des epreuves individuelles qui n'ont pas encore
+     * de resulat
+     *
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
-public static CachedRowSet getEpreuvesIndSansResulat() throws SQLException {
+    public static CachedRowSet getEpreuvesIndSansResulat() throws SQLException {
         return getConsulterEpreuve(EpreuvesIndSansResulat);
     }
 
-/**
- * retourne un Cachedrowset des epreuves par equipe  qui n'ont pas encore de resulat
- * @return
- * @throws SQLException 
- */
+    /**
+     * retourne un Cachedrowset des epreuves par equipe qui n'ont pas encore de
+     * resulat
+     *
+     * @return
+     * @throws SQLException
+     */
     public static CachedRowSet getEpreuvesEquipeSansResulat() throws SQLException {
         return getConsulterEpreuve(EpreuvesEquipeSansResulat);
     }
+
     public static CachedRowSet getDisciplines() throws SQLException {
         return getConsulterEpreuve(lesDisciplines);
     }
@@ -217,11 +227,11 @@ public static CachedRowSet getEpreuvesIndSansResulat() throws SQLException {
         return getConsulterEpreuveAvecSelecteur(lesMedaillesDesEquipes, idEquipe);
     }
 
-    public static CachedRowSet getEpreuvesParId(int idEquipe) 
-            throws SQLException{
+    public static CachedRowSet getEpreuvesParId(int idEquipe)
+            throws SQLException {
         return getConsulterEpreuveAvecSelecteur(lesEpreuvesParId, idEquipe);
     }
-    
+
     private static CachedRowSet getConsulterEpreuve(String query)
             throws SQLException {
         CachedRowSet crs = new CachedRowSetImpl();
@@ -230,7 +240,6 @@ public static CachedRowSet getEpreuvesIndSansResulat() throws SQLException {
         crs.execute();
         return crs;
     }
-   
 
     private static CachedRowSet getConsulterEpreuveAvecSelecteur(String query,
             int selecteur)
@@ -251,5 +260,32 @@ public static CachedRowSet getEpreuvesIndSansResulat() throws SQLException {
         crs.setCommand(String.format(query, nomDiscipline));
         crs.execute();
         return crs;
+    }
+
+    public Epreuve getEpreuve(int idEpreuve) throws SQLException, CategorieException, nbPlaceAcheterExeception {
+        ResultSet rowSetEpreuve = new GetConsulterEpreuveDAO().getEpreuvesParId(idEpreuve);
+
+        boolean estIndividuelle = false;
+
+        if (rowSetEpreuve.next()) {
+
+            CachedRowSet crs = new CachedRowSetImpl();
+            crs.setDataSourceName("java:comp/env/jdbc/BDCyberCompetition");
+            crs.setCommand(String.format(estEpreuveIndividuelle, idEpreuve));
+//        crs.setInt(1, selecteur);
+//        crs.setInt(2, selecteur);
+            crs.execute();
+            if (crs.next()) {
+                estIndividuelle = true;
+            }
+
+            return new Epreuve(rowSetEpreuve.getInt(1),
+                    rowSetEpreuve.getString(3), rowSetEpreuve.getString(2),
+                    rowSetEpreuve.getString(4), rowSetEpreuve.getString(5),
+                    rowSetEpreuve.getString(6), rowSetEpreuve.getDouble(7),
+                    rowSetEpreuve.getInt(8), rowSetEpreuve.getString(9),
+                    0, estIndividuelle);
+        }
+        return null;
     }
 }

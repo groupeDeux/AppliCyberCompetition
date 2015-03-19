@@ -129,4 +129,9 @@ public class Sportif extends Participant{
     public void   setDescriptionHandicap(String descriptionHandicap) {
        this.descriptionHandicap=  descriptionHandicap;
     }
+
+    @Override
+    public String asHTML() {
+        return this.prenom + " " + this.nom.toUpperCase() + " " + this.getPays();
+    }
 }

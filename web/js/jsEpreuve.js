@@ -134,7 +134,7 @@ $(function () {
   /*Chargement de la liste des participant de l epreuve lorsqu'on click dessus*/
   $("div[name='selectEpreuve']").click(function (e) {
     var idEpreuve= $(this).attr("value"); 
-    $('#epreuvesParticipants'+idEpreuve +'> div').load("GetListParticipantDUneEpreuve?idEpreuve="+idEpreuve);
+    $('#infoEpreuve'+idEpreuve).load("GetListParticipantDUneEpreuve?idEpreuve="+idEpreuve);
     //$('#test').load("GetListParticipantDUneEpreuve?idEpreuve="+idEpreuve);
   });
 
