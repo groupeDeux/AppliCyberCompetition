@@ -175,4 +175,3 @@ $('[id^="panierQuantitee"]').on('change', function () {
 $('#validationPaiement').click(function(){
     document.location.href="EnregistrementBdPanier";
 });
-
