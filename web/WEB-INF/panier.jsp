@@ -160,7 +160,7 @@ and open the template in the editor.
 
                                     %>
                                     <tr>
-                                        <td><%= epreuve.getNomEpreuve()%></td>
+                                        <td><div class="btn btn-default btn-block" data-toggle="popover" data-content="<% out.println("<strong>Epreuve : </strong>"+ epreuve.getNomEpreuve() +"<br><strong>Discipline : </strong>" + epreuve.getNomDiscipline() + "<br><strong>Catégorie : </strong>" + epreuve.getCategorie()+"<br><strong>Début : </strong>" + epreuve.getDateDebut() + "h00<br><strong>Fin : </strong>" + epreuve.getDateFin() + "h00") ;%>" ><%= epreuve.getNomEpreuve()%></div></td>
                                         <td><%= typeDeTicket%></td>
                                         <td><%= epreuve.getTarif()%>&nbsp;€</td>
                                         <td>

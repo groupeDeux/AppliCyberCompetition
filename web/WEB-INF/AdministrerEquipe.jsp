@@ -249,9 +249,12 @@ and open the template in the editor.
                         <div id='tab2'>
                             <form class="form-horizontal" id="formModifierEquipe">
                                 <div class="well">
-                                    Cette page vous permet de modifier les éléments d'une équipe : 
-                                    ajouter un joueur, ou encore supprimer un joueur.
+                                    Cette page vous permet de modifier les membres d'une équipe : 
+                                    ajouter ou supprimer un sportif.
                                 </div>
+                                
+                                    <h4><strong>Sélectionner l'équipe : </strong></h4>
+                                
                                 <div class="row">
                                     <div class="form-group">
                                         <label class='col-xs-3 control-label'>Délégation :</label>
@@ -320,7 +323,7 @@ and open the template in the editor.
                                                 </select>    
                                             </div>
                                        <%-- boutton permettant la suppression: active que si le nombre de membres et supérieure à 2--%>
-                                        <div class='col-xs-1'> <button   <% if (equipeModif.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportifModif<%=i%>" name='valSupprimerSportifModif' value='<%=i%>'><span class="glyphicon glyphicon-minus"></span></button></div>    
+                                        <div class='col-xs-1'> <button   <% if (equipeModif.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportifModif<%=i%>" name='valSupprimerSportifModif' value='<%=i%>' data-toggle='tooltip' data-placement='right' title='Supprimer ce sportif'><span class="glyphicon glyphicon-minus"></span></button></div>    
                                     </div>
                                     <%}%> 
                                     <div class="row">
@@ -330,8 +333,8 @@ and open the template in the editor.
 
                                             </div>
                                               <%-- boutton permettant l'ajout d'un sportif --%>
-                                            <div class="col-xs-2">
-                                                <button  type="button" class="btn btn-primary btn-block " id="valAjouterSportifModif"><span class="glyphicon glyphicon-plus"></span></button>
+                                            <div class="col-xs-1 col-xs-offset-1">
+                                                <button  type="button" class="btn btn-primary btn-block " id="valAjouterSportifModif" data-toggle='tooltip' data-placement='right' title='Ajouter un sportif'><span class="glyphicon glyphicon-plus"></span></button>
                                             </div>
                                         </div>
                                     </div>
@@ -341,7 +344,7 @@ and open the template in the editor.
                                                 <button type="button" class="btn btn-danger btn-block "  id="annulerEquipeModif" >Annuler</button>
                                             </div>
                                             <div class="col-xs-4">
-                                                <button  type="button" class="btn btn-default btn-block " id="validerEquipeModif">Modifier Equipe</button>
+                                                <button  type="button" class="btn btn-primary btn-block " id="validerEquipeModif">Valider la modification&nbsp;<span class='glyphicon glyphicon-ok'></span></button>
                                             </div>
                                         </div>
                                     </div> 
@@ -359,8 +362,10 @@ and open the template in the editor.
                                 <div class="well">
                                     Cette page vous permet de supprimer une équipe. Attention ! Toute modification est irréversible.
                                 </div>
+                                <h4><strong>Sélectionner l'équipe : </strong></h4>
                                 <div class="row">
                                     <div class="form-group">
+                                        
                                         <label class='col-xs-3 control-label'>Délégation :</label>
                                         <div class='col-xs-6'>
                                              <%-- affiche la liste des délégations et sélectionne la délégation voulue--%>
@@ -403,7 +408,7 @@ and open the template in the editor.
                                 <div class='row'>
                                     <div class="form-group">
                                         <div class='col-xs-offset-3 col-xs-6'>
-                                            <button type="button" class="btn btn-danger btn-block" id="supprimerEquipe">Supprimer&nbsp;<span class="glyphicon glyphicon-trash"></span></button>
+                                            <button type="button" class="btn btn-danger btn-block" id="supprimerEquipe">Supprimer l'équipe&nbsp;<span class="glyphicon glyphicon-trash"></span></button>
                                         </div>
                                     </div>
                                 </div>

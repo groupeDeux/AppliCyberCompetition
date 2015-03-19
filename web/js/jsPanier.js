@@ -206,3 +206,10 @@ $('[id^="panierQuantitee"]').on('change', function () {
 $('#validationPaiement').click(function(){
     document.location.href="EnregistrementBdPanier";
 });
+
+/* JS du popover du panier */
+$('[data-toggle="popover"]').popover({
+      title:'Informations sur le billet',
+      placement:'right',
+      html: 'true'
+});

@@ -2,7 +2,10 @@
  * La page jsEpreuve contient le code javascript utilisé par la page epreuve.jsp
  */
 
-
+/* Prototype qui permet de capitalize les nom de type */
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+};
 
 /* Gestion du filtre en fonction des data-tags situé dans le premier div d'une epreuve */
 /* Création des variables pour la recherche de tags */
@@ -36,7 +39,7 @@ $('<li role="presentation" id="epreuvesToutTag" class="active"><a href="#">Tout<
 
 /* Creation des autres boutons en fonction des tags */
 $.each(tagged, function (tagName) {
-    $('<li role="presentation" id="' + tagName + '"><a href="#">' + tagName + '&nbsp;<span class="badge">' +
+    $('<li role="presentation" id="' + tagName + '"><a href="#">' + tagName.capitalize() + '&nbsp;<span class="badge">' +
             tagged[tagName].length + '</span></a></li>').appendTo($buttons);
 });
 
@@ -125,52 +128,12 @@ $(function () {
   });
   
   
-//  $('.media-body').click(function(){
-//      var idEpreuve= $(this).attr("value");
-//    $('#epreuvesParticipants'+idEpreuve).load("GetListParticipantDUneEpreuve?idEpreuve="+idEpreuve);
-//    
-//  });
   
   /*Chargement de la liste des participant de l epreuve lorsqu'on click dessus*/
   $("div[name='selectEpreuve']").click(function (e) {
     var idEpreuve= $(this).attr("value"); 
     $('#infoEpreuve'+idEpreuve).load("GetListParticipantDUneEpreuve?idEpreuve="+idEpreuve);
-    //$('#test').load("GetListParticipantDUneEpreuve?idEpreuve="+idEpreuve);
   });
 
 
-
-//$('span[class]').hover(function(){$(this).css('color','#337AB7');});
-
-
-/* Changement de l'information pour ouvrir une fenetre
- $('div.row.rowEpreuve').click(function(){
- var info = $(this).find('div[data-info]');
- if(info.attr('data-info')==='close'){
- info.addClass('in');
- info.attr('data-info','open');
- }else{
- //info.removeClass('in');
- //info.attr('data-info','close');
- }
- });
- */
-
-/* Change l'icone si on est sur une epreuve ou non 
- $('div.row.rowEpreuve').hover(function(){$(this).css('cursor','hand');},function(){$(this).css('cursor','pointer');});
- */
-
-/*
-$('div[data-info]').hover(
-        function () {
-            $(this).css('cursor', 'hand');
-
-        },
-        function () {
-            $(this).css('cursor', 'pointer');
-
-        }
-);
-
-*/
 
