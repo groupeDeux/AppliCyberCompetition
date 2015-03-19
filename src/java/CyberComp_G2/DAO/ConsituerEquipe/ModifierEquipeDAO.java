@@ -147,8 +147,7 @@ public class ModifierEquipeDAO {
              conn.setAutoCommit(true);
            }catch(SQLException ex){
               conn.rollback();
-              String erreur = ex.getMessage();
-              int i=0;
+              throw ex;
            }
            
     }
