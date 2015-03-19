@@ -283,7 +283,10 @@ and open the template in the editor.
                                                 <%
                                                     if (lesEquipes != null) {
                                                         for (i = 0; i < lesEquipes.size(); i++) {
-                                                            String nomEquipetemp = lesEquipes.get(i).getNomEquipe();
+                                                            String nomEquipetemp= "";
+                                                            if(lesEquipes.get(i).getNomEquipe()!=null){
+                                                                nomEquipetemp=lesEquipes.get(i).getNomEquipe();
+                                                            }
                                                             int idEquipetemp = lesEquipes.get(i).getIdEquipe();
                                                 %>          <option value='<%=idEquipetemp%>' <% if (idEquipetemp == equipeSelecte) {%> selected<%}%>><%=idEquipetemp%> : <%=nomEquipetemp%> </option>
                                                 <%
@@ -394,7 +397,10 @@ and open the template in the editor.
                                                 
                                                 if(lesEquipesSup !=null){
                                                     for(i=0;i<lesEquipesSup.size();i++){
-                                                       String nomEquipetemp = lesEquipesSup.get(i).getNomEquipe();
+                                                        String nomEquipetemp= "";
+                                                            if(lesEquipesSup.get(i).getNomEquipe()!=null){
+                                                                nomEquipetemp=lesEquipesSup.get(i).getNomEquipe();
+                                                            }
                                                        int idEquipetemp = lesEquipesSup.get(i).getIdEquipe();
                                                 %>          <option value='<%=idEquipetemp%>'><%=idEquipetemp%> : <%=nomEquipetemp%> </option> 
                                                     <%}
