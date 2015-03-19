@@ -47,7 +47,7 @@ public class MedaillesDUneEpreuve extends HttpServlet {
         CachedRowSet rowSetEpreuveEquipe;
         boolean testFormeParEquipe = false;
         // test pour savoir si l'epreuve est passee ou non (affichage médailles ou vente billet)
-        String testPresenceMedaille = "false";
+        boolean testPresenceMedaille = false;
 
         String idEpreuve = request.getParameter("idEpreuve");
         ArrayList<Equipe> listEquipesMedaillees = new ArrayList();
@@ -68,12 +68,10 @@ public class MedaillesDUneEpreuve extends HttpServlet {
                 CachedRowSet rowSetEquipesMedaillees = GetMedaillesDAO.getListEquipesMedaillees(Integer.parseInt(idEpreuve));
 
                 while (rowSetEquipesMedaillees.next()) {
+                    // si le rowSet n'est pa vide presenceMedaille=vrai
+                    testPresenceMedaille=true;
                     // recupereation les informations de  l'equipe
                     listEquipesMedaillees.add(new Equipe(rowSetEquipesMedaillees.getInt("idEquipe"), rowSetEquipesMedaillees.getString("pays"), rowSetEquipesMedaillees.getString("nomEquipe"), rowSetEquipesMedaillees.getString("categorie"), rowSetEquipesMedaillees.getInt("nbMembre")));
-                }
-                 /*--- Test sur presence de medailles --- */
-                if (rowSetEquipesMedaillees != null) {
-                    testPresenceMedaille="true";
                 }
                 
 
@@ -82,14 +80,12 @@ public class MedaillesDUneEpreuve extends HttpServlet {
                 CachedRowSet rowSetSportifsMedailles = GetParticipantsDAO.getSportifInscritAEpreuve(Integer.parseInt(idEpreuve));
 
                 while (rowSetSportifsMedailles.next()) {
+                    // si le rowSet n'est pa vide presenceMedaille=vrai
+                    testPresenceMedaille=true;
                     // recupereation les informations de chaque Sportif
                     listSportifsMedailles.add(new Sportif(rowSetSportifsMedailles.getInt("idSportif"), rowSetSportifsMedailles.getString("pays"), rowSetSportifsMedailles.getString("prenom"), rowSetSportifsMedailles.getString("nom"), rowSetSportifsMedailles.getString("dateNaissance"), rowSetSportifsMedailles.getString("genre")));
                 }
-
-                /*--- Test sur presence de medailles --- */
-                if (rowSetSportifsMedailles != null) {
-                    testPresenceMedaille="true";
-                }
+    
             }
 
         } catch (SQLException | CategorieException ex) {
@@ -98,17 +94,39 @@ public class MedaillesDUneEpreuve extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/ErreurInscriptionEpreuve.jsp").forward(request, response);
         }
 
+        // forme participants par equipe
         if (testFormeParEquipe == true) { 
             request.setAttribute("listMedailles", listEquipesMedaillees);  
             request.setAttribute("formeParticipant","equipe");
-            request.setAttribute("testPresenceMedaille",testPresenceMedaille);
+            
+            if(testPresenceMedaille){
+                //page medaille
+                request.getRequestDispatcher("/MedaillesDUneEpreuveHTML").forward(request, response);  
+            }
+            else{
+                //page panier
+                request.getRequestDispatcher("/").forward(request, response);
+                
+            }
+            //request.setAttribute("testPresenceMedaille",testPresenceMedaille);
         }
+        //forme participant sportifs
         else{
             request.setAttribute("listMedailles", listSportifsMedailles);
             request.setAttribute("formeParticipant","sportif");
-            request.setAttribute("testPresenceMedaille",testPresenceMedaille);
+            if(testPresenceMedaille){
+                //page medaille
+                request.getRequestDispatcher("/MedaillesDUneEpreuveHTML").forward(request, response);  
+            }
+            else{
+                //page panier
+                request.getRequestDispatcher("/").forward(request, response);
+                
+            }
+            
+            //request.setAttribute("testPresenceMedaille",testPresenceMedaille);
         }
-        request.getRequestDispatcher("WEB-INF/epreuves.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

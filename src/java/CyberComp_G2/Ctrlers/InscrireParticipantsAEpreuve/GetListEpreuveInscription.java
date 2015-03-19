@@ -87,7 +87,7 @@ public class GetListEpreuveInscription extends HttpServlet {
         /* ajoute les listes en attribut de la reponse et appele la page jsp */
         session.setAttribute("listEpreuveEquipe", listEpreuvesEquipe);
         session.setAttribute("listEpreuvesInv", listEpreuvesInv);
-        //request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

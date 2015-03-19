@@ -122,13 +122,7 @@ public class MedaillesDUneEpreuveHTML extends HttpServlet {
             Logger.getLogger(ParticipantsDUneEpreuveHTML.class.getName()).log(Level.SEVERE, null, ex);
             throw new ServletException(ex.getMessage(), ex);
         }
-//        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            out.println("coucou");
-////            out.println("<table class=\"tabParticipant\">");
-////            out.println(tableauParticipants);
-////            out.println("</table>");   
-//        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
