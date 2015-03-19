@@ -111,5 +111,9 @@ public class Panier {
     public ArrayList<String> getListeAuPanier() {
         return listeAuPanier;
     }
+    
+    public boolean isEmpty(){
+        return lesEpreuvesAuPanier.isEmpty();
+    }
 
 }

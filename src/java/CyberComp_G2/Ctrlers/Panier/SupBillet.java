@@ -50,7 +50,9 @@ public class SupBillet extends HttpServlet {
 
             if (paramNumBillet.equals("TOUT")) {
                 /* On vide le panier */
-                sessionPanier.supprimerLePanierComplet();
+                if(!sessionPanier.isEmpty()){
+                    sessionPanier.supprimerLePanierComplet();
+                }
                 sessionUtilisateur.setPanierValider(false);
                 sessionUtilisateur.setInfoValider(false);
             } else {

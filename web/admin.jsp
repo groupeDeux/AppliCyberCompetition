@@ -64,7 +64,7 @@ and open the template in the editor.
                     <!--la classe col-xs-4  permet de diviser la zone de travail en 3 champs 
                     une zone de travail est défini sur 12 colomn 
                     -->
-                    <div class='col-xs-5 col-xs-offset'>
+                    <div class='col-xs-5 col-xs-offset-1'>
                         <!--la classe thumbnail permet de créer les carée
                         -->
                         <div class='thumbnail'>
