@@ -19,28 +19,40 @@
      document.formulaire.prenom.focus();
      return false;
     }
-   if(document.formulaire.adresse.value == "")
+   if(document.formulaire.rue.value == "")
     {
-     alert("Veuillez entrer votre adresse!");
-     document.formulaire.adresse.focus();
+     alert("Veuillez entrer le nom de votre rue!");
+     document.formulaire.rue.focus();
      return false;
     }
-   if(document.formulaire.email.value == "")
+    if(document.formulaire.numRue.value == "")
+    {
+     alert("Veuillez entrer le numéro de votre rue!");
+     document.formulaire.numRue.focus();
+     return false;
+    }
+     if(document.formulaire.ville.value == "")
+    {
+     alert("Veuillez entrer votre ville!");
+     document.formulaire.ville.focus();
+     return false;
+    }
+   if(document.formulaire.mail.value == "")
     {
      alert("Veuillez entrer votre adresse électronique!");
-     document.formulaire.email.focus();
+     document.formulaire.mail.focus();
      return false;
     }
-   if(document.formulaire.telephone.value == "")
+   if(document.formulaire.numTelephone.value == "")
     {
      alert("Veuillez entrer votre numéro de téléphone!");
-     document.formulaire.telephone.focus();
+     document.formulaire.numTelephone.focus();
      return false;
     }
-    if(document.formulaire.titulaire.value == "")
+    if(document.formulaire.carte.value == "")
     {
-     alert("Veuillez entrer l'identité du titulaire de la carte banquaire!");
-     document.formulaire.titulaire.focus();
+     alert("Veuillez entrer votre type de carte banquaire!");
+     document.formulaire.carte.focus();
      return false;
     }
     if(document.formulaire.idCarte.value == "")
@@ -61,12 +73,18 @@
      document.formulaire.codeSecret.focus();
      return false;
     }
+    }
+     /* 
    if(document.formulaire.email.value.indexOf('@') == -1)
     {
      alert("Ce n'est pas une adresse électronique valable!");
      document.formulaire.email.focus();
      return false;
     }
+    
+  
+  
+    /* 
    var chkZ = 1;
    for(i=0;i<document.formulaire.telephone.value.length;++i)
      if(document.formulaire.telephone.value.charAt(i) < "0"
@@ -101,7 +119,7 @@
      return false;
     }
   }
- 
+ */ 
 
 
 //$('a[href="#panierTabPanier"]').click(function (e) {

@@ -273,7 +273,7 @@ and open the template in the editor.
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">(*) Numéro de téléphone :</label>
                                 <div class="col-xs-6">
-                                    <input class="form-control" type="tel" name="numTelephone" placeholder="Saisissez votre numéro de téléphone" value="${param.numTelephone}">
+                                    <input class="form-control" type="number" name="numTelephone" placeholder="Saisissez votre numéro de téléphone" value="${param.numTelephone}">
                                 </div>
                             </div>
 
@@ -301,13 +301,13 @@ and open the template in the editor.
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">(*) Date d'expiration de la carte :</label>
                                 <div class="col-xs-6">
-                                    <input class="form-control" type="text" name="dateValidite" placeholder="Saisissez la date d'expiration de la carte (JJ/MM/AAAA)" value="${param.dateValidite}">
+                                    <input class="form-control" type="number" name="dateValidite" placeholder="Saisissez la date d'expiration de la carte (JJ/MM/AAAA)" value="${param.dateValidite}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-xs-3 control-label">(*) Code secret :</label>
+                                <label class="col-xs-3 control-label">(*) Cryptogramme :</label>
                                 <div class="col-xs-6">
-                                    <input class="form-control" type="text" name="codeSecret" placeholder="Saisissez le code secret de la carte banquaire" value="${param.codeSecret}">
+                                    <input class="form-control" type="number" name="codeSecret" placeholder="Saisissez le cryptogramme de la carte banquaire" value="${param.codeSecret}">
                                 </div>
                             </div>
                             <div class ='form-group'>
