@@ -25,7 +25,7 @@ public class GetMedaillesDAO {
     /* Retourne la liste des equipes medaillees a une epreuve donnes */
     private static final String lesEquipesMedailleesParEpreuve
             = "select * from LESMEDAILLES M "
-            + "join lesEquipes E "
+            + "join viewEquipe E "
             + "on M.idParticipant=E.idEquipe "
             +"join lesParticipants P "
             + "on P.idParticipant=E.idEquipe "
@@ -83,7 +83,7 @@ public class GetMedaillesDAO {
             CachedRowSet crs = getMedaillesParEpreuve(lesEquipesMedailleesParEpreuve, idEpreuve);
             List<Equipe> medailles = new ArrayList<>();
             while (crs.next()) {
-                medailles.add(new Equipe(crs.getInt("idEquipe"), crs.getString("pays"), crs.getString("categorie"), crs.getInt("nbDeSportif")));
+                medailles.add(new Equipe(crs.getInt("idEquipe"), crs.getString("pays"), crs.getString("categorie"), crs.getInt("nbMembre")));
             }
             if (! medailles.isEmpty()) {
                 res=  new Resultat(medailles.get(2),medailles.get(0),medailles.get(1));
