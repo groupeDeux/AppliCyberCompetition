@@ -28,6 +28,7 @@ public class Equipe extends Participant{
     private int nbDeSportif =2 ;
 
     //---------Constructeur---------------------------------------------------
+    
     public Equipe(int idEquipe,String pays, String nomEquipe, String categorie,int nbDeSportif) throws CategorieException {
         super(idEquipe,pays);
         this.nomEquipe = nomEquipe;
@@ -89,7 +90,9 @@ public class Equipe extends Participant{
     }
     
      /**
-     * Ajoute a un sportif a l'equipe si non present et different de null
+     * Ajoute a un sportif a une equipe
+     * on parcour la liste des membre de cette équipe si il est present on fait rien 
+     * si non on verifie que son genre correspond à la catégorie de l'équipe et on l'ajoute 
      * @param sportifAAjouter 
      * @throws CyberComp_G2.Exceptions.GenreMenbreEquipeException 
      */
@@ -119,7 +122,7 @@ public class Equipe extends Participant{
     
     
     /**
-     * Suprime le Sportif d'identifiant idSportif si il existe
+     * Supprimer un  Sportif membre d'une équipe  d'identifiant idSportif 
      * @param idSportif 
      */
     public void delMembre(int idSportif){
