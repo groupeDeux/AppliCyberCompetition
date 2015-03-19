@@ -27,7 +27,7 @@ and open the template in the editor.
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
         <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
-        <script type="text/javascript" src="js/jsPanier.js"></script>
+        
 
 
 
@@ -168,10 +168,11 @@ and open the template in the editor.
                                             <%
                                                 int optionV = 0;
                                                 int maxTicket;
-                                                if (epreuve.getNbDePlace() > 10) {
+                                                int nbDePlacesDispo = epreuve.getNbDePlace() - epreuve.getNbPlaceAcheter();
+                                                if (nbDePlacesDispo > 10) {
                                                     maxTicket = 10;
                                                 } else {
-                                                    maxTicket = epreuve.getNbDePlace();
+                                                    maxTicket = nbDePlacesDispo;
                                                 }
                                                 for (optionV = 1; optionV <= maxTicket; optionV++) {
                                             %>
@@ -666,7 +667,7 @@ and open the template in the editor.
                                     <td><%= epreuve.getNomEpreuve()%></td>
                                     <td><%= typeDeTicket%></td>
                                     <td><%= nbDeTicket%></td>
-                                    <td><%= montantEpreuve%></td>
+                                    <td><%= montantEpreuve%>&nbsp;€</td>
                                 </tr>
 
                                 <%
@@ -706,7 +707,7 @@ and open the template in the editor.
                                 <div class="btn btn-default"><a  style="text-decoration:none;"  href="#panierTabInformation">Page précédente&nbsp;<span class="glyphicon glyphicon-arrow-left"></span></a></div>
                             </div>
                             <div class='col-xs-3'>
-                                <button  class="btn btn-primary btn-block" data-toggle="tooltip" data-placement="right" title="La validation est définitive">Valider le paiement&nbsp;<span class="glyphicon glyphicon-euro" aria-hidden="true"></span></button>
+                                <button  class="btn btn-primary btn-block" data-toggle="tooltip" data-placement="right" title="La validation est définitive" id="validationPaiement">Valider le paiement&nbsp;<span class="glyphicon glyphicon-euro" aria-hidden="true"></span></button>
                             </div>
                         </div>
                     </div>
@@ -745,7 +746,7 @@ and open the template in the editor.
                             <div class="container">
                                 <br>
                                 <div>
-                                    <strong>Félicitation, votre commande n°....... a bien été prise en compte. </strong>
+                                    <strong>Félicitation, votre commande n° ${idTransaction} a bien été prise en compte. </strong>
                                 </div>
                                 <div>
                                     <strong>Votre commande vient de vous être envoyé sur votre boite mail. </strong>

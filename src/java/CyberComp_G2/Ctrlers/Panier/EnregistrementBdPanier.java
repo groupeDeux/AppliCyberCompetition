@@ -8,6 +8,8 @@ package CyberComp_G2.Ctrlers.Panier;
 
 import CyberComp_G2.DAO.Panier.SetPanierDAO;
 import CyberComp_G2.Exceptions.TypeTicketNonCorrect;
+import CyberComp_G2.Model.ConsulterEpreuve.Epreuve;
+import CyberComp_G2.Model.Panier.Panier;
 import CyberComp_G2.Model.Utilisateur.Utilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,24 +50,28 @@ public class EnregistrementBdPanier extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
        
          HttpSession session = request.getSession(true);
-         ArrayList<Integer> lesEpreuvesAuPanier =(ArrayList<Integer>)session.getAttribute("lesEpreuvesAuPanier");
-         ArrayList<Integer> nombreDElement =(ArrayList<Integer>)session.getAttribute("nombreDElement");
-         ArrayList<String> listeAuPanier = (ArrayList<String>)session.getAttribute("listeAuPanier");
-         Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+         Panier sessionPanier = (Panier) session.getAttribute("sessionPanier");
+         Utilisateur utilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
+         
+         ArrayList<Epreuve> lesEpreuvesAuPanier = sessionPanier.getLesEpreuvesAuPanier();
+         ArrayList<Integer> nombreDElement = sessionPanier.getNombreDeBillet();
+         ArrayList<String> listeAuPanier = sessionPanier.getListeAuPanier();
+         
+         int idTransaction = 0;
          try(Connection conn =dataSource.getConnection()){
             try{
                 conn.setAutoCommit(false);
                 SetPanierDAO.addUtilisateur(conn, utilisateur);
-                int idTansaction = SetPanierDAO.getNewIDTransaction(conn);
-                SetPanierDAO.addTransaction(conn, idTansaction, utilisateur.getNom()+utilisateur.getPrenom());
+                idTransaction = SetPanierDAO.getNewIDTransaction(conn);
+                SetPanierDAO.addTransaction(conn, idTransaction, utilisateur.getNom()+utilisateur.getPrenom());
                 int idTicket = SetPanierDAO.getNewIDTicket(conn);
                 int i;
                 for(i=0;i<lesEpreuvesAuPanier.size();i++){
                     int nbElement =1;
-                    int idEpreuve = lesEpreuvesAuPanier.get(i);
+                    int idEpreuve = lesEpreuvesAuPanier.get(i).getIdEpreuve();
                     String typeTicket = listeAuPanier.get(i);
                     while(nbElement<=nombreDElement.get(i)){
-                        SetPanierDAO.addTicket(conn, idTicket, idTansaction, idEpreuve);
+                        SetPanierDAO.addTicket(conn, idTicket, idTransaction, idEpreuve);
                         switch (typeTicket) {
                             case "Billet":
                                 SetPanierDAO.addBillet(conn, idTicket);
@@ -77,10 +83,10 @@ public class EnregistrementBdPanier extends HttpServlet {
                                 throw new TypeTicketNonCorrect();
                         }
                         idTicket++;
-                        i++;
+                        nbElement++;
                     }
                 }
-                SetPanierDAO.addTicket(conn, idTicket, idTansaction, idTicket);
+                
                 conn.commit();
                 conn.setAutoCommit(true);
             }catch(SQLException ex){
@@ -91,6 +97,10 @@ public class EnregistrementBdPanier extends HttpServlet {
              log(ex.getMessage());
          }
          
+         utilisateur.setPaiementValider(true);
+         request.setAttribute("idTransaction", idTransaction);
+         request.setAttribute("valeurTab",0);
+         request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
          
          
          

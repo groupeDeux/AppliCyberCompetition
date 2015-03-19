@@ -192,10 +192,6 @@ h2.text-muted > a{
     padding-bottom:10px;
 }
 
-tr th{
-    text-align: center;
-}
-
-tr td{
+tr th, tr td{
     text-align: center;
 }

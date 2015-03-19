@@ -155,4 +155,7 @@ $('[id^="panierQuantitee"]').on('change', function () {
 }
 );
 
-
+/* Lors du click, on redirige vers la servlet EnregistrementBdPanier */
+$('#validationPaiement').click(function(){
+    document.location.href="EnregistrementBdPanier";
+});
