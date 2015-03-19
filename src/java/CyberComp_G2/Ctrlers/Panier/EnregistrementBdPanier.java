@@ -61,7 +61,7 @@ public class EnregistrementBdPanier extends HttpServlet {
                 conn.setAutoCommit(false);
                 SetPanierDAO.addUtilisateur(conn, utilisateur);
                 idTransaction = SetPanierDAO.getNewIDTransaction(conn);
-                SetPanierDAO.addTransaction(conn, idTransaction, utilisateur.getNom() + utilisateur.getPrenom());
+                SetPanierDAO.addTransaction(conn, idTransaction, utilisateur.getMail());
                 int idTicket = SetPanierDAO.getNewIDTicket(conn);
                 int i;
                 for (i = 0; i < lesEpreuvesAuPanier.size(); i++) {

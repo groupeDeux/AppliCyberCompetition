@@ -7,6 +7,21 @@
 
   function verifform()
   {
+      
+     if(document.formulaire.mail.value == ""){
+        alert("Veuillez entrer votre adresse électronique!");
+        document.formulaire.mail.focus();
+        return false;
+    }
+    var mail = $("input[name='mail']").val();
+    $.post("verifIdCompte",{ mail: mail},function(msg){
+       if(msg!==""){
+           alert(msg);
+            return false;
+       }
+        
+    });
+
    if(document.formulaire.nom.value == "")
     {
      alert("Veuillez entrer votre nom!");
@@ -37,13 +52,9 @@
      document.formulaire.ville.focus();
      return false;
     }
-   if(document.formulaire.mail.value == "")
-    {
-     alert("Veuillez entrer votre adresse électronique!");
-     document.formulaire.mail.focus();
-     return false;
-    }
-   if(document.formulaire.numTelephone.value == "")
+  
+   
+    if(document.formulaire.numTelephone.value == "")
     {
      alert("Veuillez entrer votre numéro de téléphone!");
      document.formulaire.numTelephone.focus();
@@ -73,6 +84,8 @@
      document.formulaire.codeSecret.focus();
      return false;
     }
+    
+   
     }
      /* 
    if(document.formulaire.email.value.indexOf('@') == -1)

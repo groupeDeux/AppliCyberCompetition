@@ -6,8 +6,6 @@
 
 package CyberComp_G2.DAO.Panier;
 
-import static CyberComp_G2.DAO.ConsituerEquipe.ModifierEquipeDAO.insertParticipant;
-import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import CyberComp_G2.Model.Utilisateur.Utilisateur;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,7 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.sql.DataSource;
 
 /**
  *
@@ -23,7 +20,7 @@ import javax.sql.DataSource;
  */
 public  class SetPanierDAO {
     private static final String addUtilisateur = "insert into LESCOMPTES "
-            + "values('%s','%s','%s',0,'%s','%s','%s','%s')";
+            + "values('%s','%s','%s',%d,'%s','%s','%s','%s')";
     
     private static final String getMaxIdTransactions ="select max(IDTRANSACTION) from LESTRANSACTIONS";
     
@@ -39,10 +36,14 @@ public  class SetPanierDAO {
      private static final String addBillet ="insert into LESBILLETS values (%d)";
      
      
+    private static  final  String getMailDansCompte="select mail from LESComptes  WHERE mail='%s'";
+     
+     
+     
     
     public static void addUtilisateur(Connection conn ,Utilisateur utilisateur) throws SQLException {
         Statement stmt = conn.createStatement();
-        String IdUtilisateur =  utilisateur.getNom() + utilisateur.getPrenom() ;
+        String IdUtilisateur = utilisateur.getMail() ;
         stmt.executeUpdate(String.format(addUtilisateur,IdUtilisateur,utilisateur.getNom(),
                 utilisateur.getPrenom(),utilisateur.getNumRue(),utilisateur.getRue(),utilisateur.getVille(),
                 utilisateur.getNumTelephone(),utilisateur.getMail()));
@@ -85,6 +86,15 @@ public  class SetPanierDAO {
         return newID;
     }
     
+     public static boolean mailIsPresent(Connection conn ,String mail) throws SQLException{
+          boolean isPresent = false;
+          Statement stmt = conn.createStatement();
+          ResultSet rs = stmt.executeQuery(String.format(getMailDansCompte,mail));
+          if(rs.next()){
+              isPresent = true;
+          }
+          return isPresent;
+     }  
      public static void addTransaction(Connection conn,int idTransaction,String idUtilisateur) throws SQLException {
          Statement stmt = conn.createStatement();
          String dateCourante =  new SimpleDateFormat("yyyy/MM/dd").format(new Date());
