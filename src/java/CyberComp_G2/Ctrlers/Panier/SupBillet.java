@@ -7,6 +7,7 @@ package CyberComp_G2.Ctrlers.Panier;
 
 import CyberComp_G2.Exceptions.PanierException;
 import CyberComp_G2.Model.Panier.Panier;
+import CyberComp_G2.Model.Utilisateur.Utilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -42,6 +43,7 @@ public class SupBillet extends HttpServlet {
          */
         HttpSession session = request.getSession();
         Panier sessionPanier = (Panier) session.getAttribute("sessionPanier");
+        Utilisateur sessionUtilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
 
         try {
             String paramNumBillet = request.getParameter("numeroDuBillet");
@@ -49,17 +51,21 @@ public class SupBillet extends HttpServlet {
             if (paramNumBillet.equals("TOUT")) {
                 /* On vide le panier */
                 sessionPanier.supprimerLePanierComplet();
-                sessionPanier = new Panier();
+                sessionUtilisateur.setPanierValider(false);
+                sessionUtilisateur.setInfoValider(false);
             } else {
                 /* On supprime l'element numeroDuBilletASup */
                 String[] infoBillets = paramNumBillet.split(":");
                 int numeroDuBilletASupp = Integer.parseInt(infoBillets[1]);
                 sessionPanier.supprimerUnBillet(numeroDuBilletASupp);
+                sessionUtilisateur.setPanierValider(false);
+                sessionUtilisateur.setInfoValider(false);
             }
-        } catch (PanierException e) {
-            log(e.getMessage());
+        } catch (PanierException ex) {
+            request.setAttribute("messageErreur", ex.getMessage());
+            request.getRequestDispatcher("/WEB-INF/ErreurPanier.jsp").forward(request, response);
         }
-        
+
         request.setAttribute("valeurTab", 0);
         request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
     }

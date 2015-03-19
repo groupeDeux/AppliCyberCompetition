@@ -52,10 +52,11 @@ public class changementQuantitee extends HttpServlet {
             /* Modification du nombre de billet dans le panier  */
             sessionPanier.modifierNombreDeBillet(numeroDuBilletAChanger, quantitee);
 
-        } catch (PanierException e) {
-            log(e.getMessage());
+        } catch (PanierException ex) {
+            request.setAttribute("messageErreur", ex.getMessage());
+            request.getRequestDispatcher("/WEB-INF/ErreurPanier.jsp").forward(request, response);
         }
-        
+
         request.setAttribute("valeurTab", 0);
         request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
     }

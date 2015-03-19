@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package CyberComp_G2.Ctrlers.Panier;
 
 import CyberComp_G2.DAO.Panier.SetPanierDAO;
@@ -31,11 +30,10 @@ import javax.sql.DataSource;
  */
 @WebServlet(name = "EnregistrementBdPanier", urlPatterns = {"/EnregistrementBdPanier"})
 public class EnregistrementBdPanier extends HttpServlet {
-    
-    
-     @Resource (name="jdbc/BDCyberCompetition")
-    private  DataSource dataSource;
-     
+
+    @Resource(name = "jdbc/BDCyberCompetition")
+    private DataSource dataSource;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,29 +46,29 @@ public class EnregistrementBdPanier extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
-         HttpSession session = request.getSession(true);
-         Panier sessionPanier = (Panier) session.getAttribute("sessionPanier");
-         Utilisateur utilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
-         
-         ArrayList<Epreuve> lesEpreuvesAuPanier = sessionPanier.getLesEpreuvesAuPanier();
-         ArrayList<Integer> nombreDElement = sessionPanier.getNombreDeBillet();
-         ArrayList<String> listeAuPanier = sessionPanier.getListeAuPanier();
-         
-         int idTransaction = 0;
-         try(Connection conn =dataSource.getConnection()){
-            try{
+
+        HttpSession session = request.getSession(true);
+        Panier sessionPanier = (Panier) session.getAttribute("sessionPanier");
+        Utilisateur utilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
+
+        ArrayList<Epreuve> lesEpreuvesAuPanier = sessionPanier.getLesEpreuvesAuPanier();
+        ArrayList<Integer> nombreDElement = sessionPanier.getNombreDeBillet();
+        ArrayList<String> listeAuPanier = sessionPanier.getListeAuPanier();
+
+        int idTransaction = 0;
+        try (Connection conn = dataSource.getConnection()) {
+            try {
                 conn.setAutoCommit(false);
                 SetPanierDAO.addUtilisateur(conn, utilisateur);
                 idTransaction = SetPanierDAO.getNewIDTransaction(conn);
-                SetPanierDAO.addTransaction(conn, idTransaction, utilisateur.getNom()+utilisateur.getPrenom());
+                SetPanierDAO.addTransaction(conn, idTransaction, utilisateur.getNom() + utilisateur.getPrenom());
                 int idTicket = SetPanierDAO.getNewIDTicket(conn);
                 int i;
-                for(i=0;i<lesEpreuvesAuPanier.size();i++){
-                    int nbElement =1;
+                for (i = 0; i < lesEpreuvesAuPanier.size(); i++) {
+                    int nbElement = 1;
                     int idEpreuve = lesEpreuvesAuPanier.get(i).getIdEpreuve();
                     String typeTicket = listeAuPanier.get(i);
-                    while(nbElement<=nombreDElement.get(i)){
+                    while (nbElement <= nombreDElement.get(i)) {
                         SetPanierDAO.addTicket(conn, idTicket, idTransaction, idEpreuve);
                         switch (typeTicket) {
                             case "Billet":
@@ -86,23 +84,23 @@ public class EnregistrementBdPanier extends HttpServlet {
                         nbElement++;
                     }
                 }
-                
+
                 conn.commit();
                 conn.setAutoCommit(true);
-            }catch(SQLException ex){
+            } catch (SQLException ex) {
                 conn.rollback();
                 throw ex;
             }
-         }catch(SQLException|TypeTicketNonCorrect ex){
-             log(ex.getMessage());
-         }
-         
-         //utilisateur.setPaiementValider(true);
-         session.invalidate();
-         request.setAttribute("idTransaction", idTransaction);
-         request.getRequestDispatcher("WEB-INF/commandeTermine.jsp").forward(request, response);
-         
-        
+        } catch (SQLException | TypeTicketNonCorrect ex) {
+            request.setAttribute("messageErreur", ex.getMessage());
+            request.getRequestDispatcher("/WEB-INF/ErreurPanier.jsp").forward(request, response);
+        }
+
+        /* Fin de la session, et du panier !  */
+        session.invalidate();
+        request.setAttribute("idTransaction", idTransaction);
+        request.getRequestDispatcher("WEB-INF/commandeTermine.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

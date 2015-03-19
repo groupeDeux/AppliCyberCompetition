@@ -43,7 +43,7 @@ and open the template in the editor.
                         <h2 class="text-muted"><a href="index.jsp" data-toggle="tooltip" data-placement="right" title="Acceder à l'accueil">CyberCompetition</a></h2>
                         <nav>
                             <ul class="nav nav-justified">
-                                <li class='active'><a href="index.jsp" data-toggle="tooltip" data-placement="bottom" title="Acceder à l'accueil">Accueil</a></li>
+                                <li><a href="index.jsp" data-toggle="tooltip" data-placement="bottom" title="Acceder à l'accueil">Accueil</a></li>
                                 <li><a href="GetListDiscipline" data-toggle="tooltip" data-placement="bottom" title="Acceder aux disciplines">Disciplines</a></li>
                                 <li><a href="GetListEpreuve" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves">Epreuves</a></li>
                                 <li><a href='#' data-toggle="tooltip" data-placement="bottom" title="Acceder aux résultats des épreuves">Resultats</a></li>
@@ -53,14 +53,26 @@ and open the template in the editor.
                         </nav>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="jumbotron">
-                        
-                        <h1>CyberCompetition</h1>
-                        <p class="lead">Bienvenue sur le site de <strong>CyberCompetition</strong>, ne touchez pas les murs, la peinture est fraiche !</p>
-                        
-                    </div>    
+
+
+                <!-- 
+               Affichage du titre panier
+                -->
+                <div class='row'>
+                    <div class='page-header text-center'>
+                        <h2>Erreur ! <small>dans le panier</small></h2>
+                    </div>
                 </div>
+
+                <div class='row'>
+                    <div class="well text-center">
+                        Une erreur est survenue: ${messageErreur}
+                    </div>
+                </div>
+                <div class='row'>
+                    <a type='button' class='btn btn-default btn-block' href='GetPanier'>Retour sur le panier !</a>
+                </div>
+
 
                 <!-- 
                
@@ -68,18 +80,14 @@ and open the template in the editor.
                     du code Java nommé un scriptlet.ref: charte graphique: texte 
                 -->
                 <footer class="footer">
-                    
                     <%! Date dateDuJour;%>
                     <% dateDuJour = new Date();%>
                     <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
                     <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
-
                 </footer>
             </div>
         </div>
-        
         <script src="js/bootstrap.js" type="text/javascript"></script>
-        <script type="text/javascript" src="js/cyberCompetition.js" ></script>
     </body>
 </html>
 

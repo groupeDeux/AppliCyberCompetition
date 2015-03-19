@@ -56,7 +56,7 @@ and open the template in the editor.
 
 
                 <!-- 
-               Affichage du titre panier
+                       Page de fin de commande
                 -->
 
                 <div class='row'>
@@ -71,7 +71,7 @@ and open the template in the editor.
                 </div>
                 <div class='row'>
                     <div class='col-xs-4 col-xs-offset-4'>
-                        <div class="btn btn-lg btn-default btn-block" href="index.jsp" id='btnRetourAccueil'>Retour à l'accueil</div>
+                        <a class="btn btn-lg btn-default btn-block" href="index.jsp" id='btnRetourAccueil'>Retour à l'accueil</a>
                     </div>
                 </div>
 
@@ -89,7 +89,6 @@ and open the template in the editor.
             </div>
         </div>
         <script src="js/bootstrap.js" type="text/javascript"></script>
-        <script src="js/jsCommandeTermine.js" type="text/javascript"></script>
     </body>
 </html>
 

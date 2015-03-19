@@ -81,8 +81,8 @@ public class AjoutPanier extends HttpServlet {
             sessionPanier.ajouterUnBillet(epreuveSelectionnee, infoBillets[0], nombreDePlaces);
             
         }catch(SQLException | CategorieException | nbPlaceAcheterExeception | PanierException ex){
-            log(ex.getMessage());
-            ex.printStackTrace();
+            request.setAttribute("messageErreur",ex.getMessage());
+            request.getRequestDispatcher("/WEB-INF/ErreurPanier.jsp").forward(request, response);
         }
         request.setAttribute("valeurTab", 0);
         request.getRequestDispatcher("GetPanier").forward(request, response);
