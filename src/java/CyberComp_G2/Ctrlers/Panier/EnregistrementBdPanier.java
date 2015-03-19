@@ -11,7 +11,6 @@ import CyberComp_G2.Model.ConsulterEpreuve.Epreuve;
 import CyberComp_G2.Model.Panier.Panier;
 import CyberComp_G2.Model.Utilisateur.Utilisateur;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -50,7 +50,7 @@ public class ModifierEquipeDAO {
             "DELETE FROM LesParticipations WHERE idParticipant= %d";
     
     /**
-     * 
+     * Ajout une equipe dans la base de donnée
      * @param datasource
      * @param equipe
      * @return
@@ -90,7 +90,7 @@ public class ModifierEquipeDAO {
          return idEquipe;  
     }
     /**
-     * 
+     * modifie une equipe presente dans la base de donnée
      * @param datasource
      * @param equipe
      * @throws SQLException 
@@ -123,7 +123,7 @@ public class ModifierEquipeDAO {
     }
     /**
      * 
-     * 
+     * Suprime une equipe de la base de donnée
      * @param datasource
      * @param equipe
      * @throws SQLException 

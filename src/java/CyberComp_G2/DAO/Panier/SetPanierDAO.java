@@ -40,7 +40,12 @@ public  class SetPanierDAO {
      
      
      
-    
+    /**
+     * Ajout un nupplet compte dans la base de BD
+     * @param conn
+     * @param utilisateur
+     * @throws SQLException 
+     */
     public static void addUtilisateur(Connection conn ,Utilisateur utilisateur) throws SQLException {
         Statement stmt = conn.createStatement();
         String IdUtilisateur = utilisateur.getMail() ;
@@ -48,22 +53,47 @@ public  class SetPanierDAO {
                 utilisateur.getPrenom(),utilisateur.getNumRue(),utilisateur.getRue(),utilisateur.getVille(),
                 utilisateur.getNumTelephone(),utilisateur.getMail()));
     }
-                    
+     
+    /**
+     * Ajout un Nupplet Ticket dans la base de donnée
+     * @param conn
+     * @param idTicket
+     * @param idTransaction
+     * @param idEpreuve
+     * @throws SQLException 
+     */
     public static void addTicket(Connection conn ,int idTicket,int idTransaction,int idEpreuve) throws SQLException {
         Statement stmt = conn.createStatement();
         stmt.executeUpdate(String.format(addTicket,idTicket,idTransaction,idEpreuve));
     }
     
+    /**
+     * Ajout un ticket vidéo dans la base de donnée
+     * @param conn
+     * @param idTicket
+     * @throws SQLException 
+     */
     public static void addTicketVideo(Connection conn ,int idTicket) throws SQLException {
         Statement stmt = conn.createStatement();
         stmt.executeUpdate(String.format(addTicketVideo,idTicket,"code"+idTicket));
     }
+    /**
+     * ajout un billet dans la base de donnée
+     * @param conn
+     * @param idTicket
+     * @throws SQLException 
+     */
     public static void addBillet(Connection conn ,int idTicket) throws SQLException {
         Statement stmt = conn.createStatement();
         stmt.executeUpdate(String.format(addBillet,idTicket));
     }
     
-    
+    /**
+     * Renvoie un id valide pour une future transaction
+     * @param conn
+     * @return
+     * @throws SQLException 
+     */
     public static int getNewIDTransaction(Connection conn) throws SQLException {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(getMaxIdTransactions);
@@ -75,6 +105,12 @@ public  class SetPanierDAO {
         return newID;
     }
     
+    /**
+     * renvoie un id valide pour un future Ticket
+     * @param conn
+     * @return
+     * @throws SQLException 
+     */
      public static int getNewIDTicket(Connection conn) throws SQLException {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(getMaxIdTicket);
@@ -86,6 +122,14 @@ public  class SetPanierDAO {
         return newID;
     }
     
+     /**
+      * verifie sir le mail est present dans la BD 
+      * true si present
+      * @param conn
+      * @param mail
+      * @return
+      * @throws SQLException 
+      */
      public static boolean mailIsPresent(Connection conn ,String mail) throws SQLException{
           boolean isPresent = false;
           Statement stmt = conn.createStatement();
@@ -94,7 +138,14 @@ public  class SetPanierDAO {
               isPresent = true;
           }
           return isPresent;
-     }  
+     }
+     /**
+      * Ajout une transaction dans la base de donnée
+      * @param conn
+      * @param idTransaction
+      * @param idUtilisateur
+      * @throws SQLException 
+      */
      public static void addTransaction(Connection conn,int idTransaction,String idUtilisateur) throws SQLException {
          Statement stmt = conn.createStatement();
          String dateCourante =  new SimpleDateFormat("yyyy/MM/dd").format(new Date());

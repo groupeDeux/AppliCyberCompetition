@@ -7,9 +7,6 @@ package CyberComp_G2.DAO.ConsituerEquipe;
 
 
 import CyberComp_G2.utils.ConnexionBD;
-import com.sun.rowset.CachedRowSetImpl;
-
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.rowset.CachedRowSet;
 
