@@ -181,7 +181,7 @@ h2.text-muted > a{
 
 
 #panierTab > li{
-    width:25%;
+    width:33%;
     margin-left: 0px;
     margin-right: 0px;
     text-align: center;
@@ -195,3 +195,4 @@ h2.text-muted > a{
 tr th, tr td{
     text-align: center;
 }
+

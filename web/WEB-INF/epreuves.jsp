@@ -27,6 +27,8 @@ and open the template in the editor.
         <link href="css/cyberCompetition.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
     </head>
     <body>
         <div class="container">
@@ -228,7 +230,7 @@ and open the template in the editor.
                                                                 }
                                                                 for (optionValue = 1; optionValue <= maxTicket; optionValue++) {
                                                             %>
-                                                            <option value="<%= optionValue %>"><%= optionValue %> </option>
+                                                            <option value="<%= optionValue%>"><%= optionValue%> </option>
                                                             <% }; %>
                                                         </select>
                                                     </div>
@@ -353,7 +355,7 @@ and open the template in the editor.
                                                                 }
                                                                 for (optionValue = 1; optionValue <= maxTicket; optionValue++) {
                                                             %>
-                                                            <option value="<%= optionValue %>"> <%= optionValue %> </option>
+                                                            <option value="<%= optionValue%>"> <%= optionValue%> </option>
                                                             <% }; %>
                                                         </select>
                                                     </div>

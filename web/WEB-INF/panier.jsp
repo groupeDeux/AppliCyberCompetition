@@ -4,6 +4,7 @@
     Author     : M.Conte
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="CyberComp_G2.Model.Utilisateur.Utilisateur" %>
 <%@page import="CyberComp_G2.Model.ConsulterEpreuve.Epreuve"%>
 <%@page import="CyberComp_G2.Model.Panier.Panier" %>
@@ -73,7 +74,7 @@ and open the template in the editor.
                         <h2><small>Votre</small> Panier</h2>
                     </div>
                 </div>
-                
+
                 <%-- Chargement des informations sur le contenu de du panier de la session ainsi que de l'utilisateur --%>
 
 
@@ -83,41 +84,45 @@ and open the template in the editor.
                     ArrayList<Epreuve> lesEpreuvesDuPanier = (ArrayList<Epreuve>) sessionPanier.getLesEpreuvesAuPanier();
                     ArrayList<String> lesTicketsDuPanier = (ArrayList<String>) sessionPanier.getListeAuPanier();
                     ArrayList<Integer> leNombreDeTicketDuPanier = (ArrayList<Integer>) sessionPanier.getNombreDeBillet();
-               %>
-                
-                 <div id="tabs">
-                        <ul class="nav nav-pills" id='panierTab' style="font-size:16px;">
-                            
-                             <%
-                               int valeurTab = (Integer) request.getAttribute("valeurTab");
-                            %>
+                %>
 
-                            <li <%if (!sessionUtilisateur.isPaiementValider()) { %>id='courant'<% } %> role='presentation' class='<% if (valeurTab == 0) {%>active<%}if (sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' ><a href='#panierTabPanier'  value='0'>Panier</a></li>
-                            <li role='presentation' class='<% if (valeurTab == 1) {%>active <%}if (!sessionUtilisateur.isPanierValider()||sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='1'><a  href='#panierTabInformation' >Informations</a></li>
-                            <li role='presentation' class='<% if (valeurTab == 2) {%>active <%}if (!sessionUtilisateur.isInfoValider()||sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='2'><a href='#panierTabPaiement'>Paiement</a></li>
-                            <li <%if (sessionUtilisateur.isPaiementValider()) { %>id='courant'<% } %> role='presentation' class='<% if (valeurTab == 3) {%>active <%}if (!sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='3'><a  href='#panierTabTerminerCommande'  >Terminer commande</a></li>
-                        </ul>
+                <div id="tabs">
+                    <ul class="nav nav-pills" id='panierTab' style="font-size:16px;">
 
-                       <%-- 
-                            Panneau PANIER
+                        <%
+                            int valeurTab = (Integer) request.getAttribute("valeurTab");
+                        %>
+
+                        <li <%if (!sessionUtilisateur.isPaiementValider()) { %>id='courant'<% } %> role='presentation' class='<% if (valeurTab == 0) {%>active<%}
+                                                                                   if (sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' ><a href='#panierTabPanier'  value='0'>Panier</a></li>
+                        <li role='presentation' class='<% if (valeurTab == 1) {%>active <%}
+                                if (!sessionUtilisateur.isPanierValider() || sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='1'><a  href='#panierTabInformation' >Informations</a></li>
+                        <li role='presentation' class='<% if (valeurTab == 2) {%>active <%}
+                                if (!sessionUtilisateur.isInfoValider() || sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='2'><a href='#panierTabPaiement'>Paiement</a></li>
+                        <%--<li <%if (sessionUtilisateur.isPaiementValider()) { %>id='courant'<% } %> role='presentation' class='<% if (valeurTab == 3) {%>active <%}
+                                                                                  if (!sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='3'><a  href='#panierTabTerminerCommande'  >Terminer commande</a></li>--%>
+                    </ul>
+
+                    <%-- 
+                         Panneau PANIER
+                    --%>
+
+                    <div role="tabpanel" class='tab-pane active' id='panierTabPanier'>
+                        <div class="row">
+                            <br/>
+                        </div>
+                        <%-- 
+                                Dans le cas ou il n'y a aucun éléments dans le panier, on affiche pas le tableau ni les
+                                boutons qui permettrons de passser aux pages suivantes
                         --%>
 
-                        <div role="tabpanel" class='tab-pane active' id='panierTabPanier'>
-                            <div class="row">
-                                <br/>
-                            </div>
-                            <%-- 
-                                    Dans le cas ou il n'y a aucun éléments dans le panier, on affiche pas le tableau ni les
-                                    boutons qui permettrons de passser aux pages suivantes
-                            --%>
+                        <%
+                            if (lesEpreuvesDuPanier.size() == 0) {
+                        %>
+                        <div class='well text-center'>
+                            <h4>Votre panier est vide</h4>
+                        </div>
 
-                            <%
-                                if (lesEpreuvesDuPanier.size() == 0) {
-                            %>
-                            <div class='well text-center'>
-                                <h4>Votre panier est vide</h4>
-                            </div>
-                        
 
                         <%
                         } else {
@@ -441,7 +446,7 @@ and open the template in the editor.
 
 
 
-
+<%--
                     <div class='tab-pane' role='tab-panel' id='panierTabTerminerCommande'>
                         <div class="row">
                             <br/>
@@ -479,27 +484,29 @@ and open the template in the editor.
                             </div> 
                         </div>
                     </div>
+--%>
                     <!-- FIN DE TERMINER COMMANDE -->
-
-
-
                 </div> 
-            </div>            
+                <footer class="footer">
+
+                    <%! Date dateDuJour;%>
+                    <% dateDuJour = new Date();%>
+                    <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
+                    <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
+
+                </footer>
+            </div> 
         </div>
         <script src="js/bootstrap.js" type="text/javascript"></script>
         <script  src="js/cyberCompetition.js" type="text/javascript" ></script>
         <script src="js/jsPanier.js" type="text/javascript"></script>
         <script>
-            
-        $(document).ready(function () {
-            $("#tabs").tabs();
-              $("#tabs").tabs({
-                   active: <%= valeurTab %>
-              });
-        });
-    
-
-        
+                            $(document).ready(function () {
+                                $("#tabs").tabs();
+                                $("#tabs").tabs({
+                                    active: <%= valeurTab%>
+                                });
+                            });
         </script>
     </body>
 </html>

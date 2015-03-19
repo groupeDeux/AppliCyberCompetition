@@ -97,13 +97,10 @@ public class EnregistrementBdPanier extends HttpServlet {
              log(ex.getMessage());
          }
          
-         utilisateur.setPaiementValider(true);
-         
+         //utilisateur.setPaiementValider(true);
+         session.invalidate();
          request.setAttribute("idTransaction", idTransaction);
-         request.setAttribute("valeurTab",3);
-         request.getRequestDispatcher("WEB-INF/panier.jsp").forward(request, response);
-         
-         
+         request.getRequestDispatcher("WEB-INF/commandeTermine.jsp").forward(request, response);
          
         
     }
