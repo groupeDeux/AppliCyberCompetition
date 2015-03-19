@@ -8,6 +8,7 @@ package CyberComp_G2.Ctrlers;
 import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import CyberComp_G2.Model.ConstituerEquipe.Participant;
 import CyberComp_G2.Model.ConstituerEquipe.Sportif;
+import CyberComp_G2.Model.ConsulterEpreuve.Epreuve;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSetMetaData;
@@ -99,10 +100,12 @@ public class ParticipantsDUneEpreuveHTML extends HttpServlet {
         String tableauParticipants = "";
         try {
             PrintWriter out = response.getWriter();
-
+            
             //rowset participants renvoyees par la request
-            String forme = (String) request.getAttribute("formeParticipant");
-            if (forme.equals("equipe")) {
+            Epreuve epreuveSelectionnee= (Epreuve) request.getAttribute("epreuveSelectionnee");
+            String forme = "ind";
+            if (!epreuveSelectionnee.isIndividuelle()) {
+                forme="equipe";
                 ArrayList<Participant> listEquipesInscrites = new ArrayList();
                 listEquipesInscrites = (ArrayList<Participant>) request.getAttribute("listParticipants");
                 tableauParticipants = createTabParticipants(listEquipesInscrites, forme);

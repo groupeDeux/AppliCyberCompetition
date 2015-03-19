@@ -48,9 +48,8 @@ public class GetListParticipantDUneEpreuve extends HttpServlet {
 
         //HttpSession session = request.getSession(true);
         String idEpreuve = request.getParameter("idEpreuve");
-        // pour savoir si on renvoi des sportifs ou des equipes
-        CachedRowSet rowSetEpreuveEquipe;
-        boolean testFormeParEquipe = false;
+  
+        //boolean testFormeParEquipe = false;
 
         ArrayList<Equipe> listEquipesInscrites = new ArrayList();
         ArrayList<Sportif> listSportifsInscrits = new ArrayList();
@@ -58,19 +57,14 @@ public class GetListParticipantDUneEpreuve extends HttpServlet {
         try {
 
             int idEpr = Integer.parseInt(idEpreuve);
+            // RECUPERATION DES MEDAILLES
             Epreuve epreuveSelectionnee = new GetConsulterEpreuveDAO().getEpreuve(idEpr);
             Resultat resultatEpreuve = GetMedaillesDAO.getResultat(idEpr, epreuveSelectionnee.isIndividuelle());
 
-            /*--- Test sur la forme du participant: equipe ou sportif --- */
-            rowSetEpreuveEquipe = new GetConsulterEpreuveDAO().getEpreuvesEquipe();
 
-            while (rowSetEpreuveEquipe.next() & testFormeParEquipe != true) {
-                // recupereation les informations de  l'epreuve
-                testFormeParEquipe = (Integer.parseInt(idEpreuve) == rowSetEpreuveEquipe.getInt("idEpreuve"));
-            }
-
+            // RECUPERATION DES PARTICIPANTS
             /* ----- Participants de forme equipe ----- */
-            if (testFormeParEquipe == true) {
+            if (! epreuveSelectionnee.isIndividuelle()) {
                 CachedRowSet rowSetEquipesInscrites = GetParticipantsDAO.getEquipesInscrites(Integer.parseInt(idEpreuve));
 
                 /* cree un objet Equipe pour chaque ligne du rowset parcouru
@@ -79,6 +73,7 @@ public class GetListParticipantDUneEpreuve extends HttpServlet {
                     // recupereation les informations de  l'quipe
                     listEquipesInscrites.add(new Equipe(rowSetEquipesInscrites.getInt("idEquipe"), rowSetEquipesInscrites.getString("pays"), rowSetEquipesInscrites.getString("nomEquipe"), rowSetEquipesInscrites.getString("categorie"), rowSetEquipesInscrites.getInt("nbMembre")));
                 }
+                request.setAttribute("listParticipants", listEquipesInscrites);
 
             } /* ----- Participants de forme sportif ----- */ else {
                 CachedRowSet rowSetSportifsInscrits = GetParticipantsDAO.getSportifInscritAEpreuve(Integer.parseInt(idEpreuve));
@@ -89,14 +84,9 @@ public class GetListParticipantDUneEpreuve extends HttpServlet {
                     // recupereation les informations de chaque Sportif
                     listSportifsInscrits.add(new Sportif(rowSetSportifsInscrits.getInt("idSportif"), rowSetSportifsInscrits.getString("pays"), rowSetSportifsInscrits.getString("prenom"), rowSetSportifsInscrits.getString("nom"), rowSetSportifsInscrits.getString("dateNaissance"), rowSetSportifsInscrits.getString("genre")));
                 }
-            }
-            if (testFormeParEquipe == true) {
-                request.setAttribute("listParticipants", listEquipesInscrites);
-                request.setAttribute("formeParticipant", "equipe");
-            } else {
                 request.setAttribute("listParticipants", listSportifsInscrits);
-                request.setAttribute("formeParticipant", "sportif");
             }
+            
             request.setAttribute("epreuveSelectionnee", epreuveSelectionnee);
             request.setAttribute("resultatEpreuve", resultatEpreuve);
             request.getRequestDispatcher("/WEB-INF/infoEpreuve.jsp").forward(request, response);

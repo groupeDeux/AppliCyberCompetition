@@ -6,6 +6,7 @@
 package CyberComp_G2.DAO.ConsulterEpreuve;
 
 import CyberComp_G2.Exceptions.CategorieException;
+import CyberComp_G2.Model.ConstituerEquipe.Equipe;
 import CyberComp_G2.Model.ConstituerEquipe.Participant;
 import CyberComp_G2.Model.ConstituerEquipe.Sportif;
 import CyberComp_G2.Model.ConsulterEpreuve.Resultat;
@@ -26,12 +27,16 @@ public class GetMedaillesDAO {
             = "select * from LESMEDAILLES M "
             + "join lesEquipes E "
             + "on M.idParticipant=E.idEquipe "
+            +"join lesParticipants P "
+            + "on P.idParticipant=E.idEquipe "
             + " where idEpreuve=%d order by VALEUR";
 
     /* Retourne la liste des equipes medaillees a une epreuve donnes */
     private static final String lesSportifsMedaillesParEpreuve
             = "select * from LESMEDAILLES M "
             + "join lesSportifs S "
+            +"join lesParticipants P "
+            + "on P.idParticipant=S.idSportif "
             + "on M.idParticipant=S.idSportif "
             + " where idEpreuve=%d order by VALEUR";
 
@@ -68,13 +73,21 @@ public class GetMedaillesDAO {
             CachedRowSet crs = getMedaillesParEpreuve(lesSportifsMedaillesParEpreuve, idEpreuve);
             List<Sportif> medailles = new ArrayList<>();
             while (crs.next()) {
-                medailles.add(new Sportif(crs.getInt("idsportif"), "pays bidon", crs.getString("prenom"), crs.getString("nom"), null, crs.getString("genre")));
+                medailles.add(new Sportif(crs.getInt("idsportif"), crs.getString("pays"), crs.getString("prenom"), crs.getString("nom"), null, crs.getString("genre")));
             }
             if (! medailles.isEmpty()) {
                 res=  new Resultat(medailles.get(2),medailles.get(0),medailles.get(1));
             }
             
         } else {
+            CachedRowSet crs = getMedaillesParEpreuve(lesSportifsMedaillesParEpreuve, idEpreuve);
+            List<Equipe> medailles = new ArrayList<>();
+            while (crs.next()) {
+                medailles.add(new Equipe(crs.getInt("idEquipe"), crs.getString("pays"), crs.getString("categorie"), crs.getInt("nbDeSportif")));
+            }
+            if (! medailles.isEmpty()) {
+                res=  new Resultat(medailles.get(2),medailles.get(0),medailles.get(1));
+            }
             
         }
         return res;

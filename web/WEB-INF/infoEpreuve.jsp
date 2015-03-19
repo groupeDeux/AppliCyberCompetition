@@ -97,7 +97,8 @@
 <div class="panel panel-default">
     <div class="panel-heading" data-toggle='collapse' href='#epreuveMedailles${epreuveSelectionnee.idEpreuve}'>
         <h4>
-            Liste des participants de l'épreuve
+            Désolé cette épreuve n'est plus disponible à l'achat.
+            <br/> Cliquez pour voir les résultats
             <span class='pull-right glyphicon glyphicon-menu-down'></span>
         </h4>
     </div>
