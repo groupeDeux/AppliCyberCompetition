@@ -63,7 +63,6 @@ and open the template in the editor.
                         <h2><small>Recherche d'</small> Epreuves</h2>
                     </div>
                 </div>
-                <div id ='test'> a changer</div>
                 <div class='row'>
                     <form class='form' action='GetListEpreuve'>
                         <div class='col-xs-3'>
@@ -194,13 +193,13 @@ and open the template in the editor.
                                         <div class='panel-body'>
                                             <form method="post" class="form-inline" action="AjoutPanier">
                                                 <div class='col-xs-2'>
-                                                    <div class='form-group'>
+                                                    <div class='form-group' style="padding-top:6px;">
                                                         <strong>Prix: <%=epreuveSelectionnee.getTarif()%>€</strong>
                                                     </div>
                                                 </div>
                                                 <div class='col-xs-1'>
                                                     <div class='form-group'>
-                                                        <div class="radio-inline">
+                                                        <div class="radio-inline" style="padding-top:6px;">
                                                             <input type="radio" name="epreuvesRadio" value="Billet:<%=epreuveSelectionnee.getIdEpreuve()%>" checked>
                                                             <label class='control-label'>Billet</label>
                                                         </div>
@@ -208,21 +207,29 @@ and open the template in the editor.
                                                 </div>
                                                 <div class='col-xs-2'>
                                                     <div class='form-group'>
-                                                        <div class="radio-inline">
+                                                        <div class="radio-inline" style="padding-top:6px;">
                                                             <input type="radio" name="epreuvesRadio" value="TicketVideo:<%=epreuveSelectionnee.getIdEpreuve()%>">
                                                             <label class='control-label'>Ticket Video</label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class='col-xs-3'>
+                                                <div class='col-xs-4'>
                                                     <div class="form-group">
                                                         <label class='control-label'>Nombre de places:</label>
                                                         <select class="form-control" name='epreuvesNbPlaces'>
-                                                            <option value="0">0</option>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
+                                                            <%
+                                                                int optionValue = 0;
+                                                                int maxTicket = 0;
+                                                                int nbDePlacesDispo = epreuveSelectionnee.getNbDePlace() - epreuveSelectionnee.getNbPlaceAcheter();
+                                                                if (nbDePlacesDispo > 10) {
+                                                                    maxTicket = 10;
+                                                                } else {
+                                                                    maxTicket = nbDePlacesDispo;
+                                                                }
+                                                                for (optionValue = 1; optionValue <= maxTicket; optionValue++) {
+                                                            %>
+                                                            <option value="<%= optionValue %>"><%= optionValue %> </option>
+                                                            <% }; %>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -240,7 +247,7 @@ and open the template in the editor.
                     </div>
                 </div>
                 <%}%>
-                
+
                 <%--
                     LISTE DES PARTICIPANTS INDIVIDUELLES
                 --%>
@@ -289,8 +296,8 @@ and open the template in the editor.
                                     </div>
                                     <div id="epreuvesParticipants<%=epreuveSelectionnee.getIdEpreuve()%>" class="panel-collapse collapse">
                                         <div class='panel-body'>
-                                             ===================================
-                                               
+                                            ===================================
+
                                         </div>
                                     </div>
                                 </div>
@@ -311,35 +318,43 @@ and open the template in the editor.
                                         <div class='panel-body'>
                                             <form method="post" class="form-inline" action="AjoutPanier">
                                                 <div class='col-xs-2'>
-                                                    <div class='form-group'>
+                                                    <div class='form-group' style="padding-top:6px;">
                                                         <strong>Prix: <%=epreuveSelectionnee.getTarif()%>€</strong>
                                                     </div>
                                                 </div>
                                                 <div class='col-xs-1'>
                                                     <div class='form-group'>
-                                                        <div class="radio-inline">
-                                                            <input type="radio" name="epreuvesRadio" value="Billet:<%=epreuveSelectionnee.getIdEpreuve()%>">
+                                                        <div class="radio-inline" style="padding-top:6px;">
+                                                            <input type="radio" name="epreuvesRadio" value="Billet:<%=epreuveSelectionnee.getIdEpreuve()%>" checked>
                                                             <label class='control-label'>Billet</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class='col-xs-2'>
                                                     <div class='form-group'>
-                                                        <div class="radio-inline">
+                                                        <div class="radio-inline" style="padding-top:6px;">
                                                             <input type="radio" name="epreuvesRadio" value="TicketVideo:<%=epreuveSelectionnee.getIdEpreuve()%>">
                                                             <label class='control-label'>Ticket Video</label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class='col-xs-3'>
+                                                <div class='col-xs-4'>
                                                     <div class="form-group">
                                                         <label class='control-label'>Nombre de places:</label>
                                                         <select class="form-control" name='epreuvesNbPlaces'>
-                                                            <option value="0">0</option>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
+                                                            <%
+                                                                int optionValue = 0;
+                                                                int maxTicket = 0;
+                                                                int nbDePlacesDispo = epreuveSelectionnee.getNbDePlace() - epreuveSelectionnee.getNbPlaceAcheter();
+                                                                if (nbDePlacesDispo > 10) {
+                                                                    maxTicket = 10;
+                                                                } else {
+                                                                    maxTicket = nbDePlacesDispo;
+                                                                }
+                                                                for (optionValue = 1; optionValue <= maxTicket; optionValue++) {
+                                                            %>
+                                                            <option value="<%= optionValue %>"> <%= optionValue %> </option>
+                                                            <% }; %>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -360,14 +375,14 @@ and open the template in the editor.
                 <!--
                         FOOTER DE LA PAGE
                 -->
-                  <footer class="footer">
-                            <%! Date dateDuJour;%>
-                            <% dateDuJour = new Date();%>
-                            <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
-                            <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
-                        </footer>
+                <footer class="footer">
+                    <%! Date dateDuJour;%>
+                    <% dateDuJour = new Date();%>
+                    <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
+                    <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
+                </footer>
             </div>
-                <div id='go-top' class='glyphicon glyphicon-circle-arrow-up'><a href='#barreDeNavigation'></a></div>
+            <div id='go-top' class='glyphicon glyphicon-circle-arrow-up'><a href='#barreDeNavigation'></a></div>
         </div>
         <script src="js/bootstrap.js" type="text/javascript"></script>
         <script src="js/jsEpreuve.js" type="text/javascript"></script>
