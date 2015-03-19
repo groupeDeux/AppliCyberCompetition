@@ -80,7 +80,7 @@ and open the template in the editor.
                     </div>
                     <div class='col-xs-5'>
                         <div class='thumbnail'>
-                            <img src="img/lesEpreuves.jpg"alt=".." style="margin-top: 8px;" class="img-rounded">
+                            <img src="img/lesEpreuves.jpg"alt=".." style="margin-top: 8px;padding-bottom:24px;" class="img-rounded">
                             <div class="caption">
                                 <h3 class="text-center">Inscription des participants à des épreuves </h3>
                                 <p> Inscrire, modifier ou supprimer un participant à une épreuve </p>
