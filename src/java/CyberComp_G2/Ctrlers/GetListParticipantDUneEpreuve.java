@@ -90,7 +90,7 @@ public class GetListParticipantDUneEpreuve extends HttpServlet {
             while (rowSetSportifsInscrits.next()) {
                 // recupereation les informations de chaque Sportif
                 listSportifsInscrits.add(new Sportif(rowSetSportifsInscrits.getInt("idSportif"),rowSetSportifsInscrits.getString("pays"),rowSetSportifsInscrits.getString("prenom"), rowSetSportifsInscrits.getString("nom"),rowSetSportifsInscrits.getString("dateNaissance"),rowSetSportifsInscrits.getString("genre")));
-            }
+                }
             }
 
         } catch (SQLException | CategorieException ex) {

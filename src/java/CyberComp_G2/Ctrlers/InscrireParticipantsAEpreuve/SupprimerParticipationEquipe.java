@@ -75,7 +75,7 @@ public class SupprimerParticipationEquipe extends HttpServlet {
             } catch (SQLException|CategorieException ex) {
             //log(ex.getMessage());
                 request.setAttribute("messErreur", ex.getMessage());
-                request.getRequestDispatcher("/WEB-INF/ErreurInscriptionepreuve.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/ErreurInscriptionEpreuve.jsp").forward(request, response);
            }
          
          // session pour passer les attributs

@@ -74,7 +74,7 @@ and open the template in the editor.
                     </div>
 
                     <div class=' col-xs-offset-3 col-xs-6'>
-                        <a type="button" class="btn btn-default btn-block" id="retour" href="GetListEpreuveInscription"> Inscrire participants à des épreuves </a>
+                        <a type="button" class="btn btn-default btn-block" id="retour" href="GetListEpreuveInscription"> Retour sur Inscrire participants à des épreuves </a>
                     </div>
                 </div>
                   <footer class="footer">
@@ -83,17 +83,9 @@ and open the template in the editor.
                             <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
                             <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
                         </footer>
-
             </div>
         </div>
-
-        <script>
-            $(document).ready(function () {
-                $("#tabs").tabs();
-            });
-
-        </script>
+        
         <script type="text/javascript" src="js/cyberCompetition.js"></script>
-        <script src="js/FormAdmin.js" type="text/javascript"></script>
     </body>
 </html>

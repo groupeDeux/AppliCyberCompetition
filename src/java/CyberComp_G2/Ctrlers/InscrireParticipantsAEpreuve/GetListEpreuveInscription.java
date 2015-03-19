@@ -77,8 +77,9 @@ public class GetListEpreuveInscription extends HttpServlet {
             }
 
         } catch (SQLException | CategorieException | nbPlaceAcheterExeception ex) {
-            log(ex.getMessage());
-            ex.printStackTrace();
+            //log(ex.getMessage());
+             request.setAttribute("messErreur", ex.getMessage());
+             request.getRequestDispatcher("/WEB-INF/ErreurInscriptionEpreuve.jsp").forward(request, response);  
         }
 
         // session pour passer les attributs
@@ -86,7 +87,7 @@ public class GetListEpreuveInscription extends HttpServlet {
         /* ajoute les listes en attribut de la reponse et appele la page jsp */
         session.setAttribute("listEpreuveEquipe", listEpreuvesEquipe);
         session.setAttribute("listEpreuvesInv", listEpreuvesInv);
-        request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
+        //request.getRequestDispatcher("WEB-INF/inscrireParticipantAEpreuve.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
