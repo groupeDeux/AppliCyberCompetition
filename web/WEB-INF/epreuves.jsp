@@ -201,7 +201,7 @@ and open the template in the editor.
                                                 <div class='col-xs-1'>
                                                     <div class='form-group'>
                                                         <div class="radio-inline">
-                                                            <input type="radio" name="epreuvesRadio" value="Billet:<%=epreuveSelectionnee.getIdEpreuve()%>">
+                                                            <input type="radio" name="epreuvesRadio" value="Billet:<%=epreuveSelectionnee.getIdEpreuve()%>" checked>
                                                             <label class='control-label'>Billet</label>
                                                         </div>
                                                     </div>
