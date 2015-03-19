@@ -39,8 +39,6 @@ public class Utilisateur {
         this.commandeTerminer = commandeTerminer;
     }
 
-    
-
     public Utilisateur() {
         this("","", 0,"", "",  "", "", "", false, false, false, false);
     }

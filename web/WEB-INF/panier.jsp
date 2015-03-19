@@ -4,6 +4,7 @@
     Author     : M.Conte
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="CyberComp_G2.Model.Utilisateur.Utilisateur" %>
 <%@page import="CyberComp_G2.Model.ConsulterEpreuve.Epreuve"%>
 <%@page import="CyberComp_G2.Model.Panier.Panier" %>
@@ -54,7 +55,7 @@ and open the template in the editor.
                                 <li><a href="GetListEpreuve" data-toggle="tooltip" data-placement="bottom" title="Acceder aux épreuves">Epreuves</a></li>
                                 <li><a href='#' data-toggle="tooltip" data-placement="bottom" title="Acceder aux résultats des épreuves">Resultats</a></li>
                                 <li class='active'><a href="#" data-toggle="tooltip" data-placement="bottom" title="Acceder au panier">Panier</a></li>
-                                <li><a href='GetListDelegation' data-toggle="tooltip" data-placement="bottom" title="Acceder aux fonctions d'administration">Admin</a></li>
+                                <li><a href='admin.jsp' data-toggle="tooltip" data-placement="bottom" title="Acceder aux fonctions d'administration">Admin</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -74,18 +75,20 @@ and open the template in the editor.
                     </div>
                 </div>
 
-
+                <%-- Chargement des informations sur le contenu de du panier de la session ainsi que de l'utilisateur --%>
 
 
                 <%
                     Utilisateur sessionUtilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
                     Panier sessionPanier = (Panier) session.getAttribute("sessionPanier");
                     ArrayList<Epreuve> lesEpreuvesDuPanier = (ArrayList<Epreuve>) sessionPanier.getLesEpreuvesAuPanier();
+                    ArrayList<String> lesTicketsDuPanier = (ArrayList<String>) sessionPanier.getListeAuPanier();
+                    ArrayList<Integer> leNombreDeTicketDuPanier = (ArrayList<Integer>) sessionPanier.getNombreDeBillet();
                 %>
                 <!-- REPRISE DU CODE PAR GAETAN -->
                 <div class='row'>
                     <div>
-                        <ul class='nav nav-pills ' id='panierTab'>
+                        <ul class='nav nav-pills ' id='panierTab' style="font-size:16px;">
                             <%
                                 int valeurTab = (Integer) request.getAttribute("valeurTab");
                             %>
@@ -99,18 +102,20 @@ and open the template in the editor.
 
                     <div class='tab-content'>
 
-                        <!-- 
+                        <%-- 
                             Panneau PANIER
-                        -->
+                        --%>
 
                         <div role="tabpanel" class='tab-pane active' id='panierTabPanier'>
                             <div class="row">
                                 <br/>
                             </div>
-                            <%-- Dans le cas ou il n'y a aucun éléments dans le panier --%>
+                            <%-- 
+                                    Dans le cas ou il n'y a aucun éléments dans le panier, on affiche pas le tableau ni les
+                                    boutons qui permettrons de passser aux pages suivantes
+                            --%>
 
                             <%
-
                                 if (lesEpreuvesDuPanier.size() == 0) {
                             %>
                             <div class='well text-center'>
@@ -124,6 +129,12 @@ and open the template in the editor.
                         <div class='well text-center'>
                             <h4>Votre panier contient <% out.print(lesEpreuvesDuPanier.size() + " élément(s) "); %></h4>
                         </div>
+
+                        <%-- 
+                                Construction du tableau du panier, on fait une boucle sur les elements contenus dans sessionPanier
+                                La boucle se termine a la fin du tab pour une pagination interne a cette page
+                        --%>
+
                         <table class="table table-bordered text-center">
                             <thead>
                                 <tr>
@@ -139,8 +150,6 @@ and open the template in the editor.
                                 <%
                                     int nElementPanier;
                                     double mntTot = sessionPanier.montantTotal();
-                                    ArrayList<String> lesTicketsDuPanier = (ArrayList<String>) sessionPanier.getListeAuPanier();
-                                    ArrayList<Integer> leNombreDeTicketDuPanier = (ArrayList<Integer>) sessionPanier.getNombreDeBillet();
                                     for (nElementPanier = 0; nElementPanier < lesEpreuvesDuPanier.size(); nElementPanier++) {
                                         Epreuve epreuve = lesEpreuvesDuPanier.get(nElementPanier);
                                         String typeDeTicket = lesTicketsDuPanier.get(nElementPanier);
@@ -154,6 +163,7 @@ and open the template in the editor.
                                     <td><%= typeDeTicket%></td>
                                     <td><%= epreuve.getTarif()%>&nbsp;€</td>
                                     <td>
+                                        <%-- Dans le cas ou le select est modifié, on appel une servlet ChangementQuantitee qui va modifier le nombre de billet dans la session --%>
                                         <select id='panierQuantitee:<%=nElementPanier%>'>
                                             <%
                                                 int optionV = 0;
@@ -187,6 +197,11 @@ and open the template in the editor.
                                 </tr>
                             </tfoot>
                         </table>
+                        <%--
+                            Deux boutons qui permettent de soit de supprimer le contenu du panier en entier,
+                            pour cela on passe par une servlet supBillet, à l'aide d'une commande javaScript. Sinon on valide
+                            les informations et donc on passe dans la servlet ValiderPanier qui va ensuite nous amener vers la prochaine tab
+                        --%>
                         <button class='btn btn-danger' id='suppPanier'>Vider le contenu du panier&nbsp;<span  class='glyphicon glyphicon-trash'></span></button>
                         <button class='btn  pull-right <% if (!sessionUtilisateur.isPanierValider()) {%>btn-primary <%} else { %> btn-default <% } %>' id='validerPanier'>Valider le panier&nbsp;<span  class='glyphicon glyphicon-ok'></span></button>
                     </div>
@@ -199,9 +214,12 @@ and open the template in the editor.
 
 
 
-                    <!--
+                    <%--
+                    
+                        2EME TAB !!!!!!
                         TABLEAU INFORMATIONS 
-                    -->
+                        
+                    --%>
 
                     <div  role="tabpanel" class='tab-pane' id='panierTabInformation'>
                         <div class="row">
@@ -212,7 +230,7 @@ and open the template in the editor.
                                 Paiement de la commande
                             </h4>
                         </div>
-                        <div class ="rowPanierFormulaire">  
+                        <!--<div class ="rowPanierFormulaire">  
                             <br><br>
                             <div class="container">
 
@@ -357,7 +375,101 @@ and open the template in the editor.
                                     </div>    
                                 </div>
                             </form>
-                        </div> 
+                        </div>
+                        -->
+                        <form class="form-horizontal" name="formulaire" action="ValiderInformations" method="post" onSubmit="return verifform()">
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">(*) Nom du destinataire :</label>
+                                <div class="col-xs-6">
+                                    <input class="form-control" type="text" name="nom" placeholder="Saisissez le nom du destinataire de la commande" value="${param.nom}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">(*) Prenom du destinataire :</label>
+                                <div class="col-xs-6">
+                                    <input class="form-control" type="text" name="prenom" placeholder="Saisissez le prénom du destinataire de la commande" value="${param.prenom}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">(*) Rue :</label>
+                                <div class="col-xs-6">
+                                    <input class="form-control" type="text" name="rue" placeholder="Saisissez la rue du destinataire" value="${param.rue}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">(*) Numero de rue :</label>
+                                <div class="col-xs-6">
+                                    <input class="form-control" type="number" name="numRue" placeholder="Saisissez le numéro de rue du destinataire" value="${param.numRue}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">(*) Ville :</label>
+                                <div class="col-xs-6">
+                                    <input class="form-control" type="text" name="ville" placeholder="Saisissez la ville du destinataire" value="${param.ville}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">(*) Adresse électronique :</label>
+                                <div class="col-xs-6">
+                                    <input class="form-control" type="email" name="mail" placeholder="Saisissez l'adresse électronique du destinataire" value="${param.mail}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">(*) Numéro de téléphone :</label>
+                                <div class="col-xs-6">
+                                    <input class="form-control" type="tel" name="numTelephone" placeholder="Saisissez votre numéro de téléphone" value="${param.numTelephone}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">(*) Mode de paiement :</label>
+                                <div class="col-xs-6">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="carte" value="MasterCard">MasterCard
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="carte" value="Visa">Visa
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="carte" value="Autre">Autre
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">(*) Numéro de la carte :</label>
+                                <div class="col-xs-6">
+                                    <input class="form-control" type="number" name="idCarte" placeholder="Saisissez le numéro de votre carte banquaire" value="${param.idCarte}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">(*) Date d'expiration de la carte :</label>
+                                <div class="col-xs-6">
+                                    <input class="form-control" type="text" name="dateValidite" placeholder="Saisissez la date d'expiration de la carte (JJ/MM/AAAA)" value="${param.dateValidite}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">(*) Code secret :</label>
+                                <div class="col-xs-6">
+                                    <input class="form-control" type="text" name="codeSecret" placeholder="Saisissez le code secret de la carte banquaire" value="${param.codeSecret}">
+                                </div>
+                            </div>
+                            <div class ='form-group'>
+                                <label class="col-xs-3 col-xs-offset-2 control-label" style="color:#D9534F;">(*) = champ obligatoire</label>
+                            </div>
+                            <div class='row'>
+                                <div class="col-xs-2 col-xs-offset-1">
+                                    <div class="btn btn-default"><a style="text-decoration:none;" href="#panierTabPanier">Page précédente&nbsp;<span class="glyphicon glyphicon-arrow-left"></span></a></div>
+                                </div>
+                                <div class='col-xs-3'>
+                                    <button type="reset" class="btn btn-danger btn-block">Effacer le contenu&nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                                </div>
+                                <div class='col-xs-3'>
+                                    <button type="submit" class="btn btn-primary btn-block">Valider les informations&nbsp;<span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
 
@@ -383,16 +495,16 @@ and open the template in the editor.
                                 Confirmation du paiement
                             </h4>
                         </div>
-
-                        <div class ="rowPanierFormulaire">
-                            <div class="container">
-                                <br>
-                                <div>
-                                    <strong>Confirmez vous la commande de:  </strong>
-                                </div>
-                                <br>
-                            </div>   
-                        </div> 
+                        <%--
+                                                <div class ="rowPanierFormulaire">
+                                                    <div class="container">
+                                                        <br>
+                                                        <div>
+                                                            <strong>Confirmez vous la commande de:  </strong>
+                                                        </div>
+                                                        <br>
+                                                    </div>   
+                                                </div> 
 
 
                         <!-- 
@@ -521,7 +633,82 @@ and open the template in the editor.
                                     </div>
                                 </div>
                             </div> 
-                        </div>   
+                        </div>
+                        --%>
+
+                        <%--
+                            On refait un tableau de confirmation de la commande avant de finaliser la commande, pour cela
+                            on réutilise les variables utilisé dans le tab 1
+                        --%>
+
+                        <h4>Confirmez vous la commande suivante:</h4>
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th>Produit</th>
+                                    <th>Type</th>
+                                    <th>Quantitée</th>
+                                    <th>Prix total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    int nElementTableauFinal;
+                                    double mntTot = sessionPanier.montantTotal();
+                                    for (nElementTableauFinal = 0; nElementTableauFinal < lesEpreuvesDuPanier.size(); nElementTableauFinal++) {
+                                        Epreuve epreuve = lesEpreuvesDuPanier.get(nElementTableauFinal);
+                                        String typeDeTicket = lesTicketsDuPanier.get(nElementTableauFinal);
+                                        int nbDeTicket = leNombreDeTicketDuPanier.get(nElementTableauFinal);
+                                        double montantEpreuve = epreuve.getTarif();
+                                        montantEpreuve *= nbDeTicket;
+                                %>
+                                <tr>
+                                    <td><%= epreuve.getNomEpreuve()%></td>
+                                    <td><%= typeDeTicket%></td>
+                                    <td><%= nbDeTicket%></td>
+                                    <td><%= montantEpreuve%></td>
+                                </tr>
+
+                                <%
+                                    };
+                                %>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3" style="text-align:right;">Montant total du panier=</th>
+                                    <th style="text-align: center;"><%=mntTot%>&nbsp;€</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <div class="paddingPanierValider">
+                            <h4>Informations sur le destinataire :</h4>
+                            <div class="row">
+                                <div class="col-xs-4 text-right"><strong>Nom du destinataire :</strong></div>
+                                <div class="col-xs-6"><%= sessionUtilisateur.getNom()%></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 text-right"><strong>Prenom du destinataire :</strong></div>
+                                <div class="col-xs-6"><%= sessionUtilisateur.getPrenom()%></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 text-right"><strong>Adresse électronique :</strong></div>
+                                <div class="col-xs-6"><%= sessionUtilisateur.getMail()%></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 text-right"><strong>Mode de paiement :</strong></div>
+                                <div class="col-xs-6"><%= sessionUtilisateur.getTypeCarte()%></div>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class="col-xs-3 col-xs-offset-3">
+                                <div class="btn btn-default"><a  style="text-decoration:none;"  href="#panierTabInformation">Page précédente&nbsp;<span class="glyphicon glyphicon-arrow-left"></span></a></div>
+                            </div>
+                            <div class='col-xs-3'>
+                                <button  class="btn btn-primary btn-block" data-toggle="tooltip" data-placement="right" title="La validation est définitive">Valider le paiement&nbsp;<span class="glyphicon glyphicon-euro" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -589,19 +776,26 @@ and open the template in the editor.
                      4EME PARTIE ACHAT TERMINE/ AFFICHAGE NUMERO TRANSACTION
                 -->  
 
+                <footer class="footer">
 
+                    <%! Date dateDuJour;%>
+                    <% dateDuJour = new Date();%>
+                    <p class='text-muted pull-right'><i> Date de dernière mise à jour : <%= dateDuJour%></i></p>
+                    <p class="text-muted">&copy; Master 2 CCI Grenoble : Groupe2</p>
+
+                </footer>
             </div>             
         </div>
         <script src="js/bootstrap.js" type="text/javascript"></script>
         <script  src="js/cyberCompetition.js" type="text/javascript" ></script>
         <script src="js/jsPanier.js" type="text/javascript"></script>
         <script>
-                                $(document).ready(function () {
+                            $(document).ready(function () {
 
-                                    $("#tabs").tabs({
-                                        active: < %= valeurTab % >
-                                    });
+                                $("#tabs").tabs({
+                                    active: < %= valeurTab % >
                                 });
+                            });
         </script>
     </body>
 </html>
