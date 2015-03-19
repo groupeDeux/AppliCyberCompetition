@@ -149,7 +149,7 @@ and open the template in the editor.
                     </div>
                     <% }%>
                     <div class=' col-xs-offset-3 col-xs-6'>
-                        <a type="button" class="btn btn-default btn-block" id="retour" href="CloseSession"> Administrer Equipe </a>
+                        <a type="button" class="btn btn-default btn-block" id="retour" href="CloseSession"> Cliquez ici pour administrer une autre equipe </a>
                     </div>
                 </div>
                   <footer class="footer">
