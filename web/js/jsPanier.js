@@ -61,7 +61,6 @@ function verifform()
     }
     if (document.formulaire.mail.value == "") {
         //alert("Veuillez entrer votre adresse électronique!");
-        document.formulaire.mail.focus();
         document.formulaire.mail.style.backgroundColor = "#fba";
         verification = false;
     }
@@ -77,42 +76,37 @@ function verifform()
     
     if (document.formulaire.ville.value == "")
     {
-        document.formulaire.ville.focus();
         document.formulaire.ville.style.backgroundColor = "#fba";
         verification = false;
     }
     if (document.formulaire.numTelephone.value == "")
     {
         
-        document.formulaire.numTelephone.focus();
         document.formulaire.numTelephone.style.backgroundColor = "#fba";
-        verification = false;
-    }
-    if (document.formulaire.carte.value == "")
-    {
-
         verification = false;
     }
     if (document.formulaire.idCarte.value == "")
     {
-        document.formulaire.idCarte.focus();
         document.formulaire.idCarte.style.backgroundColor = "#fba";
         verification = false;
     }
     if (document.formulaire.dateValidite.value == "")
     {
         
-        document.formulaire.dateValidite.focus();
         document.formulaire.dateValidite.style.backgroundColor = "#fba";
         verification = false;
     }
     if (document.formulaire.codeSecret.value == "")
     {
         
-        document.formulaire.codeSecret.focus();
         document.formulaire.codeSecret.style.backgroundColor = "#fba";
         verification = false;
     }
+    if ($('input[name="carte"]:checked').length == 0) {
+        alert("Selectionner un type de carte");
+        verification=false;
+    }
+    
     if(verification===false){alert("Champ manquant !"); return false;}
     else{return true;};
 }
