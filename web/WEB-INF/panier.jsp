@@ -239,10 +239,10 @@ and open the template in the editor.
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Nom du destinataire :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="text" name="nom" placeholder="Saisissez le nom du destinataire de la commande" value="${param.nom}">
+                                        <input class="form-control" type="text" onchange="verifPseudo(this)" name="nom" placeholder="Saisissez le nom du destinataire de la commande" value="${param.nom}">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group has-success">
                                     <label class="col-xs-3 control-label">(*) Prénom du destinataire :</label>
                                     <div class="col-xs-6">
                                         <input class="form-control" type="text" name="prenom" placeholder="Saisissez le prénom du destinataire de la commande" value="${param.prenom}">
@@ -251,31 +251,31 @@ and open the template in the editor.
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Rue :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="text" name="rue" placeholder="Saisissez la rue du destinataire" value="${param.rue}">
+                                        <input class="form-control" type="text" name="rue" onblur="verifPseudo(this)" placeholder="Saisissez la rue du destinataire" value="${param.rue}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Numéro de rue :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="number" name="numRue" placeholder="Saisissez le numéro de rue du destinataire" value="${param.numRue}">
+                                        <input class="form-control" type="number" name="numRue" onblur="verifPseudo(this)" placeholder="Saisissez le numéro de rue du destinataire" value="${param.numRue}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Ville :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="text" name="ville" placeholder="Saisissez la ville du destinataire" value="${param.ville}">
+                                        <input class="form-control" type="text" name="ville" onblur="verifPseudo(this)" placeholder="Saisissez la ville du destinataire" value="${param.ville}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Adresse électronique :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="email" name="mail" placeholder="Saisissez l'adresse électronique du destinataire" value="${param.mail}">
+                                        <input class="form-control" type="email" name="mail" onblur="verifPseudo(this)" placeholder="Saisissez l'adresse électronique du destinataire" value="${param.mail}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Numéro de téléphone :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="number" name="numTelephone" placeholder="Saisissez votre numéro de téléphone" value="${param.numTelephone}">
+                                        <input class="form-control" type="number" name="numTelephone" onblur="verifPseudo(this)" placeholder="Saisissez votre numéro de téléphone" value="${param.numTelephone}">
                                     </div>
                                 </div>
 
@@ -297,7 +297,7 @@ and open the template in the editor.
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Numéro de la carte :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="number" name="idCarte" placeholder="Saisissez le numéro de votre carte banquaire" value="${param.idCarte}">
+                                        <input class="form-control" type="number" onblur="verifPseudo(this)" name="idCarte" placeholder="Saisissez le numéro de votre carte banquaire" value="${param.idCarte}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -309,7 +309,7 @@ and open the template in the editor.
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Cryptogramme :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="number" name="codeSecret" placeholder="Saisissez le cryptogramme de la carte banquaire" value="${param.codeSecret}">
+                                        <input class="form-control" type="number" onblur="verifPseudo(this)" name="codeSecret" placeholder="Saisissez le cryptogramme de la carte banquaire" value="${param.codeSecret}">
                                     </div>
                                 </div>
                                 <div class ='form-group'>

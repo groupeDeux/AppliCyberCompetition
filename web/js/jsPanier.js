@@ -5,24 +5,35 @@
  */
 
 
+function surligne(champ, erreur)
+{
+   if(erreur)
+      champ.style.backgroundColor = "#fba";
+   else
+      champ.style.backgroundColor = "";
+}
+
+
+function verifPseudo(champ)
+{
+   if(champ.value.length < 1 || champ.value.length > 25)
+   {
+      surligne(champ, true);
+      return false;
+   }
+   else
+   {
+      surligne(champ, false);
+      return true;
+   }
+}
+
+
+
+
   function verifform()
   {
-      
-     if(document.formulaire.mail.value == ""){
-        alert("Veuillez entrer votre adresse électronique!");
-        document.formulaire.mail.focus();
-        return false;
-    }
-    var mail = $("input[name='mail']").val();
-    $.post("verifIdCompte",{ mail: mail},function(msg){
-       if(!msg.StartsWith("erreur")){
-           alert(msg);
-            return false;
-       }
-        
-    });
-
-   if(document.formulaire.nom.value == "")
+     if(document.formulaire.nom.value == "")
     {
      alert("Veuillez entrer votre nom!");
      document.formulaire.nom.focus();
@@ -45,7 +56,22 @@
      alert("Veuillez entrer le numéro de votre rue!");
      document.formulaire.numRue.focus();
      return false;
+    } 
+     if(document.formulaire.mail.value == ""){
+        alert("Veuillez entrer votre adresse électronique!");
+        document.formulaire.mail.focus();
+        return false;
     }
+    var mail = $("input[name='mail']").val();
+    $.post("verifIdCompte",{ mail: mail},function(msg){
+       if(msg!==""){
+           alert(msg);
+            return false;
+       }
+        
+    });
+
+   
      if(document.formulaire.ville.value == "")
     {
      alert("Veuillez entrer votre ville!");
