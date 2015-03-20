@@ -15,7 +15,7 @@
     }
     var mail = $("input[name='mail']").val();
     $.post("verifIdCompte",{ mail: mail},function(msg){
-       if(msg!==""){
+       if(!msg.StartsWith("erreur")){
            alert(msg);
             return false;
        }

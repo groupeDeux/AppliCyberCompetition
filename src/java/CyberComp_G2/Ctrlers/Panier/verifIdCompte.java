@@ -52,7 +52,7 @@ public class verifIdCompte extends HttpServlet {
              if(isPresent){
                 out.println("un compte avec ce mail existe déja"); 
              }else{
-                out.println("");  
+                out.println("erreur");  
              }
         }
     }

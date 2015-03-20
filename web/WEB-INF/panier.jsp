@@ -303,7 +303,7 @@ and open the template in the editor.
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Date d'expiration de la carte :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="number" name="dateValidite" placeholder="Saisissez la date d'expiration de la carte (JJ/MM/AAAA)" value="${param.dateValidite}">
+                                        <input class="form-control" type="date" name="dateValidite" placeholder="Saisissez la date d'expiration de la carte (JJ/MM/AAAA)" value="${param.dateValidite}">
                                     </div>
                                 </div>
                                 <div class="form-group">
