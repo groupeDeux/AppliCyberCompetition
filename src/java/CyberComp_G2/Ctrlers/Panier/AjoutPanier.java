@@ -74,7 +74,7 @@ public class AjoutPanier extends HttpServlet {
                         rowSetEpreuve.getString(4), rowSetEpreuve.getString(5),
                         rowSetEpreuve.getString(6), rowSetEpreuve.getDouble(7),
                         rowSetEpreuve.getInt(8), rowSetEpreuve.getString(9),
-                        0);
+                        rowSetEpreuve.getInt(10));
                 nomEpreuve = epreuveSelectionnee.getNomEpreuve();
             }
 
