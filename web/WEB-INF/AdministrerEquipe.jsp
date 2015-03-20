@@ -202,7 +202,7 @@ and open the template in the editor.
                                             </select>
                                         </div>
                                             <%-- boutton permettant la suppression d'un sportif : active ssi le nombre de membres et supérieure à 2--%>
-                                        <div class='col-xs-1'> <button   <% if (newEquipe.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportif<%=i%>" name='valSupprimerSportif' value='<%=i%>'data-toggle='tooltip' data-placement='right' title='Supprimer ce sportif'><span class="glyphicon glyphicon-minus"></span></button></div>    
+                                        <div class='col-xs-1'> <button   <% if (newEquipe.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportif<%=i%>" name='valSupprimerSportif' value='<%=i%>'data-toggle='tooltip' data-placement='right' title='Supprimer ce sportif' style="margin-left:6px;"><span class="glyphicon glyphicon-minus"></span></button></div>    
                                     </div>
                                     <%}%>
                                 </div>
@@ -327,7 +327,7 @@ and open the template in the editor.
                                                 </select>    
                                             </div>
                                        <%-- boutton permettant la suppression: active que si le nombre de membres et supérieure à 2--%>
-                                        <div class='col-xs-1'> <button   <% if (equipeModif.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportifModif<%=i%>" name='valSupprimerSportifModif' value='<%=i%>' data-toggle='tooltip' data-placement='right' title='Supprimer ce sportif'><span class="glyphicon glyphicon-minus"></span></button></div>    
+                                        <div class='col-xs-1'> <button   <% if (equipeModif.getNbDeSportif() == 2) {%>disabled="true"<%}%> type="button" class="btn btn-danger btn-block " id="valSupprimerSportifModif<%=i%>" name='valSupprimerSportifModif' value='<%=i%>' data-toggle='tooltip' data-placement='right' title='Supprimer ce sportif' style="margin-left:6px;"><span class="glyphicon glyphicon-minus"></span></button></div>    
                                     </div>
                                     <%}%> 
                                     <div class="row">
