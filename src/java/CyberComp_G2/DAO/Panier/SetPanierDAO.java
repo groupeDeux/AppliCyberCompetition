@@ -38,7 +38,9 @@ public  class SetPanierDAO {
      
     private static  final  String getMailDansCompte="select mail from LESComptes  WHERE mail='%s'";
      
-     
+     private static final String billetAchetable ="select * from VIEWEPREUVE "
+             + "join LESTICKETS using(IDEpreuve) "
+             + "where (NBDEPLACEACHETÉES >= NBDEPLACE and IDEpreuve= %d)";
      
     /**
      * Ajout un nupplet compte dans la base de BD
@@ -54,6 +56,15 @@ public  class SetPanierDAO {
                 utilisateur.getNumTelephone(),utilisateur.getMail()));
     }
      
+    public static boolean  testTicket(Connection conn,int idEpreuve) throws SQLException{
+        boolean ticketAchetable = true;
+        Statement stmt = conn.createStatement();
+        ResultSet rs= stmt.executeQuery(String.format(billetAchetable,idEpreuve));
+        if(rs.next()){
+             ticketAchetable  = false;
+         }
+        return ticketAchetable;
+    }
     /**
      * Ajout un Nupplet Ticket dans la base de donnée
      * @param conn

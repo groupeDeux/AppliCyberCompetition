@@ -41,12 +41,12 @@ public class GetConsulterEpreuveDAO {
     public static final String lesEpreuvesParId
             = "Select idepreuve, nomDiscipline, nomEpreuve, "
             + "to_char(dateDebut,'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'), "
-            + "urlVideo,tarif,nbDePlace,categorie FROM viewEpreuve JOIN "
+            + "urlVideo,tarif,nbDePlace,categorie ,nbDePlaceAchetées FROM viewEpreuve JOIN "
             + "lesEpreuvesIndividuelles USING (idEpreuve) where (idEpreuve= %d) "
             + "union "
             + "Select idepreuve, nomDiscipline, nomEpreuve, to_char(dateDebut, "
             + "'DD-MM-YYYY HH24'),to_char(dateFin,'DD-MM-YYYY HH24'),urlVideo, "
-            + "tarif,nbDePlace,categorie FROM viewEpreuve JOIN lesEpreuvesParEquipe "
+            + "tarif,nbDePlace,categorie,nbDePlaceAchetées FROM viewEpreuve JOIN lesEpreuvesParEquipe "
             + "USING (idEpreuve) where ( idEpreuve = %d )";
 
     /*
@@ -284,7 +284,7 @@ public class GetConsulterEpreuveDAO {
                     rowSetEpreuve.getString(4), rowSetEpreuve.getString(5),
                     rowSetEpreuve.getString(6), rowSetEpreuve.getDouble(7),
                     rowSetEpreuve.getInt(8), rowSetEpreuve.getString(9),
-                    0, estIndividuelle);
+                    rowSetEpreuve.getInt(10), estIndividuelle);
         }
         return null;
     }

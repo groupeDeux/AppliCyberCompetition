@@ -16,16 +16,7 @@ public class nbPlaceAcheterExeception extends Exception {
      * detail message.
      */
     public nbPlaceAcheterExeception() {
+        super("Probleme de place: plus de palce disponible");
     }
 
-    /**
-     * Constructs an instance of <code>nbPlaceAcheterExeception</code> with the
-     * specified detail message.
-     *
-     * @param nbPlace
-     * @param nbPlaceAcheter
-     */
-    public nbPlaceAcheterExeception(int nbPlace,int nbPlaceAcheter) {
-        super("Probleme de place, place de l'épreuve :" +nbPlace + nbPlaceAcheter);
-    }
 }

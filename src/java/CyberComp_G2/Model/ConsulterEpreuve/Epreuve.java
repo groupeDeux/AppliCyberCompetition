@@ -170,7 +170,7 @@ public class Epreuve {
         if (nbPlaceAcheter <= nbDePlace){
             this.nbPlaceAcheter = nbPlaceAcheter;
         }else{
-            throw new nbPlaceAcheterExeception(nbPlaceAcheter,nbDePlace);
+            throw new nbPlaceAcheterExeception();
         }
             
     }

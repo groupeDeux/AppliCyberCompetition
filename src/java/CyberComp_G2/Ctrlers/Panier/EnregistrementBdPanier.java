@@ -7,6 +7,7 @@ package CyberComp_G2.Ctrlers.Panier;
 
 import CyberComp_G2.DAO.Panier.SetPanierDAO;
 import CyberComp_G2.Exceptions.TypeTicketNonCorrect;
+import CyberComp_G2.Exceptions.nbPlaceAcheterExeception;
 import CyberComp_G2.Model.ConsulterEpreuve.Epreuve;
 import CyberComp_G2.Model.Panier.Panier;
 import CyberComp_G2.Model.Utilisateur.Utilisateur;
@@ -55,6 +56,7 @@ public class EnregistrementBdPanier extends HttpServlet {
         ArrayList<String> listeAuPanier = sessionPanier.getListeAuPanier();
 
         int idTransaction = 0;
+        boolean canCreateTickets=true;
         try (Connection conn = dataSource.getConnection()) {
             try {
                 conn.setAutoCommit(false);
@@ -71,6 +73,7 @@ public class EnregistrementBdPanier extends HttpServlet {
                         SetPanierDAO.addTicket(conn, idTicket, idTransaction, idEpreuve);
                         switch (typeTicket) {
                             case "Billet":
+                                canCreateTickets = SetPanierDAO.testTicket(conn, idEpreuve);
                                 SetPanierDAO.addBillet(conn, idTicket);
                                 break;
                             case "TicketVideo":
@@ -83,14 +86,16 @@ public class EnregistrementBdPanier extends HttpServlet {
                         nbElement++;
                     }
                 }
-
+                if(!canCreateTickets){
+                    throw new nbPlaceAcheterExeception();
+                }
                 conn.commit();
                 conn.setAutoCommit(true);
             } catch (SQLException ex) {
                 conn.rollback();
                 throw ex;
             }
-        } catch (SQLException | TypeTicketNonCorrect ex) {
+        } catch (SQLException | TypeTicketNonCorrect|nbPlaceAcheterExeception ex) {
             request.setAttribute("messageErreur", ex.getMessage());
             request.getRequestDispatcher("/WEB-INF/ErreurPanier.jsp").forward(request, response);
         }
