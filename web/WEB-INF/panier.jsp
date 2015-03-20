@@ -93,12 +93,12 @@ and open the template in the editor.
                                 int valeurTab = (Integer) request.getAttribute("valeurTab");
                             %>
 
-                                                                                   <li <%if (!sessionUtilisateur.isPaiementValider()) { %>id='courant'<% } %> role='presentation' class='<% if (valeurTab == 0) {%>active<%}
-                                                                                   if (sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' ><a href='#panierTabPanier'  value='0'>Panier</a></li>
-                                <li role='presentation' class='<% if (valeurTab == 1) {%>active <%}
-                                if (!sessionUtilisateur.isPanierValider() || sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='1'><a  href='#panierTabInformation' >Informations</a></li>
-                                <li role='presentation' class='<% if (valeurTab == 2) {%>active <%}
-                                if (!sessionUtilisateur.isInfoValider() || sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='2'><a href='#panierTabPaiement'>Paiement</a></li>
+                            <li <%if (!sessionUtilisateur.isPaiementValider()) { %>id='courant'<% } %> role='presentation' class='<% if (valeurTab == 0) {%>active<%}
+                                                                                       if (sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' ><a href='#panierTabPanier'  value='0'>Panier</a></li>
+                            <li role='presentation' class='<% if (valeurTab == 1) {%>active <%}
+                                    if (!sessionUtilisateur.isPanierValider() || sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='1'><a  href='#panierTabInformation' >Informations</a></li>
+                            <li role='presentation' class='<% if (valeurTab == 2) {%>active <%}
+                                    if (!sessionUtilisateur.isInfoValider() || sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='2'><a href='#panierTabPaiement'>Paiement</a></li>
                                 <%--<li <%if (sessionUtilisateur.isPaiementValider()) { %>id='courant'<% } %> role='presentation' class='<% if (valeurTab == 3) {%>active <%}
                                                                                           if (!sessionUtilisateur.isPaiementValider()) { %>disabled<% } %>' value='3'><a  href='#panierTabTerminerCommande'  >Terminer commande</a></li>--%>
                         </ul>
@@ -106,36 +106,39 @@ and open the template in the editor.
                     <%-- 
                          Panneau PANIER
                     --%>
-                    <div class='row'>
-                        <div role="tabpanel" class='tab-pane active' id='panierTabPanier'>
-                            <div class="row">
-                                <br/>
-                            </div>
-                            <%-- 
-                                    Dans le cas ou il n'y a aucun éléments dans le panier, on affiche pas le tableau ni les
-                                    boutons qui permettrons de passser aux pages suivantes
-                            --%>
 
-                            <%
-                                if (lesEpreuvesDuPanier.size() == 0) {
-                            %>
+                    <div role="tabpanel" class='tab-pane active' id='panierTabPanier'>
+                        <div class="row">
+                            <br/>
+                        </div>
+                        <%-- 
+                                Dans le cas ou il n'y a aucun éléments dans le panier, on affiche pas le tableau ni les
+                                boutons qui permettrons de passser aux pages suivantes
+                        --%>
+
+                        <%
+                            if (lesEpreuvesDuPanier.size() == 0) {
+                        %>
+                        <div class="row">
                             <div class='well text-center'>
                                 <h4>Votre panier est vide</h4>
                             </div>
+                        </div>
 
-
-                            <%
-                            } else {
-                            %>
+                        <%
+                        } else {
+                        %>
+                        <div class="row">
                             <div class='well text-center'>
                                 <h4>Votre panier contient <% out.print(lesEpreuvesDuPanier.size() + " élément(s) "); %></h4>
                             </div>
+                        </div>
 
-                            <%-- 
-                                    Construction du tableau du panier, on fait une boucle sur les elements contenus dans sessionPanier
-                                    La boucle se termine a la fin du tab pour une pagination interne a cette page
-                            --%>
-
+                        <%-- 
+                                Construction du tableau du panier, on fait une boucle sur les elements contenus dans sessionPanier
+                                La boucle se termine a la fin du tab pour une pagination interne a cette page
+                        --%>
+                        <div class='row'>
                             <table class="table table-bordered text-center">
                                 <thead>
                                     <tr>
@@ -160,7 +163,7 @@ and open the template in the editor.
 
                                     %>
                                     <tr>
-                                        <td><div class="btn btn-default btn-block" data-toggle="popover" data-content="<% out.println("<strong>Epreuve : </strong>"+ epreuve.getNomEpreuve() +"<br><strong>Discipline : </strong>" + epreuve.getNomDiscipline() + "<br><strong>Catégorie : </strong>" + epreuve.getCategorie()+"<br><strong>Début : </strong>" + epreuve.getDateDebut() + "h00<br><strong>Fin : </strong>" + epreuve.getDateFin() + "h00") ;%>" ><%= epreuve.getNomEpreuve()%></div></td>
+                                        <td><div class="btn btn-default btn-block" data-toggle="popover" data-content="<% out.println("<strong>Epreuve : </strong>" + epreuve.getNomEpreuve() + "<br><strong>Discipline : </strong>" + epreuve.getNomDiscipline() + "<br><strong>Catégorie : </strong>" + epreuve.getCategorie() + "<br><strong>Début : </strong>" + epreuve.getDateDebut() + "h00<br><strong>Fin : </strong>" + epreuve.getDateFin() + "h00");%>" ><%= epreuve.getNomEpreuve()%></div></td>
                                         <td><%= typeDeTicket%></td>
                                         <td><%= epreuve.getTarif()%>&nbsp;€</td>
                                         <td>
@@ -199,18 +202,21 @@ and open the template in the editor.
                                     </tr>
                                 </tfoot>
                             </table>
-                            <%--
-                                Deux boutons qui permettent de soit de supprimer le contenu du panier en entier,
-                                pour cela on passe par une servlet supBillet, à l'aide d'une commande javaScript. Sinon on valide
-                                les informations et donc on passe dans la servlet ValiderPanier qui va ensuite nous amener vers la prochaine tab
-                            --%>
-
+                        </div>
+                        <%--
+                            Deux boutons qui permettent de soit de supprimer le contenu du panier en entier,
+                            pour cela on passe par une servlet supBillet, à l'aide d'une commande javaScript. Sinon on valide
+                            les informations et donc on passe dans la servlet ValiderPanier qui va ensuite nous amener vers la prochaine tab
+                        --%>
+                        <div class="row">
                             <button class='btn btn-danger' id='suppPanier'>Vider le contenu du panier&nbsp;<span  class='glyphicon glyphicon-trash'></span></button>
                             <button class='btn  pull-right <% if (!sessionUtilisateur.isPanierValider()) {%>btn-primary <%} else { %> btn-default <% } %>' id='validerPanier'>Valider le panier&nbsp;<span  class='glyphicon glyphicon-ok'></span></button>
-
                         </div>
-                        <% };%>
+
                     </div>
+
+                    <% };%>
+
 
 
 
@@ -234,48 +240,47 @@ and open the template in the editor.
                                     Paiement de la commande
                                 </h4>
                             </div>
-                            <form class="form-horizontal" name="formulaire" action="ValiderInformations" method="post" onSubmit="return verifform()">
-
+                            <form class="form-horizontal" name="formulaire" action="ValiderInformations" method="post" onsubmit="return verifform()">
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Nom du destinataire :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="text" onchange="verifPseudo(this)" name="nom" placeholder="Saisissez le nom du destinataire de la commande" value="${param.nom}">
+                                        <input class="form-control" type="text"  name="nom" onchange="verifPseudo(this)" placeholder="Saisissez le nom du destinataire de la commande" value="${param.nom}">
                                     </div>
                                 </div>
-                                <div class="form-group has-success">
+                                <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Prénom du destinataire :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="text" name="prenom" placeholder="Saisissez le prénom du destinataire de la commande" value="${param.prenom}">
+                                        <input class="form-control" type="text" name="prenom"  onchange="verifPseudo(this)" placeholder="Saisissez le prénom du destinataire de la commande" value="${param.prenom}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Rue :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="text" name="rue" onblur="verifPseudo(this)" placeholder="Saisissez la rue du destinataire" value="${param.rue}">
+                                        <input class="form-control" type="text" name="rue" onchange="verifPseudo(this)" placeholder="Saisissez la rue du destinataire" value="${param.rue}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Numéro de rue :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="number" name="numRue" onblur="verifPseudo(this)" placeholder="Saisissez le numéro de rue du destinataire" value="${param.numRue}">
+                                        <input class="form-control" type="number" name="numRue" onchange="verifPseudo(this)" placeholder="Saisissez le numéro de rue du destinataire" value="${param.numRue}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Ville :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="text" name="ville" onblur="verifPseudo(this)" placeholder="Saisissez la ville du destinataire" value="${param.ville}">
+                                        <input class="form-control" type="text" name="ville" onchange="verifPseudo(this)" placeholder="Saisissez la ville du destinataire" value="${param.ville}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Adresse électronique :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="email" name="mail" onblur="verifPseudo(this)" placeholder="Saisissez l'adresse électronique du destinataire" value="${param.mail}">
+                                        <input class="form-control" type="email" name="mail" onchange="verifPseudo(this)" placeholder="Saisissez l'adresse électronique du destinataire" value="${param.mail}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Numéro de téléphone :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="number" name="numTelephone" onblur="verifPseudo(this)" placeholder="Saisissez votre numéro de téléphone" value="${param.numTelephone}">
+                                        <input class="form-control" type="number" name="numTelephone" onchange="verifPseudo(this)" placeholder="Saisissez votre numéro de téléphone" value="${param.numTelephone}">
                                     </div>
                                 </div>
 
@@ -297,31 +302,25 @@ and open the template in the editor.
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Numéro de la carte :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="number" onblur="verifPseudo(this)" name="idCarte" placeholder="Saisissez le numéro de votre carte banquaire" value="${param.idCarte}">
+                                        <input class="form-control" type="number" onchange="verifPseudo(this)" name="idCarte" placeholder="Saisissez le numéro de votre carte banquaire" value="${param.idCarte}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Date d'expiration de la carte :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="date" name="dateValidite" placeholder="Saisissez la date d'expiration de la carte (JJ/MM/AAAA)" value="${param.dateValidite}">
+                                        <input class="form-control" type="date" onchange="verifPseudo(this)" name="dateValidite" placeholder="Saisissez la date d'expiration de la carte (JJ/MM/AAAA)" value="${param.dateValidite}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">(*) Cryptogramme :</label>
                                     <div class="col-xs-6">
-                                        <input class="form-control" type="number" onblur="verifPseudo(this)" name="codeSecret" placeholder="Saisissez le cryptogramme de la carte banquaire" value="${param.codeSecret}">
+                                        <input class="form-control" type="number" onchange="verifPseudo(this)" name="codeSecret" placeholder="Saisissez le cryptogramme de la carte banquaire" value="${param.codeSecret}">
                                     </div>
                                 </div>
                                 <div class ='form-group'>
                                     <label class="col-xs-3 col-xs-offset-2 control-label" style="color:#D9534F;">(*) = champ obligatoire</label>
                                 </div>
                                 <div class='row'>
-                                    <!--
-                                    <div class="col-xs-2 col-xs-offset-1">
-                                        <div class="btn btn-default"><a style="text-decoration:none;" href="#panierTabPanier">Page précédente&nbsp;<span class="glyphicon glyphicon-arrow-left"></span></a></div>
-                                    </div>
-                                    Ajout dans le bouton qui suis de col-xs-offset-3 , a enleve si on remet l'ancien bouton Page précédente
-                                    -->
                                     <div class='col-xs-3 col-xs-offset-3'>
                                         <button type="reset" class="btn btn-danger btn-block">Effacer le contenu&nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
                                     </div>
@@ -452,12 +451,12 @@ and open the template in the editor.
         <script  src="js/cyberCompetition.js" type="text/javascript" ></script>
         <script src="js/jsPanier.js" type="text/javascript"></script>
         <script>
-                            $(document).ready(function () {
-                                $("#tabs").tabs();
-                                $("#tabs").tabs({
-                                    active: <%= valeurTab%>
-                                });
-                            });
+                                            $(document).ready(function () {
+                                                $("#tabs").tabs();
+                                                $("#tabs").tabs({
+                                                    active: <%= valeurTab%>
+                                                });
+                                            });
         </script>
     </body>
 </html>

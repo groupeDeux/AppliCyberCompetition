@@ -30,7 +30,8 @@ and open the template in the editor.
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.js" ></script>
-
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
     </head>
     <body>
         <div class="container">
@@ -128,7 +129,7 @@ and open the template in the editor.
                                                             String nomEpreuve = lesEpreuvesEquipe.get(i).getNomEpreuve();
                                                             String categorie = lesEpreuvesEquipe.get(i).getCategorie();
                                                             // on parcours la liste et si idEp=idEpSelectionné on affiche les infos dans le select= option selected
-%> <option value='<%=idEpreuve%>' <% if (idEpreuve == idEpreuveSelec) {%> selected <%}%> ><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%> </option>
+                                                %> <option value='<%=idEpreuve%>' <% if (idEpreuve == idEpreuveSelec) {%> selected <%}%> ><%= idEpreuve%> : <%=nomEpreuve%>  -  <%=categorie%> </option>
                                                 <% };
                                                     }
                                                 %>
@@ -161,10 +162,10 @@ and open the template in the editor.
                                                         int idEquipe = lesEquipesInscrites.get(j).getIdEquipe();
                                                         //String nomEquipe = lesEquipesInscrites.get(j).getNomEquipe();
                                                         String pays = lesEquipesInscrites.get(j).getPays();  //methode de superClasse Participant                                                    
-%> 
+                                        %> 
                                         <div> <%=idEquipe%>  - <%=pays%>  </div>
                                         <% }
-                                } else { %> 
+                                        } else { %> 
                                         <div> Aucun participant pour le moment !  </div>
                                         <%
                                             }
