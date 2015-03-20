@@ -102,7 +102,7 @@ function verifform()
         verification=false;
     }
     
-    if(verification===false){alert("Champ manquant !" + msg); return false;}
+    if(verification===false){alert("Champ(s) manquant(s) !" + msg); return false;}
     else{return true;};
 }
 
