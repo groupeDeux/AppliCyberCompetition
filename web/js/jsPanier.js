@@ -65,16 +65,16 @@ function verifform()
         document.formulaire.mail.style.backgroundColor = "#fba";
         verification = false;
     }
-    /*
+    
     var mail = $("input[name='mail']").val();
     $.post("verifIdCompte", {mail: mail}, function (msg) {
-        if (msg !== "") {
+        if (!msg.startsWith("erreur")) {
             alert(msg);
             verification = false;
         }
 
     });
-    */
+    
     if (document.formulaire.ville.value == "")
     {
         document.formulaire.ville.focus();
