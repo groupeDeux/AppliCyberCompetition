@@ -7,6 +7,7 @@ package CyberComp_G2.Ctrlers.AdministrerEquipe;
 
 import CyberComp_G2.DAO.ConsituerEquipe.GetConsulterEquipeDAO;
 import CyberComp_G2.DAO.ConsituerEquipe.ModifierEquipeDAO;
+import CyberComp_G2.Exceptions.CategorieException;
 import CyberComp_G2.Exceptions.EquipeNonModifiable;
 import CyberComp_G2.Exceptions.GenreMenbreEquipeException;
 import CyberComp_G2.Exceptions.nbMenbreEquipeException;
@@ -58,6 +59,11 @@ public class ModifierEquipe extends HttpServlet {
         if (null != estUneCreation)switch (estUneCreation) {
             case "true":
                 Equipe newEquipe = (Equipe) session.getAttribute("newEquipe");
+                try {
+                     newEquipe = new Equipe(0, newEquipe.getPays(), newEquipe.getCategorie(),newEquipe.getNbDeSportif());
+                 } catch (CategorieException ex) {
+                         Logger.getLogger(ModifierEquipe.class.getName()).log(Level.SEVERE, null, ex);
+                 }
                 lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifs");
                 int i,j;
                 try{
@@ -91,6 +97,11 @@ public class ModifierEquipe extends HttpServlet {
                 
             case "false":
                 Equipe equipe = (Equipe) session.getAttribute("modifEquipe");
+                try {
+                    equipe = new Equipe(equipe.getIdEquipe(), equipe.getPays(), equipe.getCategorie(),equipe.getNbDeSportif());
+                 } catch (CategorieException ex) {
+                    Logger.getLogger(ModifierEquipe.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 lesSportifs =  (ArrayList<Sportif>) session.getAttribute("lesSportifsModif");
                  try {
                 for(i=1;i<=equipe.getNbDeSportif();i++){
