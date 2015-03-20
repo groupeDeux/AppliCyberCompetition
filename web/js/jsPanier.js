@@ -33,47 +33,42 @@ function verifPseudo(champ)
 
 function verifform()
 {
+    var msg ="";
     var verification = true;
     if (document.formulaire.nom.value == "")
     {
-        //alert("Veuillez entrer votre nom!");
         document.formulaire.nom.style.backgroundColor = "#fba";
         verification = false;
     }
     if (document.formulaire.prenom.value == "")
     {
-        //alert("Veuillez entrer votre prénom!");
-        
         document.formulaire.prenom.style.backgroundColor = "#fba";
         verification = false;
     }
     if (document.formulaire.rue.value == "")
     {
-        //alert("Veuillez entrer le nom de votre rue!");
         document.formulaire.rue.style.backgroundColor = "#fba";
         verification = false;
     }
     if (document.formulaire.numRue.value == "")
     {
-        //alert("Veuillez entrer le numéro de votre rue!");
         document.formulaire.numRue.style.backgroundColor = "#fba";
         verification = false;
     }
     if (document.formulaire.mail.value == "") {
-        //alert("Veuillez entrer votre adresse électronique!");
         document.formulaire.mail.style.backgroundColor = "#fba";
         verification = false;
     }
-    
+    /*
     var mail = $("input[name='mail']").val();
-    $.post("verifIdCompte", {mail: mail}, function (msg) {
-        if (!msg.startsWith("erreur")) {
-            alert(msg);
+    $.post("verifIdCompte", {mail: mail}, function (message) {
+        if (!message.startsWith("erreur")) {
+            msg= msg +" Erreur d'adresse mail !";
             verification = false;
         }
 
     });
-    
+    */
     if (document.formulaire.ville.value == "")
     {
         document.formulaire.ville.style.backgroundColor = "#fba";
@@ -103,18 +98,17 @@ function verifform()
         verification = false;
     }
     if ($('input[name="carte"]:checked').length == 0) {
-        alert("Selectionner un type de carte");
+        msg= msg + " Selectionnez un type de carte !";
         verification=false;
     }
     
-    if(verification===false){alert("Champ manquant !"); return false;}
+    if(verification===false){alert("Champ manquant !" + msg); return false;}
     else{return true;};
 }
 
 
 /* Liens permettant de naviger dans les tabs du panier */
 $("li[role='presentation']").on('click', function () {
-    //$(this).preventDefault();
     if ($(this).hasClass("disabled")) {
         $("#courant").tab('show');
         var tab = $("#courant").val();
