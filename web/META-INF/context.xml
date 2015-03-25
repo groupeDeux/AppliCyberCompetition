@@ -6,9 +6,9 @@
             maxIdle="3" 
             maxWait="10000" 
             name="jdbc/BDCyberCompetition" 
-            password="bd2015" 
+            password="xxxx" 
             type="javax.sql.DataSource" 
-            url="jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:ufrima"
-            username="fureta"/>
+            url="xxx"
+            username="xxxx"/>
 </Context>
     
